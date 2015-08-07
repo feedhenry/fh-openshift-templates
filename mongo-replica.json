@@ -1,0 +1,297 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+
+  "metadata": {
+    "name": "mongodb-replica",
+    "creationTimestamp": null,
+    "annotations": {
+      "description": "MongoDB Replica Set",
+      "icon": "icon-database",
+      "tags": "database,mongodb,replication"
+    }
+  },
+  "labels": {
+    "template": "mongodb-replica"
+  },
+  "parameters": [
+    {
+      "name": "MONGODB_ADMIN_PASSWORD",
+      "description": "Password for the MongoDB admin user",
+      "value":""
+    },
+    {
+      "name": "MONGODB_FHMBAAS_USER",
+      "description": "fhmbaas db user",
+      "value":"u-mbaas"
+    },
+    {
+      "name": "MONGODB_FHMBAAS_PASSWORD",
+      "description": "fhmbaas db user password",
+      "value":""
+    },{
+      "name": "MONGODB_FHREPORTING_USER",
+      "description": "fhreporting db user",
+      "value":"u-reporting"
+    },{
+      "name": "MONGODB_FHREPORTING_PASSWORD",
+      "description": "fhreporting db user pass",
+      "value":""
+    },{
+      "name": "MONGODB_FHMETRICS_USER",
+      "description": "fhmetrics db user",
+      "value":"u-metrics"
+    },{
+      "name": "MONGODB_FHMETRICS_PASSWORD",
+      "description": "fhmetrics db user pass",
+      "value":""
+    },{
+      "name": "MONGODB_FHMBAAS_DATABASE",
+      "description": "fhmbaas db",
+      "value":"fh-mbaas"
+    },{
+      "name": "MONGODB_FHREPORTING_DATABASE",
+      "description": "fhreporting db",
+      "value":"fh-reporting"
+    },{
+      "name": "MONGODB_FHMETRICS_DATABASE",
+      "description": "fhmetrics db",
+      "value":"fh-metrics"
+    },
+    {
+      "name": "MONGODB_REPLICA_NAME",
+      "description": " The name of the replSet ",
+      "value": "rs0"
+    },
+    {
+      "name": "MONGODB_SERVICE_NAME",
+      "description": "The name of the MongoDB Service (used to DNS lookup, default: 'mongodb')",
+      "value": "mongodb-service"
+    },
+    {
+      "name": "MONGODB_KEYFILE_VALUE",
+      "description": "The value of the MongoDB Key",
+      "value":""
+    }
+  ],
+  "objects":[
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${MONGODB_SERVICE_NAME}",
+        "labels": {
+          "name": "${MONGODB_SERVICE_NAME}"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 27017,
+            "targetPort": 27017,
+            "nodePort": 0
+          }
+        ],
+        "selector": {
+          "name": "mongodb-replica"
+        },
+        "portalIP": "None",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1beta3",
+      "metadata": {
+        "name": "mongodb-service",
+        "creationTimestamp": null,
+        "labels": {
+          "name": "mongodb-service"
+        }
+      },
+      "spec": {
+        "restartPolicy": "Never",
+        "dnsPolicy": "ClusterFirst",
+        "containers": [
+          {
+            "name": "initiate",
+            "image": "openshift/mongodb-24-rhel7",
+            "args": ["initiate"],
+            "env": [
+              {
+                "name": "MONGODB_ADMIN_PASSWORD",
+                "description": "Password for the MongoDB admin user",
+                "value":""
+              },
+              {
+                "name": "MONGODB_FHMBAAS_USER",
+                "description": "fhmbaas db user",
+                "value":"u-mbaas"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_PASSWORD",
+                "description": "fhmbaas db user password",
+                "value":""
+              },{
+                "name": "MONGODB_FHREPORTING_USER",
+                "description": "fhreporting db user",
+                "value":"u-reporting"
+              },{
+                "name": "MONGODB_FHREPORTING_PASSWORD",
+                "description": "fhreporting db user pass",
+                "value":""
+              },{
+                "name": "MONGODB_FHMETRICS_USER",
+                "description": "fhmetrics db user",
+                "value":"u-metrics"
+              },{
+                "name": "MONGODB_FHMETRICS_PASSWORD",
+                "description": "fhmetrics db user pass",
+                "value":""
+              },{
+                "name": "MONGODB_FHMBAAS_DATABASE",
+                "description": "fhmbaas db",
+                "value":"fh-mbaas"
+              },{
+                "name": "MONGODB_FHREPORTING_DATABASE",
+                "description": "fhreporting db",
+                "value":"fh-reporting"
+              },{
+                "name": "MONGODB_FHMETRICS_DATABASE",
+                "description": "fhmetrics db",
+                "value":"fh-metrics"
+              },
+              {
+                "name": "MONGODB_REPLICA_NAME",
+                "description": " The name of the replSet ",
+                "value": "rs0"
+              },
+              {
+                "name": "MONGODB_SERVICE_NAME",
+                "description": "The name of the MongoDB Service (used to DNS lookup, default: 'mongodb')",
+                "value": "mongodb-service"
+              },
+              {
+                "name": "MONGODB_KEYFILE_VALUE",
+                "description": "The value of the MongoDB Key",
+                "value":""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${MONGODB_SERVICE_NAME}",
+        "creationTimestamp": null
+      },
+      "spec": {
+        "strategy": {
+          "type": "Recreate",
+          "resources": {}
+        },
+        "triggers": [
+          {
+            "type":"ConfigChange"
+          }
+        ],
+        "replicas": 3,
+        "selector": {
+          "name": "mongodb-replica"
+        },
+        "template": {
+          "metadata": {
+            "creationTimestamp": null,
+            "labels": {
+              "name": "mongodb-replica"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name":  "member",
+                "image": "openshift/mongodb-24-rhel7",
+                "env": [
+                  {
+                    "name": "MONGODB_ADMIN_PASSWORD",
+                    "description": "Password for the MongoDB admin user",
+                    "value":""
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_USER",
+                    "description": "fhmbaas db user",
+                    "value":"u-mbaas"
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_PASSWORD",
+                    "description": "fhmbaas db user password",
+                    "value":""
+                  },{
+                    "name": "MONGODB_FHREPORTING_USER",
+                    "description": "fhreporting db user",
+                    "value":"u-reporting"
+                  },{
+                    "name": "MONGODB_FHREPORTING_PASSWORD",
+                    "description": "fhreporting db user pass",
+                    "value":""
+                  },{
+                    "name": "MONGODB_FHMETRICS_USER",
+                    "description": "fhmetrics db user",
+                    "value":"u-metrics"
+                  },{
+                    "name": "MONGODB_FHMETRICS_PASSWORD",
+                    "description": "fhmetrics db user pass",
+                    "value":""
+                  },{
+                    "name": "MONGODB_FHMBAAS_DATABASE",
+                    "description": "fhmbaas db",
+                    "value":"fh-mbaas"
+                  },{
+                    "name": "MONGODB_FHREPORTING_DATABASE",
+                    "description": "fhreporting db",
+                    "value":"fh-reporting"
+                  },{
+                    "name": "MONGODB_FHMETRICS_DATABASE",
+                    "description": "fhmetrics db",
+                    "value":"fh-metrics"
+                  },
+                  {
+                    "name": "MONGODB_REPLICA_NAME",
+                    "description": " The name of the replSet ",
+                    "value": "rs0"
+                  },
+                  {
+                    "name": "MONGODB_SERVICE_NAME",
+                    "description": "The name of the MongoDB Service (used to DNS lookup, default: 'mongodb')",
+                    "value": "mongodb-service"
+                  },
+                  {
+                    "name": "MONGODB_KEYFILE_VALUE",
+                    "description": "The value of the MongoDB Key",
+                    "value":""
+                  }
+                ],
+                "ports":[
+                  {
+                    "containerPort": 27017,
+                    "protocol": "TCP"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "restartPolicy": "Never",
+        "dnsPolicy": "ClusterFirst"
+      }
+    }
+  ]
+}
