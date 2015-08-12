@@ -83,12 +83,12 @@
                   {
                     "name": "MONGODB_FHREPORTING_USER",
                     "description": "fhmessaging db user",
-                    "value":"u-mbaas"
+                    "value":"u-reporting"
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
                     "description": "fhmessaging db user password",
-                    "value":"u-mbaas-pass"
+                    "value":"u-reporting-pass"
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
