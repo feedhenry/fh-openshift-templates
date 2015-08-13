@@ -18,7 +18,7 @@
     {
       "name": "MONGODB_ADMIN_PASSWORD",
       "description": "Password for the MongoDB admin user",
-      "value":"supersecuretoo"
+      "value":""
     },
     {
       "name": "MONGODB_FHMBAAS_USER",
@@ -28,7 +28,7 @@
     {
       "name": "MONGODB_FHMBAAS_PASSWORD",
       "description": "fhmbaas db user password",
-      "value":"u-mbaas-pass"
+      "value":""
     },{
       "name": "MONGODB_FHREPORTING_USER",
       "description": "fhreporting db user",
@@ -36,7 +36,7 @@
     },{
       "name": "MONGODB_FHREPORTING_PASSWORD",
       "description": "fhreporting db user pass",
-      "value":"u-reporting-pass"
+      "value":""
     },{
       "name": "MONGODB_FHMETRICS_USER",
       "description": "fhmetrics db user",
@@ -44,7 +44,7 @@
     },{
       "name": "MONGODB_FHMETRICS_PASSWORD",
       "description": "fhmetrics db user pass",
-      "value":"u-metrics-pass"
+      "value":""
     },{
       "name": "MONGODB_FHMBAAS_DATABASE",
       "description": "fhmbaas db",
@@ -71,7 +71,7 @@
     {
       "name": "MONGODB_KEYFILE_VALUE",
       "description": "The value of the MongoDB Key",
-      "value":"supersecuretoo"
+      "value":""
     }
   ],
   "objects":[
@@ -126,7 +126,7 @@
               {
                 "name": "MONGODB_ADMIN_PASSWORD",
                 "description": "Password for the MongoDB admin user",
-                "value":"supersecuretoo"
+                "value":""
               },
               {
                 "name": "MONGODB_FHMBAAS_USER",
@@ -136,7 +136,7 @@
               {
                 "name": "MONGODB_FHMBAAS_PASSWORD",
                 "description": "fhmbaas db user password",
-                "value":"u-mbaas-pass"
+                "value":""
               },{
                 "name": "MONGODB_FHREPORTING_USER",
                 "description": "fhreporting db user",
@@ -144,7 +144,7 @@
               },{
                 "name": "MONGODB_FHREPORTING_PASSWORD",
                 "description": "fhreporting db user pass",
-                "value":"u-reporting-pass"
+                "value":""
               },{
                 "name": "MONGODB_FHMETRICS_USER",
                 "description": "fhmetrics db user",
@@ -152,7 +152,7 @@
               },{
                 "name": "MONGODB_FHMETRICS_PASSWORD",
                 "description": "fhmetrics db user pass",
-                "value":"u-metrics-pass"
+                "value":""
               },{
                 "name": "MONGODB_FHMBAAS_DATABASE",
                 "description": "fhmbaas db",
@@ -223,7 +223,7 @@
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
                     "description": "Password for the MongoDB admin user",
-                    "value":"supersecuretoo"
+                    "value":""
                   },
                   {
                     "name": "MONGODB_FHMBAAS_USER",
@@ -233,7 +233,7 @@
                   {
                     "name": "MONGODB_FHMBAAS_PASSWORD",
                     "description": "fhmbaas db user password",
-                    "value":"u-mbaas-pass"
+                    "value":""
                   },{
                     "name": "MONGODB_FHREPORTING_USER",
                     "description": "fhreporting db user",
@@ -241,7 +241,7 @@
                   },{
                     "name": "MONGODB_FHREPORTING_PASSWORD",
                     "description": "fhreporting db user pass",
-                    "value":"u-reporting-pass"
+                    "value":""
                   },{
                     "name": "MONGODB_FHMETRICS_USER",
                     "description": "fhmetrics db user",
@@ -249,7 +249,7 @@
                   },{
                     "name": "MONGODB_FHMETRICS_PASSWORD",
                     "description": "fhmetrics db user pass",
-                    "value":"u-metrics-pass"
+                    "value":""
                   },{
                     "name": "MONGODB_FHMBAAS_DATABASE",
                     "description": "fhmbaas db",
