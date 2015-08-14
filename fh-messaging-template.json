@@ -72,7 +72,7 @@
             "containers": [
               {
                 "name": "fh-messaging",
-                "image": "openshift/fh-messaging",
+                "image": "fh-registry.feedhenry.net/fh-messaging",
                 "ports": [
                   {
                     "containerPort": 8080,

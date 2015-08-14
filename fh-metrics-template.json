@@ -72,7 +72,7 @@
             "containers": [
               {
                 "name": "fh-metrics",
-                "image": "openshift/fh-metrics",
+                "image": "fh-registry.feedhenry.net/fh-metrics",
                 "ports": [
                   {
                     "containerPort": 8080,

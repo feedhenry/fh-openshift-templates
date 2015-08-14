@@ -72,7 +72,7 @@
             "containers": [
               {
                 "name": "fh-statsd",
-                "image": "openshift/fh-statsd",
+                "image": "fh-registry.feedhenry.net/fh-statsd",
                 "ports": [
                   {
                     "containerPort": 8080,

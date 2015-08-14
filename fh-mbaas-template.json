@@ -72,7 +72,7 @@
             "containers": [
               {
                 "name": "fh-mbaas",
-                "image": "openshift/fh-mbaas",
+                "image": "fh-registry.feedhenry.net/fh-mbaas",
                 "ports": [
                   {
                     "containerPort": 8080,
