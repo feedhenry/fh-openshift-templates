@@ -41,3 +41,42 @@
   - "oc get svc" (list all services"
   - "oc delete dc <name>" - (delete deployment configuration)
   - "oc delete pod <pod-id>"
+
+## Sample commands to deploy MBaaS components to openshift-master.feedhenry.io or local.feedhenry.io
+
+```
+# Login to relevant openshift cluster (you make need to confirm self-signed cert)
+oc login openshift-master.feedhenry.io:8443
+#oc login local.feedhenry.io:8443
+
+# create a new project
+oc new-project fh-mbaas-project
+
+# deploy the mongo replication service using the template file
+oc new-app -f mongo-replica.json
+
+# View the progress of all pods
+oc get pods -w 
+# Alternatively, view the progress of a specific pod
+oc logs <pod-id>
+
+# create & deploy fh-mbaas service
+oc new-app -f fh-mbaas-template.json
+oc deploy fh-mbaas --latest
+
+# create & deploy fh-messaging service
+oc new-app -f fh-messaging-template.json
+oc deploy fh-messaging --latest
+
+# create & deploy fh-metrics service
+oc new-app -f fh-metrics-template.json
+oc deploy fh-metrics --latest
+
+# create & deploy fh-statsd service
+oc new-app -f fh-statsd-template.json
+oc deploy fh-statsd --latest
+```
+
+The project can be viewed in the Web Console at:
+- https://openshift-master.feedhenry.io:8443/console/project/fh-mbaas-project/overview
+- Or https://local.feedhenry.io:8443/console/project/fh-mbaas-project/overview
