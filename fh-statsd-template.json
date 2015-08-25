@@ -73,6 +73,13 @@
               {
                 "name": "fh-statsd",
                 "image": "fh-registry.feedhenry.net/fh-statsd",
+                "livenessProbe": {
+                  "exec": {
+                    "command": ["/bin/bash", "/usr/bin/ps -aef | grep FAIL"]
+                  },
+                  "initialDelaySeconds": 10,
+                  "timeoutSeconds": 1
+                },
                 "ports": [
                   {
                     "containerPort": 8080,

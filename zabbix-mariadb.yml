@@ -1,0 +1,54 @@
+apiVersion: "v1"
+kind: "List"
+items:
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      name: "zabbix-mariadb"
+    spec:
+      selector:
+        provider: "million12"
+        component: "mariadb"
+      ports:
+        -
+          protocol: "TCP"
+          port: 3306
+          targetPort: 3306
+  -
+    apiVersion: "v1"
+    kind: "ReplicationController"
+    metadata:
+      labels:
+        provider: "million12"
+        component: "mariadb"
+      name: "zabbix-mariadb"
+    spec:
+      replicas: 1
+      selector:
+        provider: "million12"
+        component: "mariadb"
+      template:
+        metadata:
+          labels:
+            provider: "million12"
+            component: "mariadb"
+        spec:
+          containers:
+            -
+              name: "zabbix-mariadb"
+              image: "million12/mariadb"
+          env:
+            -
+              name: "MARIADB_USER"
+              value: "username"
+            -
+              name: "MARIADB_PASS"
+              value: "my_password"
+          volumes:
+            -
+              emptyDir:
+              name: "mariadb-data"
+          ports:
+            -
+              containerPort: 3306
