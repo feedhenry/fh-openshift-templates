@@ -39,3 +39,14 @@ items:
               -
                 containerPort: 9200
                 name: "http"
+              -
+                containerPort: 9300
+                name: "transport"
+              volumeMounts:
+                -
+                  mountPath: "/usr/share/elasticsearch/data"
+                  name: "elasticsearch-data"
+          volumes:
+            -
+              emptyDir:
+              name: "elasticsearch-data"
