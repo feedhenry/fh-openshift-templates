@@ -120,7 +120,7 @@
         "containers": [
           {
             "name": "initiate",
-            "image": "fh-registry.feedhenry.net/mongodb-24-rhel7",
+            "image": "fh-registry.feedhenry.net/library/mongodb:2.4",
             "args": ["initiate"],
             "env": [
               {
@@ -218,7 +218,7 @@
             "containers": [
               {
                 "name":  "member",
-                "image": "fh-registry.feedhenry.net/mongodb-24-rhel7",
+                "image": "fh-registry.feedhenry.net/library/mongodb:2.4",
                 "env": [
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",

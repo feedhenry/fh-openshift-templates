@@ -1,0 +1,49 @@
+apiVersion: "v1"
+kind: "Templates"
+objects:
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      labels:
+        component: "kibana"
+      name: "kibana"
+    spec:
+      ports:
+        -
+          port: 5601
+          targetPort: "http"
+      selector:
+        component: "kibana"
+  -
+    apiVersion: "v1"
+    kind: "ReplicationController"
+    metadata:
+      labels:
+        component: "kibana"
+      name: "kibana"
+    parameters:
+      -
+        name: ELASTICSEARCH_URL
+        value: "${ELASTICSEARCH_SERVICE_HOST}"
+    spec:
+      replicas: 1
+      selector:
+        component: "kibana"
+      template:
+        metadata:
+          labels:
+            component: "kibana"
+        spec:
+          containers:
+            -
+              env:
+                -
+                  name: ELASTICSEARCH_URL
+                  value: "${ELASTICSEARCH_URL}"
+              image: "library/kibana:4.0"
+              name: "kibana"
+              ports:
+                -
+                  containerPort: 5601
+                  name: "http"
