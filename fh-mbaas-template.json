@@ -72,7 +72,7 @@
             "containers": [
               {
                 "name": "fh-mbaas",
-                "image": "fh-registry.feedhenry.net/fh-mbaas",
+                "image": "fh-registry.feedhenry.net/library/fh-mbaas:2.0.1-214",
                 "ports": [
                   {
                     "containerPort": 8080,
@@ -81,6 +81,11 @@
                 ],
                 "env": [
                   {
+                    "name": "FHMBAAS_KEY",
+                    "description": "mbaas key",
+                    "value":"mBqxpulwlj3Rw7EsHZq0YEQyrArq2tlIRCQ0pCmr5DRPPDZMAP4ZNb7U0E6bPSb3"
+                  },
+                  {
                     "name": "MONGODB_FHMBAAS_USER",
                     "description": "fhmbaas db user",
                     "value":"u-mbaas"
@@ -88,7 +93,7 @@
                   {
                     "name": "MONGODB_FHMBAAS_PASSWORD",
                     "description": "fhmbaas db user password",
-                    "value":""
+                    "value":"password"
                   },
                   {
                     "name": "MONGODB_FHMBAAS_DATABASE",
@@ -117,9 +122,14 @@
   ],
   "parameters": [
     {
+      "name": "FHMBAAS_KEY",
+      "description": "mbaas key",
+      "value":"mBqxpulwlj3Rw7EsHZq0YEQyrArq2tlIRCQ0pCmr5DRPPDZMAP4ZNb7U0E6bPSb3"
+    },
+    {
       "name": "MONGODB_ADMIN_PASSWORD",
       "description": "Password for the MongoDB admin user",
-      "value":""
+      "value":"password"
     },
     {
       "name": "MONGODB_FHMBAAS_USER",
@@ -129,7 +139,7 @@
     {
       "name": "MONGODB_FHMBAAS_PASSWORD",
       "description": "fhmbaas db user password",
-      "value":""
+      "value":"password"
     },{
       "name": "MONGODB_FHREPORTING_USER",
       "description": "fhreporting db user",
@@ -137,7 +147,7 @@
     },{
       "name": "MONGODB_FHREPORTING_PASSWORD",
       "description": "fhreporting db user pass",
-      "value":""
+      "value":"password"
     },{
       "name": "MONGODB_FHMETRICS_USER",
       "description": "fhmetrics db user",
@@ -145,7 +155,7 @@
     },{
       "name": "MONGODB_FHMETRICS_PASSWORD",
       "description": "fhmetrics db user pass",
-      "value":""
+      "value":"password"
     },{
       "name": "MONGODB_FHMBAAS_DATABASE",
       "description": "fhmbaas db",
