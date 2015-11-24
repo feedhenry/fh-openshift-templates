@@ -26,10 +26,16 @@ module.exports = function(grunt) {
     ],
     fhinclude: [
       '*-template.json'
-    ]
+    ],
+    jsonlint: {
+      sample: {
+        src: ['*-template.json' ]
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-fh-build');
-  grunt.registerTask('default', ['fh:dist']);
+  grunt.loadNpmTasks('grunt-jsonlint');
+  grunt.registerTask('default', ['jsonlint', 'fh:dist']);
 
 };
