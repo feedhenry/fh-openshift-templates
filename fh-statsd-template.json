@@ -1,188 +1,87 @@
 {
-  "kind": "Template",
-  "apiVersion": "v1",
-  "metadata": {
-    "name": "fh-statsd",
-    "creationTimestamp": null,
-    "annotations": {
-      "description" : "fh-statsd deploy on openshift v3",
-      "title" : "fh-statsd"
-    }
-  },
-  "objects": [
-    {
-      "kind": "Service",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "fh-statsd-service",
-        "labels": {
-          "name": "fh-statsd-service"
-        }
-      },
-      "spec": {
-        "ports": [
-          {
-            "name": "fh-statsd-service-ports",
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080,
-            "nodePort": 0
-          }
-        ],
-        "selector": {
-          "name": "fh-statsd"
-        },
-        "portalIP": "",
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
-      },
-      "status": {
-        "loadBalancer": {}
-      }
-    },
-    {
-      "kind": "DeploymentConfig",
-      "apiVersion": "v1",
-      "metadata": {
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
         "name": "fh-statsd",
         "creationTimestamp": null
-      },
-      "spec": {
-        "strategy": {
-          "type": "Rolling",
-          "rollingParams": {
-            "updatePeriodSeconds": 1,
-            "intervalSeconds": 1,
-            "timeoutSeconds": 120
-          },
-          "resources": {}
-        },
-        "replicas": 1,
-        "selector": {
-          "name": "fh-statsd"
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "name": "fh-statsd"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
+    },
+    "objects": [
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
                 "name": "fh-statsd",
-                "image": "fh-registry.feedhenry.net/fh-statsd",
-                "livenessProbe": {
-                  "exec": {
-                    "command": ["/bin/bash", "/usr/bin/ps -aef | grep FAIL"]
-                  },
-                  "initialDelaySeconds": 10,
-                  "timeoutSeconds": 1
-                },
-                "ports": [
-                  {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "description": "fhstatsd db user",
-                    "value":"u-mbaas"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "description": "fhstatsd db user password",
-                    "value":""
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_DATABASE",
-                    "description": "fhstatsd db",
-                    "value":"fh-statsd"
-                  }
-                ],
-                "resources": {},
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
-                "capabilities": {},
-                "securityContext": {
-                  "capabilities": {},
-                  "privileged": false
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-statsd"
                 }
-              }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst",
-            "serviceAccount": ""
-          }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 300
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "selector": {
+                    "name": "fh-statsd"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "fh-statsd"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "fh-statsd",
+                                "image": "docker.io/rhmap/fh-statsd:0.6.1-41",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "MONGODB_FHSTATSD_USER",
+                                        "value": "u-mbaas"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHSTATSD_PASSWORD",
+                                        "value": "4a3733a2fabb793c33b29c21a7ef9576e015068e"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHSTATSD_DATABASE",
+                                        "value": "fh-statsd"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent",
+                                "securityContext": {
+                                    "capabilities": {},
+                                    "privileged": false
+                                }
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "dnsPolicy": "ClusterFirst"
+                    }
+                }
+            },
+            "status": {}
         }
-      },
-      "status": {}
-    }
-  ],
-  "parameters": [
-    {
-      "name": "MONGODB_ADMIN_PASSWORD",
-      "description": "Password for the MongoDB admin user",
-      "value":""
-    },
-    {
-      "name": "MONGODB_FHMBAAS_USER",
-      "description": "fhmbaas db user",
-      "value":"u-mbaas"
-    },
-    {
-      "name": "MONGODB_FHMBAAS_PASSWORD",
-      "description": "fhmbaas db user password",
-      "value":""
-    },{
-      "name": "MONGODB_FHREPORTING_USER",
-      "description": "fhreporting db user",
-      "value":"u-reporting"
-    },{
-      "name": "MONGODB_FHREPORTING_PASSWORD",
-      "description": "fhreporting db user pass",
-      "value":""
-    },{
-      "name": "MONGODB_FHMETRICS_USER",
-      "description": "fhmetrics db user",
-      "value":"u-metrics"
-    },{
-      "name": "MONGODB_FHMETRICS_PASSWORD",
-      "description": "fhmetrics db user pass",
-      "value":""
-    },{
-      "name": "MONGODB_FHMBAAS_DATABASE",
-      "description": "fhmbaas db",
-      "value":"fh-mbaas"
-    },{
-      "name": "MONGODB_FHREPORTING_DATABASE",
-      "description": "fhreporting db",
-      "value":"fh-reporting"
-    },{
-      "name": "MONGODB_FHMETRICS_DATABASE",
-      "description": "fhmetrics db",
-      "value":"fh-metrics"
-    },
-    {
-      "name": "MONGODB_REPLICA_NAME",
-      "description": " The name of the replSet ",
-      "value": "rs0"
-    },
-    {
-      "name": "MONGODB_SERVICE_NAME",
-      "description": "The name of the MongoDB Service (used to DNS lookup, default: 'mongodb')",
-      "value": "mongodb-service"
-    },
-    {
-      "name": "MONGODB_KEYFILE_VALUE",
-      "description": "The value of the MongoDB Key",
-      "value":"supersecuretoo"
-    }
-  ],
-  "labels": {
-    "template": "fh-statsd-template"
-  }
+    ]
 }
