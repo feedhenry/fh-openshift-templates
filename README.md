@@ -1,5 +1,20 @@
 # fh-openshift-templates
 
+### Building
+```shell
+$ npm install
+```
+
+Produce a tar with the templates:
+
+```shell
+$ grunt 
+```
+The produceed tar will be produced in the ```dist``` directory. 
+
+
+### Workflow
+
 * Initial commit for the openshift v3 enterprise templates
 
   - When creating templates ensure user name, password and database name match those set in the mongo-replica template.
