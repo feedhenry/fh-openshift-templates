@@ -544,10 +544,6 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "MONGODB_ADMIN_PASSWORD",
-                                        "value": "7868b866478bd53f820257316bd9903f18918777"
-                                    },
-                                    {
                                         "name": "MONGODB_REPLICA_NAME",
                                         "value": "rs0"
                                     },
