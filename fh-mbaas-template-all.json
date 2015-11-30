@@ -224,7 +224,7 @@
                         "containers": [
                             {
                                 "name": "fh-mbaas",
-                                "image": "docker.io/rhmap/fh-mbaas:2.2.0-312",
+                                "image": "${FH_MBAAS_IMAGE}:${FH_MBAAS_IMAGE_VERSION}",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -234,11 +234,11 @@
                                 "env": [
                                     {
                                         "name": "MONGODB_FHMBAAS_USER",
-                                        "value": "u-mbaas"
+                                        "value": "${MONGODB_FHMBAAS_USER}"
                                     },
                                     {
                                         "name": "MONGODB_FHMBAAS_PASSWORD",
-                                        "value": "655301eeb994d0fd16bcd1c1e98aea45ef5b37f4"
+                                        "value": "${MONGODB_FHMBAAS_PASSWORD}"
                                     },
                                     {
                                         "name": "MONGODB_FHMBAAS_DATABASE",
@@ -246,11 +246,11 @@
                                     },
                                     {
                                         "name": "FHMBAAS_KEY",
-                                        "value": "5b7f83059eccdb57c4d55bb49785cea02a9b2acc47e75a468607bcc1cb440e17"
+                                        "value": "${FHMBAAS_KEY}"
                                     },
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
-                                        "value": "7868b866478bd53f820257316bd9903f18918777"
+                                        "value": "${MONGODB_ADMIN_PASSWORD}"
                                     }
                                 ],
                                 "resources": {},
@@ -306,7 +306,7 @@
                         "containers": [
                             {
                                 "name": "fh-messaging",
-                                "image": "docker.io/rhmap/fh-messaging:0.22.1-104",
+                                "image": "${FH_MESSAGING_IMAGE}:${FH_MESSAGING_IMAGE_VERSION}",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -316,11 +316,11 @@
                                 "env": [
                                     {
                                         "name": "MONGODB_FHREPORTING_USER",
-                                        "value": "u-reporting"
+                                        "value": "${MONGODB_FHREPORTING_USER}"
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
-                                        "value": "582497867b65b3b7f7190097d413511a60a86628"
+                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_DATABASE",
@@ -380,7 +380,7 @@
                         "containers": [
                             {
                                 "name": "fh-metrics",
-                                "image": "docker.io/rhmap/fh-metrics:0.7.1-104",
+                                "image": "${FH_METRICS_IMAGE}:${FH_METRICS_IMAGE_VERSION}",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -390,11 +390,11 @@
                                 "env": [
                                     {
                                         "name": "MONGODB_FHMETRICS_USER",
-                                        "value": "u-metrics"
+                                        "value": "${MONGODB_FHMETRICS_USER}"
                                     },
                                     {
                                         "name": "MONGODB_FHMETRICS_PASSWORD",
-                                        "value": "79b4f6f031d8b95c53a5c3a9f20fac0ab7e67aee"
+                                        "value": "${MONGODB_FHMETRICS_PASSWORD}"
                                     },
                                     {
                                         "name": "MONGODB_FHMETRICS_DATABASE",
@@ -454,7 +454,7 @@
                         "containers": [
                             {
                                 "name": "fh-statsd",
-                                "image": "docker.io/rhmap/fh-statsd:0.6.1-41",
+                                "image": "${FH_STATSD_IMAGE}:${FH_STATSD_IMAGE_VERSION}",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -464,11 +464,11 @@
                                 "env": [
                                     {
                                         "name": "MONGODB_FHSTATSD_USER",
-                                        "value": "u-mbaas"
+                                        "value": "${MONGODB_FHSTATSD_USER}"
                                     },
                                     {
                                         "name": "MONGODB_FHSTATSD_PASSWORD",
-                                        "value": "4a3733a2fabb793c33b29c21a7ef9576e015068e"
+                                        "value": "${MONGODB_FHSTATSD_PASSWORD}"
                                     },
                                     {
                                         "name": "MONGODB_FHSTATSD_DATABASE",
@@ -535,7 +535,7 @@
                         "containers": [
                             {
                                 "name": "mongodb-service",
-                                "image": "docker.io/rhmap/mongodb:2.4-11",
+                                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                                 "ports": [
                                     {
                                         "containerPort": 27017,
@@ -557,11 +557,11 @@
                                     },
                                     {
                                         "name": "MONGODB_FHMBAAS_USER",
-                                        "value": "u-mbaas"
+                                        "value": "${MONGODB_FHMBAAS_USER}"
                                     },
                                     {
                                         "name": "MONGODB_FHMBAAS_PASSWORD",
-                                        "value": "655301eeb994d0fd16bcd1c1e98aea45ef5b37f4"
+                                        "value": "${MONGODB_FHMBAAS_PASSWORD}"
                                     },
                                     {
                                         "name": "MONGODB_FHMBAAS_DATABASE",
@@ -569,19 +569,19 @@
                                     },
                                     {
                                         "name": "FHMBAAS_KEY",
-                                        "value": "5b7f83059eccdb57c4d55bb49785cea02a9b2acc47e75a468607bcc1cb440e17"
+                                        "value": "${FHMBAAS_KEY}"
                                     },
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
-                                        "value": "7868b866478bd53f820257316bd9903f18918777"
+                                        "value": "${MONGODB_ADMIN_PASSWORD}"
                                     },
                                     {
                                         "name": "MONGODB_FHSTATSD_USER",
-                                        "value": "u-mbaas"
+                                        "value": "${MONGODB_FHSTATSD_USER}"
                                     },
                                     {
                                         "name": "MONGODB_FHSTATSD_PASSWORD",
-                                        "value": "4a3733a2fabb793c33b29c21a7ef9576e015068e"
+                                        "value": "${MONGODB_FHSTATSD_PASSWORD}"
                                     },
                                     {
                                         "name": "MONGODB_FHSTATSD_DATABASE",
@@ -589,11 +589,11 @@
                                     },
                                     {
                                         "name": "MONGODB_FHMETRICS_USER",
-                                        "value": "u-metrics"
+                                        "value": "${MONGODB_FHMETRICS_USER}"
                                     },
                                     {
                                         "name": "MONGODB_FHMETRICS_PASSWORD",
-                                        "value": "79b4f6f031d8b95c53a5c3a9f20fac0ab7e67aee"
+                                        "value": "${MONGODB_FHMETRICS_PASSWORD}"
                                     },
                                     {
                                         "name": "MONGODB_FHMETRICS_DATABASE",
@@ -601,11 +601,11 @@
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_USER",
-                                        "value": "u-reporting"
+                                        "value": "${MONGODB_FHREPORTING_USER}"
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
-                                        "value": "582497867b65b3b7f7190097d413511a60a86628"
+                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_DATABASE",
@@ -661,7 +661,7 @@
                         "containers": [
                             {
                                 "name": "redis",
-                                "image": "docker.io/rhmap/redis:3.0",
+                                "image": "${REDIS_IMAGE}:${REDIS_IMAGE_VERSION}",
                                 "ports": [
                                     {
                                         "containerPort": 6379,
@@ -671,7 +671,7 @@
                                 "env": [
                                     {
                                         "name": "REDIS_USER",
-                                        "value": "u-redis"
+                                        "value": "${REDIS_USER}"
                                     }
                                 ],
                                 "resources": {},
@@ -712,5 +712,128 @@
             },
             "status": {}
         }
+    ],
+    "parameters": [
+      {
+        "name": "MONGODB_FHMBAAS_USER",
+        "value": "u-mbaas",
+        "description":  "The MongoDB user name"
+      },
+      {
+        "name": "MONGODB_FHMBAAS_PASSWORD",
+        "description":  "The MongoDB password",
+        "generate": "expression",
+        "from": "[a-zA-Z0-9]{40}"
+      },
+      {
+        "name": "REDIS_USER",
+        "value": "u-redis",
+        "description":  "The Redis user name"
+      },
+      {
+        "name": "FHMBAAS_KEY",
+        "description":  "The MBaaS key",
+        "generate": "expression",
+        "from": "[a-zA-Z0-9]{40}"
+      },
+      {
+        "name": "MONGODB_ADMIN_PASSWORD",
+        "description":  "The MongoDB Admin password",
+        "generate": "expression",
+        "from": "[a-zA-Z0-9]{40}"
+      },
+      {
+        "name": "MONGODB_FHREPORTING_USER",
+        "value": "u-reporting",
+        "description":  "The Reporting user name"
+      },
+      {
+        "name": "MONGODB_FHREPORTING_PASSWORD",
+        "description":  "The MongoDB Reporting password",
+        "generate": "expression",
+        "from": "[a-zA-Z0-9]{40}"
+      },
+      {
+        "name": "MONGODB_FHMETRICS_USER",
+        "value": "u-metrics",
+        "description":  "The Metrics user name"
+      },
+      {
+        "name": "MONGODB_FHMETRICS_PASSWORD",
+        "description":  "The MongoDB Metrics password",
+        "generate": "expression",
+        "from": "[a-zA-Z0-9]{40}"
+      },
+      {
+        "name": "MONGODB_FHSTATSD_USER",
+        "value": "u-mbaas",
+        "description":  "The Metrics user name"
+      },
+      {
+        "name": "MONGODB_FHSTATSD_PASSWORD",
+        "description":  "The MongoDB Statsd password",
+        "generate": "expression",
+        "from": "[a-zA-Z0-9]{40}"
+      },
+      {
+        "name": "FH_MBAAS_IMAGE",
+        "value": "docker.io/rhmap/fh-mbaas",
+        "description":  "The name of the fh-mbaas image"
+      },
+      {
+        "name": "FH_MBAAS_IMAGE_VERSION",
+        "value": "2.2.0-312",
+        "description":  "The version for the FH_MBAAS_IMAGE"
+      },
+      {
+        "name": "FH_MESSAGING_IMAGE",
+        "value": "docker.io/rhmap/fh-messaging",
+        "description":  "The name of the fh-messaging image"
+      },
+      {
+        "name": "FH_MESSAGING_IMAGE_VERSION",
+        "value": "0.22.1-104",
+        "description":  "The version for the FH_MESSAGING_IMAGE"
+      },
+      {
+        "name": "FH_METRICS_IMAGE",
+        "value": "docker.io/rhmap/fh-metrics",
+        "description":  "The name of the fh-metrics image"
+      },
+      {
+        "name": "FH_METRICS_IMAGE_VERSION",
+        "value": "0.7.1-104",
+        "description":  "The version for the FH_METRICS_IMAGE"
+      },
+      {
+        "name": "FH_STATSD_IMAGE",
+        "value": "docker.io/rhmap/fh-statsd",
+        "description":  "The name of the fh-statsd image"
+      },
+      {
+        "name": "FH_STATSD_IMAGE_VERSION",
+        "value": "0.6.1-41",
+        "description":  "The version for the FH_STATSD_IMAGE"
+      },
+      {
+        "name": "MONGODB_IMAGE",
+        "value": "docker.io/rhmap/mongodb",
+        "description":  "The name of the mongodb image"
+      },
+      {
+        "name": "MONGODB_IMAGE_VERSION",
+        "value": "2.4-11",
+        "description":  "The version for the MONGODB_IMAGE"
+      },
+      {
+        "name": "REDIS_IMAGE",
+        "value": "docker.io/rhmap/redis",
+        "description":  "The name of the redis image"
+      },
+      {
+        "name": "REDIS_IMAGE_VERSION",
+        "value": "3.0",
+        "description":  "The version for the REDIS_IMAGE"
+      }
     ]
 }
