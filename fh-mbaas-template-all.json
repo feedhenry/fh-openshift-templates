@@ -739,7 +739,7 @@
                 }
             },
             "spec": {
-                "host": "work4-mbaas.local.feedhenry.io",
+                "host": "${MBAAS_ROUTER_DNS}",
                 "to": {
                     "kind": "Service",
                     "name": "fh-mbaas-service"
@@ -885,6 +885,12 @@
         "description":  "Key for communicating with the FH_METRICS Service",
         "generate": "expression",
         "from": "[a-zA-Z0-9]{40}"
+      },
+      {
+        "name": "MBAAS_ROUTER_DNS",
+        "description":  "The DNS name for the MBaaS Router",
+        "generate": "expression",
+        "from": "[a-z]{4}-mbaas.local.feedhenry.io"
       }
     ]
 }
