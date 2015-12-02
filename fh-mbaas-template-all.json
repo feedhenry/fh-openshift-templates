@@ -889,8 +889,7 @@
       {
         "name": "MBAAS_ROUTER_DNS",
         "description":  "The DNS name for the MBaaS Router",
-        "generate": "expression",
-        "from": "[a-z]{4}-mbaas.local.feedhenry.io"
+        "value": "mbaas.example.com"
       }
     ]
 }
