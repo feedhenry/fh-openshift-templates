@@ -254,6 +254,16 @@
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
                                         "value": "${MONGODB_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "FH_METRICS_API_KEY",
+                                        "description": "API Key for calling fh-metrics",
+                                        "value": "${FH_METRICS_API_KEY}"
+                                    },
+                                    {
+                                        "name": "FH_MESSAGING_API_KEY",
+                                        "description": "API Key for calling fh-messaging",
+                                        "value": "${FH_MESSAGING_API_KEY}"
                                     }
                                 ],
                                 "resources": {},
@@ -331,6 +341,11 @@
                                     {
                                         "name": "MONGODB_FHREPORTING_DATABASE",
                                         "value": "fh-reporting"
+                                    },
+                                    {
+                                        "name": "FH_MESSAGING_API_KEY",
+                                        "description": "API Key for calling fh-messaging",
+                                        "value": "${FH_MESSAGING_API_KEY}"
                                     }
                                 ],
                                 "resources": {},
@@ -408,6 +423,11 @@
                                     {
                                         "name": "MONGODB_FHMETRICS_DATABASE",
                                         "value": "fh-metrics"
+                                    },
+                                    {
+                                        "name": "FH_METRICS_API_KEY",
+                                        "description": "API Key for calling fh-metrics",
+                                        "value": "${FH_METRICS_API_KEY}"
                                     }
                                 ],
                                 "resources": {},
@@ -853,6 +873,18 @@
         "name": "REDIS_IMAGE_VERSION",
         "value": "3.0",
         "description":  "The version for the REDIS_IMAGE"
+      },
+      {
+        "name": "FH_MESSAGING_API_KEY",
+        "description":  "Key for communicating with the FH_MESSAGING Service",
+        "generate": "expression",
+        "from": "[a-zA-Z0-9]{40}"
+      },
+      {
+        "name": "FH_METRICS_API_KEY",
+        "description":  "Key for communicating with the FH_METRICS Service",
+        "generate": "expression",
+        "from": "[a-zA-Z0-9]{40}"
       }
     ]
 }
