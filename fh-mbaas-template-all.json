@@ -192,7 +192,10 @@
             "apiVersion": "v1",
             "metadata": {
                 "name": "fh-mbaas",
-                "creationTimestamp": null
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-mbaas"
+                }
             },
             "spec": {
                 "strategy": {
@@ -274,7 +277,10 @@
             "apiVersion": "v1",
             "metadata": {
                 "name": "fh-messaging",
-                "creationTimestamp": null
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-messaging"
+                }
             },
             "spec": {
                 "strategy": {
@@ -348,7 +354,10 @@
             "apiVersion": "v1",
             "metadata": {
                 "name": "fh-metrics",
-                "creationTimestamp": null
+                "creationTimestamp": null,
+                "labels": {
+                  "name": "fh-metrics"
+                }
             },
             "spec": {
                 "strategy": {
@@ -422,7 +431,10 @@
             "apiVersion": "v1",
             "metadata": {
                 "name": "fh-statsd",
-                "creationTimestamp": null
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-statsd"
+                }
             },
             "spec": {
                 "strategy": {
@@ -496,7 +508,10 @@
             "apiVersion": "v1",
             "metadata": {
                 "name": "mongodb-service",
-                "creationTimestamp": null
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "mongodb-service"
+                }
             },
             "spec": {
                 "strategy": {
@@ -629,7 +644,10 @@
             "apiVersion": "v1",
             "metadata": {
                 "name": "redis",
-                "creationTimestamp": null
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "redis"
+                }
             },
             "spec": {
                 "strategy": {
