@@ -707,7 +707,8 @@
                     "name": "fh-mbaas-service"
                 },
                 "tls": {
-                    "termination": "edge"
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Allow"
                 }
             },
             "status": {}
