@@ -331,6 +331,18 @@
                                 ],
                                 "env": [
                                     {
+                                        "name": "MONGODB_FHMETRICS_USER",
+                                        "value": "${MONGODB_FHMETRICS_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHMETRICS_PASSWORD",
+                                        "value": "${MONGODB_FHMETRICS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHMETRICS_DATABASE",
+                                        "value": "fh-metrics"
+                                    },
+                                    {
                                         "name": "MONGODB_FHREPORTING_USER",
                                         "value": "${MONGODB_FHREPORTING_USER}"
                                     },
@@ -412,6 +424,18 @@
                                     }
                                 ],
                                 "env": [
+                                    {
+                                        "name": "MONGODB_FHREPORTING_PASSWORD",
+                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_USER",
+                                        "value": "${MONGODB_FHREPORTING_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_DATABASE",
+                                        "value": "${MONGODB_FHREPORTING_DATABASE}"
+                                    },
                                     {
                                         "name": "MONGODB_FHMETRICS_USER",
                                         "value": "${MONGODB_FHMETRICS_USER}"
