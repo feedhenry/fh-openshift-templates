@@ -434,7 +434,7 @@
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_DATABASE",
-                                        "value": "${MONGODB_FHREPORTING_DATABASE}"
+                                        "value": "fh-reporting"
                                     },
                                     {
                                         "name": "MONGODB_FHMETRICS_USER",
