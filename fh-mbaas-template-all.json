@@ -236,6 +236,14 @@
                                 ],
                                 "env": [
                                     {
+                                      "name":"FH_CLUSTER",
+                                      "value": "${FH_CLUSTER}"  
+                                    },
+                                    {
+                                        "name": "MBAASID",
+                                        "value": "${MBAASID}"
+                                    },
+                                    {
                                         "name": "MONGODB_FHMBAAS_USER",
                                         "value": "${MONGODB_FHMBAAS_USER}"
                                     },
@@ -331,6 +339,10 @@
                                 ],
                                 "env": [
                                     {
+                                        "name": "MBAASID",
+                                        "value": "${MBAASID}"
+                                    },
+                                    {
                                         "name": "MONGODB_FHMETRICS_USER",
                                         "value": "${MONGODB_FHMETRICS_USER}"
                                     },
@@ -424,6 +436,10 @@
                                     }
                                 ],
                                 "env": [
+                                    {
+                                        "name":"MBAASID",
+                                        "value":"${MBAASID}"
+                                    },
                                     {
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
                                         "value": "${MONGODB_FHREPORTING_PASSWORD}"
@@ -777,6 +793,16 @@
         }
     ],
     "parameters": [
+        {
+          "name":"FH_CLUSTER",
+           "value":"development",
+           "description":"the name of the cluster the mbaas was created from" 
+        },
+        {
+            "name":"MBAASID",
+            "value":"default",
+            "description":"id of the mbaas. A value chosen by the user"
+        },  
       {
         "name": "MONGODB_FHMBAAS_USER",
         "value": "u-mbaas",
