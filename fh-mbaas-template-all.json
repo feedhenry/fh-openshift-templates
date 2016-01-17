@@ -240,8 +240,8 @@
                                       "value": "${FH_CLUSTER}"  
                                     },
                                     {
-                                        "name": "MBAASID",
-                                        "value": "${MBAASID}"
+                                        "name": "FH_MBAASID",
+                                        "value": "${FH_MBAASID}"
                                     },
                                     {
                                         "name": "MONGODB_FHMBAAS_USER",
@@ -339,8 +339,8 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "MBAASID",
-                                        "value": "${MBAASID}"
+                                        "name": "FH_MBAASID",
+                                        "value": "${FH_MBAASID}"
                                     },
                                     {
                                         "name": "MONGODB_FHMETRICS_USER",
@@ -437,8 +437,8 @@
                                 ],
                                 "env": [
                                     {
-                                        "name":"MBAASID",
-                                        "value":"${MBAASID}"
+                                        "name":"FH_MBAASID",
+                                        "value":"${FH_MBAASID}"
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
@@ -799,10 +799,10 @@
            "description":"the name of the cluster the mbaas was created from" 
         },
         {
-            "name":"MBAASID",
+            "name":"FH_MBAASID",
             "value":"default",
             "description":"id of the mbaas. A value chosen by the user"
-        },  
+        },
       {
         "name": "MONGODB_FHMBAAS_USER",
         "value": "u-mbaas",
