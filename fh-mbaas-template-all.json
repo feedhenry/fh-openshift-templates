@@ -1001,8 +1001,8 @@
     },
     {
       "name": "MONGODB_FHSTATSD_USER",
-      "value": "u-mbaas",
-      "description":  "The Metrics user name"
+      "value": "u-statsd",
+      "description":  "The Statsd user name"
     },
     {
       "name": "MONGODB_FHSTATSD_PASSWORD",
