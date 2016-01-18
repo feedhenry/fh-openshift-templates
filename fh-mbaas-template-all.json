@@ -710,140 +710,400 @@
       "status": {}
     },
     {
-      "kind": "DeploymentConfig",
+      "kind": "Pod",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mongodb-service",
-        "creationTimestamp": null,
+        "name": "mongodb-pod-1",
         "labels": {
-          "name": "mongodb-service"
+          "name": "mongodb-replica"
         }
       },
       "spec": {
-        "strategy": {
-          "type": "Recreate",
-          "recreateParams": {
-            "post": {
-              "failurePolicy": "Retry",
-              "execNewPod": {
-                "command": [
-                  "run-mongod.sh",
-                  "initiate"
-                ],
-                "containerName": "mongodb-service"
-              }
-            }
-          },
-          "resources": {}
-        },
-        "triggers": [
+        "containers": [
           {
-            "type": "ConfigChange"
-          }
-        ],
-        "replicas": 3,
-        "selector": {
-          "name": "mongodb-replica"
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "name": "mongodb-replica"
-            }
-          },
-          "spec": {
-            "containers": [
+            "name": "mongodb",
+            "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+            "ports": [
               {
-                "name": "mongodb-service",
-                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
-                "ports": [
-                  {
-                    "containerPort": 27017,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "MONGODB_REPLICA_NAME",
-                    "value": "rs0"
-                  },
-                  {
-                    "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb-service"
-                  },
-                  {
-                    "name": "MONGODB_KEYFILE_VALUE",
-                    "value": "supersecuretoo"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_USER",
-                    "value": "${MONGODB_FHMBAAS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_DATABASE",
-                    "value": "fh-mbaas"
-                  },
-                  {
-                    "name": "FHMBAAS_KEY",
-                    "value": "${FHMBAAS_KEY}"
-                  },
-                  {
-                    "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "value": "${MONGODB_FHSTATSD_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_DATABASE",
-                    "value": "fh-statsd"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value": "fh-reporting"
-                  }
-                ],
-                "resources": {},
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent"
+                "containerPort": 27017,
+                "protocol": "TCP"
               }
             ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            "env": [
+              {
+                "name": "MONGODB_REPLICA_NAME",
+                "value": "rs0"
+              },
+              {
+                "name": "MONGODB_SERVICE_NAME",
+                "value": "mongodb-service"
+              },
+              {
+                "name": "MONGODB_KEYFILE_VALUE",
+                "value": "supersecuretoo"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_USER",
+                "value": "${MONGODB_FHMBAAS_USER}"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_PASSWORD",
+                "value": "${MONGODB_FHMBAAS_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_DATABASE",
+                "value": "fh-mbaas"
+              },
+              {
+                "name": "FHMBAAS_KEY",
+                "value": "${FHMBAAS_KEY}"
+              },
+              {
+                "name": "MONGODB_ADMIN_PASSWORD",
+                "value": "${MONGODB_ADMIN_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_USER",
+                "value": "${MONGODB_FHSTATSD_USER}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_PASSWORD",
+                "value": "${MONGODB_FHSTATSD_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_DATABASE",
+                "value": "fh-statsd"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_USER",
+                "value": "${MONGODB_FHMETRICS_USER}"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_PASSWORD",
+                "value": "${MONGODB_FHMETRICS_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_DATABASE",
+                "value": "fh-metrics"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_USER",
+                "value": "${MONGODB_FHREPORTING_USER}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_PASSWORD",
+                "value": "${MONGODB_FHREPORTING_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_DATABASE",
+                "value": "fh-reporting"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent"
           }
+        ],
+        "restartPolicy": "Always",
+        "dnsPolicy": "ClusterFirst"
+      }
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-pod-2",
+        "labels": {
+          "name": "mongodb-replica"
         }
       },
-      "status": {}
+      "spec": {
+        "containers": [
+          {
+            "name": "mongodb",
+            "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+            "ports": [
+              {
+                "containerPort": 27017,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "MONGODB_REPLICA_NAME",
+                "value": "rs0"
+              },
+              {
+                "name": "MONGODB_SERVICE_NAME",
+                "value": "mongodb-service"
+              },
+              {
+                "name": "MONGODB_KEYFILE_VALUE",
+                "value": "supersecuretoo"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_USER",
+                "value": "${MONGODB_FHMBAAS_USER}"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_PASSWORD",
+                "value": "${MONGODB_FHMBAAS_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_DATABASE",
+                "value": "fh-mbaas"
+              },
+              {
+                "name": "FHMBAAS_KEY",
+                "value": "${FHMBAAS_KEY}"
+              },
+              {
+                "name": "MONGODB_ADMIN_PASSWORD",
+                "value": "${MONGODB_ADMIN_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_USER",
+                "value": "${MONGODB_FHSTATSD_USER}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_PASSWORD",
+                "value": "${MONGODB_FHSTATSD_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_DATABASE",
+                "value": "fh-statsd"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_USER",
+                "value": "${MONGODB_FHMETRICS_USER}"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_PASSWORD",
+                "value": "${MONGODB_FHMETRICS_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_DATABASE",
+                "value": "fh-metrics"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_USER",
+                "value": "${MONGODB_FHREPORTING_USER}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_PASSWORD",
+                "value": "${MONGODB_FHREPORTING_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_DATABASE",
+                "value": "fh-reporting"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent"
+          }
+        ],
+        "restartPolicy": "Always",
+        "dnsPolicy": "ClusterFirst"
+      }
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-pod-3",
+        "labels": {
+          "name": "mongodb-replica"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "mongodb",
+            "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+            "ports": [
+              {
+                "containerPort": 27017,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "MONGODB_REPLICA_NAME",
+                "value": "rs0"
+              },
+              {
+                "name": "MONGODB_SERVICE_NAME",
+                "value": "mongodb-service"
+              },
+              {
+                "name": "MONGODB_KEYFILE_VALUE",
+                "value": "supersecuretoo"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_USER",
+                "value": "${MONGODB_FHMBAAS_USER}"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_PASSWORD",
+                "value": "${MONGODB_FHMBAAS_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_DATABASE",
+                "value": "fh-mbaas"
+              },
+              {
+                "name": "FHMBAAS_KEY",
+                "value": "${FHMBAAS_KEY}"
+              },
+              {
+                "name": "MONGODB_ADMIN_PASSWORD",
+                "value": "${MONGODB_ADMIN_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_USER",
+                "value": "${MONGODB_FHSTATSD_USER}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_PASSWORD",
+                "value": "${MONGODB_FHSTATSD_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_DATABASE",
+                "value": "fh-statsd"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_USER",
+                "value": "${MONGODB_FHMETRICS_USER}"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_PASSWORD",
+                "value": "${MONGODB_FHMETRICS_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_DATABASE",
+                "value": "fh-metrics"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_USER",
+                "value": "${MONGODB_FHREPORTING_USER}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_PASSWORD",
+                "value": "${MONGODB_FHREPORTING_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_DATABASE",
+                "value": "fh-reporting"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent"
+          }
+        ],
+        "restartPolicy": "Always",
+        "dnsPolicy": "ClusterFirst"
+      }
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-initiator",
+        "labels": {
+          "name": "mongodb-initiator"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "mongodb",
+            "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+            "ports": [
+              {
+                "containerPort": 27017,
+                "protocol": "TCP"
+              }
+            ],
+            "command": [
+              "run-mongod.sh",
+              "initiate"
+            ],
+            "env": [
+              {
+                "name": "MONGODB_REPLICA_NAME",
+                "value": "rs0"
+              },
+              {
+                "name": "MONGODB_SERVICE_NAME",
+                "value": "mongodb-service"
+              },
+              {
+                "name": "MONGODB_KEYFILE_VALUE",
+                "value": "supersecuretoo"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_USER",
+                "value": "${MONGODB_FHMBAAS_USER}"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_PASSWORD",
+                "value": "${MONGODB_FHMBAAS_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHMBAAS_DATABASE",
+                "value": "fh-mbaas"
+              },
+              {
+                "name": "FHMBAAS_KEY",
+                "value": "${FHMBAAS_KEY}"
+              },
+              {
+                "name": "MONGODB_ADMIN_PASSWORD",
+                "value": "${MONGODB_ADMIN_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_USER",
+                "value": "${MONGODB_FHSTATSD_USER}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_PASSWORD",
+                "value": "${MONGODB_FHSTATSD_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHSTATSD_DATABASE",
+                "value": "fh-statsd"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_USER",
+                "value": "${MONGODB_FHMETRICS_USER}"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_PASSWORD",
+                "value": "${MONGODB_FHMETRICS_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHMETRICS_DATABASE",
+                "value": "fh-metrics"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_USER",
+                "value": "${MONGODB_FHREPORTING_USER}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_PASSWORD",
+                "value": "${MONGODB_FHREPORTING_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_DATABASE",
+                "value": "fh-reporting"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent"
+          }
+        ],
+        "restartPolicy": "Never",
+        "dnsPolicy": "ClusterFirst"
+      }
     },
     {
       "kind": "DeploymentConfig",
