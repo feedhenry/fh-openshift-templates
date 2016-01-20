@@ -679,20 +679,7 @@
                     "protocol": "TCP"
                   }
                 ],
-                "env": [
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "value": "${MONGODB_FHSTATSD_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_DATABASE",
-                    "value": "fh-statsd"
-                  }
-                ],
+                "env": [],
                 "resources": {},
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent",
@@ -761,18 +748,6 @@
               {
                 "name": "MONGODB_ADMIN_PASSWORD",
                 "value": "${MONGODB_ADMIN_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_USER",
-                "value": "${MONGODB_FHSTATSD_USER}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_PASSWORD",
-                "value": "${MONGODB_FHSTATSD_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_DATABASE",
-                "value": "fh-statsd"
               },
               {
                 "name": "MONGODB_FHMETRICS_USER",
@@ -861,18 +836,6 @@
                 "value": "${MONGODB_ADMIN_PASSWORD}"
               },
               {
-                "name": "MONGODB_FHSTATSD_USER",
-                "value": "${MONGODB_FHSTATSD_USER}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_PASSWORD",
-                "value": "${MONGODB_FHSTATSD_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_DATABASE",
-                "value": "fh-statsd"
-              },
-              {
                 "name": "MONGODB_FHMETRICS_USER",
                 "value": "${MONGODB_FHMETRICS_USER}"
               },
@@ -957,18 +920,6 @@
               {
                 "name": "MONGODB_ADMIN_PASSWORD",
                 "value": "${MONGODB_ADMIN_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_USER",
-                "value": "${MONGODB_FHSTATSD_USER}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_PASSWORD",
-                "value": "${MONGODB_FHSTATSD_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_DATABASE",
-                "value": "fh-statsd"
               },
               {
                 "name": "MONGODB_FHMETRICS_USER",
@@ -1059,18 +1010,6 @@
               {
                 "name": "MONGODB_ADMIN_PASSWORD",
                 "value": "${MONGODB_ADMIN_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_USER",
-                "value": "${MONGODB_FHSTATSD_USER}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_PASSWORD",
-                "value": "${MONGODB_FHSTATSD_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHSTATSD_DATABASE",
-                "value": "fh-statsd"
               },
               {
                 "name": "MONGODB_FHMETRICS_USER",
@@ -1256,17 +1195,6 @@
     {
       "name": "MONGODB_FHMETRICS_PASSWORD",
       "description":  "The MongoDB Metrics password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "MONGODB_FHSTATSD_USER",
-      "value": "u-statsd",
-      "description":  "The Statsd user name"
-    },
-    {
-      "name": "MONGODB_FHSTATSD_PASSWORD",
-      "description":  "The MongoDB Statsd password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
