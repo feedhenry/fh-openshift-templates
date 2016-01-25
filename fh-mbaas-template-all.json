@@ -3,7 +3,11 @@
   "apiVersion": "v1",
   "metadata": {
     "name": "fh-mbaas",
-    "creationTimestamp": null
+    "creationTimestamp": null,
+    "annotations": {
+      "description": "Red Hat Mobile Backend as a Service template",
+      "iconClass": "icon-nodejs"
+    }
   },
   "objects": [
     {
