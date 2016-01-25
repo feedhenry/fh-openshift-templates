@@ -234,80 +234,52 @@
                     "protocol": "TCP"
                   }
                 ],
-                "replicas": 3,
-                "selector": {
-                  "name": "fh-mbaas"
-                },
-                "template": {
-                  "metadata": {
-                    "creationTimestamp": null,
-                    "labels": {
-                      "name": "fh-mbaas"
-                    }
+                "env": [
+                  {
+                    "name":"FH_CLUSTER",
+                    "value": "${FH_CLUSTER}"
                   },
-                  "spec": {
-                    "containers": [
-                      {
-                        "name": "fh-mbaas",
-                        "image": "${FH_MBAAS_IMAGE}:${FH_MBAAS_IMAGE_VERSION}",
-                        "ports": [
-                          {
-                            "containerPort": 8080,
-                            "protocol": "TCP"
-                          }
-                        ],
-                        "env": [
-                          {
-                            "name":"FH_CLUSTER",
-                            "value": "${FH_CLUSTER}"
-                          },
-                          {
-                            "name": "FH_MBAASID",
-                            "value": "${FH_MBAASID}"
-                          },
-                          {
-                            "name": "MONGODB_FHMBAAS_USER",
-                            "value": "${MONGODB_FHMBAAS_USER}"
-                          },
-                          {
-                            "name": "MONGODB_FHMBAAS_PASSWORD",
-                            "value": "${MONGODB_FHMBAAS_PASSWORD}"
-                          },
-                          {
-                            "name": "MONGODB_FHMBAAS_DATABASE",
-                            "value": "fh-mbaas"
-                          },
-                          {
-                            "name": "FHMBAAS_KEY",
-                            "value": "${FHMBAAS_KEY}"
-                          },
-                          {
-                            "name": "MONGODB_ADMIN_PASSWORD",
-                            "value": "${MONGODB_ADMIN_PASSWORD}"
-                          },
-                          {
-                            "name": "FH_METRICS_API_KEY",
-                            "description": "API Key for calling fh-metrics",
-                            "value": "${FH_METRICS_API_KEY}"
-                          },
-                          {
-                            "name": "FH_MESSAGING_API_KEY",
-                            "description": "API Key for calling fh-messaging",
-                            "value": "${FH_MESSAGING_API_KEY}"
-                          }
-                        ],
-                        "resources": {},
-                        "terminationMessagePath": "/dev/termination-log",
-                        "imagePullPolicy": "IfNotPresent",
-                        "securityContext": {
-                          "capabilities": {},
-                          "privileged": false
-                        }
-                      }
-                    ],
-                    "restartPolicy": "Always",
-                    "dnsPolicy": "ClusterFirst"
+                  {
+                    "name": "FH_MBAASID",
+                    "value": "${FH_MBAASID}"
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_USER",
+                    "value": "${MONGODB_FHMBAAS_USER}"
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_PASSWORD",
+                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_DATABASE",
+                    "value": "fh-mbaas"
+                  },
+                  {
+                    "name": "FHMBAAS_KEY",
+                    "value": "${FHMBAAS_KEY}"
+                  },
+                  {
+                    "name": "MONGODB_ADMIN_PASSWORD",
+                    "value": "${MONGODB_ADMIN_PASSWORD}"
+                  },
+                  {
+                    "name": "FH_METRICS_API_KEY",
+                    "description": "API Key for calling fh-metrics",
+                    "value": "${FH_METRICS_API_KEY}"
+                  },
+                  {
+                    "name": "FH_MESSAGING_API_KEY",
+                    "description": "API Key for calling fh-messaging",
+                    "value": "${FH_MESSAGING_API_KEY}"
                   }
+                ],
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent",
+                "securityContext": {
+                  "capabilities": {},
+                  "privileged": false
                 }
               }
             ],
@@ -367,6 +339,10 @@
                 ],
                 "env": [
                   {
+                    "name": "FH_MBAASID",
+                    "value": "${FH_MBAASID}"
+                  },
+                  {
                     "name": "MONGODB_FHMETRICS_USER",
                     "value": "${MONGODB_FHMETRICS_USER}"
                   },
@@ -396,75 +372,12 @@
                     "value": "${FH_MESSAGING_API_KEY}"
                   }
                 ],
-                "replicas": 3,
-                "selector": {
-                  "name": "fh-messaging"
-                },
-                "template": {
-                  "metadata": {
-                    "creationTimestamp": null,
-                    "labels": {
-                      "name": "fh-messaging"
-                    }
-                  },
-                  "spec": {
-                    "containers": [
-                      {
-                        "name": "fh-messaging",
-                        "image": "${FH_MESSAGING_IMAGE}:${FH_MESSAGING_IMAGE_VERSION}",
-                        "ports": [
-                          {
-                            "containerPort": 8080,
-                            "protocol": "TCP"
-                          }
-                        ],
-                        "env": [
-                          {
-                            "name": "FH_MBAASID",
-                            "value": "${FH_MBAASID}"
-                          },
-                          {
-                            "name": "MONGODB_FHMETRICS_USER",
-                            "value": "${MONGODB_FHMETRICS_USER}"
-                          },
-                          {
-                            "name": "MONGODB_FHMETRICS_PASSWORD",
-                            "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                          },
-                          {
-                            "name": "MONGODB_FHMETRICS_DATABASE",
-                            "value": "fh-metrics"
-                          },
-                          {
-                            "name": "MONGODB_FHREPORTING_USER",
-                            "value": "${MONGODB_FHREPORTING_USER}"
-                          },
-                          {
-                            "name": "MONGODB_FHREPORTING_PASSWORD",
-                            "value": "${MONGODB_FHREPORTING_PASSWORD}"
-                          },
-                          {
-                            "name": "MONGODB_FHREPORTING_DATABASE",
-                            "value": "fh-reporting"
-                          },
-                          {
-                            "name": "FH_MESSAGING_API_KEY",
-                            "description": "API Key for calling fh-messaging",
-                            "value": "${FH_MESSAGING_API_KEY}"
-                          }
-                        ],
-                        "resources": {},
-                        "terminationMessagePath": "/dev/termination-log",
-                        "imagePullPolicy": "IfNotPresent",
-                        "securityContext": {
-                          "capabilities": {},
-                          "privileged": false
-                        }
-                      }
-                    ],
-                    "restartPolicy": "Always",
-                    "dnsPolicy": "ClusterFirst"
-                  }
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent",
+                "securityContext": {
+                  "capabilities": {},
+                  "privileged": false
                 }
               }
             ],
@@ -524,6 +437,10 @@
                 ],
                 "env": [
                   {
+                    "name":"FH_MBAASID",
+                    "value":"${FH_MBAASID}"
+                  },
+                  {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
                     "value": "${MONGODB_FHREPORTING_PASSWORD}"
                   },
@@ -553,75 +470,12 @@
                     "value": "${FH_METRICS_API_KEY}"
                   }
                 ],
-                "replicas": 3,
-                "selector": {
-                  "name": "fh-metrics"
-                },
-                "template": {
-                  "metadata": {
-                    "creationTimestamp": null,
-                    "labels": {
-                      "name": "fh-metrics"
-                    }
-                  },
-                  "spec": {
-                    "containers": [
-                      {
-                        "name": "fh-metrics",
-                        "image": "${FH_METRICS_IMAGE}:${FH_METRICS_IMAGE_VERSION}",
-                        "ports": [
-                          {
-                            "containerPort": 8080,
-                            "protocol": "TCP"
-                          }
-                        ],
-                        "env": [
-                          {
-                            "name":"FH_MBAASID",
-                            "value":"${FH_MBAASID}"
-                          },
-                          {
-                            "name": "MONGODB_FHREPORTING_PASSWORD",
-                            "value": "${MONGODB_FHREPORTING_PASSWORD}"
-                          },
-                          {
-                            "name": "MONGODB_FHREPORTING_USER",
-                            "value": "${MONGODB_FHREPORTING_USER}"
-                          },
-                          {
-                            "name": "MONGODB_FHREPORTING_DATABASE",
-                            "value": "fh-reporting"
-                          },
-                          {
-                            "name": "MONGODB_FHMETRICS_USER",
-                            "value": "${MONGODB_FHMETRICS_USER}"
-                          },
-                          {
-                            "name": "MONGODB_FHMETRICS_PASSWORD",
-                            "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                          },
-                          {
-                            "name": "MONGODB_FHMETRICS_DATABASE",
-                            "value": "fh-metrics"
-                          },
-                          {
-                            "name": "FH_METRICS_API_KEY",
-                            "description": "API Key for calling fh-metrics",
-                            "value": "${FH_METRICS_API_KEY}"
-                          }
-                        ],
-                        "resources": {},
-                        "terminationMessagePath": "/dev/termination-log",
-                        "imagePullPolicy": "IfNotPresent",
-                        "securityContext": {
-                          "capabilities": {},
-                          "privileged": false
-                        }
-                      }
-                    ],
-                    "restartPolicy": "Always",
-                    "dnsPolicy": "ClusterFirst"
-                  }
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent",
+                "securityContext": {
+                  "capabilities": {},
+                  "privileged": false
                 }
               }
             ],
@@ -1147,7 +1001,6 @@
       "value":"default",
       "description":"id of the mbaas. A value chosen by the user"
     },
-
     {
       "name": "MONGODB_FHMBAAS_USER",
       "value": "u-mbaas",
