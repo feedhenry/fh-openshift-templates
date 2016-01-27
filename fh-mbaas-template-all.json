@@ -555,6 +555,51 @@
       "status": {}
     },
     {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-claim-1"
+      },
+      "spec": {
+        "accessModes": ["ReadWriteOnce"],
+        "resources": {
+          "requests": {
+            "storage": "50Gi"
+          }
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-claim-2"
+      },
+      "spec": {
+        "accessModes": ["ReadWriteOnce"],
+        "resources": {
+          "requests": {
+            "storage": "50Gi"
+          }
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-claim-3"
+      },
+      "spec": {
+        "accessModes": ["ReadWriteOnce"],
+        "resources": {
+          "requests": {
+            "storage": "50Gi"
+          }
+        }
+      }
+    },
+    {
       "kind": "Pod",
       "apiVersion": "v1",
       "metadata": {
@@ -564,6 +609,14 @@
         }
       },
       "spec": {
+        "volumes": [
+          {
+            "name": "mongodb-data-volume",
+            "persistentVolumeClaim": {
+              "claimName": "mongodb-claim-1"
+            }
+          }
+        ],
         "containers": [
           {
             "name": "mongodb",
@@ -572,6 +625,12 @@
               {
                 "containerPort": 27017,
                 "protocol": "TCP"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "mongodb-data-volume",
+                "mountPath": "/var/lib/mongodb/data"
               }
             ],
             "env": [
@@ -650,6 +709,14 @@
         }
       },
       "spec": {
+        "volumes": [
+          {
+            "name": "mongodb-data-volume",
+            "persistentVolumeClaim": {
+              "claimName": "mongodb-claim-2"
+            }
+          }
+        ],
         "containers": [
           {
             "name": "mongodb",
@@ -658,6 +725,12 @@
               {
                 "containerPort": 27017,
                 "protocol": "TCP"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "mongodb-data-volume",
+                "mountPath": "/var/lib/mongodb/data"
               }
             ],
             "env": [
@@ -736,6 +809,14 @@
         }
       },
       "spec": {
+        "volumes": [
+          {
+            "name": "mongodb-data-volume",
+            "persistentVolumeClaim": {
+              "claimName": "mongodb-claim-3"
+            }
+          }
+        ],
         "containers": [
           {
             "name": "mongodb",
@@ -744,6 +825,12 @@
               {
                 "containerPort": 27017,
                 "protocol": "TCP"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "mongodb-data-volume",
+                "mountPath": "/var/lib/mongodb/data"
               }
             ],
             "env": [
