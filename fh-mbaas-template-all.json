@@ -644,7 +644,7 @@
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
-                "value": "supersecuretoo"
+                "value": "${MONGODB_KEYFILE_VALUE}"
               },
               {
                 "name": "MONGODB_FHMBAAS_USER",
@@ -744,7 +744,7 @@
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
-                "value": "supersecuretoo"
+                "value": "${MONGODB_KEYFILE_VALUE}"
               },
               {
                 "name": "MONGODB_FHMBAAS_USER",
@@ -844,7 +844,7 @@
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
-                "value": "supersecuretoo"
+                "value": "${MONGODB_KEYFILE_VALUE}"
               },
               {
                 "name": "MONGODB_FHMBAAS_USER",
@@ -934,7 +934,7 @@
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
-                "value": "supersecuretoo"
+                "value": "${MONGODB_KEYFILE_VALUE}"
               },
               {
                 "name": "MONGODB_FHMBAAS_USER",
@@ -1113,6 +1113,12 @@
       "description":  "The MBaaS key",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "MONGODB_KEYFILE_VALUE",
+      "description": "The value of the MongoDB Key",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{255}"
     },
     {
       "name": "MONGODB_ADMIN_PASSWORD",
