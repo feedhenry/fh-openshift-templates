@@ -5,6 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
+      "templateVersion": "0.6.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -644,7 +645,7 @@
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
-                "value": "supersecuretoo"
+                "value": "${MONGODB_KEYFILE_VALUE}"
               },
               {
                 "name": "MONGODB_FHMBAAS_USER",
@@ -744,7 +745,7 @@
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
-                "value": "supersecuretoo"
+                "value": "${MONGODB_KEYFILE_VALUE}"
               },
               {
                 "name": "MONGODB_FHMBAAS_USER",
@@ -844,7 +845,7 @@
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
-                "value": "supersecuretoo"
+                "value": "${MONGODB_KEYFILE_VALUE}"
               },
               {
                 "name": "MONGODB_FHMBAAS_USER",
@@ -934,7 +935,7 @@
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
-                "value": "supersecuretoo"
+                "value": "${MONGODB_KEYFILE_VALUE}"
               },
               {
                 "name": "MONGODB_FHMBAAS_USER",
@@ -1115,6 +1116,12 @@
       "from": "[a-zA-Z0-9]{40}"
     },
     {
+      "name": "MONGODB_KEYFILE_VALUE",
+      "description": "The value of the MongoDB Key",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{255}"
+    },
+    {
       "name": "MONGODB_ADMIN_PASSWORD",
       "description":  "The MongoDB Admin password",
       "generate": "expression",
@@ -1149,7 +1156,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "3.0.0-406",
+      "value": "3.0.0-460",
       "description":  "The version for the FH_MBAAS_IMAGE"
     },
     {
@@ -1159,7 +1166,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "1.0.0-212",
+      "value": "1.0.0-250",
       "description":  "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -1169,7 +1176,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "1.0.0-212",
+      "value": "1.0.0-250",
       "description":  "The version for the FH_METRICS_IMAGE"
     },
     {

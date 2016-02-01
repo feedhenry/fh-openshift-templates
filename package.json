@@ -1,7 +1,7 @@
 {
   "name": "fh-openshift-templates",
   "description": "OpenShift V3 Templates for FH MBaaS",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/fheng/fh-openshift-templates.git"
