@@ -5,7 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.6.0",
+      "templateVersion": "0.7.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -602,6 +602,9 @@
             }
           },
           "spec": {
+            "nodeSelector": {
+              "mbaas_id": "mbaas1"
+            },
             "volumes": [
               {
                 "name": "mongodb-data-volume",
@@ -740,6 +743,9 @@
             }
           },
           "spec": {
+            "nodeSelector": {
+              "mbaas_id": "mbaas2"
+            },
             "volumes": [
               {
                 "name": "mongodb-data-volume",
@@ -878,6 +884,9 @@
             }
           },
           "spec": {
+            "nodeSelector": {
+              "mbaas_id": "mbaas3"
+            },
             "volumes": [
               {
                 "name": "mongodb-data-volume",
