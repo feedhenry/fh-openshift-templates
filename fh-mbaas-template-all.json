@@ -5,7 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.7.0",
+      "templateVersion": "0.8.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -180,7 +180,16 @@
             "intervalSeconds": 1,
             "timeoutSeconds": 300
           },
-          "resources": {}
+          "resources" : {
+            "limits": {
+              "cpu": "800m",
+              "memory": "800Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
         },
         "triggers": [
           {
@@ -249,7 +258,16 @@
                     "value": "${FH_MESSAGING_API_KEY}"
                   }
                 ],
-                "resources": {},
+                "resources" : {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent",
                 "securityContext": {
@@ -283,7 +301,16 @@
             "intervalSeconds": 1,
             "timeoutSeconds": 300
           },
-          "resources": {}
+          "resources" : {
+            "limits": {
+              "cpu": "400m",
+              "memory": "400Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
         },
         "triggers": [
           {
@@ -347,7 +374,16 @@
                     "value": "${FH_MESSAGING_API_KEY}"
                   }
                 ],
-                "resources": {},
+                "resources" : {
+                  "limits": {
+                    "cpu": "400m",
+                    "memory": "400Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent",
                 "securityContext": {
@@ -381,7 +417,16 @@
             "intervalSeconds": 1,
             "timeoutSeconds": 300
           },
-          "resources": {}
+          "resources" : {
+            "limits": {
+              "cpu": "400m",
+              "memory": "400Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
         },
         "triggers": [
           {
@@ -445,7 +490,16 @@
                     "value": "${FH_METRICS_API_KEY}"
                   }
                 ],
-                "resources": {},
+                "resources" : {
+                  "limits": {
+                    "cpu": "400m",
+                    "memory": "400Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent",
                 "securityContext": {
@@ -479,7 +533,16 @@
             "intervalSeconds": 1,
             "timeoutSeconds": 300
           },
-          "resources": {}
+          "resources" : {
+            "limits": {
+              "cpu": "400m",
+              "memory": "400Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
         },
         "triggers": [
           {
@@ -509,7 +572,16 @@
                   }
                 ],
                 "env": [],
-                "resources": {},
+                "resources" : {
+                  "limits": {
+                    "cpu": "400m",
+                    "memory": "400Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent",
                 "securityContext": {
@@ -583,7 +655,16 @@
       "spec": {
         "strategy": {
           "type": "Recreate",
-          "resources": {}
+          "resources" : {
+            "limits": {
+              "cpu": "1000m",
+              "memory": "1000Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
         },
         "triggers": [
           {
@@ -699,7 +780,16 @@
                     "value": "fh-reporting"
                   }
                 ],
-                "resources": {},
+                "resources" : {
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "1000Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent"
               }
@@ -724,7 +814,16 @@
       "spec": {
         "strategy": {
           "type": "Recreate",
-          "resources": {}
+          "resources" : {
+            "limits": {
+              "cpu": "1000m",
+              "memory": "1000Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
         },
         "triggers": [
           {
@@ -840,7 +939,16 @@
                     "value": "fh-reporting"
                   }
                 ],
-                "resources": {},
+                "resources" : {
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "1000Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent"
               }
@@ -865,7 +973,16 @@
       "spec": {
         "strategy": {
           "type": "Recreate",
-          "resources": {}
+          "resources" : {
+            "limits": {
+              "cpu": "1000m",
+              "memory": "1000Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
         },
         "triggers": [
           {
@@ -981,7 +1098,16 @@
                     "value": "fh-reporting"
                   }
                 ],
-                "resources": {},
+                "resources" : {
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "1000Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent"
               }
