@@ -208,6 +208,9 @@
             }
           },
           "spec": {
+            "nodeSelector": {
+              "type": "mbaas"
+            },
             "containers": [
               {
                 "name": "fh-mbaas",
@@ -329,6 +332,9 @@
             }
           },
           "spec": {
+            "nodeSelector": {
+              "type": "mbaas"
+            },
             "containers": [
               {
                 "name": "fh-messaging",
@@ -445,6 +451,9 @@
             }
           },
           "spec": {
+            "nodeSelector": {
+              "type": "mbaas"
+            },
             "containers": [
               {
                 "name": "fh-metrics",
@@ -561,6 +570,9 @@
             }
           },
           "spec": {
+            "nodeSelector": {
+              "type": "mbaas"
+            },
             "containers": [
               {
                 "name": "fh-statsd",
