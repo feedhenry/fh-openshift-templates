@@ -1214,7 +1214,7 @@
               },
               {
                 "name": "ENDPOINT_COUNT",
-                "value": "3"
+                "value": "1"
               }
             ],
             "terminationMessagePath": "/dev/termination-log",
@@ -1381,7 +1381,7 @@
     {
       "name": "ENDPOINT_COUNT",
       "description":  "The amount of database's to create a replica set",
-      "value": "3"
+      "value": "1"
     }
   ]
 }
