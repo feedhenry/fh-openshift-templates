@@ -5,7 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.8.0",
+      "templateVersion": "0.9.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -114,11 +114,16 @@
       "spec": {
         "ports": [
           {
-            "name": "fh-statsd-service-ports",
+            "name": "tcp",
             "protocol": "TCP",
             "port": 8080,
-            "targetPort": 8080,
-            "nodePort": 0
+            "targetPort": 8080
+          },
+          {
+            "name": "udp",
+            "protocol": "UDP",
+            "port": 8081,
+            "targetPort": 8081
           }
         ],
         "selector": {
