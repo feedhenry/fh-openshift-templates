@@ -5,11 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-<<<<<<< HEAD:fh-mbaas-template-3node.json
       "templateVersion": "0.10.0",
-=======
-      "templateVersion": "0.9.0",
->>>>>>> origin/master:fh-mbaas-template-all.json
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
