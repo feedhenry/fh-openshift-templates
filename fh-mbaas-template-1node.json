@@ -5,7 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.9.0",
+      "templateVersion": "0.10.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -201,7 +201,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 3,
+        "replicas": 1,
         "selector": {
           "name": "fh-mbaas"
         },
@@ -213,9 +213,6 @@
             }
           },
           "spec": {
-            "nodeSelector": {
-              "type": "mbaas"
-            },
             "containers": [
               {
                 "name": "fh-mbaas",
@@ -325,7 +322,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 3,
+        "replicas": 1,
         "selector": {
           "name": "fh-messaging"
         },
@@ -337,9 +334,6 @@
             }
           },
           "spec": {
-            "nodeSelector": {
-              "type": "mbaas"
-            },
             "containers": [
               {
                 "name": "fh-messaging",
@@ -444,7 +438,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 3,
+        "replicas": 1,
         "selector": {
           "name": "fh-metrics"
         },
@@ -456,9 +450,6 @@
             }
           },
           "spec": {
-            "nodeSelector": {
-              "type": "mbaas"
-            },
             "containers": [
               {
                 "name": "fh-metrics",
@@ -575,9 +566,6 @@
             }
           },
           "spec": {
-            "nodeSelector": {
-              "type": "mbaas"
-            },
             "containers": [
               {
                 "name": "fh-statsd",
@@ -613,51 +601,6 @@
         }
       },
       "status": {}
-    },
-    {
-      "kind": "PersistentVolumeClaim",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mongodb-claim-1"
-      },
-      "spec": {
-        "accessModes": ["ReadWriteOnce"],
-        "resources": {
-          "requests": {
-            "storage": "50Gi"
-          }
-        }
-      }
-    },
-    {
-      "kind": "PersistentVolumeClaim",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mongodb-claim-2"
-      },
-      "spec": {
-        "accessModes": ["ReadWriteOnce"],
-        "resources": {
-          "requests": {
-            "storage": "50Gi"
-          }
-        }
-      }
-    },
-    {
-      "kind": "PersistentVolumeClaim",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mongodb-claim-3"
-      },
-      "spec": {
-        "accessModes": ["ReadWriteOnce"],
-        "resources": {
-          "requests": {
-            "storage": "50Gi"
-          }
-        }
-      }
     },
     {
       "kind": "DeploymentConfig",
@@ -700,17 +643,6 @@
             }
           },
           "spec": {
-            "nodeSelector": {
-              "mbaas_id": "mbaas1"
-            },
-            "volumes": [
-              {
-                "name": "mongodb-data-volume",
-                "persistentVolumeClaim": {
-                  "claimName": "mongodb-claim-1"
-                }
-              }
-            ],
             "containers": [
               {
                 "name": "mongodb-service",
@@ -719,330 +651,6 @@
                   {
                     "containerPort": 27017,
                     "protocol": "TCP"
-                  }
-                ],
-                "volumeMounts": [
-                  {
-                    "name": "mongodb-data-volume",
-                    "mountPath": "/var/lib/mongodb/data"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "MONGODB_REPLICA_NAME",
-                    "value": "rs0"
-                  },
-                  {
-                    "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb-service"
-                  },
-                  {
-                    "name": "MONGODB_KEYFILE_VALUE",
-                    "value": "${MONGODB_KEYFILE_VALUE}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_USER",
-                    "value": "${MONGODB_FHMBAAS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_DATABASE",
-                    "value": "fh-mbaas"
-                  },
-                  {
-                    "name": "FHMBAAS_KEY",
-                    "value": "${FHMBAAS_KEY}"
-                  },
-                  {
-                    "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "value": "${MONGODB_FHSTATSD_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_DATABASE",
-                    "value": "fh-statsd"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value": "fh-reporting"
-                  }
-                ],
-                "resources" : {
-                  "limits": {
-                    "cpu": "1000m",
-                    "memory": "1000Mi"
-                  },
-                  "requests": {
-                    "cpu": "200m",
-                    "memory": "200Mi"
-                  }
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
-          }
-        }
-      },
-      "status": {}
-    },
-    {
-      "kind": "DeploymentConfig",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mongodb-2",
-        "creationTimestamp": null,
-        "labels": {
-          "name": "mongodb"
-        }
-      },
-      "spec": {
-        "strategy": {
-          "type": "Recreate",
-          "resources" : {
-            "limits": {
-              "cpu": "1000m",
-              "memory": "1000Mi"
-            },
-            "requests": {
-              "cpu": "200m",
-              "memory": "200Mi"
-            }
-          }
-        },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
-        "replicas": 1,
-        "selector": {
-          "name": "mongodb-replica"
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "name": "mongodb-replica"
-            }
-          },
-          "spec": {
-            "nodeSelector": {
-              "mbaas_id": "mbaas2"
-            },
-            "volumes": [
-              {
-                "name": "mongodb-data-volume",
-                "persistentVolumeClaim": {
-                  "claimName": "mongodb-claim-2"
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "mongodb-service",
-                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
-                "ports": [
-                  {
-                    "containerPort": 27017,
-                    "protocol": "TCP"
-                  }
-                ],
-                "volumeMounts": [
-                  {
-                    "name": "mongodb-data-volume",
-                    "mountPath": "/var/lib/mongodb/data"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "MONGODB_REPLICA_NAME",
-                    "value": "rs0"
-                  },
-                  {
-                    "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb-service"
-                  },
-                  {
-                    "name": "MONGODB_KEYFILE_VALUE",
-                    "value": "${MONGODB_KEYFILE_VALUE}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_USER",
-                    "value": "${MONGODB_FHMBAAS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_DATABASE",
-                    "value": "fh-mbaas"
-                  },
-                  {
-                    "name": "FHMBAAS_KEY",
-                    "value": "${FHMBAAS_KEY}"
-                  },
-                  {
-                    "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "value": "${MONGODB_FHSTATSD_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_DATABASE",
-                    "value": "fh-statsd"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value": "fh-reporting"
-                  }
-                ],
-                "resources" : {
-                  "limits": {
-                    "cpu": "1000m",
-                    "memory": "1000Mi"
-                  },
-                  "requests": {
-                    "cpu": "200m",
-                    "memory": "200Mi"
-                  }
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
-          }
-        }
-      },
-      "status": {}
-    },
-    {
-      "kind": "DeploymentConfig",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mongodb-3",
-        "creationTimestamp": null,
-        "labels": {
-          "name": "mongodb"
-        }
-      },
-      "spec": {
-        "strategy": {
-          "type": "Recreate",
-          "resources" : {
-            "limits": {
-              "cpu": "1000m",
-              "memory": "1000Mi"
-            },
-            "requests": {
-              "cpu": "200m",
-              "memory": "200Mi"
-            }
-          }
-        },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
-        "replicas": 1,
-        "selector": {
-          "name": "mongodb-replica"
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "name": "mongodb-replica"
-            }
-          },
-          "spec": {
-            "nodeSelector": {
-              "mbaas_id": "mbaas3"
-            },
-            "volumes": [
-              {
-                "name": "mongodb-data-volume",
-                "persistentVolumeClaim": {
-                  "claimName": "mongodb-claim-3"
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "mongodb-service",
-                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
-                "ports": [
-                  {
-                    "containerPort": 27017,
-                    "protocol": "TCP"
-                  }
-                ],
-                "volumeMounts": [
-                  {
-                    "name": "mongodb-data-volume",
-                    "mountPath": "/var/lib/mongodb/data"
                   }
                 ],
                 "env": [
@@ -1216,6 +824,10 @@
               {
                 "name": "MONGODB_FHREPORTING_DATABASE",
                 "value": "fh-reporting"
+              },
+              {
+                "name": "ENDPOINT_COUNT",
+                "value": "${ENDPOINT_COUNT}"
               }
             ],
             "terminationMessagePath": "/dev/termination-log",
@@ -1378,6 +990,26 @@
       "name": "MBAAS_ROUTER_DNS",
       "description":  "The DNS name for the MBaaS Router",
       "value": "mbaas.example.com"
+    },
+    {
+      "name": "ENDPOINT_COUNT",
+      "description":  "The amount of database's to create a replica set",
+      "value": "3"
+    },
+    {
+      "name": "FH_MBAAS_REPLICAS",
+      "description": "Replica used for sizing",
+      "value": "3"
+    },
+    {
+      "name": "FH_MESSAGING_REPLICAS",
+      "description": "Replica used for sizing",
+      "value": "3"
+    },
+    {
+      "name": "FH_METRICS_REPLICAS",
+      "description": "Replica used for sizing",
+      "value": "3"
     }
   ]
 }
