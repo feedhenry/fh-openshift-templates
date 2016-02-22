@@ -994,22 +994,22 @@
     {
       "name": "ENDPOINT_COUNT",
       "description":  "The amount of database's to create a replica set",
-      "value": "3"
+      "value": "1"
     },
     {
       "name": "FH_MBAAS_REPLICAS",
       "description": "Replica used for sizing",
-      "value": "3"
+      "value": "1"
     },
     {
       "name": "FH_MESSAGING_REPLICAS",
       "description": "Replica used for sizing",
-      "value": "3"
+      "value": "1"
     },
     {
       "name": "FH_METRICS_REPLICAS",
       "description": "Replica used for sizing",
-      "value": "3"
+      "value": "1"
     }
   ]
 }
