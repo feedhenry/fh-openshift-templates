@@ -971,7 +971,7 @@
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "2.4-11",
+      "value": "2.4-12",
       "description":  "The version for the MONGODB_IMAGE"
     },
     {
