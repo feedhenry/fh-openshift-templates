@@ -941,7 +941,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "1.1.0-272",
+      "value": "1.1.1-277",
       "description":  "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -951,7 +951,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "1.1.0-272",
+      "value": "1.1.0-277",
       "description":  "The version for the FH_METRICS_IMAGE"
     },
     {
