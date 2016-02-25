@@ -5,7 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.10.0",
+      "templateVersion": "0.10.0-redhat-1",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -1244,29 +1244,29 @@
   ],
   "parameters": [
     {
-      "name": "FH_CLUSTER",
-      "value": "development",
-      "description": "the name of the cluster the mbaas was created from"
+      "name":"FH_CLUSTER",
+      "value":"development",
+      "description":"the name of the cluster the mbaas was created from"
     },
     {
-      "name": "FH_MBAASID",
-      "value": "default",
-      "description": "id of the mbaas. A value chosen by the user"
+      "name":"FH_MBAASID",
+      "value":"default",
+      "description":"id of the mbaas. A value chosen by the user"
     },
     {
       "name": "MONGODB_FHMBAAS_USER",
       "value": "u-mbaas",
-      "description": "The MongoDB user name"
+      "description":  "The MongoDB user name"
     },
     {
       "name": "MONGODB_FHMBAAS_PASSWORD",
-      "description": "The MongoDB password",
+      "description":  "The MongoDB password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "FHMBAAS_KEY",
-      "description": "The MBaaS key",
+      "description":  "The MBaaS key",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
@@ -1278,102 +1278,102 @@
     },
     {
       "name": "MONGODB_ADMIN_PASSWORD",
-      "description": "The MongoDB Admin password",
+      "description":  "The MongoDB Admin password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "MONGODB_FHREPORTING_USER",
       "value": "u-reporting",
-      "description": "The Reporting user name"
+      "description":  "The Reporting user name"
     },
     {
       "name": "MONGODB_FHREPORTING_PASSWORD",
-      "description": "The MongoDB Reporting password",
+      "description":  "The MongoDB Reporting password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "MONGODB_FHMETRICS_USER",
       "value": "u-metrics",
-      "description": "The Metrics user name"
+      "description":  "The Metrics user name"
     },
     {
       "name": "MONGODB_FHMETRICS_PASSWORD",
-      "description": "The MongoDB Metrics password",
+      "description":  "The MongoDB Metrics password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "FH_MBAAS_IMAGE",
-      "value": "docker.io/rhmap/fh-mbaas",
-      "description": "The name of the fh-mbaas image"
+      "value": "rhmap40_beta/fh-mbaas",
+      "description":  "The name of the fh-mbaas image"
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "3.0.4-528",
+      "value": "3.0.4-1",
       "description":  "The version for the FH_MBAAS_IMAGE"
     },
     {
       "name": "FH_MESSAGING_IMAGE",
-      "value": "docker.io/rhmap/fh-messaging",
-      "description": "The name of the fh-messaging image"
+      "value": "rhmap40_beta/fh-messaging",
+      "description":  "The name of the fh-messaging image"
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "1.1.0-272",
-      "description": "The version for the FH_MESSAGING_IMAGE"
+      "value": "1.1.0-1",
+      "description":  "The version for the FH_MESSAGING_IMAGE"
     },
     {
       "name": "FH_METRICS_IMAGE",
-      "value": "docker.io/rhmap/fh-metrics",
-      "description": "The name of the fh-metrics image"
+      "value": "rhmap40_beta/fh-metrics",
+      "description":  "The name of the fh-metrics image"
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "1.1.0-272",
-      "description": "The version for the FH_METRICS_IMAGE"
+      "value": "1.1.0-1",
+      "description":  "The version for the FH_METRICS_IMAGE"
     },
     {
       "name": "FH_STATSD_IMAGE",
-      "value": "docker.io/rhmap/fh-statsd",
-      "description": "The name of the fh-statsd image"
+      "value": "rhmap40_beta/fh-statsd",
+      "description":  "The name of the fh-statsd image"
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
-      "value": "1.2.2-70",
+      "value": "1.2.2-1",
       "description":  "The version for the FH_STATSD_IMAGE"
     },
     {
       "name": "MONGODB_IMAGE",
-      "value": "docker.io/rhmap/mongodb",
-      "description": "The name of the mongodb image"
+      "value": "rhmap40_beta/mongodb",
+      "description":  "The name of the mongodb image"
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "2.4-11",
-      "description": "The version for the MONGODB_IMAGE"
+      "value": "0.1-5",
+      "description":  "The version for the MONGODB_IMAGE"
     },
     {
       "name": "FH_MESSAGING_API_KEY",
-      "description": "Key for communicating with the FH_MESSAGING Service",
+      "description":  "Key for communicating with the FH_MESSAGING Service",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "FH_METRICS_API_KEY",
-      "description": "Key for communicating with the FH_METRICS Service",
+      "description":  "Key for communicating with the FH_METRICS Service",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "MBAAS_ROUTER_DNS",
-      "description": "The DNS name for the MBaaS Router",
+      "description":  "The DNS name for the MBaaS Router",
       "value": "mbaas.example.com"
     },
     {
       "name": "ENDPOINT_COUNT",
-      "description": "The amount of database's to create a replica set",
+      "description":  "The amount of database's to create a replica set",
       "value": "3"
     },
     {
