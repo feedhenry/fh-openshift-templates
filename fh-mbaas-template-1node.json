@@ -5,7 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.10.0",
+      "templateVersion": "0.11.0-redhat-3",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -926,52 +926,52 @@
     },
     {
       "name": "FH_MBAAS_IMAGE",
-      "value": "docker.io/rhmap/fh-mbaas",
+      "value": "rhmap40_beta/fh-mbaas",
       "description":  "The name of the fh-mbaas image"
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "3.0.4-528",
+      "value": "3.0.4-3",
       "description":  "The version for the FH_MBAAS_IMAGE"
     },
     {
       "name": "FH_MESSAGING_IMAGE",
-      "value": "docker.io/rhmap/fh-messaging",
+      "value": "rhmap40_beta/fh-messaging",
       "description":  "The name of the fh-messaging image"
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "1.1.1-277",
+      "value": "1.1.1-3",
       "description":  "The version for the FH_MESSAGING_IMAGE"
     },
     {
       "name": "FH_METRICS_IMAGE",
-      "value": "docker.io/rhmap/fh-metrics",
+      "value": "rhmap40_beta/fh-metrics",
       "description":  "The name of the fh-metrics image"
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "1.1.0-277",
+      "value": "1.1.0-4",
       "description":  "The version for the FH_METRICS_IMAGE"
     },
     {
       "name": "FH_STATSD_IMAGE",
-      "value": "docker.io/rhmap/fh-statsd",
+      "value": "rhmap40_beta/fh-statsd",
       "description":  "The name of the fh-statsd image"
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
-      "value": "1.2.2-70",
+      "value": "1.2.2-3",
       "description":  "The version for the FH_STATSD_IMAGE"
     },
     {
       "name": "MONGODB_IMAGE",
-      "value": "docker.io/rhmap/mongodb",
+      "value": "rhmap40_beta/mongodb",
       "description":  "The name of the mongodb image"
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "2.4-12",
+      "value": "0.1-8",
       "description":  "The version for the MONGODB_IMAGE"
     },
     {
