@@ -5,7 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.12.0",
+      "templateVersion": "0.13.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -1214,7 +1214,7 @@
             "imagePullPolicy": "IfNotPresent"
           }
         ],
-        "restartPolicy": "OnFailure",
+        "restartPolicy": "Never",
         "dnsPolicy": "ClusterFirst"
       }
     },
