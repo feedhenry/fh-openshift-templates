@@ -581,7 +581,13 @@
                     "protocol": "TCP"
                   }
                 ],
-                "env": [],
+                "env": [
+                  {
+                    "name": "FH_STATSD_API_KEY",
+                    "description": "API Key for calling fh-statsd",
+                    "value": "${FH_STATSD_API_KEY}"
+                  }
+                ],
                 "resources" : {
                   "limits": {
                     "cpu": "400m",
