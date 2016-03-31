@@ -261,6 +261,11 @@
                     "name": "FH_MESSAGING_API_KEY",
                     "description": "API Key for calling fh-messaging",
                     "value": "${FH_MESSAGING_API_KEY}"
+                  },
+                  {
+                    "name": "FH_STATSD_API_KEY",
+                    "description": "API Key for calling fh-statsd",
+                    "value": "${FH_STATSD_API_KEY}"
                   }
                 ],
                 "resources": {
@@ -1390,6 +1395,12 @@
       "name": "FH_METRICS_REPLICAS",
       "description": "Replica used for sizing",
       "value": "3"
+    },
+    {
+      "name": "FH_STATSD_API_KEY",
+      "description":  "Key for communicating with the FH_STATSD Service",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
     }
   ]
 }
