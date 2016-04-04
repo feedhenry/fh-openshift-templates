@@ -261,6 +261,11 @@
                     "name": "FH_MESSAGING_API_KEY",
                     "description": "API Key for calling fh-messaging",
                     "value": "${FH_MESSAGING_API_KEY}"
+                  },
+                  {
+                    "name": "FH_STATSD_API_KEY",
+                    "description": "API Key for calling fh-statsd",
+                    "value": "${FH_STATSD_API_KEY}"
                   }
                 ],
                 "resources" : {
@@ -576,7 +581,13 @@
                     "protocol": "TCP"
                   }
                 ],
-                "env": [],
+                "env": [
+                  {
+                    "name": "FH_STATSD_API_KEY",
+                    "description": "API Key for calling fh-statsd",
+                    "value": "${FH_STATSD_API_KEY}"
+                  }
+                ],
                 "resources" : {
                   "limits": {
                     "cpu": "400m",
@@ -931,7 +942,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "3.3.7-618",
+      "value": "3.4.0-647",
       "description":  "The version for the FH_MBAAS_IMAGE"
     },
     {
@@ -961,7 +972,7 @@
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
-      "value": "1.2.2-70",
+      "value": "1.2.3-72",
       "description":  "The version for the FH_STATSD_IMAGE"
     },
     {
@@ -1010,6 +1021,12 @@
       "name": "FH_METRICS_REPLICAS",
       "description": "Replica used for sizing",
       "value": "1"
+    },
+    {
+      "name": "FH_STATSD_API_KEY",
+      "description":  "Key for communicating with the FH_STATSD Service",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
     }
   ]
 }
