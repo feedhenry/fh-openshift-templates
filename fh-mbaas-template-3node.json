@@ -5,7 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.15.3",
+      "templateVersion": "0.15.3-redhat-1",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -1306,53 +1306,53 @@
     },
     {
       "name": "FH_MBAAS_IMAGE",
-      "value": "docker.io/rhmap/fh-mbaas",
-      "description": "The name of the fh-mbaas image"
+      "value": "rhmap4/fh-mbaas",
+      "description":  "The name of the fh-mbaas image"
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "3.3.7-618",
+      "value": "3.3.7-1",
       "description":  "The version for the FH_MBAAS_IMAGE"
     },
     {
       "name": "FH_MESSAGING_IMAGE",
-      "value": "docker.io/rhmap/fh-messaging",
-      "description": "The name of the fh-messaging image"
+      "value": "rhmap4/fh-messaging",
+      "description":  "The name of the fh-messaging image"
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "1.1.2-287",
-      "description": "The version for the FH_MESSAGING_IMAGE"
+      "value": "1.1.2-1",
+      "description":  "The version for the FH_MESSAGING_IMAGE"
     },
     {
       "name": "FH_METRICS_IMAGE",
-      "value": "docker.io/rhmap/fh-metrics",
-      "description": "The name of the fh-metrics image"
+      "value": "rhmap4/fh-metrics",
+      "description":  "The name of the fh-metrics image"
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "1.1.1-287",
-      "description": "The version for the FH_METRICS_IMAGE"
+      "value": "1.1.1-1",
+      "description":  "The version for the FH_METRICS_IMAGE"
     },
     {
       "name": "FH_STATSD_IMAGE",
-      "value": "docker.io/rhmap/fh-statsd",
-      "description": "The name of the fh-statsd image"
+      "value": "rhmap4/fh-statsd",
+      "description":  "The name of the fh-statsd image"
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
-      "value": "1.2.2-70",
+      "value": "1.2.2-6",
       "description":  "The version for the FH_STATSD_IMAGE"
     },
     {
       "name": "MONGODB_IMAGE",
-      "value": "docker.io/rhmap/mongodb",
-      "description": "The name of the mongodb image"
+      "value": "rhmap4/mongodb",
+      "description":  "The name of the mongodb image"
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "2.4-12",
-      "description": "The version for the MONGODB_IMAGE"
+      "value": "2.4-1",
+      "description":  "The version for the MONGODB_IMAGE"
     },
     {
       "name": "FH_MESSAGING_API_KEY",
