@@ -352,7 +352,7 @@
                 "env": [
                   {
                     "name":"FH_MESSAGING_CRON",
-                    "value":"10 0 * * * *"
+                    "value":"10 0 * * *"
                   },
                   {
                     "name": "FH_MBAASID",
