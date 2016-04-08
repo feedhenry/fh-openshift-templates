@@ -956,7 +956,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "1.3.0-326",
+      "value": "1.3.0-327",
       "description":  "The version for the FH_MESSAGING_IMAGE"
     },
     {
