@@ -355,6 +355,10 @@
                 ],
                 "env": [
                   {
+                    "name":"FH_MESSAGING_CRON",
+                    "value":"10 0 * * *"
+                  },
+                  {
                     "name": "FH_MBAASID",
                     "value": "${FH_MBAASID}"
                   },
@@ -968,7 +972,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "1.2.0-322",
+      "value": "1.3.0-328",
       "description":  "The version for the FH_MESSAGING_IMAGE"
     },
     {
