@@ -351,6 +351,10 @@
                 ],
                 "env": [
                   {
+                    "name":"FH_MESSAGING_CRON",
+                    "value":"10 0 * * * *"
+                  },
+                  {
                     "name": "FH_MBAASID",
                     "value": "${FH_MBAASID}"
                   },
@@ -1261,8 +1265,9 @@
     },
     {
       "name": "FH_MBAASID",
-      "value": "default",
-      "description": "id of the mbaas. A value chosen by the user"
+      "description": "id of the mbaas generated.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{20}"
     },
     {
       "name": "MONGODB_FHMBAAS_USER",
