@@ -3,7 +3,6 @@
   "apiVersion": "v1",
   "metadata": {
     "name": "fh-mbaas",
-    "creationTimestamp": null,
     "annotations": {
       "description": "Red Hat Mobile Backend as a Service template (MongoDB-only)",
       "iconClass": "icon-nodejs"
@@ -15,7 +14,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "mongodb-service",
-        "creationTimestamp": null,
         "labels": {
           "name": "mongodb-service"
         }
@@ -36,9 +34,6 @@
         "clusterIP": "None",
         "type": "ClusterIP",
         "sessionAffinity": "None"
-      },
-      "status": {
-        "loadBalancer": {}
       }
     },
     {
@@ -91,7 +86,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "mongodb-1",
-        "creationTimestamp": null,
         "labels": {
           "name": "mongodb"
         }
@@ -121,7 +115,6 @@
         },
         "template": {
           "metadata": {
-            "creationTimestamp": null,
             "labels": {
               "name": "mongodb-replica"
             }
@@ -242,15 +235,13 @@
             "dnsPolicy": "ClusterFirst"
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
         "name": "mongodb-2",
-        "creationTimestamp": null,
         "labels": {
           "name": "mongodb"
         }
@@ -280,7 +271,6 @@
         },
         "template": {
           "metadata": {
-            "creationTimestamp": null,
             "labels": {
               "name": "mongodb-replica"
             }
@@ -401,15 +391,13 @@
             "dnsPolicy": "ClusterFirst"
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
         "name": "mongodb-3",
-        "creationTimestamp": null,
         "labels": {
           "name": "mongodb"
         }
@@ -439,7 +427,6 @@
         },
         "template": {
           "metadata": {
-            "creationTimestamp": null,
             "labels": {
               "name": "mongodb-replica"
             }
@@ -560,8 +547,7 @@
             "dnsPolicy": "ClusterFirst"
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "Pod",
