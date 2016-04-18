@@ -13,9 +13,9 @@
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mongodb-service",
+        "name": "mongodb-1",
         "labels": {
-          "name": "mongodb-service"
+          "name": "mongodb-1"
         }
       },
       "spec": {
@@ -28,7 +28,61 @@
           }
         ],
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-1"
+        },
+        "portalIP": "None",
+        "clusterIP": "None",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      }
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-2",
+        "labels": {
+          "name": "mongodb-2"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 27017,
+            "targetPort": 27017,
+            "nodePort": 0
+          }
+        ],
+        "selector": {
+          "name": "mongodb-replica-2"
+        },
+        "portalIP": "None",
+        "clusterIP": "None",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      }
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-3",
+        "labels": {
+          "name": "mongodb-3"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 27017,
+            "targetPort": 27017,
+            "nodePort": 0
+          }
+        ],
+        "selector": {
+          "name": "mongodb-replica-3"
         },
         "portalIP": "None",
         "clusterIP": "None",
@@ -111,12 +165,12 @@
         ],
         "replicas": 1,
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-1"
         },
         "template": {
           "metadata": {
             "labels": {
-              "name": "mongodb-replica"
+              "name": "mongodb-replica-1"
             }
           },
           "spec": {
@@ -154,7 +208,7 @@
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb-service"
+                    "value": "mongodb"
                   },
                   {
                     "name": "MONGODB_KEYFILE_VALUE",
@@ -267,12 +321,12 @@
         ],
         "replicas": 1,
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-2"
         },
         "template": {
           "metadata": {
             "labels": {
-              "name": "mongodb-replica"
+              "name": "mongodb-replica-2"
             }
           },
           "spec": {
@@ -310,7 +364,7 @@
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb-service"
+                    "value": "mongodb"
                   },
                   {
                     "name": "MONGODB_KEYFILE_VALUE",
@@ -423,12 +477,12 @@
         ],
         "replicas": 1,
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-3"
         },
         "template": {
           "metadata": {
             "labels": {
-              "name": "mongodb-replica"
+              "name": "mongodb-replica-3"
             }
           },
           "spec": {
@@ -466,7 +520,7 @@
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb-service"
+                    "value": "mongodb"
                   },
                   {
                     "name": "MONGODB_KEYFILE_VALUE",
@@ -580,7 +634,7 @@
               },
               {
                 "name": "MONGODB_SERVICE_NAME",
-                "value": "mongodb-service"
+                "value": "mongodb"
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
