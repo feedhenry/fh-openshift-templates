@@ -5,7 +5,7 @@
     "name": "fh-mbaas",
     "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.18.0",
+      "templateVersion": "0.18.0-redhat-2",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -1338,52 +1338,52 @@
     },
     {
       "name": "FH_MBAAS_IMAGE",
-      "value": "docker.io/rhmap/fh-mbaas",
+      "value": "rhmap4/fh-mbaas",
       "description": "The name of the fh-mbaas image"
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "3.5.0-668",
+      "value": "3.5.0-2",
       "description":  "The version for the FH_MBAAS_IMAGE"
     },
     {
       "name": "FH_MESSAGING_IMAGE",
-      "value": "docker.io/rhmap/fh-messaging",
+      "value": "rhmap4/fh-messaging",
       "description": "The name of the fh-messaging image"
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "1.3.0-328",
+      "value": "1.3.0-2",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
       "name": "FH_METRICS_IMAGE",
-      "value": "docker.io/rhmap/fh-metrics",
+      "value": "rhmap4/fh-metrics",
       "description": "The name of the fh-metrics image"
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "1.2.1-329",
+      "value": "1.2.1-2",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
       "name": "FH_STATSD_IMAGE",
-      "value": "docker.io/rhmap/fh-statsd",
+      "value": "rhmap4/fh-statsd",
       "description": "The name of the fh-statsd image"
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
-      "value": "1.3.0-80",
+      "value": "1.3.0-2",
       "description":  "The version for the FH_STATSD_IMAGE"
     },
     {
       "name": "MONGODB_IMAGE",
-      "value": "docker.io/rhmap/mongodb",
+      "value": "rhmap4/mongodb",
       "description": "The name of the mongodb image"
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "2.4-12",
+      "value": "2.4-2",
       "description": "The version for the MONGODB_IMAGE"
     },
     {
@@ -1436,3 +1436,4 @@
     }
   ]
 }
+
