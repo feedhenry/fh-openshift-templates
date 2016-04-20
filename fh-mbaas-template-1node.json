@@ -859,6 +859,10 @@
               {
                 "name": "ENDPOINT_COUNT",
                 "value": "${ENDPOINT_COUNT}"
+              },
+              {
+                "name": "MONGODB_INITIAL_REPLICA_COUNT",
+                "value": "${ENDPOINT_COUNT}"
               }
             ],
             "terminationMessagePath": "/dev/termination-log",
