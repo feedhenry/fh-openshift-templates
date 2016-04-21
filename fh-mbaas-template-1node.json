@@ -3,9 +3,8 @@
   "apiVersion": "v1",
   "metadata": {
     "name": "fh-mbaas",
-    "creationTimestamp": null,
     "annotations": {
-      "templateVersion": "0.18.0",
+      "templateVersion": "0.19.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -16,7 +15,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "fh-mbaas-service",
-        "creationTimestamp": null,
         "labels": {
           "name": "fh-mbaas-service"
         }
@@ -36,9 +34,6 @@
         },
         "type": "ClusterIP",
         "sessionAffinity": "None"
-      },
-      "status": {
-        "loadBalancer": {}
       }
     },
     {
@@ -46,7 +41,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "fh-messaging-service",
-        "creationTimestamp": null,
         "labels": {
           "name": "fh-messaging-service"
         }
@@ -66,9 +60,6 @@
         },
         "type": "ClusterIP",
         "sessionAffinity": "None"
-      },
-      "status": {
-        "loadBalancer": {}
       }
     },
     {
@@ -76,7 +67,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "fh-metrics-service",
-        "creationTimestamp": null,
         "labels": {
           "name": "fh-metrics-service"
         }
@@ -96,9 +86,6 @@
         },
         "type": "ClusterIP",
         "sessionAffinity": "None"
-      },
-      "status": {
-        "loadBalancer": {}
       }
     },
     {
@@ -106,7 +93,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "fh-statsd-service",
-        "creationTimestamp": null,
         "labels": {
           "name": "fh-statsd-service"
         }
@@ -131,9 +117,6 @@
         },
         "type": "ClusterIP",
         "sessionAffinity": "None"
-      },
-      "status": {
-        "loadBalancer": {}
       }
     },
     {
@@ -141,7 +124,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "mongodb-service",
-        "creationTimestamp": null,
         "labels": {
           "name": "mongodb-service"
         }
@@ -162,9 +144,6 @@
         "clusterIP": "None",
         "type": "ClusterIP",
         "sessionAffinity": "None"
-      },
-      "status": {
-        "loadBalancer": {}
       }
     },
     {
@@ -172,7 +151,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "fh-mbaas",
-        "creationTimestamp": null,
         "labels": {
           "name": "fh-mbaas"
         }
@@ -207,7 +185,6 @@
         },
         "template": {
           "metadata": {
-            "creationTimestamp": null,
             "labels": {
               "name": "fh-mbaas"
             }
@@ -294,15 +271,13 @@
             "dnsPolicy": "ClusterFirst"
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
         "name": "fh-messaging",
-        "creationTimestamp": null,
         "labels": {
           "name": "fh-messaging"
         }
@@ -337,7 +312,6 @@
         },
         "template": {
           "metadata": {
-            "creationTimestamp": null,
             "labels": {
               "name": "fh-messaging"
             }
@@ -418,15 +392,13 @@
             "dnsPolicy": "ClusterFirst"
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
         "name": "fh-metrics",
-        "creationTimestamp": null,
         "labels": {
           "name": "fh-metrics"
         }
@@ -461,7 +433,6 @@
         },
         "template": {
           "metadata": {
-            "creationTimestamp": null,
             "labels": {
               "name": "fh-metrics"
             }
@@ -538,15 +509,13 @@
             "dnsPolicy": "ClusterFirst"
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
         "name": "fh-statsd",
-        "creationTimestamp": null,
         "labels": {
           "name": "fh-statsd"
         }
@@ -581,7 +550,6 @@
         },
         "template": {
           "metadata": {
-            "creationTimestamp": null,
             "labels": {
               "name": "fh-statsd"
             }
@@ -630,15 +598,13 @@
             "dnsPolicy": "ClusterFirst"
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
         "name": "mongodb-1",
-        "creationTimestamp": null,
         "labels": {
           "name": "mongodb"
         }
@@ -668,7 +634,6 @@
         },
         "template": {
           "metadata": {
-            "creationTimestamp": null,
             "labels": {
               "name": "mongodb-replica"
             }
@@ -772,8 +737,7 @@
             "dnsPolicy": "ClusterFirst"
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "Pod",
@@ -859,6 +823,10 @@
               {
                 "name": "ENDPOINT_COUNT",
                 "value": "${ENDPOINT_COUNT}"
+              },
+              {
+                "name": "MONGODB_INITIAL_REPLICA_COUNT",
+                "value": "${ENDPOINT_COUNT}"
               }
             ],
             "terminationMessagePath": "/dev/termination-log",
@@ -874,7 +842,6 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "mbaas",
-        "creationTimestamp": null,
         "annotations": {
           "openshift.io/host.generated": "false"
         }
@@ -889,8 +856,7 @@
           "termination": "edge",
           "insecureEdgeTerminationPolicy": "Allow"
         }
-      },
-      "status": {}
+      }
     }
   ],
   "parameters": [
