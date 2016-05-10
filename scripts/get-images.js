@@ -15,7 +15,7 @@ function reduceGroupedParams(paramGroup, accum) {
 
 var relevantParameters = _.filter(template.parameters, function(parameter) {
   return parameter.name &&
-    _.split(parameter.name, NAME_SUFFIX_REGEXP).length == 2;
+    _.split(parameter.name, NAME_SUFFIX_REGEXP).length === 2;
 });
 
 var groupedComponents = _.groupBy(relevantParameters, namePropertyWithoutSuffix);
