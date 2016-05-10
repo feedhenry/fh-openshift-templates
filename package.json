@@ -13,7 +13,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "grunt": "^1.0.1",
-    "grunt-fh-build": "^1.0.1",
+    "grunt-fh-build": "^1.0.2",
     "grunt-jsonlint": "^1.0.6"
   },
   "dependencies": {
