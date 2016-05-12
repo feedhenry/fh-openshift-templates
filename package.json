@@ -4,7 +4,8 @@
   "version": "0.19.0",
   "scripts": {
     "get-images": "node ./scripts/get-images.js",
-    "update-images": "node ./scripts/update-image.js"
+    "update-images": "node ./scripts/update-image.js",
+    "version": "node ./scripts/version.js && git add ."
   },
   "repository": {
     "type": "git",
