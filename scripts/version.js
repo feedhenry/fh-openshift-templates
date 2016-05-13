@@ -12,7 +12,3 @@ _.forEach(templateMap, function(template) {
 });
 
 templates.write(templateMap);
-
-// _.forEach(templateMap, function(template) {
-
-// });
