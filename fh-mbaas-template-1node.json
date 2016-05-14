@@ -163,7 +163,7 @@
             "intervalSeconds": 1,
             "timeoutSeconds": 300
           },
-          "resources" : {
+          "resources": {
             "limits": {
               "cpu": "800m",
               "memory": "800Mi"
@@ -202,7 +202,7 @@
                 ],
                 "env": [
                   {
-                    "name":"FH_CLUSTER",
+                    "name": "FH_CLUSTER",
                     "value": "${FH_CLUSTER}"
                   },
                   {
@@ -249,7 +249,7 @@
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
                   }
                 ],
-                "resources" : {
+                "resources": {
                   "limits": {
                     "cpu": "800m",
                     "memory": "800Mi"
@@ -290,7 +290,7 @@
             "intervalSeconds": 1,
             "timeoutSeconds": 300
           },
-          "resources" : {
+          "resources": {
             "limits": {
               "cpu": "400m",
               "memory": "400Mi"
@@ -329,8 +329,8 @@
                 ],
                 "env": [
                   {
-                    "name":"FH_MESSAGING_CRON",
-                    "value":"10 0 * * *"
+                    "name": "FH_MESSAGING_CRON",
+                    "value": "10 0 * * *"
                   },
                   {
                     "name": "FH_MBAASID",
@@ -370,7 +370,7 @@
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
                   }
                 ],
-                "resources" : {
+                "resources": {
                   "limits": {
                     "cpu": "400m",
                     "memory": "400Mi"
@@ -411,7 +411,7 @@
             "intervalSeconds": 1,
             "timeoutSeconds": 300
           },
-          "resources" : {
+          "resources": {
             "limits": {
               "cpu": "400m",
               "memory": "400Mi"
@@ -450,8 +450,8 @@
                 ],
                 "env": [
                   {
-                    "name":"FH_MBAASID",
-                    "value":"${FH_MBAASID}"
+                    "name": "FH_MBAASID",
+                    "value": "${FH_MBAASID}"
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
@@ -487,7 +487,7 @@
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
                   }
                 ],
-                "resources" : {
+                "resources": {
                   "limits": {
                     "cpu": "400m",
                     "memory": "400Mi"
@@ -528,7 +528,7 @@
             "intervalSeconds": 1,
             "timeoutSeconds": 300
           },
-          "resources" : {
+          "resources": {
             "limits": {
               "cpu": "400m",
               "memory": "400Mi"
@@ -576,7 +576,7 @@
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
                   }
                 ],
-                "resources" : {
+                "resources": {
                   "limits": {
                     "cpu": "400m",
                     "memory": "400Mi"
@@ -612,7 +612,7 @@
       "spec": {
         "strategy": {
           "type": "Recreate",
-          "resources" : {
+          "resources": {
             "limits": {
               "cpu": "1000m",
               "memory": "1000Mi"
@@ -719,7 +719,7 @@
                     "value": "fh-reporting"
                   }
                 ],
-                "resources" : {
+                "resources": {
                   "limits": {
                     "cpu": "1000m",
                     "memory": "1000Mi"
@@ -861,29 +861,29 @@
   ],
   "parameters": [
     {
-      "name":"FH_CLUSTER",
-      "value":"development",
-      "description":"the name of the cluster the mbaas was created from"
+      "name": "FH_CLUSTER",
+      "value": "development",
+      "description": "the name of the cluster the mbaas was created from"
     },
     {
-      "name":"FH_MBAASID",
-      "value":"default",
-      "description":"id of the mbaas. A value chosen by the user"
+      "name": "FH_MBAASID",
+      "value": "default",
+      "description": "id of the mbaas. A value chosen by the user"
     },
     {
       "name": "MONGODB_FHMBAAS_USER",
       "value": "u-mbaas",
-      "description":  "The MongoDB user name"
+      "description": "The MongoDB user name"
     },
     {
       "name": "MONGODB_FHMBAAS_PASSWORD",
-      "description":  "The MongoDB password",
+      "description": "The MongoDB password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "FHMBAAS_KEY",
-      "description":  "The MBaaS key",
+      "description": "The MBaaS key",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
@@ -895,102 +895,102 @@
     },
     {
       "name": "MONGODB_ADMIN_PASSWORD",
-      "description":  "The MongoDB Admin password",
+      "description": "The MongoDB Admin password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "MONGODB_FHREPORTING_USER",
       "value": "u-reporting",
-      "description":  "The Reporting user name"
+      "description": "The Reporting user name"
     },
     {
       "name": "MONGODB_FHREPORTING_PASSWORD",
-      "description":  "The MongoDB Reporting password",
+      "description": "The MongoDB Reporting password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "MONGODB_FHMETRICS_USER",
       "value": "u-metrics",
-      "description":  "The Metrics user name"
+      "description": "The Metrics user name"
     },
     {
       "name": "MONGODB_FHMETRICS_PASSWORD",
-      "description":  "The MongoDB Metrics password",
+      "description": "The MongoDB Metrics password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "FH_MBAAS_IMAGE",
       "value": "docker.io/rhmap/fh-mbaas",
-      "description":  "The name of the fh-mbaas image"
+      "description": "The name of the fh-mbaas image"
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
       "value": "3.5.0-668",
-      "description":  "The version for the FH_MBAAS_IMAGE"
+      "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
       "name": "FH_MESSAGING_IMAGE",
       "value": "docker.io/rhmap/fh-messaging",
-      "description":  "The name of the fh-messaging image"
+      "description": "The name of the fh-messaging image"
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
       "value": "1.3.0-328",
-      "description":  "The version for the FH_MESSAGING_IMAGE"
+      "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
       "name": "FH_METRICS_IMAGE",
       "value": "docker.io/rhmap/fh-metrics",
-      "description":  "The name of the fh-metrics image"
+      "description": "The name of the fh-metrics image"
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
       "value": "1.2.1-329",
-      "description":  "The version for the FH_METRICS_IMAGE"
+      "description": "The version for the FH_METRICS_IMAGE"
     },
     {
       "name": "FH_STATSD_IMAGE",
       "value": "docker.io/rhmap/fh-statsd",
-      "description":  "The name of the fh-statsd image"
+      "description": "The name of the fh-statsd image"
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
       "value": "1.3.0-80",
-      "description":  "The version for the FH_STATSD_IMAGE"
+      "description": "The version for the FH_STATSD_IMAGE"
     },
     {
       "name": "MONGODB_IMAGE",
       "value": "docker.io/rhmap/mongodb",
-      "description":  "The name of the mongodb image"
+      "description": "The name of the mongodb image"
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
       "value": "2.4-12",
-      "description":  "The version for the MONGODB_IMAGE"
+      "description": "The version for the MONGODB_IMAGE"
     },
     {
       "name": "FH_MESSAGING_API_KEY",
-      "description":  "Key for communicating with the FH_MESSAGING Service",
+      "description": "Key for communicating with the FH_MESSAGING Service",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "FH_METRICS_API_KEY",
-      "description":  "Key for communicating with the FH_METRICS Service",
+      "description": "Key for communicating with the FH_METRICS Service",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "MBAAS_ROUTER_DNS",
-      "description":  "The DNS name for the MBaaS Router",
+      "description": "The DNS name for the MBaaS Router",
       "value": "mbaas.example.com"
     },
     {
       "name": "ENDPOINT_COUNT",
-      "description":  "The amount of database's to create a replica set",
+      "description": "The amount of database's to create a replica set",
       "value": "1"
     },
     {
@@ -1010,7 +1010,7 @@
     },
     {
       "name": "FH_STATSD_API_KEY",
-      "description":  "Key for communicating with the FH_STATSD Service",
+      "description": "Key for communicating with the FH_STATSD Service",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
