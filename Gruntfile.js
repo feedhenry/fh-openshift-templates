@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     ],
     jsonlint: {
       sample: {
-        src: ['*-template.json' ]
+        src: ['*-template*.json' ]
       }
     }
   });
