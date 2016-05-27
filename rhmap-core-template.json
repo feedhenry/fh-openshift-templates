@@ -10,6 +10,27 @@
     }
   },
   "objects": [
-
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-supercore",
+        "labels": {
+          "name": "fh-supercore"
+        }
+      },
+      "spec": {
+        "selector": {
+          "name": "fh-supercore"
+        },
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ]
+      }
+    }
   ]
 }
