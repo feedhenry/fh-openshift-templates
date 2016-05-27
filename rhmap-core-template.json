@@ -1,0 +1,15 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "rhmap-core",
+    "annotations": {
+      "description": "RHMAP Core platform",
+      "tags": "rhmap,mobile,nodejs",
+      "iconClass": "icon-nodejs"
+    }
+  },
+  "objects": [
+
+  ]
+}
