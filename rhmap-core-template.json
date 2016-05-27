@@ -19,6 +19,72 @@
       "name": "FH_SUPERCORE_IMAGE_VERSION",
       "value": "latest",
       "description": "The version for the FH_SUPERCORE_IMAGE"
+    },
+    {
+      "name": "CLUSTER_NAME",
+      "value": "development",
+      "description": "The name of this RHMAP Core cluster"
+    },
+    {
+      "name": "FH_LOG_LEVEL",
+      "value": "warn",
+      "description": "A default log level for all MBaaS components"
+    },
+    {
+      "name": "AMQ_USER",
+      "value": "rhmap",
+      "description": "The AMQ user that is used by fh-supercore"
+    },
+    {
+      "name": "AMQ_PASSWORD",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "The AMQ user that is used by fh-supercore"
+    },
+    {
+      "name": "RHMAP_AMQ_STOMP_HOST",
+      "value": "amq-service",
+      "description": "The AMQ user that is used by fh-supercore"
+    },
+    {
+      "name": "RHMAP_AMQ_STOMP_PORT",
+      "value": "rhmap",
+      "description": "The AMQ user that is used by fh-supercore"
+    },
+    {
+      "name": "MONGODB_FHSUPERCORE_USER",
+      "value": "u-supercore",
+      "description": "The MongoDB username for fh-supercore"
+    },
+    {
+      "name": "MONGODB_FHSUPERCORE_PASSWORD",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "The MongoDB password for fh-supercore"
+    },
+    {
+      "name": "REDIS_PASSWORD",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "The Redis password for fh-supercore"
+    },
+    {
+      "name": "FH_MESSAGING_API_KEY",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "Key for communicating with the FH_MESSAGING Service"
+    },
+    {
+      "name": "FH_METRICS_API_KEY",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "Key for communicating with the FH_METRICS Service"
+    },
+    {
+      "name": "FH_STATSD_API_KEY",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "Key for communicating with the FH_STATSD Service"
     }
   ],
   "objects": [
@@ -80,7 +146,56 @@
                     "protocol": "TCP"
                   }
                 ],
-                "env": [],
+                "env": [
+                  {
+                    "name": "CLUSTER_NAME",
+                    "value": "${CLUSTER_NAME}"
+                  },
+                  {
+                    "name": "FH_LOG_LEVEL",
+                    "value": "${FH_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "AMQ_USER",
+                    "value": "${AMQ_USER}"
+                  },
+                  {
+                    "name": "AMQ_PASSWORD",
+                    "value": "${AMQ_PASSWORD}"
+                  },
+                  {
+                    "name": "RHMAP_AMQ_STOMP_HOST",
+                    "value": "amq-service"
+                  },
+                  {
+                    "name": "RHMAP_AMQ_STOMP_PORT",
+                    "value": "8080"
+                  },
+                  {
+                    "name": "MONGODB_FHSUPERCORE_USER",
+                    "value": "${MONGODB_FHSUPERCORE_USER}"
+                  },
+                  {
+                    "name": "MONGODB_FHSUPERCORE_PASSWORD",
+                    "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                  },
+                  {
+                    "name": "REDIS_PASSWORD",
+                    "value": "${REDIS_PASSWORD}"
+                  },
+                  {
+                    "name": "FH_MESSAGING_API_KEY",
+                    "value": "${FH_MESSAGING_API_KEY}"
+                  },
+                  {
+                    "name": "FH_METRICS_API_KEY",
+                    "value": "${FH_METRICS_API_KEY}"
+                  },
+                  {
+                    "name": "FH_STATSD_API_KEY",
+                    "value": "${FH_STATSD_API_KEY}"
+                  }
+                ],
                 "imagePullPolicy": "Always"
               }
             ]
