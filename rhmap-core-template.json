@@ -43,6 +43,50 @@
           }
         ]
       }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-supercore",
+        "labels": {
+          "name": "fh-supercore"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "fh-supercore"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "fh-supercore"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "fh-supercore",
+                "image": "${FH_SUPERCORE_IMAGE}:${FH_SUPERCORE_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [],
+                "imagePullPolicy": "Always"
+              }
+            ]
+          }
+        }
+      }
     }
   ]
 }
