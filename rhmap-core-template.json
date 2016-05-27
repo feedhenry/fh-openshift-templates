@@ -9,6 +9,18 @@
       "iconClass": "icon-nodejs"
     }
   },
+  "parameters": [
+   {
+      "name": "FH_SUPERCORE_IMAGE",
+      "value": "rhmap/fh-supercore",
+      "description": "The name of the fh-supercore image"
+    },
+    {
+      "name": "FH_SUPERCORE_IMAGE_VERSION",
+      "value": "latest",
+      "description": "The version for the FH_SUPERCORE_IMAGE"
+    }
+  ],
   "objects": [
     {
       "kind": "Service",
