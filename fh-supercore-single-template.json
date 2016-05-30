@@ -196,7 +196,7 @@
                     "value": "${FH_STATSD_API_KEY}"
                   }
                 ],
-                "imagePullPolicy": "Always"
+                "imagePullPolicy": "IfNotPresent"
               }
             ]
           }

@@ -131,7 +131,7 @@
                     "value": "${FH_MILLICORE_SERVICE_PORT}"
                   }
                 ],
-                "imagePullPolicy": "Always"
+                "imagePullPolicy": "IfNotPresent"
               }
             ]
           }
