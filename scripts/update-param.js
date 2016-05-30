@@ -11,11 +11,13 @@ function main() {
   var mbaasMulti = fs.realpathSync("fh-mbaas-template-3node.json");
   var mbaasSingle = fs.realpathSync("fh-mbaas-template-1node.json");
 
+  var fhScmSingle = fs.realpathSync("fh-scm-single-template.json");
   var fhSupercoreSingle = fs.realpathSync("fh-supercore-single-template.json");
 
   var templateMap = templates.get([
     mbaasSingle,
     mbaasMulti,
+    fhScmSingle,
     fhSupercoreSingle
   ]);
 
