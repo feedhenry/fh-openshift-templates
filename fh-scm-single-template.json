@@ -21,6 +21,11 @@
       "description": "The version for the FH_SCM_IMAGE"
     },
     {
+      "name": "FH_LOG_LEVEL",
+      "value": "info",
+      "description": "A default log level for all components"
+    },
+    {
       "name": "FH_SCM_FILE_SERVER_PATH",
       "value": "/tmp/fh-scm",
       "description": ""

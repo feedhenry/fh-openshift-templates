@@ -27,8 +27,8 @@
     },
     {
       "name": "FH_LOG_LEVEL",
-      "value": "warn",
-      "description": "A default log level for all MBaaS components"
+      "value": "info",
+      "description": "A default log level for all components"
     },
     {
       "name": "AMQ_USER",
