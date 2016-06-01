@@ -52,9 +52,7 @@
         },
         "ports": [
           {
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080
+            "port": 8080
           }
         ]
       }
@@ -91,8 +89,7 @@
                 "image": "${FH_SCM_IMAGE}:${FH_SCM_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
