@@ -26,21 +26,6 @@
       "description": "A default log level for all components"
     },
     {
-      "name": "FH_SCM_FILE_SERVER_PATH",
-      "value": "/tmp/fh-scm",
-      "description": ""
-    },
-    {
-      "name": "FH_SCM_FILE_SERVER_BACKUP",
-      "value": "/tmp/fh-scm/backup",
-      "description": ""
-    },
-    {
-      "name": "FH_SCM_FILE_SERVER_KEY_STORE",
-      "value": "/tmp/fh-scm/keystore",
-      "description": ""
-    },
-    {
       "name": "FH_MILLICORE_SERVICE_HOST",
       "value": "testing.feedhenry.me",
       "description": ""
@@ -117,15 +102,15 @@
                   },
                   {
                     "name": "FH_SCM_FILE_SERVER_PATH",
-                    "value": "${FH_SCM_FILE_SERVER_PATH}"
+                    "value": "/tmp/fh-scm"
                   },
                   {
                     "name": "FH_SCM_FILE_SERVER_BACKUP",
-                    "value": "${FH_SCM_FILE_SERVER_BACKUP}"
+                    "value": "/tmp/fh-scm/backup"
                   },
                   {
                     "name": "FH_SCM_FILE_SERVER_KEY_STORE",
-                    "value": "${FH_SCM_FILE_SERVER_KEY_STORE}"
+                    "value": "/tmp/fh-scm/keystore"
                   },
                   {
                     "name": "FH_MILLICORE_SERVICE_HOST",
