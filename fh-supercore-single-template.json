@@ -27,8 +27,8 @@
     },
     {
       "name": "FH_LOG_LEVEL",
-      "value": "warn",
-      "description": "A default log level for all MBaaS components"
+      "value": "info",
+      "description": "A default log level for all components"
     },
     {
       "name": "AMQ_USER",
@@ -103,9 +103,7 @@
         },
         "ports": [
           {
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080
+            "port": 8080
           }
         ]
       }
@@ -142,8 +140,7 @@
                 "image": "${FH_SUPERCORE_IMAGE}:${FH_SUPERCORE_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
@@ -196,7 +193,7 @@
                     "value": "${FH_STATSD_API_KEY}"
                   }
                 ],
-                "imagePullPolicy": "Always"
+                "imagePullPolicy": "IfNotPresent"
               }
             ]
           }

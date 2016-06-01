@@ -1,0 +1,129 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "rhmap-core",
+    "annotations": {
+      "description": "RHMAP Core platform",
+      "tags": "rhmap,mobile,nodejs",
+      "iconClass": "icon-nodejs"
+    }
+  },
+  "parameters": [
+    {
+      "name": "FH_SCM_IMAGE",
+      "value": "rhmap/fh-scm",
+      "description": "The name of the fh-scm image"
+    },
+    {
+      "name": "FH_SCM_IMAGE_VERSION",
+      "value": "latest",
+      "description": "The version for the FH_SCM_IMAGE"
+    },
+    {
+      "name": "FH_LOG_LEVEL",
+      "value": "info",
+      "description": "A default log level for all components"
+    },
+    {
+      "name": "FH_MILLICORE_SERVICE_HOST",
+      "value": "testing.feedhenry.me",
+      "description": "TODO: remove references to me once millicore is running on OpenShift"
+    },
+    {
+      "name": "FH_MILLICORE_SERVICE_PORT",
+      "value": "8181",
+      "description": "TODO: remove references to me once millicore is running on OpenShift"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-scm",
+        "labels": {
+          "name": "fh-scm"
+        }
+      },
+      "spec": {
+        "selector": {
+          "name": "fh-scm"
+        },
+        "ports": [
+          {
+            "port": 8080
+          }
+        ]
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-scm",
+        "labels": {
+          "name": "fh-scm"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "fh-scm"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "fh-scm"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "fh-scm",
+                "image": "${FH_SCM_IMAGE}:${FH_SCM_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 8080
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FH_LOG_LEVEL",
+                    "value": "${FH_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "FH_SCM_FILE_SERVER_PATH",
+                    "value": "/tmp/fh-scm"
+                  },
+                  {
+                    "name": "FH_SCM_FILE_SERVER_BACKUP",
+                    "value": "/tmp/fh-scm/backup"
+                  },
+                  {
+                    "name": "FH_SCM_FILE_SERVER_KEY_STORE",
+                    "value": "/tmp/fh-scm/keystore"
+                  },
+                  {
+                    "name": "FH_MILLICORE_SERVICE_HOST",
+                    "value": "${FH_MILLICORE_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "FH_MILLICORE_SERVICE_PORT",
+                    "value": "${FH_MILLICORE_SERVICE_PORT}"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

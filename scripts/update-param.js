@@ -8,14 +8,17 @@ function main() {
       .demand(['p', 'v'])
       .argv;
 
-  var coreSingle = fs.realpathSync("rhmap-core-template.json");
   var mbaasMulti = fs.realpathSync("fh-mbaas-template-3node.json");
   var mbaasSingle = fs.realpathSync("fh-mbaas-template-1node.json");
 
+  var fhScmSingle = fs.realpathSync("fh-scm-single-template.json");
+  var fhSupercoreSingle = fs.realpathSync("fh-supercore-single-template.json");
+
   var templateMap = templates.get([
-    coreSingle,
     mbaasSingle,
-    mbaasMulti
+    mbaasMulti,
+    fhScmSingle,
+    fhSupercoreSingle
   ]);
 
   templates.updateParameter(templateMap, argv.p, argv.v);
