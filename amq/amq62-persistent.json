@@ -24,7 +24,7 @@
         {
             "description": "Protocols to configure, separated by commas.  Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`.",
             "name": "MQ_PROTOCOL",
-            "value": "openwire",
+            "value": "stomp",
             "required": false
         },
         {
@@ -72,56 +72,7 @@
             "required": true
         }
     ],
-    "objects": [
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 5672,
-                        "targetPort": 5672
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
-                }
-            },
-            "metadata": {
-                "name": "${APPLICATION_NAME}-amq-amqp",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The broker's AMQP port."
-                }
-            }
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 1883,
-                        "targetPort": 1883
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
-                }
-            },
-            "metadata": {
-                "name": "${APPLICATION_NAME}-amq-mqtt",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The broker's MQTT port."
-                }
-            }
-        },
-        {
+    "objects": [{
             "kind": "Service",
             "apiVersion": "v1",
             "spec": {
@@ -146,30 +97,6 @@
             }
         },
         {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "spec": {
-                "ports": [
-                    {
-                        "port": 61616,
-                        "targetPort": 61616
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
-                }
-            },
-            "metadata": {
-                "name": "${APPLICATION_NAME}-amq-tcp",
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "annotations": {
-                    "description": "The broker's OpenWire port."
-                }
-            }
-        },
-        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -186,7 +113,7 @@
                     {
                         "type": "ImageChange",
                         "imageChangeParams": {
-                            "automatic": true,
+                            "automatic": false,
                             "containerNames": [
                                 "${APPLICATION_NAME}-amq"
                             ],
@@ -235,30 +162,9 @@
                                         ]
                                     }
                                 },
-                                "ports": [
-                                    {
-                                        "name": "jolokia",
-                                        "containerPort": 8778,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "amqp",
-                                        "containerPort": 5672,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "mqtt",
-                                        "containerPort": 1883,
-                                        "protocol": "TCP"
-                                    },
-                                    {
+                                "ports": [{
                                         "name": "stomp",
                                         "containerPort": 61613,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "name": "tcp",
-                                        "containerPort": 61616,
                                         "protocol": "TCP"
                                     }
                                 ],
