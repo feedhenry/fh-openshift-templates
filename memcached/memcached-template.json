@@ -1,0 +1,109 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "memcached",
+    "annotations": {
+      "description": "Memcached",
+      "tags": "rhmap,memcached"
+    }
+  },
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${MEMCACHED_SERVICE_NAME}"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "memcached",
+            "port": 11211
+          }
+        ],
+        "selector": {
+          "name": "${MEMCACHED_SERVICE_NAME}"
+        }
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${MEMCACHED_SERVICE_NAME}"
+      },
+      "spec": {
+        "strategy": {
+          "type": "Rolling"
+        },
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "${MEMCACHED_SERVICE_NAME}"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "${MEMCACHED_SERVICE_NAME}"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "memcached",
+                "image": "${MEMCACHED_IMAGE}:${MEMCACHED_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 11211
+                  }
+                ],
+                "resources": {
+                  "limits": {
+                    "memory": "${MEMORY_LIMIT}"
+                  }
+                },
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "MEMCACHED_SERVICE_NAME",
+      "displayName": "Memcached Service Name",
+      "description": "The name of the OpenShift Service exposed for memcached.",
+      "value": "memcached",
+      "required": true
+    },
+    {
+      "name": "MEMCACHED_IMAGE",
+      "value": "docker.io/rhmap/memcached",
+      "description": "The name of the memcached image",
+      "required": true
+    },
+    {
+      "name": "MEMCACHED_IMAGE_VERSION",
+      "value": "1.4.15-9",
+      "description": "The version for the MEMCACHED_IMAGE",
+      "required": true
+    },
+    {
+      "name": "MEMORY_LIMIT",
+      "displayName": "Memory Limit",
+      "description": "Maximum amount of memory the container can use.",
+      "value": "1Gi",
+      "required": true
+    }
+  ],
+  "labels": {
+    "template": "memcached-template"
+  }
+}
