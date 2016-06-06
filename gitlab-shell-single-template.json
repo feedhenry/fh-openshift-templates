@@ -9,5 +9,26 @@
     }
   },
   "parameters": [],
-  "objects": []
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "gitlab-shell",
+        "labels": {
+          "name": "gitlab-shell"
+        }
+      },
+      "spec": {
+        "selector": {
+          "name": "gitlab-shell"
+        },
+        "ports": [
+          {
+            "port": 22
+          }
+        ]
+      }
+    }
+  ]
 }
