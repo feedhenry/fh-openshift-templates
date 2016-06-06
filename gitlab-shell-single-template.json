@@ -1,0 +1,13 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "gitlab-shell",
+    "annotations": {
+      "description": "Gitlab Shell",
+      "tags": "gitlab-shell"
+    }
+  },
+  "parameters": [],
+  "objects": []
+}
