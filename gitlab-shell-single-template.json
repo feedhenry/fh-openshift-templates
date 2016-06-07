@@ -8,7 +8,18 @@
       "tags": "gitlab-shell"
     }
   },
-  "parameters": [],
+  "parameters": [
+    {
+      "name": "GITLAB_SHELL_IMAGE",
+      "value": "rhmap/gitlab-shell",
+      "description": "The name of the gitlab-shell image"
+    },
+    {
+      "name": "GITLAB_SHELL_IMAGE_VERSION",
+      "value": "latest",
+      "description": "The version for the GITLAB_SHELL_IMAGE"
+    }
+  ],
   "objects": [
     {
       "kind": "Service",
@@ -28,6 +39,52 @@
             "port": 22
           }
         ]
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "gitlab-shell",
+        "labels": {
+          "name": "gitlab-shell"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "gitlab-shell"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "gitlab-shell"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "gitlab-shell",
+                "image": "${GITLAB_SHELL_IMAGE}:${GITLAB_SHELL_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 22
+                  }
+                ],
+                "env": [],
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "securityContext": {
+              "runAsUser": 0
+            }
+          }
+        }
       }
     }
   ]
