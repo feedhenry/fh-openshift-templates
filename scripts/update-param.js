@@ -13,6 +13,7 @@ function main() {
 
   var fhScmSingle = fs.realpathSync("fh-scm-single-template.json");
   var fhSupercoreSingle = fs.realpathSync("fh-supercore-single-template.json");
+  var fhAAASingle = fs.realpathSync("fh-aaa-single-template.json");
   var memcached = fs.realpathSync("memcached/memcached-template.json");
 
   var templateMap = templates.get([
@@ -20,6 +21,7 @@ function main() {
     mbaasMulti,
     fhScmSingle,
     fhSupercoreSingle,
+    fhAAASingle,
     memcached
   ]);
 

@@ -1,0 +1,138 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "rhmap-core",
+    "annotations": {
+      "description": "RHMAP Core platform",
+      "tags": "rhmap,mobile,nodejs",
+      "iconClass": "icon-nodejs"
+    }
+  },
+  "parameters": [
+    {
+      "name": "FH_AAA_IMAGE",
+      "value": "rhmap/fh-aaa",
+      "description": "The name of the fh-aaa image",
+      "required": true
+    },
+    {
+      "name": "FH_AAA_IMAGE_VERSION",
+      "value": "0.2.7-299",
+      "description": "The version for the FH_AAA_IMAGE",
+      "required": true
+    },
+    {
+      "name": "FH_LOG_LEVEL",
+      "value": "info",
+      "description": "A default log level for all components"
+    },
+    {
+      "name": "MONGODB_FHAAA_USER",
+      "value": "u-fhaaa",
+      "description": "The MongoDB username for fh-aaa"
+    },
+    {
+      "name": "MONGODB_FHAAA_PASSWORD",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "The MongoDB password for fh-aaa"
+    },
+    {
+      "name": "MEMCACHED_SERVICE_NAME",
+      "value": "memcached",
+      "description": "The memcached service name"
+    },
+    {
+      "name": "MONGODB_SERVICE_NAME",
+      "value": "mongodb",
+      "description": "The mongodb service name"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-aaa",
+        "labels": {
+          "name": "fh-aaa"
+        }
+      },
+      "spec": {
+        "selector": {
+          "name": "fh-aaa"
+        },
+        "ports": [
+          {
+            "port": 8080
+          }
+        ]
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-aaa",
+        "labels": {
+          "name": "fh-aaa"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "fh-aaa"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "fh-aaa"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "fh-aaa",
+                "image": "${FH_AAA_IMAGE}:${FH_AAA_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 8080
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FH_LOG_LEVEL",
+                    "value": "${FH_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "MONGODB_USER",
+                    "value": "${MONGODB_FHAAA_USER}"
+                  },
+                  {
+                    "name": "MONGODB_PASSWORD",
+                    "value": "${MONGODB_FHAAA_PASSWORD}"
+                  },
+                  {
+                    "name": "MEMCACHED_SERVICE_NAME",
+                    "value": "${MEMCACHED_SERVICE_NAME}"
+                  },
+                  {
+                    "name": "MONGODB_SERVICE_NAME",
+                    "value": "${MONGODB_SERVICE_NAME}"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
