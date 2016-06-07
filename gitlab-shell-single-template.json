@@ -18,6 +18,36 @@
       "name": "GITLAB_SHELL_IMAGE_VERSION",
       "value": "latest",
       "description": "The version for the GITLAB_SHELL_IMAGE"
+    },
+    {
+      "name": "GITLAB_URL",
+      "value": "http://millicore:8080/box/api/gls/",
+      "description": "The URL that GitLab is exposed at"
+    },
+    {
+      "name": "RABBITMQ_SERVICE",
+      "value": "rabbitmq-service",
+      "description": "The location of the RabbitMQ service"
+    },
+    {
+      "name": "RABBITMQ_VHOST",
+      "value": "fhtasks",
+      "description": "The RabbitMQ vHost"
+    },
+    {
+      "name": "RABBITMQ_USER",
+      "value": "fhtasksuser",
+      "description": "The RabbitMQ user"
+    },
+    {
+      "name": "RABBITMQ_PASSWORD",
+      "value": "fhtaskspassword",
+      "description": "The RabbitMQ password. TODO: This should be generated in the production template"
+    },
+    {
+      "name": "RABBITMQ_QUEUE",
+      "value": "fh-tasks-gitlab-postreceive",
+      "description": "The RabbitMQ queue"
     }
   ],
   "objects": [
@@ -48,7 +78,7 @@
         "name": "gitlab-shell"
       },
       "data": {
-        "config.yml": "user: git\ngitlab_url: \"http://millicore:8080/box/api/gls/\"\nhttp_settings:\n  self_signed_cert: false\nrepos_path: \"/home/git/repositories\"\nauth_file: \"/home/git/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nrabbit:\n  enabled: true\n  hosts:\n    - rabbit-service\n  vhost: fhtasks\n  user: fhtasksuser\n  password: fhtaskspassword\n  queue: fh-tasks-gitlab-postreceive\nlog_level: INFO\naudit_usernames: false\n"
+        "config.yml": "user: git\ngitlab_url: \"${GITLAB_URL}\"\nhttp_settings:\n  self_signed_cert: false\nrepos_path: \"/home/git/repositories\"\nauth_file: \"/home/git/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nrabbit:\n  enabled: true\n  hosts:\n    - ${RABBITMQ_SERVICE}\n  vhost: ${RABBITMQ_VHOST}\n  user: ${RABBITMQ_USER}\n  password: ${RABBITMQ_PASSWORD}\n  queue: ${RABBITMQ_QUEUE}\nlog_level: INFO\naudit_usernames: false\n"
       }
     },
     {
