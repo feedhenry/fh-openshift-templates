@@ -2,9 +2,9 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "rhmap-core",
+    "name": "fh-supercore",
     "annotations": {
-      "description": "RHMAP Core platform",
+      "description": "RHMAP fh-supercore",
       "tags": "rhmap,mobile,nodejs",
       "iconClass": "icon-nodejs"
     }

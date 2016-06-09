@@ -1,0 +1,145 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "gitlab-shell",
+    "annotations": {
+      "description": "Gitlab Shell",
+      "tags": "gitlab-shell"
+    }
+  },
+  "parameters": [
+    {
+      "name": "GITLAB_SHELL_IMAGE",
+      "value": "rhmap/gitlab-shell",
+      "description": "The name of the gitlab-shell image"
+    },
+    {
+      "name": "GITLAB_SHELL_IMAGE_VERSION",
+      "value": "latest",
+      "description": "The version for the GITLAB_SHELL_IMAGE"
+    },
+    {
+      "name": "GITLAB_URL",
+      "value": "http://millicore:8080/box/api/gls/",
+      "description": "The URL that GitLab is exposed at"
+    },
+    {
+      "name": "RABBITMQ_SERVICE",
+      "value": "rabbitmq-service",
+      "description": "The location of the RabbitMQ service"
+    },
+    {
+      "name": "RABBITMQ_VHOST",
+      "value": "fhtasks",
+      "description": "The RabbitMQ vHost"
+    },
+    {
+      "name": "RABBITMQ_USER",
+      "value": "fhtasksuser",
+      "description": "The RabbitMQ user"
+    },
+    {
+      "name": "RABBITMQ_PASSWORD",
+      "value": "fhtaskspassword",
+      "description": "The RabbitMQ password. TODO: This should be generated in the production template"
+    },
+    {
+      "name": "RABBITMQ_QUEUE",
+      "value": "fh-tasks-gitlab-postreceive",
+      "description": "The RabbitMQ queue"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "gitlab-shell",
+        "labels": {
+          "name": "gitlab-shell"
+        }
+      },
+      "spec": {
+        "selector": {
+          "name": "gitlab-shell"
+        },
+        "ports": [
+          {
+            "port": 22
+          }
+        ]
+      }
+    },
+    {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "gitlab-shell"
+      },
+      "data": {
+        "config.yml": "user: git\ngitlab_url: \"${GITLAB_URL}\"\nhttp_settings:\n  self_signed_cert: false\nrepos_path: \"/home/git/repositories\"\nauth_file: \"/home/git/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nrabbit:\n  enabled: true\n  hosts:\n    - ${RABBITMQ_SERVICE}\n  vhost: ${RABBITMQ_VHOST}\n  user: ${RABBITMQ_USER}\n  password: ${RABBITMQ_PASSWORD}\n  queue: ${RABBITMQ_QUEUE}\nlog_level: INFO\naudit_usernames: false\n"
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "gitlab-shell",
+        "labels": {
+          "name": "gitlab-shell"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "gitlab-shell"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "gitlab-shell"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "gitlab-shell",
+                "image": "${GITLAB_SHELL_IMAGE}:${GITLAB_SHELL_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 22
+                  }
+                ],
+                "env": [],
+                "imagePullPolicy": "IfNotPresent",
+                "volumeMounts": [
+                  {
+                    "name": "gitlab-shell-configmap",
+                    "mountPath": "/home/git/gitlab-config"
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "gitlab-shell-configmap",
+                "configMap": {
+                  "name": "gitlab-shell"
+                }
+              }
+            ],
+            "securityContext": {
+              "runAsUser": 0
+            }
+          }
+        }
+      }
+    }
+  ]
+}
