@@ -19,7 +19,13 @@
         "ports": [
           {
             "name": "memcached",
-            "port": 11211
+            "port": 11211,
+            "protocol": "tcp"
+          },
+          {
+            "name": "memcached",
+            "port": 11211,
+            "protocol": "udp"
           }
         ],
         "selector": {
