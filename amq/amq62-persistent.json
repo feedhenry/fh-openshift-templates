@@ -157,14 +157,25 @@
                                         "name": "${APPLICATION_NAME}-amq-pvol"
                                     }
                                 ],
+                                "livenessProbe": {
+                                    "tcpSocket": {
+                                        "port": 61613
+                                    },
+                                    "initialDelaySeconds": 600,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
                                 "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "/opt/amq/bin/readinessProbe.sh"
-                                        ]
-                                    }
+                                    "tcpSocket": {
+                                        "port": 61613
+                                    },
+                                    "initialDelaySeconds": 0,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
                                 },
                                 "ports": [{
                                         "name": "stomp",
