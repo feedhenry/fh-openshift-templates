@@ -18,7 +18,7 @@
     },
     {
       "name": "FH_AAA_IMAGE_VERSION",
-      "value": "0.2.7-299",
+      "value": "0.2.7-303",
       "description": "The version for the FH_AAA_IMAGE",
       "required": true
     },
