@@ -18,8 +18,14 @@
       "spec": {
         "ports": [
           {
-            "name": "memcached",
-            "port": 11211
+            "name": "memcached-tcp",
+            "port": 11211,
+            "protocol": "TCP"
+          },
+          {
+            "name": "memcached-udp",
+            "port": 11211,
+            "protocol": "UDP"
           }
         ],
         "selector": {
@@ -59,7 +65,12 @@
                 "image": "${MEMCACHED_IMAGE}:${MEMCACHED_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 11211
+                    "containerPort": 11211,
+                    "protocol": "TCP"
+                  },
+                  {
+                    "containerPort": 11211,
+                    "protocol": "UDP"
                   }
                 ],
                 "resources": {
