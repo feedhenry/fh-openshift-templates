@@ -1,0 +1,141 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "rhmap-ngui",
+    "annotations": {
+      "description": "RHMAP fh-ngui",
+      "tags": "rhmap,mobile,nodejs",
+      "iconClass": "icon-nodejs"
+    }
+  },
+  "parameters": [
+    {
+      "name": "FH_NGUI_IMAGE",
+      "value": "rhmap/fh-ngui",
+      "description": "The name of the fh-ngui image",
+      "required": true
+    },
+    {
+      "name": "FH_NGUI_IMAGE_VERSION",
+      "value": "4.8.10-2716",
+      "description": "The version for the FH_NGUI_IMAGE",
+      "required": true
+    },
+    {
+      "name": "FH_LOG_LEVEL",
+      "value": "info",
+      "description": "A default log level for all components"
+    },
+    {
+      "name": "FH_MILLICORE_SERVICE_HOST",
+      "value": "testing.feedhenry.me",
+      "description": "TODO: remove references to me once millicore is running on OpenShift"
+    },
+    {
+      "name": "FH_MILLICORE_SERVICE_PORT",
+      "value": "8181",
+      "description": "TODO: remove references to me once millicore is running on OpenShift"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-ngui",
+        "labels": {
+          "name": "fh-ngui"
+        }
+      },
+      "spec": {
+        "selector": {
+          "name": "fh-ngui"
+        },
+        "ports": [
+          {
+            "port": 8808
+          }
+        ]
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-ngui",
+        "labels": {
+          "name": "fh-ngui"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "fh-ngui"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "fh-ngui"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "fh-ngui",
+                "image": "${FH_NGUI_IMAGE}:${FH_NGUI_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 8808
+                  }
+                ],
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/sys/info/ping",
+                    "port": 8808
+                  },
+                  "initialDelaySeconds": 55,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 60,
+                  "successThreshold": 1,
+                  "failureThreshold": 2
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/sys/info/ping",
+                    "port": 8808
+                  },
+                  "initialDelaySeconds": 0,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "failureThreshold": 1
+                },
+                "env": [
+                  {
+                    "name": "FH_LOG_LEVEL",
+                    "value": "${FH_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "FH_MILLICORE_SERVICE_HOST",
+                    "value": "${FH_MILLICORE_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "FH_MILLICORE_SERVICE_PORT",
+                    "value": "${FH_MILLICORE_SERVICE_PORT}"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
