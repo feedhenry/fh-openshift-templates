@@ -1,0 +1,123 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "rhmap-appstore",
+    "annotations": {
+      "description": "RHMAP fh-appstore",
+      "tags": "rhmap,mobile,nodejs",
+      "iconClass": "icon-nodejs"
+    }
+  },
+  "parameters": [
+    {
+      "name": "FH_APPSTORE_IMAGE",
+      "value": "rhmap/fh-appstore",
+      "description": "The name of the fh-appstore image",
+      "required": true
+    },
+    {
+      "name": "FH_APPSTORE_IMAGE_VERSION",
+      "value": "1.0.4-77",
+      "description": "The version for the FH_APPSTORE_IMAGE",
+      "required": true
+    },
+    {
+      "name": "FH_LOG_LEVEL",
+      "value": "info",
+      "description": "A default log level for all components"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-appstore",
+        "labels": {
+          "name": "fh-appstore"
+        }
+      },
+      "spec": {
+        "selector": {
+          "name": "fh-appstore"
+        },
+        "ports": [
+          {
+            "port": 8080
+          }
+        ]
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-appstore",
+        "labels": {
+          "name": "fh-appstore"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "fh-appstore"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "fh-appstore"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "fh-appstore",
+                "image": "${FH_APPSTORE_IMAGE}:${FH_APPSTORE_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 8080
+                  }
+                ],
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/sys/info/ping",
+                    "port": 8080
+                  },
+                  "initialDelaySeconds": 55,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 60,
+                  "successThreshold": 1,
+                  "failureThreshold": 2
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/sys/info/ping",
+                    "port": 8080
+                  },
+                  "initialDelaySeconds": 0,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "failureThreshold": 1
+                },
+                "env": [
+                  {
+                    "name": "FH_LOG_LEVEL",
+                    "value": "${FH_LOG_LEVEL}"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
