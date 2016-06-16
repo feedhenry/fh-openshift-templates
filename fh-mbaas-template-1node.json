@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.19.71",
+      "templateVersion": "0.20.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -123,9 +123,9 @@
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mongodb-service",
+        "name": "mongodb-1",
         "labels": {
-          "name": "mongodb-service"
+          "name": "mongodb-1"
         }
       },
       "spec": {
@@ -641,7 +641,7 @@
           "spec": {
             "containers": [
               {
-                "name": "mongodb-service",
+                "name": "mongodb-1",
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
@@ -656,7 +656,7 @@
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb-service"
+                    "value": "mongodb"
                   },
                   {
                     "name": "MONGODB_KEYFILE_VALUE",
@@ -760,7 +760,7 @@
               }
             ],
             "command": [
-              "run-mongod.sh",
+              "run-mongod",
               "initiate"
             ],
             "env": [
@@ -770,7 +770,7 @@
               },
               {
                 "name": "MONGODB_SERVICE_NAME",
-                "value": "mongodb-service"
+                "value": "mongodb"
               },
               {
                 "name": "MONGODB_KEYFILE_VALUE",
@@ -928,7 +928,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "3.10.2-1090",
+      "value": "4.0.0-1095",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
@@ -938,7 +938,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "1.3.0-328",
+      "value": "2.0.0-368",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -948,7 +948,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "1.2.1-329",
+      "value": "2.0.0-368",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
@@ -968,7 +968,7 @@
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "2.4-12",
+      "value": "centos-3.2-26",
       "description": "The version for the MONGODB_IMAGE"
     },
     {
