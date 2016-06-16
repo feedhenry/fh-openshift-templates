@@ -259,10 +259,10 @@
                         ],
                         "livenessProbe": {
                            "httpGet": {
-                              "path": "/box/srv/1.1/tst/echo",
+                              "path": "/box/api/sys/info/ping",
                               "port": 8080
                            },
-                           "initialDelaySeconds": 300,
+                           "initialDelaySeconds": 600,
                            "timeoutSeconds": 5,
                            "periodSeconds": 60,
                            "successThreshold": 1,
@@ -270,10 +270,10 @@
                         },
                         "readinessProbe": {
                            "httpGet": {
-                              "path": "/box/srv/1.1/tst/echo",
+                              "path": "/box/api/sys/info/ping",
                               "port": 8080
                            },
-                           "initialDelaySeconds": 200,
+                           "initialDelaySeconds": 100,
                            "timeoutSeconds": 5,
                            "periodSeconds": 10,
                            "successThreshold": 1,
