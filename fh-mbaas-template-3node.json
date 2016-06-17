@@ -1367,7 +1367,7 @@
     {
       "name": "MBAAS_ROUTER_DNS",
       "description": "The DNS name for the MBaaS Router",
-      "value": "mbaas.example.com"
+      "value": ""
     },
     {
       "name": "ENDPOINT_COUNT",
