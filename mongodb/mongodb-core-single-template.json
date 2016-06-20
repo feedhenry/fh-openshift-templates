@@ -1,0 +1,349 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "mongodb",
+    "annotations": {
+      "description": "Mongodb",
+      "tags": "rhmap,mongodb"
+    }
+  },
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${MONGODB_SERVICE_NAME}-1",
+        "labels": {
+          "name": "${MONGODB_SERVICE_NAME}-1"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 27017,
+            "targetPort": 27017,
+            "nodePort": 0
+          }
+        ],
+        "selector": {
+          "name": "mongodb-replica"
+        },
+        "portalIP": "None",
+        "clusterIP": "None",
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-1",
+        "labels": {
+          "name": "mongodb"
+        }
+      },
+      "spec": {
+        "strategy": {
+          "type": "Recreate",
+          "resources": {
+            "limits": {
+              "cpu": "1000m",
+              "memory": "1000Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
+        },
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "mongodb-replica"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "mongodb-replica"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "mongodb",
+                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 27017,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "MONGODB_REPLICA_NAME",
+                    "value": "rs0"
+                  },
+                  {
+                    "name": "MONGODB_SERVICE_NAME",
+                    "value": "${MONGODB_SERVICE_NAME}"
+                  },
+                  {
+                    "name": "MONGODB_KEYFILE_VALUE",
+                    "value": "${MONGODB_KEYFILE_VALUE}"
+                  },
+                  {
+                    "name": "MONGODB_ADMIN_PASSWORD",
+                    "value": "${MONGODB_ADMIN_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FHAAA_USER",
+                    "value": "${MONGODB_FHAAA_USER}"
+                  },
+                  {
+                    "name": "MONGODB_FHAAA_PASSWORD",
+                    "value": "${MONGODB_FHAAA_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FHAAA_DATABASE",
+                    "value": "${MONGODB_FHAAA_DATABASE}"
+                  },
+                  {
+                    "name": "MONGODB_FHSUPERCORE_USER",
+                    "value": "${MONGODB_FHSUPERCORE_USER}"
+                  },
+                  {
+                    "name": "MONGODB_FHSUPERCORE_PASSWORD",
+                    "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FHSUPERCORE_DATABASE",
+                    "value": "${MONGODB_FHSUPERCORE_DATABASE}"
+                  },
+                  {
+                    "name": "MONGODB_FHREPORTING_USER",
+                    "value": "${MONGODB_FHREPORTING_USER}"
+                  },
+                  {
+                    "name": "MONGODB_FHREPORTING_PASSWORD",
+                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FHREPORTING_DATABASE",
+                    "value":  "${MONGODB_FHREPORTING_DATABASE}"
+                  }
+                ],
+                "resources": {
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "1000Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "restartPolicy": "Always",
+            "dnsPolicy": "ClusterFirst"
+          }
+        }
+      }
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-initiator",
+        "labels": {
+          "name": "mongodb-initiator"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "mongodb",
+            "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+            "ports": [
+              {
+                "containerPort": 27017,
+                "protocol": "TCP"
+              }
+            ],
+            "command": [
+              "run-mongod",
+              "initiate"
+            ],
+            "env": [
+              {
+                "name": "MONGODB_REPLICA_NAME",
+                "value": "rs0"
+              },
+              {
+                "name": "MONGODB_SERVICE_NAME",
+                "value": "${MONGODB_SERVICE_NAME}"
+              },
+              {
+                "name": "MONGODB_KEYFILE_VALUE",
+                "value": "${MONGODB_KEYFILE_VALUE}"
+              },
+              {
+                "name": "MONGODB_ADMIN_PASSWORD",
+                "value": "${MONGODB_ADMIN_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHAAA_USER",
+                "value": "${MONGODB_FHAAA_USER}"
+              },
+              {
+                "name": "MONGODB_FHAAA_PASSWORD",
+                "value": "${MONGODB_FHAAA_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHAAA_DATABASE",
+                "value": "${MONGODB_FHAAA_DATABASE}"
+              },
+              {
+                "name": "MONGODB_FHSUPERCORE_USER",
+                "value": "${MONGODB_FHSUPERCORE_USER}"
+              },
+              {
+                "name": "MONGODB_FHSUPERCORE_PASSWORD",
+                "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHSUPERCORE_DATABASE",
+                "value": "${MONGODB_FHSUPERCORE_DATABASE}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_USER",
+                "value": "${MONGODB_FHREPORTING_USER}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_PASSWORD",
+                "value": "${MONGODB_FHREPORTING_PASSWORD}"
+              },
+              {
+                "name": "MONGODB_FHREPORTING_DATABASE",
+                "value":  "${MONGODB_FHREPORTING_DATABASE}"
+              },
+              {
+                "name": "ENDPOINT_COUNT",
+                "value": "${ENDPOINT_COUNT}"
+              },
+              {
+                "name": "MONGODB_INITIAL_REPLICA_COUNT",
+                "value": "${ENDPOINT_COUNT}"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "imagePullPolicy": "IfNotPresent"
+          }
+        ],
+        "restartPolicy": "Never",
+        "dnsPolicy": "ClusterFirst"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "MONGODB_SERVICE_NAME",
+      "displayName": "Mongodb Service Name",
+      "description": "The name of the OpenShift Service exposed for mongodb.",
+      "value": "mongodb",
+      "required": true
+    },
+    {
+      "name": "FH_CLUSTER",
+      "value": "development",
+      "description": "the name of the cluster the mbaas was created from"
+    },
+    {
+      "name": "MONGODB_FHAAA_USER",
+      "value": "u-aaa",
+      "description": "The MongoDB aaa user name"
+    },
+    {
+      "name": "MONGODB_FHAAA_PASSWORD",
+      "description": "The MongoDB aaa password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "MONGODB_FHAAA_DATABASE",
+      "description": "The MongoDB aaa database",
+      "value": "fh-aaa"
+    },
+    {
+      "name": "MONGODB_FHSUPERCORE_USER",
+      "value": "u-supercore",
+      "description": "The MongoDB supercore user name"
+    },
+    {
+      "name": "MONGODB_FHSUPERCORE_PASSWORD",
+      "description": "The MongoDB supercore password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "MONGODB_FHSUPERCORE_DATABASE",
+      "description": "The MongoDB supercore database",
+      "value": "fh-supercore"
+    },
+    {
+      "name": "MONGODB_FHREPORTING_USER",
+      "value": "u-reporting",
+      "description": "The reporting user name"
+    },
+    {
+      "name": "MONGODB_FHREPORTING_PASSWORD",
+      "description": "The MongoDB reporting password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "MONGODB_FHREPORTING_DATABASE",
+      "description": "The MongoDB reporting database",
+      "value": "fh-reporting"
+    },
+    {
+      "name": "MONGODB_KEYFILE_VALUE",
+      "description": "The value of the MongoDB Key",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{255}"
+    },
+    {
+      "name": "MONGODB_ADMIN_PASSWORD",
+      "description": "The MongoDB Admin password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "MONGODB_IMAGE",
+      "value": "docker.io/rhmap/mongodb",
+      "description": "The name of the mongodb image"
+    },
+    {
+      "name": "MONGODB_IMAGE_VERSION",
+      "value": "centos-2.4-24",
+      "description": "The version for the MONGODB_IMAGE"
+    },
+    {
+      "name": "ENDPOINT_COUNT",
+      "description": "The amount of database's to create a replica set",
+      "value": "1"
+    }
+  ],
+  "labels": {
+    "template": "mongodb-core-single-template"
+  }
+}
