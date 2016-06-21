@@ -9,6 +9,7 @@ import (
 
 	"github.com/openshift/origin/pkg/template/api"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	kapi "k8s.io/kubernetes/pkg/api"
 	"k8s.io/kubernetes/pkg/client/unversioned/clientcmd/api/latest"
 	"k8s.io/kubernetes/pkg/kubectl"
@@ -33,7 +34,7 @@ func NewMergeCommand(stdin io.Reader, stdout, stderr io.Writer) *cobra.Command {
 }
 
 func RunMerge(cmd *cobra.Command, args []string, stdin io.Reader, stdout, stderr io.Writer) error {
-	loader := &templateLoader{kapi.Codecs.UniversalDecoder()}
+	loader := &templateLoader{kapi.Codecs.UniversalDecoder(), runtime.UnstructuredJSONScheme}
 	templates, err := loader.FromFiles(args...)
 	if err != nil {
 		return err
@@ -73,7 +74,8 @@ func RunMerge(cmd *cobra.Command, args []string, stdin io.Reader, stdout, stderr
 }
 
 type templateLoader struct {
-	decoder runtime.Decoder
+	decoder             runtime.Decoder
+	unstructuredDecoder runtime.Decoder
 }
 
 func (tl *templateLoader) FromFiles(paths ...string) ([]*api.Template, error) {
@@ -126,14 +128,28 @@ func (tl *templateLoader) Decode(data []byte) (*api.Template, error) {
 
 func (tl *templateLoader) resolveObjects(tmpl *api.Template) error {
 	dec := tl.decoder
+	udec := tl.unstructuredDecoder
 	for i, obj := range tmpl.Objects {
 		if unknown, ok := obj.(*runtime.Unknown); ok {
 			decoded, _, err := dec.Decode(unknown.Raw, nil, nil)
 			if err != nil {
-				return err
+				debugf("ignoring API type checking of %s because of error: %v", unknown.Raw, err)
+				decoded, _, err = udec.Decode(unknown.Raw, nil, nil)
+				if err != nil {
+					return err
+				}
 			}
 			tmpl.Objects[i] = decoded
 		}
 	}
 	return nil
+}
+
+func debugf(format string, a ...interface{}) {
+	if d := pflag.Lookup("debug"); d != nil && d.Value.String() == "true" {
+		if format[len(format)-1] != '\n' {
+			format += "\n"
+		}
+		fmt.Fprintf(os.Stderr, "[DEBUG] "+format, a...)
+	}
 }
