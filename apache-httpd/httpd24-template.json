@@ -67,7 +67,7 @@
         "host": "",
         "path": "/git",
         "port": {
-          "targetPort": "server-http-port"
+          "targetPort": "server-git-port"
         },
         "to": {
           "kind": "Service",
@@ -117,7 +117,7 @@
                 ],
                 "livenessProbe": {
                   "httpGet": {
-                    "path": "/",
+                    "path": "/health",
                     "port": 80
                   },
                   "initialDelaySeconds": 600,
@@ -128,7 +128,7 @@
                 },
                 "readinessProbe": {
                   "httpGet": {
-                    "path": "/",
+                    "path": "/health",
                     "port": 80
                   },
                   "initialDelaySeconds": 10,
@@ -205,7 +205,7 @@
     },
     {
       "name": "HTTPD_IMAGE",
-      "value": "rhmap/httpd",
+      "value": "rhmap/httpd24",
       "description": "The name of the image",
       "required": true
     },
