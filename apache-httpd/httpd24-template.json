@@ -1,0 +1,264 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "httpd",
+    "annotations": {
+      "description": "Application template for httpd server.",
+      "iconClass": "icon-load-balancer",
+      "tags": "http, httpd, apache, webserver"
+    }
+  },
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${HTTPD_SERVICE_NAME}"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "server-http-port",
+            "port": 80,
+            "protocol": "TCP"
+          },
+          {
+            "name": "server-git-port",
+            "port": 8080,
+            "protocol": "TCP"
+          }
+        ],
+        "selector": {
+          "name": "${HTTPD_SERVICE_NAME}"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Route",
+      "metadata": {
+        "labels": {
+          "app": "${HTTPD_SERVICE_NAME}"
+        },
+        "name": "${HTTPD_SERVICE_NAME}-proxy-route"
+      },
+      "spec": {
+        "host": "",
+        "port": {
+          "targetPort": "server-http-port"
+        },
+        "to": {
+          "kind": "Service",
+          "name": "${HTTPD_SERVICE_NAME}"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Route",
+      "metadata": {
+        "labels": {
+          "app": "${HTTPD_SERVICE_NAME}"
+        },
+        "name": "${HTTPD_SERVICE_NAME}-git-route"
+      },
+      "spec": {
+        "host": "",
+        "path": "/git",
+        "port": {
+          "targetPort": "server-git-port"
+        },
+        "to": {
+          "kind": "Service",
+          "name": "${HTTPD_SERVICE_NAME}"
+        }
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${HTTPD_SERVICE_NAME}"
+      },
+      "spec": {
+        "strategy": {
+          "type": "Rolling"
+        },
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "${HTTPD_SERVICE_NAME}"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "${HTTPD_SERVICE_NAME}"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "${HTTPD_SERVICE_NAME}",
+                "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  },
+                  {
+                    "containerPort": 8443,
+                    "protocol": "TCP"
+                  }
+                ],
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/health",
+                    "port": 80
+                  },
+                  "initialDelaySeconds": 600,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 60,
+                  "successThreshold": 1,
+                  "failureThreshold": 2
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/health",
+                    "port": 80
+                  },
+                  "initialDelaySeconds": 10,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "failureThreshold": 1
+                },
+                "env": [
+                  {
+                    "name": "MILLICORE_HTTP_HOST",
+                    "value": "${MILLICORE_HTTP_HOST}"
+                  },
+                  {
+                    "name": "MILLICORE_AJP_HOST",
+                    "value": "${MILLICORE_AJP_HOST}"
+                  },
+                  {
+                    "name": "SUPERCORE_HOST",
+                    "value": "${SUPERCORE_HOST}"
+                  },
+                  {
+                    "name": "NGUI_HOST",
+                    "value": "${NGUI_HOST}"
+                  },
+                  {
+                    "name": "APP_STORE_HOST",
+                    "value": "${APP_STORE_HOST}"
+                  },
+                  {
+                    "name": "BUILDER_SERVICE_URL",
+                    "value": "${BUILDER_SERVICE_URL}"
+                  },
+                  {
+                    "name": "LOG_LEVEL",
+                    "value": "${LOG_LEVEL}"
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "git-data",
+                    "mountPath": "/srv/repositories"
+                  },
+                  {
+                    "name": "sdk-templates-root",
+                    "mountPath": "/opt/rh/httpd24/root/opt/feedhenry"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes": [
+              {
+                "name": "git-data",
+                "emptyDir": {}
+              },
+              {
+                "name": "sdk-templates-root",
+                "emptyDir": {}
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "HTTPD_SERVICE_NAME",
+      "displayName": "Service Name",
+      "description": "The name of the OpenShift Service for httpd server.",
+      "value": "httpd24",
+      "required": true
+    },
+    {
+      "name": "HTTPD_IMAGE",
+      "value": "rhmap/httpd24",
+      "description": "The name of the image",
+      "required": true
+    },
+    {
+      "name": "HTTPD_IMAGE_VERSION",
+      "value": "latest",
+      "description": "The version for the HTTPD_IMAGE",
+      "required": true
+    },
+    {
+      "name": "MILLICORE_HTTP_HOST",
+      "value": "feedhenry.me:8080",
+      "displayName": "Millicore http host",
+      "description": "Internal hostname for millicore http service"
+    },
+    {
+      "name": "MILLICORE_AJP_HOST",
+      "value": "feedhenry.me:8009",
+      "displayName": "Millicore AJP host",
+      "description": "Internal hostname for millicore AJP service"
+    },
+    {
+      "name": "SUPERCORE_HOST",
+      "value": "feedhenry.me:8809",
+      "displayName": "Supercore host",
+      "description": "Internal hostname with port for supercore service"
+    },
+    {
+      "name": "NGUI_HOST",
+      "value": "feedhenry.me:8808",
+      "displayName": "fh-ngui url",
+      "description": "Internal hostname for fh-ngui"
+    },
+    {
+      "name": "APP_STORE_HOST",
+      "value": "feedhenry.me:8821",
+      "displayName": "",
+      "description": ""
+    },
+    {
+      "name": "BUILDER_SERVICE_URL",
+      "value": "http://example.com",
+      "displayName": "Digger hostname",
+      "description": "Service for mobile app builder (Digger)"
+    },
+    {
+      "name": "LOG_LEVEL",
+      "value": "info",
+      "displayName": "Log level",
+      "description": "Apache log level"
+    }
+  ],
+  "labels": {
+    "template": "apache-httpd-template"
+  }
+}
