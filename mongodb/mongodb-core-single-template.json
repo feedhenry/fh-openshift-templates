@@ -136,7 +136,7 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value":  "${MONGODB_FHREPORTING_DATABASE}"
+                    "value": "${MONGODB_FHREPORTING_DATABASE}"
                   }
                 ],
                 "resources": {
@@ -234,7 +234,7 @@
               },
               {
                 "name": "MONGODB_FHREPORTING_DATABASE",
-                "value":  "${MONGODB_FHREPORTING_DATABASE}"
+                "value": "${MONGODB_FHREPORTING_DATABASE}"
               },
               {
                 "name": "ENDPOINT_COUNT",
