@@ -18,7 +18,7 @@
     },
     {
       "name": "FH_AAA_IMAGE_VERSION",
-      "value": "0.2.7-327",
+      "value": "0.2.9-331",
       "description": "The version for the FH_AAA_IMAGE",
       "required": true
     },
@@ -29,7 +29,7 @@
     },
     {
       "name": "MONGODB_FHAAA_USER",
-      "value": "u-fhaaa",
+      "value": "u-aaa",
       "description": "The MongoDB username for fh-aaa"
     },
     {
@@ -45,7 +45,7 @@
     },
     {
       "name": "MONGODB_SERVICE_NAME",
-      "value": "mongodb",
+      "value": "mongodb-1",
       "description": "The mongodb service name"
     }
   ],

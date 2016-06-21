@@ -16,6 +16,7 @@ function main() {
   var fhAAASingle = fs.realpathSync("fh-aaa-single-template.json");
   var gitlabShell = fs.realpathSync("gitlab-shell/gitlab-shell-single-template.json");
   var memcached = fs.realpathSync("memcached/memcached-template.json");
+  var mongodb = fs.realpathSync("mongodb/mongodb-core-template.json");
 
   var templateMap = templates.get([
     mbaasSingle,
@@ -24,7 +25,8 @@ function main() {
     fhSupercoreSingle,
     fhAAASingle,
     gitlabShell,
-    memcached
+    memcached,
+    mongodb
   ]);
 
   templates.updateParameter(templateMap, argv.p, argv.v);
