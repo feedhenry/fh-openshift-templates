@@ -45,8 +45,8 @@
       },
       "spec": {
         "host": "",
-        "port":{
-          "targetPort":"server-http-port"
+        "port": {
+          "targetPort": "server-http-port"
         },
         "to": {
           "kind": "Service",
@@ -66,8 +66,8 @@
       "spec": {
         "host": "",
         "path": "/git",
-        "port":{
-          "targetPort":"server-http-port"
+        "port": {
+          "targetPort": "server-http-port"
         },
         "to": {
           "kind": "Service",
@@ -118,7 +118,7 @@
                 "livenessProbe": {
                   "httpGet": {
                     "path": "/",
-                    "port": 8080
+                    "port": 80
                   },
                   "initialDelaySeconds": 600,
                   "timeoutSeconds": 5,
@@ -129,7 +129,7 @@
                 "readinessProbe": {
                   "httpGet": {
                     "path": "/",
-                    "port": 8080
+                    "port": 80
                   },
                   "initialDelaySeconds": 10,
                   "timeoutSeconds": 5,
@@ -137,7 +137,57 @@
                   "successThreshold": 1,
                   "failureThreshold": 1
                 },
+                "env": [
+                  {
+                    "name": "MILLICORE_HTTP_HOST",
+                    "value": "${MILLICORE_HTTP_HOST}"
+                  },
+                  {
+                    "name": "MILLICORE_AJP_HOST",
+                    "value": "${MILLICORE_AJP_HOST}"
+                  },
+                  {
+                    "name": "SUPERCORE_HOST",
+                    "value": "${SUPERCORE_HOST}"
+                  },
+                  {
+                    "name": "NGUI_HOST",
+                    "value": "${NGUI_HOST}"
+                  },
+                  {
+                    "name": "APP_STORE_HOST",
+                    "value": "${APP_STORE_HOST}"
+                  },
+                  {
+                    "name": "BUILDER_SERVICE_URL",
+                    "value": "${BUILDER_SERVICE_URL}"
+                  },
+                  {
+                    "name": "LOG_LEVEL",
+                    "value": "${LOG_LEVEL}"
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "git-data",
+                    "mountPath": "/srv/repositories"
+                  },
+                  {
+                    "name": "sdk-templates-root",
+                    "mountPath": "/opt/rh/httpd24/root/opt/feedhenry"
+                  }
+                ],
                 "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes": [
+              {
+                "name": "git-data",
+                "emptyDir": {}
+              },
+              {
+                "name": "sdk-templates-root",
+                "emptyDir": {}
               }
             ]
           }
@@ -164,6 +214,48 @@
       "value": "latest",
       "description": "The version for the HTTPD_IMAGE",
       "required": true
+    },
+    {
+      "name": "MILLICORE_HTTP_HOST",
+      "value": "feedhenry.me:8080",
+      "displayName": "Millicore http host",
+      "description": "Internal hostname for millicore http service"
+    },
+    {
+      "name": "MILLICORE_AJP_HOST",
+      "value": "feedhenry.me:8009",
+      "displayName": "Millicore AJP host",
+      "description": "Internal hostname for millicore AJP service"
+    },
+    {
+      "name": "SUPERCORE_HOST",
+      "value": "feedhenry.me:8809",
+      "displayName": "Supercore host",
+      "description": "Internal hostname with port for supercore service"
+    },
+    {
+      "name": "NGUI_HOST",
+      "value": "feedhenry.me:8808",
+      "displayName": "fh-ngui url",
+      "description": "Internal hostname for fh-ngui"
+    },
+    {
+      "name": "APP_STORE_HOST",
+      "value": "feedhenry.me:8821",
+      "displayName": "",
+      "description": ""
+    },
+    {
+      "name": "BUILDER_SERVICE_URL",
+      "value": "http://example.com",
+      "displayName": "Digger hostname",
+      "description": "Service for mobile app builder (Digger)"
+    },
+    {
+      "name": "LOG_LEVEL",
+      "value": "info",
+      "displayName": "Log level",
+      "description": "Apache log level"
     }
   ],
   "labels": {
