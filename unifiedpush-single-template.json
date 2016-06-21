@@ -108,7 +108,7 @@
             }],
             "livenessProbe": {
               "httpGet": {
-                "path": "/ag-push/rest/sys/info/health",
+                "path": "/ag-push",
                 "port": 8080
               },
               "initialDelaySeconds": 600,
@@ -119,7 +119,7 @@
             },
             "readinessProbe": {
               "httpGet": {
-                "path": "/ag-push/rest/sys/info/health",
+                "path": "/ag-push",
                 "port": 8080
               },
               "initialDelaySeconds": 100,
