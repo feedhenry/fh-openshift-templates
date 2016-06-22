@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-source ./common.sh
+export SCRIPT_ROOT="$(dirname "${BASH_SOURCE}")"
 
+source $SCRIPT_ROOT/variables.sh
 
 for C in "${COMPONENTS[@]}";
   do

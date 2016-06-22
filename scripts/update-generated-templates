@@ -26,7 +26,7 @@ generate() {
   tmp_output="$(mktemp "${TMPDIR:-/tmp}/template-merge-output-XXXXXX.json")"
 
   # Merge all component templates with core template.
-  template merge "${@:2}" > "${tmp_output}"
+  openshift-template-tool merge "${@:2}" > "${tmp_output}"
 
   # No errors so far, make the merged template the new generated template.
   mv "${tmp_output}" "$1"

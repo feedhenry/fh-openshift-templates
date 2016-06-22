@@ -16,7 +16,7 @@
     },
     {
       "name": "GITLAB_SHELL_IMAGE_VERSION",
-      "value": "2.0.0.pre-4",
+      "value": "2.0.0.pre-29",
       "description": "The version for the GITLAB_SHELL_IMAGE"
     },
     {
@@ -41,13 +41,24 @@
     },
     {
       "name": "RABBITMQ_PASSWORD",
-      "value": "fhtaskspassword",
-      "description": "The RabbitMQ password. TODO: This should be generated in the production template"
+      "description": "The RabbitMQ password.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{15}"
     },
     {
       "name": "RABBITMQ_QUEUE",
       "value": "fh-tasks-gitlab-postreceive",
       "description": "The RabbitMQ queue"
+    },
+    {
+      "name": "GIT_REPO_ROOT",
+      "value": "/home/git/data",
+      "description": "Path to data folder that would contain repositories and all other required files"
+    },
+    {
+      "name": "SSH_SECRETS_DIR",
+      "value": "/etc/feedhenry/gitlab-shell",
+      "description": "Mount path for ssh keys"
     }
   ],
   "objects": [
@@ -78,7 +89,7 @@
         "name": "gitlab-shell"
       },
       "data": {
-        "config.yml": "user: git\ngitlab_url: \"${GITLAB_URL}\"\nhttp_settings:\n  self_signed_cert: false\nrepos_path: \"/home/git/repositories\"\nauth_file: \"/home/git/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nrabbit:\n  enabled: true\n  hosts:\n    - ${RABBITMQ_SERVICE}\n  vhost: ${RABBITMQ_VHOST}\n  user: ${RABBITMQ_USER}\n  password: ${RABBITMQ_PASSWORD}\n  queue: ${RABBITMQ_QUEUE}\nlog_level: INFO\naudit_usernames: false\n"
+        "config.yml": "user: git\ngitlab_url: \"${GITLAB_URL}\"\nhttp_settings:\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_ROOT}/repositories\"\nauth_file: \"${GIT_REPO_ROOT}/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nrabbit:\n  enabled: true\n  hosts:\n    - ${RABBITMQ_SERVICE}\n  vhost: ${RABBITMQ_VHOST}\n  user: ${RABBITMQ_USER}\n  password: ${RABBITMQ_PASSWORD}\n  queue: ${RABBITMQ_QUEUE}\nlog_level: INFO\naudit_usernames: false\n"
       }
     },
     {
@@ -137,10 +148,29 @@
                   "failureThreshold": 1
                 },
                 "imagePullPolicy": "IfNotPresent",
+                "env": [
+                  {
+                    "name": "GIT_REPO_ROOT",
+                    "value": "${GIT_REPO_ROOT}"
+                  },        
+                  {
+                    "name": "SSH_SECRETS_DIR",
+                    "value": "${SSH_SECRETS_DIR}"
+                  }
+                ],
                 "volumeMounts": [
                   {
                     "name": "gitlab-shell-configmap",
                     "mountPath": "/home/git/gitlab-config"
+                  },
+                  {
+                    "name": "git-ssh-keys-volume",
+                    "mountPath": "${SSH_SECRETS_DIR}",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "git-data-volume",
+                    "mountPath": "${GIT_REPO_ROOT}"
                   }
                 ]
               }
@@ -151,6 +181,16 @@
                 "configMap": {
                   "name": "gitlab-shell"
                 }
+              },
+              {
+                "name": "git-ssh-keys-volume",
+                "secret": {
+                  "secretName": "gitlab-ssh"
+                }
+              },
+              {
+                "name": "git-data-volume",
+                "emptyDir": {}
               }
             ],
             "securityContext": {
