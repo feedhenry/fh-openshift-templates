@@ -6,7 +6,7 @@
     "annotations": {
       "description": "Application template for httpd server.",
       "iconClass": "icon-load-balancer",
-      "tags": "http, httpd, apache, webserver"
+      "tags": "http,httpd,apache,webserver"
     }
   },
   "objects": [
