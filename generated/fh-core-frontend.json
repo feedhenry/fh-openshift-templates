@@ -1,0 +1,1061 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "fh-core-frontend",
+        "creationTimestamp": null,
+        "annotations": {
+            "description": "Red Hat Mobile Application Platform - Core Frontend template",
+            "iconClass": "icon-nodejs",
+            "templateVersion": "0.0.0"
+        }
+    },
+    "objects": [
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-appstore",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-appstore"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "name": "fh-appstore"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-appstore",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-appstore"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "fh-appstore"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "fh-appstore"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "fh-appstore",
+                                "image": "${FH_APPSTORE_IMAGE}:${FH_APPSTORE_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "FH_LOG_LEVEL",
+                                        "value": "${FH_LOG_LEVEL}"
+                                    }
+                                ],
+                                "resources": {},
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 55,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-ngui",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-ngui"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8808,
+                        "targetPort": 8808
+                    }
+                ],
+                "selector": {
+                    "name": "fh-ngui"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-ngui",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-ngui"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "fh-ngui"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "fh-ngui"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "fh-ngui",
+                                "image": "${FH_NGUI_IMAGE}:${FH_NGUI_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8808,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "FH_LOG_LEVEL",
+                                        "value": "${FH_LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_SERVICE_HOST",
+                                        "value": "${FH_MILLICORE_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_SERVICE_PORT",
+                                        "value": "${FH_MILLICORE_SERVICE_PORT}"
+                                    }
+                                ],
+                                "resources": {},
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8808,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 55,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8808,
+                                        "scheme": "HTTP"
+                                    },
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${HTTPD_SERVICE_NAME}",
+                "creationTimestamp": null
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "server-http-port",
+                        "protocol": "TCP",
+                        "port": 80,
+                        "targetPort": 80
+                    },
+                    {
+                        "name": "server-git-port",
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "name": "${HTTPD_SERVICE_NAME}"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${HTTPD_SERVICE_NAME}-proxy-route",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "${HTTPD_SERVICE_NAME}"
+                }
+            },
+            "spec": {
+                "host": "${CLUSTER_HOST}",
+                "to": {
+                    "kind": "Service",
+                    "name": "${HTTPD_SERVICE_NAME}"
+                },
+                "port": {
+                    "targetPort": "server-http-port"
+                }
+            },
+            "status": {
+                "ingress": null
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${HTTPD_SERVICE_NAME}-git-route",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "${HTTPD_SERVICE_NAME}"
+                }
+            },
+            "spec": {
+                "host": "",
+                "path": "/git",
+                "to": {
+                    "kind": "Service",
+                    "name": "${HTTPD_SERVICE_NAME}"
+                },
+                "port": {
+                    "targetPort": "server-git-port"
+                }
+            },
+            "status": {
+                "ingress": null
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${HTTPD_SERVICE_NAME}",
+                "creationTimestamp": null
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "${HTTPD_SERVICE_NAME}"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "${HTTPD_SERVICE_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "git-data",
+                                "emptyDir": {}
+                            },
+                            {
+                                "name": "sdk-templates-root",
+                                "emptyDir": {}
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "${HTTPD_SERVICE_NAME}",
+                                "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8443,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "MILLICORE_HTTP_HOST",
+                                        "value": "${MILLICORE_HTTP_HOST}"
+                                    },
+                                    {
+                                        "name": "MILLICORE_AJP_HOST",
+                                        "value": "${MILLICORE_AJP_HOST}"
+                                    },
+                                    {
+                                        "name": "SUPERCORE_HOST",
+                                        "value": "${SUPERCORE_HOST}"
+                                    },
+                                    {
+                                        "name": "NGUI_HOST",
+                                        "value": "${NGUI_HOST}"
+                                    },
+                                    {
+                                        "name": "APP_STORE_HOST",
+                                        "value": "${APP_STORE_HOST}"
+                                    },
+                                    {
+                                        "name": "BUILDER_SERVICE_URL",
+                                        "value": "${BUILDER_SERVICE_URL}"
+                                    },
+                                    {
+                                        "name": "LOG_LEVEL",
+                                        "value": "${LOG_LEVEL}"
+                                    }
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "git-data",
+                                        "mountPath": "/srv/repositories"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 80,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 600,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 80,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 10,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "millicore",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "millicore"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "http",
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    },
+                    {
+                        "name": "ajp",
+                        "protocol": "TCP",
+                        "port": 8009,
+                        "targetPort": 8009
+                    }
+                ],
+                "selector": {
+                    "name": "millicore"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "loghost",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "millicore"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "UDP",
+                        "port": 514,
+                        "targetPort": 514
+                    }
+                ],
+                "selector": {
+                    "name": "millicore"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "millicore",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "millicore"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "millicore"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "millicore"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "millicore",
+                                "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "FH_MESSAGING_API_KEY",
+                                        "value": "${FH_MESSAGING_API_KEY}"
+                                    },
+                                    {
+                                        "name": "FH_ADMIN_USER_PASSWORD",
+                                        "value": "${FH_ADMIN_USER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "FH_ADMIN_USER_NAME",
+                                        "value": "${FH_ADMIN_USER_NAME}"
+                                    },
+                                    {
+                                        "name": "FH_DOMAIN_NAME",
+                                        "value": "${FH_DOMAIN_NAME}"
+                                    },
+                                    {
+                                        "name": "MYSQL_USER",
+                                        "value": "${MYSQL_USER}"
+                                    },
+                                    {
+                                        "name": "MYSQL_PASSWORD",
+                                        "value": "${MYSQL_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MYSQL_HOST",
+                                        "value": "${MYSQL_HOST}"
+                                    },
+                                    {
+                                        "name": "MYSQL_PORT",
+                                        "value": "${MYSQL_PORT}"
+                                    },
+                                    {
+                                        "name": "MYSQL_DB_NAME",
+                                        "value": "shard0"
+                                    },
+                                    {
+                                        "name": "AMQ_HOST",
+                                        "value": "${AMQ_HOST}"
+                                    },
+                                    {
+                                        "name": "AMQ_PORT",
+                                        "value": "${AMQ_PORT}"
+                                    },
+                                    {
+                                        "name": "AMQ_USER",
+                                        "value": "${AMQ_USER}"
+                                    },
+                                    {
+                                        "name": "AMQ_PASSWORD",
+                                        "value": "${AMQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_SERVICE_HOST",
+                                        "value": "${MEMCACHED_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_SERVICE_PORT",
+                                        "value": "${MEMCACHED_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "FH_AAA_SERVICE_HOST",
+                                        "value": "${FH_AAA_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "FH_AAA_SERVICE_PORT",
+                                        "value": "${FH_AAA_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "FH_GIT_SERVICE_HOST",
+                                        "value": "${FH_GIT_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "BUILDER_ANDROID_SERVICE_HOST",
+                                        "value": "${BUILDER_ANDROID_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
+                                        "value": "${BUILDER_BLACKBERRY_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "BUILDER_IPHONE_SERVICE_HOST",
+                                        "value": "${BUILDER_IPHONE_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "BUILDER_WINPHONE_SERVICE_HOST",
+                                        "value": "${BUILDER_WINPHONE_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "CLUSTER_NAME",
+                                        "value": "${CLUSTER_NAME}"
+                                    },
+                                    {
+                                        "name": "CLUSTER_DOMAIN",
+                                        "value": "${CLUSTER_DOMAIN}"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_SERVICE_HOST",
+                                        "value": "${FH_MILLICORE_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_SERVICE_PORT",
+                                        "value": "${FH_MILLICORE_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "KEYCLOAK_SERVICE_HOST",
+                                        "value": "${KEYCLOAK_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "KEYCLOAK_SERVICE_PORT",
+                                        "value": "${KEYCLOAK_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "MESSAGE_SERVER_SERVICE_HOST",
+                                        "value": "${MESSAGE_SERVER_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "MESSAGE_SERVER_SERVICE_PORT",
+                                        "value": "${MESSAGE_SERVER_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "FH_SCM_SERVICE_HOST",
+                                        "value": "${FH_SCM_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "FH_SCM_SERVICE_PORT",
+                                        "value": "${FH_SCM_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "FH_STATSD_SERVICE_HOST",
+                                        "value": "${FH_STATSD_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "FH_STATSD_SERVICE_PORT",
+                                        "value": "${FH_STATSD_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "SUPERCORE_SERVICE_HOST",
+                                        "value": "${SUPERCORE_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "SUPERCORE_SERVICE_PORT",
+                                        "value": "${SUPERCORE_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "SUPERCORE_API_KEY",
+                                        "value": "${FH_MILLICORE_API_KEY}"
+                                    }
+                                ],
+                                "resources": {},
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/box/api/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 600,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/box/api/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 100,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        }
+    ],
+    "parameters": [
+        {
+            "name": "FH_APPSTORE_IMAGE",
+            "description": "The name of the fh-appstore image",
+            "value": "rhmap/fh-appstore",
+            "required": true
+        },
+        {
+            "name": "FH_APPSTORE_IMAGE_VERSION",
+            "description": "The version for the FH_APPSTORE_IMAGE",
+            "value": "1.0.4-77",
+            "required": true
+        },
+        {
+            "name": "FH_LOG_LEVEL",
+            "description": "A default log level for all components",
+            "value": "info"
+        },
+        {
+            "name": "FH_NGUI_IMAGE",
+            "description": "The name of the fh-ngui image",
+            "value": "rhmap/fh-ngui",
+            "required": true
+        },
+        {
+            "name": "FH_NGUI_IMAGE_VERSION",
+            "description": "The version for the FH_NGUI_IMAGE",
+            "value": "4.9.2-2753",
+            "required": true
+        },
+        {
+            "name": "FH_MILLICORE_SERVICE_HOST",
+            "description": "TODO: remove references to me once millicore is running on OpenShift",
+            "value": "millicore"
+        },
+        {
+            "name": "FH_MILLICORE_SERVICE_PORT",
+            "description": "TODO: remove references to me once millicore is running on OpenShift",
+            "value": "8080"
+        },
+        {
+            "name": "CLUSTER_HOST",
+            "value": "rhmap.feedhenry.local"
+        },
+        {
+            "name": "HTTPD_SERVICE_NAME",
+            "displayName": "Service Name",
+            "description": "The name of the OpenShift Service for httpd server.",
+            "value": "httpd",
+            "required": true
+        },
+        {
+            "name": "HTTPD_IMAGE",
+            "description": "The name of the image",
+            "value": "rhmap/httpd24",
+            "required": true
+        },
+        {
+            "name": "HTTPD_IMAGE_VERSION",
+            "description": "The version for the HTTPD_IMAGE",
+            "value": "2.4-5",
+            "required": true
+        },
+        {
+            "name": "MILLICORE_HTTP_HOST",
+            "displayName": "Millicore http host",
+            "description": "Internal hostname for millicore http service",
+            "value": "millicore:8080"
+        },
+        {
+            "name": "MILLICORE_AJP_HOST",
+            "displayName": "Millicore AJP host",
+            "description": "Internal hostname for millicore AJP service",
+            "value": "millicore:8009"
+        },
+        {
+            "name": "SUPERCORE_HOST",
+            "displayName": "Supercore host",
+            "description": "Internal hostname with port for supercore service",
+            "value": "fh-supercore:8080"
+        },
+        {
+            "name": "NGUI_HOST",
+            "displayName": "fh-ngui url",
+            "description": "Internal hostname for fh-ngui",
+            "value": "fh-ngui:8808"
+        },
+        {
+            "name": "APP_STORE_HOST",
+            "value": "fh-appstore:8080"
+        },
+        {
+            "name": "BUILDER_SERVICE_URL",
+            "displayName": "Digger hostname",
+            "description": "Service for mobile app builder (Digger)",
+            "value": "http://example.com"
+        },
+        {
+            "name": "LOG_LEVEL",
+            "displayName": "Log level",
+            "description": "Apache log level",
+            "value": "info"
+        },
+        {
+            "name": "MILLICORE_IMAGE",
+            "description": "Millicore docker image",
+            "value": "rhmap/millicore"
+        },
+        {
+            "name": "MILLICORE_IMAGE_VERSION",
+            "description": "Millicore image version",
+            "value": "7.29.0-2143"
+        },
+        {
+            "name": "FH_ADMIN_USER_NAME",
+            "description": "Millicore admin user",
+            "value": "admin@feedhenry.net"
+        },
+        {
+            "name": "FH_ADMIN_USER_PASSWORD",
+            "description": "Millicore admin password",
+            "value": "Password1"
+        },
+        {
+            "name": "FH_DOMAIN_NAME",
+            "description": "Customer subdomain name",
+            "value": "rhmap"
+        },
+        {
+            "name": "MYSQL_USER",
+            "description": "MYSQL database user",
+            "value": "coreadmin"
+        },
+        {
+            "name": "MYSQL_PASSWORD",
+            "description": "MYSQL database password",
+            "value": "coreadmin"
+        },
+        {
+            "name": "MYSQL_HOST",
+            "description": "MYSQL database host",
+            "value": "mysql"
+        },
+        {
+            "name": "MYSQL_PORT",
+            "description": "MYSQL database port",
+            "value": "3306"
+        },
+        {
+            "name": "AMQ_HOST",
+            "description": "Message queue host",
+            "value": "feedhenry.me"
+        },
+        {
+            "name": "AMQ_PORT",
+            "description": "Message queue port",
+            "value": "5672"
+        },
+        {
+            "name": "AMQ_USER",
+            "description": "Message queue user",
+            "value": "fhinternal"
+        },
+        {
+            "name": "AMQ_PASSWORD",
+            "description": "Message queue user password",
+            "value": "Jdxbf9f4hkJvs7T"
+        },
+        {
+            "name": "MEMCACHED_SERVICE_HOST",
+            "description": "Memcached service host",
+            "value": "memcached"
+        },
+        {
+            "name": "MEMCACHED_SERVICE_PORT",
+            "description": "Memcached service port",
+            "value": "11211"
+        },
+        {
+            "name": "FH_DITCH_SERVICE_HOST",
+            "description": "Ditch service host"
+        },
+        {
+            "name": "FH_DITCH_SERVICE_PORT",
+            "description": "Ditch service port"
+        },
+        {
+            "name": "FH_AAA_SERVICE_HOST",
+            "description": "fh-aaa service host",
+            "value": "fh-aaa"
+        },
+        {
+            "name": "FH_AAA_SERVICE_PORT",
+            "description": "fh-aaa service port",
+            "value": "8080"
+        },
+        {
+            "name": "FH_GIT_SERVICE_HOST",
+            "description": "Git access host (including port)",
+            "value": "gitlab-shell"
+        },
+        {
+            "name": "BUILDER_ANDROID_SERVICE_HOST",
+            "description": "Build farm android url"
+        },
+        {
+            "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
+            "description": "Build farm blackberry url"
+        },
+        {
+            "name": "BUILDER_IPHONE_SERVICE_HOST",
+            "description": "Build farm iphone url"
+        },
+        {
+            "name": "BUILDER_WINPHONE_SERVICE_HOST",
+            "description": "Build farm winphone url"
+        },
+        {
+            "name": "CLUSTER_NAME",
+            "description": "Cluster name",
+            "value": "rhmap"
+        },
+        {
+            "name": "CLUSTER_DOMAIN",
+            "description": "Full domain used for build purposes",
+            "value": "local.feedhenry.io"
+        },
+        {
+            "name": "KEYCLOAK_SERVICE_HOST",
+            "description": "Keycloak service host",
+            "value": "ups"
+        },
+        {
+            "name": "KEYCLOAK_SERVICE_PORT",
+            "description": "Keycloak service port",
+            "value": "8080"
+        },
+        {
+            "name": "MESSAGE_SERVER_SERVICE_HOST",
+            "description": "Internal feedhenry message server host",
+            "value": "fh-messaging"
+        },
+        {
+            "name": "MESSAGE_SERVER_SERVICE_PORT",
+            "description": "Internal feedhenry message server ports",
+            "value": "8080"
+        },
+        {
+            "name": "FH_MESSAGING_API_KEY",
+            "description": "Key for communicating with the FH_MESSAGING Service",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "FH_SCM_SERVICE_HOST",
+            "description": "FH-SCM host",
+            "value": "fh-scm"
+        },
+        {
+            "name": "FH_SCM_SERVICE_PORT",
+            "description": "FH-SCM port",
+            "value": "8080"
+        },
+        {
+            "name": "SUPERCORE_SERVICE_HOST",
+            "description": "Supercore host",
+            "value": "fh-supercore"
+        },
+        {
+            "name": "SUPERCORE_SERVICE_PORT",
+            "description": "Supercore port",
+            "value": "8080"
+        },
+        {
+            "name": "FH_MILLICORE_API_KEY",
+            "description": "TODO REMOVE AND REPLACE WITH GENERATED",
+            "value": "CHANGEMETOBEGENERATED"
+        }
+    ]
+}

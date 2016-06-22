@@ -29,12 +29,12 @@
     },
     {
       "name": "FH_MILLICORE_SERVICE_HOST",
-      "value": "testing.feedhenry.me",
+      "value": "millicore",
       "description": "TODO: remove references to me once millicore is running on OpenShift"
     },
     {
       "name": "FH_MILLICORE_SERVICE_PORT",
-      "value": "8181",
+      "value": "8080",
       "description": "TODO: remove references to me once millicore is running on OpenShift"
     }
   ],

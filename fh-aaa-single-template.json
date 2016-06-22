@@ -18,7 +18,7 @@
     },
     {
       "name": "FH_AAA_IMAGE_VERSION",
-      "value": "0.2.10-328",
+      "value": "0.2.10-332",
       "description": "The version for the FH_AAA_IMAGE",
       "required": true
     },
@@ -45,7 +45,7 @@
     },
     {
       "name": "MONGODB_SERVICE_NAME",
-      "value": "mongodb-1",
+      "value": "mongodb-service-1",
       "description": "The mongodb service name"
     }
   ],
