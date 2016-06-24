@@ -17,7 +17,7 @@
     },
     {
       "name": "FH_SUPERCORE_IMAGE_VERSION",
-      "value": "3.13.0-2399",
+      "value": "3.13.0-2400",
       "description": "The version for the FH_SUPERCORE_IMAGE"
     },
     {
@@ -64,8 +64,7 @@
     },
     {
       "name": "REDIS_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
+      "value": null,
       "description": "The Redis password for fh-supercore"
     },
     {
@@ -95,6 +94,11 @@
       "name": "MONGODB_SERVICE_NAME",
       "value": "mongodb-1",
       "description": "The mongodb service name"
+    },
+    {
+      "name": "REDIS_SERVICE_NAME",
+      "value": "redis",
+      "description": "The redis service name"
     }
   ],
   "objects": [
@@ -194,11 +198,11 @@
                   },
                   {
                     "name": "RHMAP_AMQ_STOMP_HOST",
-                    "value": "amq-service"
+                    "value": "${RHMAP_AMQ_STOMP_HOST}"
                   },
                   {
                     "name": "RHMAP_AMQ_STOMP_PORT",
-                    "value": "8080"
+                    "value": "${RHMAP_AMQ_STOMP_PORT}"
                   },
                   {
                     "name": "MONGODB_FHSUPERCORE_USER",
@@ -226,13 +230,23 @@
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb-1",
+                    "value": "${MONGODB_SERVICE_NAME}",
                     "description": "The mongodb service name"
                   },
                   {
-                    "name": "MEMCACHED_SERVICE_NAME",
-                    "value": "memcached",
+                    "name": "MEMCACHED_SERVICE_HOST",
+                    "value":"${MEMCACHED_SERVICE_NAME}",
                     "description": "The memcached service name"
+                  },
+                  {
+                    "name": "REDIS_SERVICE_NAME",
+                    "value":"${REDIS_SERVICE_NAME}",
+                    "description": "The redis service name"
+                  },
+                  {
+                    "name": "REDIS_SERVICE_PORT",
+                    "value":"6379",
+                    "description": "The redis service port"
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"
