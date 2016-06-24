@@ -1,0 +1,84 @@
+#!/bin/bash
+#
+# This script updates the generated templates. See generated/README.md for more
+# information.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+PROJECT_ROOT="$(dirname "${BASH_SOURCE}")/.."
+
+# Generate a template by merging a base template with other components.
+# Globals:
+#   None
+# Arguments:
+#   $1     - path to generated output template
+#   $2     - base template, its metadata will be used in the generated template
+#   ${@:3} - component templates, its objects and parameters will be merged with
+#            the base
+# Returns:
+#   None
+generate() {
+  # Temporary file to store the merged template. We write to a temporary file so
+  # that if there is an error we won't truncate the original base template.
+  local tmp_output
+  tmp_output="$(mktemp "${TMPDIR:-/tmp}/template-merge-output-XXXXXX.json")"
+
+  # Merge all component templates with core template.
+  template merge "${@:2}" > "${tmp_output}"
+
+  # No errors so far, make the merged template the new generated template.
+  mv "${tmp_output}" "$1"
+}
+
+(
+  cd "${PROJECT_ROOT}"
+
+  # Generate Core Infra template.
+  ARGS=(
+    # Output:
+    generated/fh-core-infra
+    # Base template:
+    base/fh-core-infra
+    # Component templates:
+    amq/amq62-persistent
+    memcached/memcached-template
+    mongodb/mongodb-core-single-template
+    mysql/mysql-persistent-template
+  )
+  generate "${ARGS[@]/%/.json}"
+
+  # Generate Core Backend template.
+  ARGS=(
+    # Output:
+    generated/fh-core-backend
+    # Base template:
+    base/fh-core-backend
+    # Component templates:
+    fh-aaa-single-template
+  # fh-messaging-template
+  # fh-metrics-template
+    fh-scm-single-template
+    fh-supercore-single-template
+    gitlab-shell/gitlab-shell-single-template
+    unifiedpush-single-template
+  )
+  generate "${ARGS[@]/%/.json}"
+
+  # Generate Core Frontend template.
+  ARGS=(
+    # Output:
+    generated/fh-core-frontend
+    # Base template:
+    base/fh-core-frontend
+    # Component templates:
+    fh-appstore-single-template
+    fh-ngui-single-template
+    # NOTE: Even though it technically belongs in the "backend" category,
+    # millicore goes into the frontend template in order to be deployed after
+    # fh-supercore and fh-aaa.
+    fh-millicore-template
+  )
+  generate "${ARGS[@]/%/.json}"
+)
