@@ -23,7 +23,7 @@ generate() {
   # Temporary file to store the merged template. We write to a temporary file so
   # that if there is an error we won't truncate the original base template.
   local tmp_output
-  tmp_output="$(mktemp --tmpdir template-merge-output-XXXXXX.json)"
+  tmp_output="$(mktemp "${TMPDIR:-/tmp}/template-merge-output-XXXXXX.json")"
 
   # Merge all component templates with core template.
   template merge "${@:2}" > "${tmp_output}"
