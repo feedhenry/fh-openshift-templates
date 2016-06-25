@@ -1,0 +1,860 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "fh-core-backend",
+        "creationTimestamp": null,
+        "annotations": {
+            "description": "Red Hat Mobile Application Platform - Core Backend template",
+            "iconClass": "icon-nodejs",
+            "templateVersion": "0.0.0"
+        }
+    },
+    "objects": [
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-aaa",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-aaa"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "name": "fh-aaa"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-aaa",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-aaa"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "fh-aaa"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "fh-aaa"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "fh-aaa",
+                                "image": "${FH_AAA_IMAGE}:${FH_AAA_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "FH_LOG_LEVEL",
+                                        "value": "${FH_LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "MONGODB_USER",
+                                        "value": "${MONGODB_FHAAA_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_PASSWORD",
+                                        "value": "${MONGODB_FHAAA_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_SERVICE_NAME",
+                                        "value": "${MEMCACHED_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "MONGODB_SERVICE_NAME",
+                                        "value": "${MONGODB_SERVICE_NAME}"
+                                    }
+                                ],
+                                "resources": {},
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 55,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-scm",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-scm"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "name": "fh-scm"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-scm",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-scm"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "fh-scm"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "fh-scm"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "scm-data",
+                                "emptyDir": {}
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "fh-scm",
+                                "image": "${FH_SCM_IMAGE}:${FH_SCM_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "FH_LOG_LEVEL",
+                                        "value": "${FH_LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "FH_SCM_FILE_SERVER_PATH",
+                                        "value": "/tmp/fh-scm"
+                                    },
+                                    {
+                                        "name": "FH_SCM_FILE_SERVER_BACKUP",
+                                        "value": "/tmp/fh-scm/backup"
+                                    },
+                                    {
+                                        "name": "FH_SCM_FILE_SERVER_KEY_STORE",
+                                        "value": "/tmp/fh-scm/keystore"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_SERVICE_HOST",
+                                        "value": "${FH_MILLICORE_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_SERVICE_PORT",
+                                        "value": "${FH_MILLICORE_SERVICE_PORT}"
+                                    }
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "scm-data",
+                                        "mountPath": "/tmp"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 55,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-supercore",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-supercore"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "name": "fh-supercore"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-supercore",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-supercore"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "fh-supercore"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "fh-supercore"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "fh-supercore",
+                                "image": "${FH_SUPERCORE_IMAGE}:${FH_SUPERCORE_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "FH_AAA_SERVICE_HOST",
+                                        "value": "fh-aaa"
+                                    },
+                                    {
+                                        "name": "FH_AAA_SERVICE_PORT",
+                                        "value": "8080"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_SERVICE_HOST",
+                                        "value": "http://millicore"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_SERVICE_PORT",
+                                        "value": "8080"
+                                    },
+                                    {
+                                        "name": "FH_SCM_SERVICE_HOST",
+                                        "value": "fh-scm"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_SERVICE_HOST",
+                                        "value": "memcached"
+                                    },
+                                    {
+                                        "name": "FH_MESSAGING_SERVICE_HOST",
+                                        "value": "fh-messaging"
+                                    },
+                                    {
+                                        "name": "FH_MESSAGING_SERVICE_PORT",
+                                        "value": "8080"
+                                    },
+                                    {
+                                        "name": "FH_MESSAGING_API_KEY",
+                                        "value": "${FH_MESSAGING_API_KEY}"
+                                    },
+                                    {
+                                        "name": "FH_METRICS_SERVICE_HOST",
+                                        "value": "fh-metrics"
+                                    },
+                                    {
+                                        "name": "FH_METRICS_SERVICE_PORT",
+                                        "value": "8080"
+                                    },
+                                    {
+                                        "name": "FH_METRICS_API_KEY",
+                                        "value": "${FH_METRICS_API_KEY}"
+                                    },
+                                    {
+                                        "name": "FH_UPS_SERVICE_HOST",
+                                        "value": "ups"
+                                    },
+                                    {
+                                        "name": "FH_UPS_SERVICE_PORT",
+                                        "value": "8080"
+                                    },
+                                    {
+                                        "name": "FH_SCM_SERVICE_PORT",
+                                        "value": "8080"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_SERVICE_KEY",
+                                        "value": "${FH_MILLICORE_SERVICE_KEY}"
+                                    },
+                                    {
+                                        "name": "FH_MILLICORE_API_KEY",
+                                        "value": "${FH_MILLICORE_API_KEY}"
+                                    },
+                                    {
+                                        "name": "MONGODB_SERVICE_NAME",
+                                        "value": "${MONGODB_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "CLUSTER_NAME",
+                                        "value": "${CLUSTER_NAME}"
+                                    },
+                                    {
+                                        "name": "FH_LOG_LEVEL",
+                                        "value": "${FH_LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "AMQ_USER",
+                                        "value": "${AMQ_USER}"
+                                    },
+                                    {
+                                        "name": "AMQ_PASSWORD",
+                                        "value": "${AMQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "RHMAP_AMQ_STOMP_HOST",
+                                        "value": "${RHMAP_AMQ_STOMP_HOST}"
+                                    },
+                                    {
+                                        "name": "RHMAP_AMQ_STOMP_PORT",
+                                        "value": "${RHMAP_AMQ_STOMP_PORT}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHSUPERCORE_USER",
+                                        "value": "${MONGODB_FHSUPERCORE_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHSUPERCORE_PASSWORD",
+                                        "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "REDIS_PASSWORD",
+                                        "value": "${REDIS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "FH_MESSAGING_API_KEY",
+                                        "value": "${FH_MESSAGING_API_KEY}"
+                                    },
+                                    {
+                                        "name": "FH_METRICS_API_KEY",
+                                        "value": "${FH_METRICS_API_KEY}"
+                                    },
+                                    {
+                                        "name": "FH_STATSD_API_KEY",
+                                        "value": "${FH_STATSD_API_KEY}"
+                                    },
+                                    {
+                                        "name": "MONGODB_SERVICE_NAME",
+                                        "value": "${MONGODB_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "MEMCACHED_SERVICE_HOST",
+                                        "value": "${MEMCACHED_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "REDIS_SERVICE_NAME",
+                                        "value": "${REDIS_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "REDIS_SERVICE_PORT",
+                                        "value": "6379"
+                                    }
+                                ],
+                                "resources": {},
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 55,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "gitlab-shell",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "gitlab-shell"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 22,
+                        "targetPort": 22
+                    }
+                ],
+                "selector": {
+                    "name": "gitlab-shell"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "gitlab-shell",
+                "creationTimestamp": null
+            },
+            "data": {
+                "config.yml": "user: git\ngitlab_url: \"${GITLAB_URL}\"\nhttp_settings:\n  self_signed_cert: false\nrepos_path: \"/home/git/repositories\"\nauth_file: \"/home/git/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nrabbit:\n  enabled: true\n  hosts:\n    - ${RABBITMQ_SERVICE}\n  vhost: ${RABBITMQ_VHOST}\n  user: ${RABBITMQ_USER}\n  password: ${RABBITMQ_PASSWORD}\n  queue: ${RABBITMQ_QUEUE}\nlog_level: INFO\naudit_usernames: false\n"
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "gitlab-shell",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "gitlab-shell"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "gitlab-shell"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "gitlab-shell"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "gitlab-shell-configmap",
+                                "configMap": {
+                                    "name": "gitlab-shell"
+                                }
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "gitlab-shell",
+                                "image": "${GITLAB_SHELL_IMAGE}:${GITLAB_SHELL_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 22,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "gitlab-shell-configmap",
+                                        "mountPath": "/home/git/gitlab-config"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "tcpSocket": {
+                                        "port": 22
+                                    },
+                                    "initialDelaySeconds": 600,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "tcpSocket": {
+                                        "port": 22
+                                    },
+                                    "initialDelaySeconds": 2,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {
+                            "runAsUser": 0
+                        }
+                    }
+                }
+            },
+            "status": {}
+        }
+    ],
+    "parameters": [
+        {
+            "name": "FH_AAA_IMAGE",
+            "description": "The name of the fh-aaa image",
+            "value": "rhmap/fh-aaa",
+            "required": true
+        },
+        {
+            "name": "FH_AAA_IMAGE_VERSION",
+            "description": "The version for the FH_AAA_IMAGE",
+            "value": "0.2.10-332",
+            "required": true
+        },
+        {
+            "name": "FH_LOG_LEVEL",
+            "description": "A default log level for all components",
+            "value": "info"
+        },
+        {
+            "name": "MONGODB_FHAAA_USER",
+            "description": "The MongoDB username for fh-aaa",
+            "value": "u-aaa"
+        },
+        {
+            "name": "MONGODB_FHAAA_PASSWORD",
+            "description": "The MongoDB password for fh-aaa",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "MEMCACHED_SERVICE_NAME",
+            "description": "The memcached service name",
+            "value": "memcached"
+        },
+        {
+            "name": "MONGODB_SERVICE_NAME",
+            "description": "The mongodb service name",
+            "value": "mongodb-service-1"
+        },
+        {
+            "name": "FH_SCM_IMAGE",
+            "description": "The name of the fh-scm image",
+            "value": "rhmap/fh-scm"
+        },
+        {
+            "name": "FH_SCM_IMAGE_VERSION",
+            "description": "The version for the FH_SCM_IMAGE",
+            "value": "0.17.1-243"
+        },
+        {
+            "name": "FH_MILLICORE_SERVICE_HOST",
+            "description": "TODO: remove references to me once millicore is running on OpenShift",
+            "value": "millicore"
+        },
+        {
+            "name": "FH_MILLICORE_SERVICE_PORT",
+            "description": "TODO: remove references to me once millicore is running on OpenShift",
+            "value": "8080"
+        },
+        {
+            "name": "FH_SUPERCORE_IMAGE",
+            "description": "The name of the fh-supercore image",
+            "value": "rhmap/fh-supercore"
+        },
+        {
+            "name": "FH_SUPERCORE_IMAGE_VERSION",
+            "description": "The version for the FH_SUPERCORE_IMAGE",
+            "value": "3.13.0-2400"
+        },
+        {
+            "name": "CLUSTER_NAME",
+            "description": "The name of this RHMAP Core cluster",
+            "value": "development"
+        },
+        {
+            "name": "MONGODB_FHSUPERCORE_USER",
+            "description": "The MongoDB username for fh-supercore",
+            "value": "u-supercore"
+        },
+        {
+            "name": "MONGODB_FHSUPERCORE_PASSWORD",
+            "description": "The MongoDB password for fh-supercore",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "REDIS_PASSWORD",
+            "description": "The Redis password for fh-supercore"
+        },
+        {
+            "name": "FH_MESSAGING_API_KEY",
+            "description": "Key for communicating with the FH_MESSAGING Service",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "FH_METRICS_API_KEY",
+            "description": "Key for communicating with the FH_METRICS Service",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "FH_MILLICORE_API_KEY",
+            "description": "Key for communicating with the FH_STATSD Service",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "REDIS_SERVICE_NAME",
+            "description": "The redis service name",
+            "value": "redis"
+        },
+        {
+            "name": "FH_MILLICORE_SERVICE_KEY",
+            "description": "Key for communicating with the millicore Service",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "FH_AAA_SERVICE_HOST",
+            "value": "fh-aaa"
+        },
+        {
+            "name": "GITLAB_SHELL_IMAGE",
+            "description": "The name of the gitlab-shell image",
+            "value": "rhmap/gitlab-shell"
+        },
+        {
+            "name": "GITLAB_SHELL_IMAGE_VERSION",
+            "description": "The version for the GITLAB_SHELL_IMAGE",
+            "value": "2.0.0.pre-4"
+        },
+        {
+            "name": "GITLAB_URL",
+            "description": "The URL that GitLab is exposed at",
+            "value": "http://millicore:8080/box/api/gls/"
+        },
+        {
+            "name": "RABBITMQ_SERVICE",
+            "description": "The location of the RabbitMQ service",
+            "value": "rabbitmq-service"
+        },
+        {
+            "name": "RABBITMQ_VHOST",
+            "description": "The RabbitMQ vHost",
+            "value": "fhtasks"
+        },
+        {
+            "name": "RABBITMQ_USER",
+            "description": "The RabbitMQ user",
+            "value": "fhtasksuser"
+        },
+        {
+            "name": "RABBITMQ_PASSWORD",
+            "description": "The RabbitMQ password. TODO: This should be generated in the production template",
+            "value": "fhtaskspassword"
+        },
+        {
+            "name": "RABBITMQ_QUEUE",
+            "description": "The RabbitMQ queue",
+            "value": "fh-tasks-gitlab-postreceive"
+        }
+    ]
+}

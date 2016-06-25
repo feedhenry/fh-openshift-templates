@@ -22,7 +22,7 @@
     },
     {
       "name": "CLUSTER_NAME",
-      "value": "development",
+      "value": "rhmap",
       "description": "The name of this RHMAP Core cluster"
     },
     {
@@ -80,10 +80,10 @@
       "description": "Key for communicating with the FH_METRICS Service"
     },
     {
-      "name": "FH_STATSD_API_KEY",
+      "name":"FH_MILLICORE_API_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the FH_STATSD Service"
+      "description": "Key for communicating with the millicore Service"
     },
     {
       "name": "MEMCACHED_SERVICE_NAME",
@@ -92,13 +92,23 @@
     },
     {
       "name": "MONGODB_SERVICE_NAME",
-      "value": "mongodb-1",
+      "value": "mongodb-service-1",
       "description": "The mongodb service name"
     },
     {
       "name": "REDIS_SERVICE_NAME",
       "value": "redis",
       "description": "The redis service name"
+    },
+    {
+      "name":"FH_MILLICORE_SERVICE_KEY",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "Key for communicating with the millicore Service"
+    },
+    {
+      "name":"FH_AAA_SERVICE_HOST",
+      "value":"fh-aaa"
     }
   ],
   "objects": [
@@ -180,6 +190,78 @@
                   "failureThreshold": 1
                 },
                 "env": [
+                  {
+                    "name":"FH_AAA_SERVICE_HOST",
+                    "value":"fh-aaa"
+                  },
+                  {
+                    "name":"FH_AAA_SERVICE_PORT",
+                    "value":"8080"
+                  },
+                  {
+                    "name":"FH_MILLICORE_SERVICE_HOST",
+                    "value":"http://millicore"
+                  },
+                  {
+                    "name":"FH_MILLICORE_SERVICE_PORT",
+                    "value":"8080"
+                  },
+                  {
+                    "name":"FH_SCM_SERVICE_HOST",
+                    "value":"fh-scm"
+                  },
+                  {
+                    "name":"MEMCACHED_SERVICE_HOST",
+                    "value":"memcached"
+                  },
+                  {
+                    "name":"FH_MESSAGING_SERVICE_HOST",
+                    "value":"fh-messaging"
+                  },
+                  {
+                    "name":"FH_MESSAGING_SERVICE_PORT",
+                    "value":"8080"
+                  },
+                  {
+                    "name": "FH_MESSAGING_API_KEY",
+                    "value": "${FH_MESSAGING_API_KEY}"
+                  },
+                  {
+                    "name":"FH_METRICS_SERVICE_HOST",
+                    "value":"fh-metrics"
+                  },
+                  {
+                    "name":"FH_METRICS_SERVICE_PORT",
+                    "value":"8080"
+                  },
+                  {
+                    "name": "FH_METRICS_API_KEY",
+                    "value": "${FH_METRICS_API_KEY}"
+                  },
+                  {
+                    "name":"FH_UPS_SERVICE_HOST",
+                    "value":"ups"
+                  },
+                  {
+                    "name":"FH_UPS_SERVICE_PORT",
+                    "value":"8080"
+                  },
+                  {
+                    "name":"FH_SCM_SERVICE_PORT",
+                    "value":"8080"
+                  },
+                  {
+                    "name":"FH_MILLICORE_SERVICE_KEY",
+                    "value":"${FH_MILLICORE_SERVICE_KEY}"
+                  },
+                  {
+                    "name":"FH_MILLICORE_API_KEY",
+                    "value":"${FH_MILLICORE_API_KEY}"
+                  },
+                  {
+                    "name":"MONGODB_SERVICE_NAME",
+                    "value":"${MONGODB_SERVICE_NAME}"
+                  },
                   {
                     "name": "CLUSTER_NAME",
                     "value": "${CLUSTER_NAME}"

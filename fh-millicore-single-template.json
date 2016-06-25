@@ -17,7 +17,7 @@
       },
       {
          "name": "MILLICORE_IMAGE_VERSION",
-         "value": "latest",
+         "value": "7.29.0-2143",
          "description": "Millicore image version"
       },
       {
@@ -32,22 +32,22 @@
       },
       {
          "name": "FH_DOMAIN_NAME",
-         "value": "onprem",
+         "value": "rhmap",
          "description": "Customer subdomain name"
       },
       {
          "name": "MYSQL_USER",
-         "value": "core-admin",
+         "value": "coreadmin",
          "description": "MYSQL database user"
       },
       {
          "name": "MYSQL_PASSWORD",
-         "value": "core-admin",
+         "value": "coreadmin",
          "description": "MYSQL database password"
       },
       {
          "name": "MYSQL_HOST",
-         "value": "feedhenry.me",
+         "value": "mysql",
          "description": "MYSQL database host"
       },
       {
@@ -77,7 +77,7 @@
       },
       {
          "name": "MEMCACHED_SERVICE_HOST",
-         "value": "feedhenry.me",
+         "value": "memcached",
          "description": "Memcached service host"
       },
       {
@@ -97,17 +97,17 @@
       },
       {
          "name": "FH_AAA_SERVICE_HOST",
-         "value": "http://feedhenry.me",
+         "value": "fh-aaa",
          "description": "fh-aaa service host"
       },
       {
          "name": "FH_AAA_SERVICE_PORT",
-         "value": "8818",
+         "value": "8080",
          "description": "fh-aaa service port"
       },
       {
          "name": "FH_GIT_SERVICE_HOST",
-         "value": "",
+         "value": "gitlab-shell",
          "description": "Git access host (including port)"
       },
       {
@@ -132,7 +132,7 @@
       },
       {
          "name": "CLUSTER_NAME",
-         "value": "test",
+         "value": "rhmap",
          "description": "Cluster name"
       },
       {
@@ -142,63 +142,64 @@
       },
       {
          "name": "FH_MILLICORE_SERVICE_HOST",
-         "value": "http://feedhenry.me",
+         "value": "millicore",
          "description": "Internal service host"
       },
       {
          "name": "FH_MILLICORE_SERVICE_PORT",
-         "value": "",
+         "value": "8080",
          "description": "Internal service port"
       },
       {
          "name": "KEYCLOAK_SERVICE_HOST",
-         "value": "http://feedhenry.me",
+         "value": "ups",
          "description": "Keycloak service host"
       },
       {
          "name": "KEYCLOAK_SERVICE_PORT",
-         "value": "",
+         "value": "8080",
          "description": "Keycloak service port"
       },
       {
          "name": "MESSAGE_SERVER_SERVICE_HOST",
-         "value": "http://feedhenry.me",
+         "value": "fh-messaging",
          "description": "Internal feedhenry message server host"
       },
       {
          "name": "MESSAGE_SERVER_SERVICE_PORT",
-         "value": "",
+         "value": "8080",
          "description": "Internal feedhenry message server ports"
       },
       {
+         "name": "FH_MESSAGING_API_KEY",
+         "generate": "expression",
+         "from": "[a-zA-Z0-9]{40}",
+         "description": "Key for communicating with the FH_MESSAGING Service"
+      },
+      {
          "name": "FH_SCM_SERVICE_HOST",
-         "value": "http://feedhenry.me",
+         "value": "fh-scm",
          "description": "FH-SCM host"
       },
       {
          "name": "FH_SCM_SERVICE_PORT",
-         "value": "",
+         "value": "8080",
          "description": "FH-SCM port"
       },
       {
-         "name": "FH_STATSD_SERVICE_HOST",
-         "value": "http://feedhenry.me",
-         "description": "FH_STATSD service host"
-      },
-      {
-         "name": "FH_STATSD_SERVICE_PORT",
-         "value": "",
-         "description": "FH_STATSD service port"
-      },
-      {
          "name": "SUPERCORE_SERVICE_HOST",
-         "value": "http://feedhenry.me",
+         "value": "fh-supercore",
          "description": "Supercore host"
       },
       {
          "name": "SUPERCORE_SERVICE_PORT",
-         "value": "8809",
+         "value": "8080",
          "description": "Supercore port"
+      },
+      {
+         "name":"FH_MILLICORE_API_KEY",
+         "value":"CHANGEMETOBEGENERATED",
+         "description":"TODO REMOVE AND REPLACE WITH GENERATED"
       }
    ],
    "objects": [
@@ -217,7 +218,33 @@
             },
             "ports": [
                {
+                  "name":"http",
                   "port": 8080
+               },
+               {
+                  "name":"ajp",
+                  "port": 8009
+               }
+            ]
+         }
+      },
+      {
+         "kind": "Service",
+         "apiVersion": "v1",
+         "metadata": {
+            "name": "loghost",
+            "labels": {
+               "name": "millicore"
+            }
+         },
+         "spec": {
+            "selector": {
+               "name": "millicore"
+            },
+            "ports": [
+               {
+                  "protocol":"udp",
+                  "port": 514
                }
             ]
          }
@@ -281,6 +308,10 @@
                         },
                         "env": [
                            {
+                              "name": "FH_MESSAGING_API_KEY",
+                              "value": "${FH_MESSAGING_API_KEY}"
+                           },
+                           {
                               "name": "FH_ADMIN_USER_PASSWORD",
                               "value": "${FH_ADMIN_USER_PASSWORD}"
                            },
@@ -335,14 +366,6 @@
                            {
                               "name": "MEMCACHED_SERVICE_PORT",
                               "value": "${MEMCACHED_SERVICE_PORT}"
-                           },
-                           {
-                              "name": "FH_DITCH_SERVICE_HOST",
-                              "value": "${FH_DITCH_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "FH_DITCH_SERVICE_PORT",
-                              "value": "${FH_DITCH_SERVICE_PORT}"
                            },
                            {
                               "name": "FH_AAA_SERVICE_HOST",
@@ -427,6 +450,10 @@
                            {
                               "name": "SUPERCORE_SERVICE_PORT",
                               "value": "${SUPERCORE_SERVICE_PORT}"
+                           },
+                           {
+                              "name": "SUPERCORE_API_KEY",
+                              "value": "${FH_MILLICORE_API_KEY}"
                            }
                         ],
                         "imagePullPolicy": "IfNotPresent"

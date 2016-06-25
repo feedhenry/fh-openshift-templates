@@ -42,10 +42,10 @@ generate() {
     # Base template:
     base/fh-core-infra
     # Component templates:
-    amq/amq62-persistent
     memcached/memcached-template
     mongodb/mongodb-core-single-template
-    mysql/mysql-persistent-template
+    mysql/mysql-non-persistent-template
+    redis/redis-template
   )
   generate "${ARGS[@]/%/.json}"
 
@@ -57,12 +57,12 @@ generate() {
     base/fh-core-backend
     # Component templates:
     fh-aaa-single-template
-  # fh-messaging-template
-  # fh-metrics-template
+    #fh-messaging-template
+    #fh-metrics-template
     fh-scm-single-template
     fh-supercore-single-template
     gitlab-shell/gitlab-shell-single-template
-    unifiedpush-single-template
+    #unifiedpush-single-template
   )
   generate "${ARGS[@]/%/.json}"
 
@@ -75,10 +75,11 @@ generate() {
     # Component templates:
     fh-appstore-single-template
     fh-ngui-single-template
+    apache-httpd/httpd24-non-persistent-template
     # NOTE: Even though it technically belongs in the "backend" category,
     # millicore goes into the frontend template in order to be deployed after
     # fh-supercore and fh-aaa.
-    fh-millicore-template
+    fh-millicore-single-template
   )
   generate "${ARGS[@]/%/.json}"
 )

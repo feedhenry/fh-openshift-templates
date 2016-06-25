@@ -1,0 +1,801 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "fh-core-infra",
+        "creationTimestamp": null,
+        "annotations": {
+            "description": "Red Hat Mobile Application Platform - Core Infra template",
+            "iconClass": "icon-nodejs",
+            "templateVersion": "0.0.0"
+        }
+    },
+    "objects": [
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${MEMCACHED_SERVICE_NAME}",
+                "creationTimestamp": null
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "memcached-tcp",
+                        "protocol": "TCP",
+                        "port": 11211,
+                        "targetPort": 11211
+                    },
+                    {
+                        "name": "memcached-udp",
+                        "protocol": "UDP",
+                        "port": 11211,
+                        "targetPort": 11211
+                    }
+                ],
+                "selector": {
+                    "name": "${MEMCACHED_SERVICE_NAME}"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "name": "${MEMCACHED_SERVICE_NAME}"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "name": "${MEMCACHED_SERVICE_NAME}"
+                },
+                "strategy": {
+                    "type": "Rolling"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "name": "${MEMCACHED_SERVICE_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "${MEMCACHED_IMAGE}:${MEMCACHED_IMAGE_VERSION}",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 2,
+                                    "initialDelaySeconds": 600,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "tcpSocket": {
+                                        "port": 11211
+                                    },
+                                    "timeoutSeconds": 5
+                                },
+                                "name": "memcached",
+                                "ports": [
+                                    {
+                                        "containerPort": 11211,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 11211,
+                                        "protocol": "UDP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 1,
+                                    "initialDelaySeconds": 2,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "tcpSocket": {
+                                        "port": 11211
+                                    },
+                                    "timeoutSeconds": 5
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${MONGODB_SERVICE_NAME}-1",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "${MONGODB_SERVICE_NAME}-1"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 27017,
+                        "targetPort": 27017
+                    }
+                ],
+                "selector": {
+                    "name": "mongodb-replica"
+                },
+                "portalIP": "None",
+                "clusterIP": "None",
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mongodb-1",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "mongodb"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate",
+                    "recreateParams": {
+                        "timeoutSeconds": 600
+                    },
+                    "resources": {
+                        "limits": {
+                            "cpu": "1",
+                            "memory": "1000Mi"
+                        },
+                        "requests": {
+                            "cpu": "200m",
+                            "memory": "200Mi"
+                        }
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "mongodb-replica"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "mongodb-replica"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "mongodb",
+                                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 27017,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "MONGODB_REPLICA_NAME",
+                                        "value": "rs0"
+                                    },
+                                    {
+                                        "name": "MONGODB_SERVICE_NAME",
+                                        "value": "${MONGODB_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "MONGODB_KEYFILE_VALUE",
+                                        "value": "${MONGODB_KEYFILE_VALUE}"
+                                    },
+                                    {
+                                        "name": "MONGODB_ADMIN_PASSWORD",
+                                        "value": "${MONGODB_ADMIN_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHAAA_USER",
+                                        "value": "${MONGODB_FHAAA_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHAAA_PASSWORD",
+                                        "value": "${MONGODB_FHAAA_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHAAA_DATABASE",
+                                        "value": "${MONGODB_FHAAA_DATABASE}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHSUPERCORE_USER",
+                                        "value": "${MONGODB_FHSUPERCORE_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHSUPERCORE_PASSWORD",
+                                        "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHSUPERCORE_DATABASE",
+                                        "value": "${MONGODB_FHSUPERCORE_DATABASE}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_USER",
+                                        "value": "${MONGODB_FHREPORTING_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_PASSWORD",
+                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_DATABASE",
+                                        "value": "${MONGODB_FHREPORTING_DATABASE}"
+                                    }
+                                ],
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "1",
+                                        "memory": "1000Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "200m",
+                                        "memory": "200Mi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Pod",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mongodb-initiator",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "mongodb-initiator"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "mongodb",
+                        "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+                        "command": [
+                            "run-mongod",
+                            "initiate"
+                        ],
+                        "ports": [
+                            {
+                                "containerPort": 27017,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "env": [
+                            {
+                                "name": "MONGODB_REPLICA_NAME",
+                                "value": "rs0"
+                            },
+                            {
+                                "name": "MONGODB_SERVICE_NAME",
+                                "value": "${MONGODB_SERVICE_NAME}"
+                            },
+                            {
+                                "name": "MONGODB_KEYFILE_VALUE",
+                                "value": "${MONGODB_KEYFILE_VALUE}"
+                            },
+                            {
+                                "name": "MONGODB_ADMIN_PASSWORD",
+                                "value": "${MONGODB_ADMIN_PASSWORD}"
+                            },
+                            {
+                                "name": "MONGODB_FHAAA_USER",
+                                "value": "${MONGODB_FHAAA_USER}"
+                            },
+                            {
+                                "name": "MONGODB_FHAAA_PASSWORD",
+                                "value": "${MONGODB_FHAAA_PASSWORD}"
+                            },
+                            {
+                                "name": "MONGODB_FHAAA_DATABASE",
+                                "value": "${MONGODB_FHAAA_DATABASE}"
+                            },
+                            {
+                                "name": "MONGODB_FHSUPERCORE_USER",
+                                "value": "${MONGODB_FHSUPERCORE_USER}"
+                            },
+                            {
+                                "name": "MONGODB_FHSUPERCORE_PASSWORD",
+                                "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                            },
+                            {
+                                "name": "MONGODB_FHSUPERCORE_DATABASE",
+                                "value": "${MONGODB_FHSUPERCORE_DATABASE}"
+                            },
+                            {
+                                "name": "MONGODB_FHREPORTING_USER",
+                                "value": "${MONGODB_FHREPORTING_USER}"
+                            },
+                            {
+                                "name": "MONGODB_FHREPORTING_PASSWORD",
+                                "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                            },
+                            {
+                                "name": "MONGODB_FHREPORTING_DATABASE",
+                                "value": "${MONGODB_FHREPORTING_DATABASE}"
+                            },
+                            {
+                                "name": "ENDPOINT_COUNT",
+                                "value": "${ENDPOINT_COUNT}"
+                            },
+                            {
+                                "name": "MONGODB_INITIAL_REPLICA_COUNT",
+                                "value": "${ENDPOINT_COUNT}"
+                            }
+                        ],
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "imagePullPolicy": "IfNotPresent"
+                    }
+                ],
+                "restartPolicy": "Never",
+                "terminationGracePeriodSeconds": 30,
+                "dnsPolicy": "ClusterFirst",
+                "securityContext": {}
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${DATABASE_SERVICE_NAME}",
+                "creationTimestamp": null
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "mysql",
+                        "protocol": "TCP",
+                        "port": 3306,
+                        "targetPort": 3306
+                    }
+                ],
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "name": "${DATABASE_SERVICE_NAME}"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "name": "${DATABASE_SERVICE_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "MYSQL_USER",
+                                        "value": "${MYSQL_USER}"
+                                    },
+                                    {
+                                        "name": "MYSQL_PASSWORD",
+                                        "value": "${MYSQL_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MYSQL_DATABASE",
+                                        "value": "${MYSQL_DATABASE}"
+                                    }
+                                ],
+                                "image": " ",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 2,
+                                    "initialDelaySeconds": 600,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "tcpSocket": {
+                                        "port": 3306
+                                    },
+                                    "timeoutSeconds": 5
+                                },
+                                "name": "mysql",
+                                "ports": [
+                                    {
+                                        "containerPort": 3306
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/sh",
+                                            "-ic",
+                                            "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
+                                        ]
+                                    },
+                                    "failureThreshold": 1,
+                                    "initialDelaySeconds": 0,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/var/lib/mysql/data",
+                                        "name": "mysql-data"
+                                    }
+                                ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "emptyDir": {},
+                                "name": "mysql-data"
+                            }
+                        ]
+                    }
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": false,
+                            "containerNames": [
+                                "mysql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "mysql:5.5",
+                                "namespace": "${NAMESPACE}"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "redis",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "redis"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "redis",
+                        "protocol": "TCP",
+                        "port": 6379,
+                        "targetPort": 6379
+                    }
+                ],
+                "selector": {
+                    "name": "redis"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "redis",
+                "creationTimestamp": null
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate",
+                    "recreateParams": {
+                        "timeoutSeconds": 600
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "redis"
+                },
+                "template": {
+                    "metadata": {
+                        "name": "redis",
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "redis"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "redis",
+                                "image": "${REDIS_IMAGE}:${REDIS_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 6379,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "REDIS_PORT",
+                                        "value": "6379"
+                                    }
+                                ],
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "500m",
+                                        "memory": "500Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "100Mi"
+                                    }
+                                },
+                                "livenessProbe": {
+                                    "tcpSocket": {
+                                        "port": 6379
+                                    },
+                                    "initialDelaySeconds": 600,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "tcpSocket": {
+                                        "port": 6379
+                                    },
+                                    "initialDelaySeconds": 2,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        }
+    ],
+    "parameters": [
+        {
+            "name": "MEMCACHED_SERVICE_NAME",
+            "displayName": "Memcached Service Name",
+            "description": "The name of the OpenShift Service exposed for memcached.",
+            "value": "memcached",
+            "required": true
+        },
+        {
+            "name": "MEMCACHED_IMAGE",
+            "description": "The name of the memcached image",
+            "value": "docker.io/rhmap/memcached",
+            "required": true
+        },
+        {
+            "name": "MEMCACHED_IMAGE_VERSION",
+            "description": "The version for the MEMCACHED_IMAGE",
+            "value": "1.4.15-9",
+            "required": true
+        },
+        {
+            "name": "MEMORY_LIMIT",
+            "displayName": "Memory Limit",
+            "description": "Maximum amount of memory the container can use.",
+            "value": "1Gi",
+            "required": true
+        },
+        {
+            "name": "MONGODB_SERVICE_NAME",
+            "displayName": "Mongodb Service Name",
+            "description": "The name of the OpenShift Service exposed for mongodb.",
+            "value": "mongodb",
+            "required": true
+        },
+        {
+            "name": "FH_CLUSTER",
+            "description": "the name of the cluster the mbaas was created from",
+            "value": "development"
+        },
+        {
+            "name": "MONGODB_FHAAA_USER",
+            "description": "The MongoDB aaa user name",
+            "value": "u-aaa"
+        },
+        {
+            "name": "MONGODB_FHAAA_PASSWORD",
+            "description": "The MongoDB aaa password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "MONGODB_FHAAA_DATABASE",
+            "description": "The MongoDB aaa database",
+            "value": "fh-aaa"
+        },
+        {
+            "name": "MONGODB_FHSUPERCORE_USER",
+            "description": "The MongoDB supercore user name",
+            "value": "u-supercore"
+        },
+        {
+            "name": "MONGODB_FHSUPERCORE_PASSWORD",
+            "description": "The MongoDB supercore password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "MONGODB_FHSUPERCORE_DATABASE",
+            "description": "The MongoDB supercore database",
+            "value": "fh-supercore"
+        },
+        {
+            "name": "MONGODB_FHREPORTING_USER",
+            "description": "The reporting user name",
+            "value": "u-reporting"
+        },
+        {
+            "name": "MONGODB_FHREPORTING_PASSWORD",
+            "description": "The MongoDB reporting password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "MONGODB_FHREPORTING_DATABASE",
+            "description": "The MongoDB reporting database",
+            "value": "fh-reporting"
+        },
+        {
+            "name": "MONGODB_KEYFILE_VALUE",
+            "description": "The value of the MongoDB Key",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{255}"
+        },
+        {
+            "name": "MONGODB_ADMIN_PASSWORD",
+            "description": "The MongoDB Admin password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "MONGODB_IMAGE",
+            "description": "The name of the mongodb image",
+            "value": "docker.io/rhmap/mongodb"
+        },
+        {
+            "name": "MONGODB_IMAGE_VERSION",
+            "description": "The version for the MONGODB_IMAGE",
+            "value": "centos-2.4-24"
+        },
+        {
+            "name": "ENDPOINT_COUNT",
+            "description": "The amount of database's to create a replica set",
+            "value": "1"
+        },
+        {
+            "name": "NAMESPACE",
+            "displayName": "Namespace",
+            "description": "The OpenShift Namespace where the ImageStream resides.",
+            "value": "openshift"
+        },
+        {
+            "name": "DATABASE_SERVICE_NAME",
+            "displayName": "Database Service Name",
+            "description": "The name of the OpenShift Service exposed for the database.",
+            "value": "mysql",
+            "required": true
+        },
+        {
+            "name": "MYSQL_USER",
+            "displayName": "MySQL User",
+            "description": "Username for MySQL user that will be used for accessing the database.",
+            "value": "user",
+            "required": true
+        },
+        {
+            "name": "MYSQL_PASSWORD",
+            "displayName": "MySQL Password",
+            "description": "Password for the MySQL user.",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{16}",
+            "required": true
+        },
+        {
+            "name": "MYSQL_DATABASE",
+            "displayName": "MySQL Database Name",
+            "description": "Name of the MySQL database accessed.",
+            "value": "db",
+            "required": true
+        },
+        {
+            "name": "REDIS_IMAGE",
+            "description": "The name of the redis image",
+            "value": "rhmap/redis",
+            "required": true
+        },
+        {
+            "name": "REDIS_IMAGE_VERSION",
+            "description": "The version for the REDIS_IMAGE",
+            "value": "2.18.21",
+            "required": true
+        }
+    ]
+}
