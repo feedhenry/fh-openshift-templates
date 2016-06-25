@@ -105,7 +105,12 @@ ctrl + ]
 
 exit
 
+Note some times it can help to restart millicore
 
+oc scale dc/millicore --replicas=0
+wait for it to stop
+oc scale dc/millicore --replicas=1
+wait for it to fully start  
 ```
 
 logout hard refresh and log back in
