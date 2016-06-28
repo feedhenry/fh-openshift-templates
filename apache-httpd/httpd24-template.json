@@ -197,8 +197,8 @@
   ],
   "parameters": [
     {
-      "name":"CLUSTER_HOST",
-      "value":"rhmap.feedhenry.local"
+      "name": "CLUSTER_HOST",
+      "value": "rhmap.feedhenry.local"
     },
     {
       "name": "HTTPD_SERVICE_NAME",
