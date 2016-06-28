@@ -116,6 +116,18 @@
                   {
                     "name": "MYSQL_DATABASE",
                     "value": "${MYSQL_DATABASE}"
+                  },
+                  {
+                    "name": "UPS_USER",
+                    "value": "${UPS_USER}"
+                  },
+                  {
+                    "name": "UPS_PASSWORD",
+                    "value": "${UPS_PASSWORD}"
+                  },
+                  {
+                    "name": "UPS_DATABASE",
+                    "value": "${UPS_DATABASE}"
                   }
                 ],
                 "resources": {
@@ -195,6 +207,27 @@
       "displayName": "Volume Capacity",
       "description": "Volume space available for data, e.g. 512Mi, 2Gi.",
       "value": "10Gi",
+      "required": true
+    },
+    {
+      "name": "UPS_USER",
+      "displayName": "UPS user in MySQL",
+      "description": "Name of the MySQL user for UPS",
+      "value": "unifiedpush",
+      "required": true
+    },
+    {
+      "name": "UPS_PASSWORD",
+      "displayName": "Password for the UPS user.",
+      "description": "Password for the UPS user.",
+      "value": "unifiedpush",
+      "required": true
+    },
+    {
+      "name": "UPS_DATABASE",
+      "displayName": "Name of the UPS database accessed.",
+      "description": "Name of the UPS database accessed.",
+      "value": "unifiedpush",
       "required": true
     }
   ],

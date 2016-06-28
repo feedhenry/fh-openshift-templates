@@ -185,22 +185,22 @@
     },
     {
       "name": "UPS_USER",
-      "displayName": "MySQL Database Name",
-      "description": "Name of the MySQL database accessed.",
+      "displayName": "UPS user in MySQL",
+      "description": "Name of the MySQL user for UPS",
       "value": "unifiedpush",
       "required": true
     },
     {
       "name": "UPS_PASSWORD",
-      "displayName": "MySQL Database Name",
-      "description": "Name of the MySQL database accessed.",
+      "displayName": "Password for the UPS user.",
+      "description": "Password for the UPS user.",
       "value": "unifiedpush",
       "required": true
     },
     {
       "name": "UPS_DATABASE",
-      "displayName": "MySQL Database Name",
-      "description": "Name of the MySQL database accessed.",
+      "displayName": "Name of the UPS database accessed.",
+      "description": "Name of the UPS database accessed.",
       "value": "unifiedpush",
       "required": true
     }
