@@ -57,20 +57,6 @@
         },
         "triggers": [
           {
-            "type": "ImageChange",
-            "imageChangeParams": {
-              "automatic": false,
-              "containerNames": [
-                "mysql"
-              ],
-              "from": {
-                "kind": "ImageStreamTag",
-                "name": "mysql:5.5",
-                "namespace": "${NAMESPACE}"
-              }
-            }
-          },
-          {
             "type": "ConfigChange"
           }
         ],
@@ -88,7 +74,7 @@
             "containers": [
               {
                 "name": "mysql",
-                "image": " ",
+                "image": "${MYSQL_IMAGE}:${MYSQL_IMAGE_VERSION}",
                 "ports": [
                   {
                     "containerPort": 3306
@@ -161,17 +147,19 @@
   ],
   "parameters": [
     {
+      "name": "MYSQL_IMAGE",
+      "value": "rhmap/mysql"
+    },
+    {
+      "name": "MYSQL_IMAGE_VERSION",
+      "value": "5.5-9"
+    },
+    {
       "name": "MEMORY_LIMIT",
       "displayName": "Memory Limit",
       "description": "Maximum amount of memory the container can use.",
       "value": "1Gi",
       "required": true
-    },
-    {
-      "name": "NAMESPACE",
-      "displayName": "Namespace",
-      "description": "The OpenShift Namespace where the ImageStream resides.",
-      "value": "openshift"
     },
     {
       "name": "DATABASE_SERVICE_NAME",

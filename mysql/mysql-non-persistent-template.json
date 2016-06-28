@@ -40,20 +40,6 @@
         },
         "triggers": [
           {
-            "type": "ImageChange",
-            "imageChangeParams": {
-              "automatic": false,
-              "containerNames": [
-                "mysql"
-              ],
-              "from": {
-                "kind": "ImageStreamTag",
-                "name": "mysql:5.5",
-                "namespace": "${NAMESPACE}"
-              }
-            }
-          },
-          {
             "type": "ConfigChange"
           }
         ],
@@ -71,7 +57,7 @@
             "containers": [
               {
                 "name": "mysql",
-                "image": " ",
+                "image": "${MYSQL_IMAGE}:${MYSQL_IMAGE_VERSION}",
                 "ports": [
                   {
                     "containerPort": 3306
@@ -113,6 +99,18 @@
                   {
                     "name": "MYSQL_DATABASE",
                     "value": "${MYSQL_DATABASE}"
+                  },
+                  {
+                    "name": "UPS_USER",
+                    "value": "${UPS_USER}"
+                  },
+                  {
+                    "name": "UPS_PASSWORD",
+                    "value": "${UPS_PASSWORD}"
+                  },
+                  {
+                    "name": "UPS_DATABASE",
+                    "value": "${UPS_DATABASE}"
                   }
                 ],
                 "resources": {
@@ -142,17 +140,19 @@
   ],
   "parameters": [
     {
+      "name": "MYSQL_IMAGE",
+      "value": "rhmap/mysql"
+    },
+    {
+      "name": "MYSQL_IMAGE_VERSION",
+      "value": "5.5-10"
+    },
+    {
       "name": "MEMORY_LIMIT",
       "displayName": "Memory Limit",
       "description": "Maximum amount of memory the container can use.",
       "value": "1Gi",
       "required": true
-    },
-    {
-      "name": "NAMESPACE",
-      "displayName": "Namespace",
-      "description": "The OpenShift Namespace where the ImageStream resides.",
-      "value": "openshift"
     },
     {
       "name": "DATABASE_SERVICE_NAME",
@@ -181,6 +181,27 @@
       "displayName": "MySQL Database Name",
       "description": "Name of the MySQL database accessed.",
       "value": "db",
+      "required": true
+    },
+    {
+      "name": "UPS_USER",
+      "displayName": "MySQL Database Name",
+      "description": "Name of the MySQL database accessed.",
+      "value": "unifiedpush",
+      "required": true
+    },
+    {
+      "name": "UPS_PASSWORD",
+      "displayName": "MySQL Database Name",
+      "description": "Name of the MySQL database accessed.",
+      "value": "unifiedpush",
+      "required": true
+    },
+    {
+      "name": "UPS_DATABASE",
+      "displayName": "MySQL Database Name",
+      "description": "Name of the MySQL database accessed.",
+      "value": "unifiedpush",
       "required": true
     }
   ],
