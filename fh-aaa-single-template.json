@@ -44,9 +44,19 @@
       "description": "The memcached service name"
     },
     {
+      "name": "MEMCACHED_SERVICE_PORT",
+      "value": "11211",
+      "description": "The memcached service port"
+    },
+    {
       "name": "MONGODB_SERVICE_NAME",
       "value": "mongodb-service-1",
       "description": "The mongodb service name"
+    },
+    {
+      "name": "MONGODB_SERVICE_PORT",
+      "value": "27017",
+      "description": "The mongodb service port"
     }
   ],
   "objects": [
@@ -145,8 +155,16 @@
                     "value": "${MEMCACHED_SERVICE_NAME}"
                   },
                   {
+                    "name": "MEMCACHED_SERVICE_PORT",
+                    "value": "${MEMCACHED_SERVICE_PORT}"
+                  },
+                  {
                     "name": "MONGODB_SERVICE_NAME",
                     "value": "${MONGODB_SERVICE_NAME}"
+                  },
+                  {
+                    "name": "MONGODB_SERVICE_PORT",
+                    "value": "${MONGODB_SERVICE_PORT}"
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"
