@@ -1,467 +1,467 @@
 {
-   "kind": "Template",
-   "apiVersion": "v1",
-   "metadata": {
-      "name": "millicore",
-      "annotations": {
-         "description": "RHMAP Millicore",
-         "tags": "rhmap,mobile,tomcat,java",
-         "iconClass": "icon-tomcat"
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "millicore",
+    "annotations": {
+      "description": "RHMAP Millicore",
+      "tags": "rhmap,mobile,tomcat,java",
+      "iconClass": "icon-tomcat"
+    }
+  },
+  "parameters": [
+    {
+      "name": "MILLICORE_IMAGE",
+      "value": "rhmap/millicore",
+      "description": "Millicore docker image"
+    },
+    {
+      "name": "MILLICORE_IMAGE_VERSION",
+      "value": "7.29.0-2143",
+      "description": "Millicore image version"
+    },
+    {
+      "name": "FH_ADMIN_USER_NAME",
+      "value": "admin@feedhenry.net",
+      "description": "Millicore admin user"
+    },
+    {
+      "name": "FH_ADMIN_USER_PASSWORD",
+      "value": "Password1",
+      "description": "Millicore admin password"
+    },
+    {
+      "name": "FH_DOMAIN_NAME",
+      "value": "rhmap",
+      "description": "Customer subdomain name"
+    },
+    {
+      "name": "MYSQL_USER",
+      "value": "coreadmin",
+      "description": "MYSQL database user"
+    },
+    {
+      "name": "MYSQL_PASSWORD",
+      "value": "coreadmin",
+      "description": "MYSQL database password"
+    },
+    {
+      "name": "MYSQL_HOST",
+      "value": "mysql",
+      "description": "MYSQL database host"
+    },
+    {
+      "name": "MYSQL_PORT",
+      "value": "3306",
+      "description": "MYSQL database port"
+    },
+    {
+      "name": "AMQ_HOST",
+      "value": "feedhenry.me",
+      "description": "Message queue host"
+    },
+    {
+      "name": "AMQ_PORT",
+      "value": "5672",
+      "description": "Message queue port"
+    },
+    {
+      "name": "AMQ_USER",
+      "value": "fhinternal",
+      "description": "Message queue user"
+    },
+    {
+      "name": "AMQ_PASSWORD",
+      "value": "Jdxbf9f4hkJvs7T",
+      "description": "Message queue user password"
+    },
+    {
+      "name": "MEMCACHED_SERVICE_HOST",
+      "value": "memcached",
+      "description": "Memcached service host"
+    },
+    {
+      "name": "MEMCACHED_SERVICE_PORT",
+      "value": "11211",
+      "description": "Memcached service port"
+    },
+    {
+      "name": "FH_DITCH_SERVICE_HOST",
+      "value": "",
+      "description": "Ditch service host"
+    },
+    {
+      "name": "FH_DITCH_SERVICE_PORT",
+      "value": "",
+      "description": "Ditch service port"
+    },
+    {
+      "name": "FH_AAA_SERVICE_HOST",
+      "value": "fh-aaa",
+      "description": "fh-aaa service host"
+    },
+    {
+      "name": "FH_AAA_SERVICE_PORT",
+      "value": "8080",
+      "description": "fh-aaa service port"
+    },
+    {
+      "name": "FH_GIT_SERVICE_HOST",
+      "value": "gitlab-shell",
+      "description": "Git access host (including port)"
+    },
+    {
+      "name": "BUILDER_ANDROID_SERVICE_HOST",
+      "value": "",
+      "description": "Build farm android url"
+    },
+    {
+      "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
+      "value": "",
+      "description": "Build farm blackberry url"
+    },
+    {
+      "name": "BUILDER_IPHONE_SERVICE_HOST",
+      "value": "",
+      "description": "Build farm iphone url"
+    },
+    {
+      "name": "BUILDER_WINPHONE_SERVICE_HOST",
+      "value": "",
+      "description": "Build farm winphone url"
+    },
+    {
+      "name": "CLUSTER_NAME",
+      "value": "rhmap",
+      "description": "Cluster name"
+    },
+    {
+      "name": "CLUSTER_DOMAIN",
+      "value": "local.feedhenry.io",
+      "description": "Full domain used for build purposes"
+    },
+    {
+      "name": "FH_MILLICORE_SERVICE_HOST",
+      "value": "millicore",
+      "description": "Internal service host"
+    },
+    {
+      "name": "FH_MILLICORE_SERVICE_PORT",
+      "value": "8080",
+      "description": "Internal service port"
+    },
+    {
+      "name": "KEYCLOAK_SERVICE_HOST",
+      "value": "ups",
+      "description": "Keycloak service host"
+    },
+    {
+      "name": "KEYCLOAK_SERVICE_PORT",
+      "value": "8080",
+      "description": "Keycloak service port"
+    },
+    {
+      "name": "MESSAGE_SERVER_SERVICE_HOST",
+      "value": "fh-messaging",
+      "description": "Internal feedhenry message server host"
+    },
+    {
+      "name": "MESSAGE_SERVER_SERVICE_PORT",
+      "value": "8080",
+      "description": "Internal feedhenry message server ports"
+    },
+    {
+      "name": "FH_MESSAGING_API_KEY",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "Key for communicating with the FH_MESSAGING Service"
+    },
+    {
+      "name": "FH_SCM_SERVICE_HOST",
+      "value": "fh-scm",
+      "description": "FH-SCM host"
+    },
+    {
+      "name": "FH_SCM_SERVICE_PORT",
+      "value": "8080",
+      "description": "FH-SCM port"
+    },
+    {
+      "name": "SUPERCORE_SERVICE_HOST",
+      "value": "fh-supercore",
+      "description": "Supercore host"
+    },
+    {
+      "name": "SUPERCORE_SERVICE_PORT",
+      "value": "8080",
+      "description": "Supercore port"
+    },
+    {
+      "name": "FH_MILLICORE_API_KEY",
+      "value": "CHANGEMETOBEGENERATED",
+      "description": "TODO REMOVE AND REPLACE WITH GENERATED"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "millicore",
+        "labels": {
+          "name": "millicore"
+        }
+      },
+      "spec": {
+        "selector": {
+          "name": "millicore"
+        },
+        "ports": [
+          {
+            "name": "http",
+            "port": 8080
+          },
+          {
+            "name": "ajp",
+            "port": 8009
+          }
+        ]
       }
-   },
-   "parameters": [
-      {
-         "name": "MILLICORE_IMAGE",
-         "value": "rhmap/millicore",
-         "description": "Millicore docker image"
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "loghost",
+        "labels": {
+          "name": "millicore"
+        }
       },
-      {
-         "name": "MILLICORE_IMAGE_VERSION",
-         "value": "7.29.0-2143",
-         "description": "Millicore image version"
-      },
-      {
-         "name": "FH_ADMIN_USER_NAME",
-         "value": "admin@feedhenry.net",
-         "description": "Millicore admin user"
-      },
-      {
-         "name": "FH_ADMIN_USER_PASSWORD",
-         "value": "Password1",
-         "description": "Millicore admin password"
-      },
-      {
-         "name": "FH_DOMAIN_NAME",
-         "value": "rhmap",
-         "description": "Customer subdomain name"
-      },
-      {
-         "name": "MYSQL_USER",
-         "value": "coreadmin",
-         "description": "MYSQL database user"
-      },
-      {
-         "name": "MYSQL_PASSWORD",
-         "value": "coreadmin",
-         "description": "MYSQL database password"
-      },
-      {
-         "name": "MYSQL_HOST",
-         "value": "mysql",
-         "description": "MYSQL database host"
-      },
-      {
-         "name": "MYSQL_PORT",
-         "value": "3306",
-         "description": "MYSQL database port"
-      },
-      {
-         "name": "AMQ_HOST",
-         "value": "feedhenry.me",
-         "description": "Message queue host"
-      },
-      {
-         "name": "AMQ_PORT",
-         "value": "5672",
-         "description": "Message queue port"
-      },
-      {
-         "name": "AMQ_USER",
-         "value": "fhinternal",
-         "description": "Message queue user"
-      },
-      {
-         "name": "AMQ_PASSWORD",
-         "value": "Jdxbf9f4hkJvs7T",
-         "description": "Message queue user password"
-      },
-      {
-         "name": "MEMCACHED_SERVICE_HOST",
-         "value": "memcached",
-         "description": "Memcached service host"
-      },
-      {
-         "name": "MEMCACHED_SERVICE_PORT",
-         "value": "11211",
-         "description": "Memcached service port"
-      },
-      {
-         "name": "FH_DITCH_SERVICE_HOST",
-         "value": "",
-         "description": "Ditch service host"
-      },
-      {
-         "name": "FH_DITCH_SERVICE_PORT",
-         "value": "",
-         "description": "Ditch service port"
-      },
-      {
-         "name": "FH_AAA_SERVICE_HOST",
-         "value": "fh-aaa",
-         "description": "fh-aaa service host"
-      },
-      {
-         "name": "FH_AAA_SERVICE_PORT",
-         "value": "8080",
-         "description": "fh-aaa service port"
-      },
-      {
-         "name": "FH_GIT_SERVICE_HOST",
-         "value": "gitlab-shell",
-         "description": "Git access host (including port)"
-      },
-      {
-         "name": "BUILDER_ANDROID_SERVICE_HOST",
-         "value": "",
-         "description": "Build farm android url"
-      },
-      {
-         "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
-         "value": "",
-         "description": "Build farm blackberry url"
-      },
-      {
-         "name": "BUILDER_IPHONE_SERVICE_HOST",
-         "value": "",
-         "description": "Build farm iphone url"
-      },
-      {
-         "name": "BUILDER_WINPHONE_SERVICE_HOST",
-         "value": "",
-         "description": "Build farm winphone url"
-      },
-      {
-         "name": "CLUSTER_NAME",
-         "value": "rhmap",
-         "description": "Cluster name"
-      },
-      {
-         "name": "CLUSTER_DOMAIN",
-         "value": "local.feedhenry.io",
-         "description": "Full domain used for build purposes"
-      },
-      {
-         "name": "FH_MILLICORE_SERVICE_HOST",
-         "value": "millicore",
-         "description": "Internal service host"
-      },
-      {
-         "name": "FH_MILLICORE_SERVICE_PORT",
-         "value": "8080",
-         "description": "Internal service port"
-      },
-      {
-         "name": "KEYCLOAK_SERVICE_HOST",
-         "value": "ups",
-         "description": "Keycloak service host"
-      },
-      {
-         "name": "KEYCLOAK_SERVICE_PORT",
-         "value": "8080",
-         "description": "Keycloak service port"
-      },
-      {
-         "name": "MESSAGE_SERVER_SERVICE_HOST",
-         "value": "fh-messaging",
-         "description": "Internal feedhenry message server host"
-      },
-      {
-         "name": "MESSAGE_SERVER_SERVICE_PORT",
-         "value": "8080",
-         "description": "Internal feedhenry message server ports"
-      },
-      {
-         "name": "FH_MESSAGING_API_KEY",
-         "generate": "expression",
-         "from": "[a-zA-Z0-9]{40}",
-         "description": "Key for communicating with the FH_MESSAGING Service"
-      },
-      {
-         "name": "FH_SCM_SERVICE_HOST",
-         "value": "fh-scm",
-         "description": "FH-SCM host"
-      },
-      {
-         "name": "FH_SCM_SERVICE_PORT",
-         "value": "8080",
-         "description": "FH-SCM port"
-      },
-      {
-         "name": "SUPERCORE_SERVICE_HOST",
-         "value": "fh-supercore",
-         "description": "Supercore host"
-      },
-      {
-         "name": "SUPERCORE_SERVICE_PORT",
-         "value": "8080",
-         "description": "Supercore port"
-      },
-      {
-         "name":"FH_MILLICORE_API_KEY",
-         "value":"CHANGEMETOBEGENERATED",
-         "description":"TODO REMOVE AND REPLACE WITH GENERATED"
+      "spec": {
+        "selector": {
+          "name": "millicore"
+        },
+        "ports": [
+          {
+            "protocol": "udp",
+            "port": 514
+          }
+        ]
       }
-   ],
-   "objects": [
-      {
-         "kind": "Service",
-         "apiVersion": "v1",
-         "metadata": {
-            "name": "millicore",
-            "labels": {
-               "name": "millicore"
-            }
-         },
-         "spec": {
-            "selector": {
-               "name": "millicore"
-            },
-            "ports": [
-               {
-                  "name":"http",
-                  "port": 8080
-               },
-               {
-                  "name":"ajp",
-                  "port": 8009
-               }
-            ]
-         }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "millicore",
+        "labels": {
+          "name": "millicore"
+        }
       },
-      {
-         "kind": "Service",
-         "apiVersion": "v1",
-         "metadata": {
-            "name": "loghost",
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "millicore"
+        },
+        "template": {
+          "metadata": {
             "labels": {
-               "name": "millicore"
+              "name": "millicore"
             }
-         },
-         "spec": {
-            "selector": {
-               "name": "millicore"
-            },
-            "ports": [
-               {
-                  "protocol":"udp",
-                  "port": 514
-               }
-            ]
-         }
-      },
-      {
-         "kind": "DeploymentConfig",
-         "apiVersion": "v1",
-         "metadata": {
-            "name": "millicore",
-            "labels": {
-               "name": "millicore"
-            }
-         },
-         "spec": {
-            "triggers": [
-               {
-                  "type": "ConfigChange"
-               }
-            ],
-            "replicas": 1,
-            "selector": {
-               "name": "millicore"
-            },
-            "template": {
-               "metadata": {
-                  "labels": {
-                     "name": "millicore"
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "millicore",
+                "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 8080
                   }
-               },
-               "spec": {
-                  "containers": [
-                     {
-                        "name": "millicore",
-                        "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
-                        "ports": [
-                           {
-                              "containerPort": 8080
-                           }
-                        ],
-                        "livenessProbe": {
-                           "httpGet": {
-                              "path": "/box/api/sys/info/ping",
-                              "port": 8080
-                           },
-                           "initialDelaySeconds": 600,
-                           "timeoutSeconds": 5,
-                           "periodSeconds": 60,
-                           "successThreshold": 1,
-                           "failureThreshold": 2
-                        },
-                        "readinessProbe": {
-                           "httpGet": {
-                              "path": "/box/api/sys/info/ping",
-                              "port": 8080
-                           },
-                           "initialDelaySeconds": 100,
-                           "timeoutSeconds": 5,
-                           "periodSeconds": 10,
-                           "successThreshold": 1,
-                           "failureThreshold": 1
-                        },
-                        "env": [
-                           {
-                              "name": "FH_MESSAGING_API_KEY",
-                              "value": "${FH_MESSAGING_API_KEY}"
-                           },
-                           {
-                              "name": "FH_ADMIN_USER_PASSWORD",
-                              "value": "${FH_ADMIN_USER_PASSWORD}"
-                           },
-                           {
-                              "name": "FH_ADMIN_USER_NAME",
-                              "value": "${FH_ADMIN_USER_NAME}"
-                           },
-                           {
-                              "name": "FH_DOMAIN_NAME",
-                              "value": "${FH_DOMAIN_NAME}"
-                           },
-                           {
-                              "name": "MYSQL_USER",
-                              "value": "${MYSQL_USER}"
-                           },
-                           {
-                              "name": "MYSQL_PASSWORD",
-                              "value": "${MYSQL_PASSWORD}"
-                           },
-                           {
-                              "name": "MYSQL_HOST",
-                              "value": "${MYSQL_HOST}"
-                           },
-                           {
-                              "name": "MYSQL_PORT",
-                              "value": "${MYSQL_PORT}"
-                           },
-                           {
-                              "name": "MYSQL_DB_NAME",
-                              "value": "shard0"
-                           },
-                           {
-                              "name": "AMQ_HOST",
-                              "value": "${AMQ_HOST}"
-                           },
-                           {
-                              "name": "AMQ_PORT",
-                              "value": "${AMQ_PORT}"
-                           },
-                           {
-                              "name": "AMQ_USER",
-                              "value": "${AMQ_USER}"
-                           },
-                           {
-                              "name": "AMQ_PASSWORD",
-                              "value": "${AMQ_PASSWORD}"
-                           },
-                           {
-                              "name": "MEMCACHED_SERVICE_HOST",
-                              "value": "${MEMCACHED_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "MEMCACHED_SERVICE_PORT",
-                              "value": "${MEMCACHED_SERVICE_PORT}"
-                           },
-                           {
-                              "name": "FH_AAA_SERVICE_HOST",
-                              "value": "${FH_AAA_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "FH_AAA_SERVICE_PORT",
-                              "value": "${FH_AAA_SERVICE_PORT}"
-                           },
-                           {
-                              "name": "FH_GIT_SERVICE_HOST",
-                              "value": "${FH_GIT_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "BUILDER_ANDROID_SERVICE_HOST",
-                              "value": "${BUILDER_ANDROID_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
-                              "value": "${BUILDER_BLACKBERRY_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "BUILDER_IPHONE_SERVICE_HOST",
-                              "value": "${BUILDER_IPHONE_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "BUILDER_WINPHONE_SERVICE_HOST",
-                              "value": "${BUILDER_WINPHONE_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "CLUSTER_NAME",
-                              "value": "${CLUSTER_NAME}"
-                           },
-                           {
-                              "name": "CLUSTER_DOMAIN",
-                              "value": "${CLUSTER_DOMAIN}"
-                           },
-                           {
-                              "name": "FH_MILLICORE_SERVICE_HOST",
-                              "value": "${FH_MILLICORE_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "FH_MILLICORE_SERVICE_PORT",
-                              "value": "${FH_MILLICORE_SERVICE_PORT}"
-                           },
-                           {
-                              "name": "KEYCLOAK_SERVICE_HOST",
-                              "value": "${KEYCLOAK_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "KEYCLOAK_SERVICE_PORT",
-                              "value": "${KEYCLOAK_SERVICE_PORT}"
-                           },
-                           {
-                              "name": "MESSAGE_SERVER_SERVICE_HOST",
-                              "value": "${MESSAGE_SERVER_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "MESSAGE_SERVER_SERVICE_PORT",
-                              "value": "${MESSAGE_SERVER_SERVICE_PORT}"
-                           },
-                           {
-                              "name": "FH_SCM_SERVICE_HOST",
-                              "value": "${FH_SCM_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "FH_SCM_SERVICE_PORT",
-                              "value": "${FH_SCM_SERVICE_PORT}"
-                           },
-                           {
-                              "name": "FH_STATSD_SERVICE_HOST",
-                              "value": "${FH_STATSD_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "FH_STATSD_SERVICE_PORT",
-                              "value": "${FH_STATSD_SERVICE_PORT}"
-                           },
-                           {
-                              "name": "SUPERCORE_SERVICE_HOST",
-                              "value": "${SUPERCORE_SERVICE_HOST}"
-                           },
-                           {
-                              "name": "SUPERCORE_SERVICE_PORT",
-                              "value": "${SUPERCORE_SERVICE_PORT}"
-                           },
-                           {
-                              "name": "SUPERCORE_API_KEY",
-                              "value": "${FH_MILLICORE_API_KEY}"
-                           }
-                        ],
-                        "imagePullPolicy": "IfNotPresent"
-                     }
-                  ]
-               }
-            }
-         }
+                ],
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/box/api/sys/info/ping",
+                    "port": 8080
+                  },
+                  "initialDelaySeconds": 600,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 60,
+                  "successThreshold": 1,
+                  "failureThreshold": 2
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/box/api/sys/info/ping",
+                    "port": 8080
+                  },
+                  "initialDelaySeconds": 100,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "failureThreshold": 1
+                },
+                "env": [
+                  {
+                    "name": "FH_MESSAGING_API_KEY",
+                    "value": "${FH_MESSAGING_API_KEY}"
+                  },
+                  {
+                    "name": "FH_ADMIN_USER_PASSWORD",
+                    "value": "${FH_ADMIN_USER_PASSWORD}"
+                  },
+                  {
+                    "name": "FH_ADMIN_USER_NAME",
+                    "value": "${FH_ADMIN_USER_NAME}"
+                  },
+                  {
+                    "name": "FH_DOMAIN_NAME",
+                    "value": "${FH_DOMAIN_NAME}"
+                  },
+                  {
+                    "name": "MYSQL_USER",
+                    "value": "${MYSQL_USER}"
+                  },
+                  {
+                    "name": "MYSQL_PASSWORD",
+                    "value": "${MYSQL_PASSWORD}"
+                  },
+                  {
+                    "name": "MYSQL_HOST",
+                    "value": "${MYSQL_HOST}"
+                  },
+                  {
+                    "name": "MYSQL_PORT",
+                    "value": "${MYSQL_PORT}"
+                  },
+                  {
+                    "name": "MYSQL_DB_NAME",
+                    "value": "shard0"
+                  },
+                  {
+                    "name": "AMQ_HOST",
+                    "value": "${AMQ_HOST}"
+                  },
+                  {
+                    "name": "AMQ_PORT",
+                    "value": "${AMQ_PORT}"
+                  },
+                  {
+                    "name": "AMQ_USER",
+                    "value": "${AMQ_USER}"
+                  },
+                  {
+                    "name": "AMQ_PASSWORD",
+                    "value": "${AMQ_PASSWORD}"
+                  },
+                  {
+                    "name": "MEMCACHED_SERVICE_HOST",
+                    "value": "${MEMCACHED_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "MEMCACHED_SERVICE_PORT",
+                    "value": "${MEMCACHED_SERVICE_PORT}"
+                  },
+                  {
+                    "name": "FH_AAA_SERVICE_HOST",
+                    "value": "${FH_AAA_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "FH_AAA_SERVICE_PORT",
+                    "value": "${FH_AAA_SERVICE_PORT}"
+                  },
+                  {
+                    "name": "FH_GIT_SERVICE_HOST",
+                    "value": "${FH_GIT_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "BUILDER_ANDROID_SERVICE_HOST",
+                    "value": "${BUILDER_ANDROID_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
+                    "value": "${BUILDER_BLACKBERRY_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "BUILDER_IPHONE_SERVICE_HOST",
+                    "value": "${BUILDER_IPHONE_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "BUILDER_WINPHONE_SERVICE_HOST",
+                    "value": "${BUILDER_WINPHONE_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "CLUSTER_NAME",
+                    "value": "${CLUSTER_NAME}"
+                  },
+                  {
+                    "name": "CLUSTER_DOMAIN",
+                    "value": "${CLUSTER_DOMAIN}"
+                  },
+                  {
+                    "name": "FH_MILLICORE_SERVICE_HOST",
+                    "value": "${FH_MILLICORE_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "FH_MILLICORE_SERVICE_PORT",
+                    "value": "${FH_MILLICORE_SERVICE_PORT}"
+                  },
+                  {
+                    "name": "KEYCLOAK_SERVICE_HOST",
+                    "value": "${KEYCLOAK_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "KEYCLOAK_SERVICE_PORT",
+                    "value": "${KEYCLOAK_SERVICE_PORT}"
+                  },
+                  {
+                    "name": "MESSAGE_SERVER_SERVICE_HOST",
+                    "value": "${MESSAGE_SERVER_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "MESSAGE_SERVER_SERVICE_PORT",
+                    "value": "${MESSAGE_SERVER_SERVICE_PORT}"
+                  },
+                  {
+                    "name": "FH_SCM_SERVICE_HOST",
+                    "value": "${FH_SCM_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "FH_SCM_SERVICE_PORT",
+                    "value": "${FH_SCM_SERVICE_PORT}"
+                  },
+                  {
+                    "name": "FH_STATSD_SERVICE_HOST",
+                    "value": "${FH_STATSD_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "FH_STATSD_SERVICE_PORT",
+                    "value": "${FH_STATSD_SERVICE_PORT}"
+                  },
+                  {
+                    "name": "SUPERCORE_SERVICE_HOST",
+                    "value": "${SUPERCORE_SERVICE_HOST}"
+                  },
+                  {
+                    "name": "SUPERCORE_SERVICE_PORT",
+                    "value": "${SUPERCORE_SERVICE_PORT}"
+                  },
+                  {
+                    "name": "SUPERCORE_API_KEY",
+                    "value": "${FH_MILLICORE_API_KEY}"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ]
+          }
+        }
       }
-   ]
+    }
+  ]
 }

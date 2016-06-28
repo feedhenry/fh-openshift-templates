@@ -17,7 +17,7 @@ function main() {
   var gitlabShell = fs.realpathSync("gitlab-shell/gitlab-shell-single-template.json");
   var memcached = fs.realpathSync("memcached/memcached-template.json");
   var mongodb = fs.realpathSync("mongodb/mongodb-core-single-template.json");
-  var millicore = fs.realpathSync("fh-millicore-template.json");
+  var millicore = fs.realpathSync("fh-millicore-single-template.json");
   var httpd = fs.realpathSync("apache-httpd/httpd24-template.json");
 
   var templateMap = templates.get([
