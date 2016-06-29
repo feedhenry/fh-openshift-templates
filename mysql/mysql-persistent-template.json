@@ -164,7 +164,7 @@
     },
     {
       "name": "MYSQL_IMAGE_VERSION",
-      "value": "latest"
+      "value": "5.5-16"
     },
     {
       "name": "MEMORY_LIMIT",
