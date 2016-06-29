@@ -661,7 +661,9 @@
         "name": "mongodb-claim-1"
       },
       "spec": {
-        "accessModes": ["ReadWriteOnce"],
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
         "resources": {
           "requests": {
             "storage": "50Gi"
@@ -676,7 +678,9 @@
         "name": "mongodb-claim-2"
       },
       "spec": {
-        "accessModes": ["ReadWriteOnce"],
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
         "resources": {
           "requests": {
             "storage": "50Gi"
@@ -691,7 +695,9 @@
         "name": "mongodb-claim-3"
       },
       "spec": {
-        "accessModes": ["ReadWriteOnce"],
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
         "resources": {
           "requests": {
             "storage": "50Gi"
@@ -1357,7 +1363,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "4.0.0-1095",
+      "value": "4.0.0-1097",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
