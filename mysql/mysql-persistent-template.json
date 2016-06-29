@@ -57,20 +57,6 @@
         },
         "triggers": [
           {
-            "type": "ImageChange",
-            "imageChangeParams": {
-              "automatic": false,
-              "containerNames": [
-                "mysql"
-              ],
-              "from": {
-                "kind": "ImageStreamTag",
-                "name": "mysql:5.5",
-                "namespace": "${NAMESPACE}"
-              }
-            }
-          },
-          {
             "type": "ConfigChange"
           }
         ],
@@ -88,7 +74,7 @@
             "containers": [
               {
                 "name": "mysql",
-                "image": " ",
+                "image": "${MYSQL_IMAGE}:${MYSQL_IMAGE_VERSION}",
                 "ports": [
                   {
                     "containerPort": 3306
@@ -130,6 +116,18 @@
                   {
                     "name": "MYSQL_DATABASE",
                     "value": "${MYSQL_DATABASE}"
+                  },
+                  {
+                    "name": "UPS_USER",
+                    "value": "${UPS_USER}"
+                  },
+                  {
+                    "name": "UPS_PASSWORD",
+                    "value": "${UPS_PASSWORD}"
+                  },
+                  {
+                    "name": "UPS_DATABASE",
+                    "value": "${UPS_DATABASE}"
                   }
                 ],
                 "resources": {
@@ -161,17 +159,19 @@
   ],
   "parameters": [
     {
+      "name": "MYSQL_IMAGE",
+      "value": "rhmap/mysql"
+    },
+    {
+      "name": "MYSQL_IMAGE_VERSION",
+      "value": "latest"
+    },
+    {
       "name": "MEMORY_LIMIT",
       "displayName": "Memory Limit",
       "description": "Maximum amount of memory the container can use.",
       "value": "1Gi",
       "required": true
-    },
-    {
-      "name": "NAMESPACE",
-      "displayName": "Namespace",
-      "description": "The OpenShift Namespace where the ImageStream resides.",
-      "value": "openshift"
     },
     {
       "name": "DATABASE_SERVICE_NAME",
@@ -207,6 +207,27 @@
       "displayName": "Volume Capacity",
       "description": "Volume space available for data, e.g. 512Mi, 2Gi.",
       "value": "10Gi",
+      "required": true
+    },
+    {
+      "name": "UPS_USER",
+      "displayName": "UPS user in MySQL",
+      "description": "Name of the MySQL user for UPS",
+      "value": "unifiedpush",
+      "required": true
+    },
+    {
+      "name": "UPS_PASSWORD",
+      "displayName": "Password for the UPS user.",
+      "description": "Password for the UPS user.",
+      "value": "unifiedpush",
+      "required": true
+    },
+    {
+      "name": "UPS_DATABASE",
+      "displayName": "Name of the UPS database accessed.",
+      "description": "Name of the UPS database accessed.",
+      "value": "unifiedpush",
       "required": true
     }
   ],

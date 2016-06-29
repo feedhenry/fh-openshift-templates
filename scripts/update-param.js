@@ -20,6 +20,9 @@ function main() {
   var millicore = fs.realpathSync("fh-millicore-single-template.json");
   var httpd = fs.realpathSync("apache-httpd/httpd24-template.json");
 
+  var mysqlPesistent = fs.realpathSync("mysql/mysql-non-persistent-template.json");
+  var mysqlNonPesistent = fs.realpathSync("mysql/mysql-persistent-template.json");
+
   var templateMap = templates.get([
     mbaasSingle,
     mbaasMulti,
@@ -30,7 +33,9 @@ function main() {
     memcached,
     mongodb,
     millicore,
-    httpd
+    httpd,
+    mysqlPesistent,
+    mysqlNonPesistent
   ]);
 
   templates.updateParameter(templateMap, argv.p, argv.v);
