@@ -16,3 +16,6 @@ Next, instantiate the template:
 ```
 oc new-app -f gitlab-shell/gitlab-shell-single-template.json
 ```
+
+Gitlab shell requires gitlab-ssh secrets to be created before creating pod. 
+Please execute {project.root}/scripts/core/prerequisites.sh to create required secrets

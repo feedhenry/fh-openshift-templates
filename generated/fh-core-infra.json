@@ -437,9 +437,21 @@
                                     {
                                         "name": "MYSQL_DATABASE",
                                         "value": "${MYSQL_DATABASE}"
+                                    },
+                                    {
+                                        "name": "UPS_USER",
+                                        "value": "${UPS_USER}"
+                                    },
+                                    {
+                                        "name": "UPS_PASSWORD",
+                                        "value": "${UPS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "UPS_DATABASE",
+                                        "value": "${UPS_DATABASE}"
                                     }
                                 ],
-                                "image": " ",
+                                "image": "${MYSQL_IMAGE}:${MYSQL_IMAGE_VERSION}",
                                 "imagePullPolicy": "IfNotPresent",
                                 "livenessProbe": {
                                     "failureThreshold": 2,
@@ -493,20 +505,6 @@
                     }
                 },
                 "triggers": [
-                    {
-                        "imageChangeParams": {
-                            "automatic": false,
-                            "containerNames": [
-                                "mysql"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "mysql:5.5",
-                                "namespace": "${NAMESPACE}"
-                            }
-                        },
-                        "type": "ImageChange"
-                    },
                     {
                         "type": "ConfigChange"
                     }
@@ -751,10 +749,12 @@
             "value": "1"
         },
         {
-            "name": "NAMESPACE",
-            "displayName": "Namespace",
-            "description": "The OpenShift Namespace where the ImageStream resides.",
-            "value": "openshift"
+            "name": "MYSQL_IMAGE",
+            "value": "rhmap/mysql"
+        },
+        {
+            "name": "MYSQL_IMAGE_VERSION",
+            "value": "5.5-17"
         },
         {
             "name": "DATABASE_SERVICE_NAME",
@@ -783,6 +783,27 @@
             "displayName": "MySQL Database Name",
             "description": "Name of the MySQL database accessed.",
             "value": "db",
+            "required": true
+        },
+        {
+            "name": "UPS_USER",
+            "displayName": "UPS user in MySQL",
+            "description": "Name of the MySQL user for UPS",
+            "value": "unifiedpush",
+            "required": true
+        },
+        {
+            "name": "UPS_PASSWORD",
+            "displayName": "Password for the UPS user.",
+            "description": "Password for the UPS user.",
+            "value": "unifiedpush",
+            "required": true
+        },
+        {
+            "name": "UPS_DATABASE",
+            "displayName": "Name of the UPS database accessed.",
+            "description": "Name of the UPS database accessed.",
+            "value": "unifiedpush",
             "required": true
         },
         {

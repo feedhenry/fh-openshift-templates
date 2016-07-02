@@ -200,6 +200,11 @@
       "name": "FH_MILLICORE_API_KEY",
       "value": "CHANGEMETOBEGENERATED",
       "description": "TODO REMOVE AND REPLACE WITH GENERATED"
+    },
+    {
+      "name": "CONFIGURATION_FOLDER",
+      "value": "/etc/feedhenry/core/",
+      "description": "Folder to mount configuration including service keys"
     }
   ],
   "objects": [
@@ -454,9 +459,39 @@
                   {
                     "name": "SUPERCORE_API_KEY",
                     "value": "${FH_MILLICORE_API_KEY}"
+                  },
+                  {
+                    "name": "CONFIGURATION_FOLDER",
+                    "value": "${CONFIGURATION_FOLDER}"
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "git-ssh-keys-volume",
+                    "mountPath": "/etc/feedhenry/gitlab-shell",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "config-volume",
+                    "mountPath": "${CONFIGURATION_FOLDER}",
+                    "readOnly": true
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes": [
+              {
+                "name": "git-ssh-keys-volume",
+                "secret": {
+                  "secretName": "gitlab-ssh"
+                }
+              },
+              {
+                "name": "config-volume",
+                "secret": {
+                  "secretName": "millicore-config"
+                }
               }
             ]
           }

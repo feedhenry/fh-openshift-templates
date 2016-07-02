@@ -580,6 +580,20 @@
                         }
                     },
                     "spec": {
+                        "volumes": [
+                            {
+                                "name": "git-ssh-keys-volume",
+                                "secret": {
+                                    "secretName": "gitlab-ssh"
+                                }
+                            },
+                            {
+                                "name": "config-volume",
+                                "secret": {
+                                    "secretName": "millicore-config"
+                                }
+                            }
+                        ],
                         "containers": [
                             {
                                 "name": "millicore",
@@ -738,9 +752,25 @@
                                     {
                                         "name": "SUPERCORE_API_KEY",
                                         "value": "${FH_MILLICORE_API_KEY}"
+                                    },
+                                    {
+                                        "name": "CONFIGURATION_FOLDER",
+                                        "value": "${CONFIGURATION_FOLDER}"
                                     }
                                 ],
                                 "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "git-ssh-keys-volume",
+                                        "readOnly": true,
+                                        "mountPath": "/etc/feedhenry/gitlab-shell"
+                                    },
+                                    {
+                                        "name": "config-volume",
+                                        "readOnly": true,
+                                        "mountPath": "${CONFIGURATION_FOLDER}"
+                                    }
+                                ],
                                 "livenessProbe": {
                                     "httpGet": {
                                         "path": "/box/api/sys/info/ping",
@@ -1056,6 +1086,11 @@
             "name": "FH_MILLICORE_API_KEY",
             "description": "TODO REMOVE AND REPLACE WITH GENERATED",
             "value": "CHANGEMETOBEGENERATED"
+        },
+        {
+            "name": "CONFIGURATION_FOLDER",
+            "description": "Folder to mount configuration including service keys",
+            "value": "/etc/feedhenry/core/"
         }
     ]
 }

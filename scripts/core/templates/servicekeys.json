@@ -1,0 +1,10 @@
+{
+ "keys" : [{
+    "API_KEY_PLACEHOLDER": {
+      "millicore": {
+        "email": "supercore@example.com",
+        "roles": ["sub", "admin"]
+      }
+    }
+   }]
+}
