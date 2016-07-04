@@ -152,7 +152,7 @@
                   {
                     "name": "GIT_REPO_ROOT",
                     "value": "${GIT_REPO_ROOT}"
-                  },        
+                  },
                   {
                     "name": "SSH_SECRETS_DIR",
                     "value": "${SSH_SECRETS_DIR}"
