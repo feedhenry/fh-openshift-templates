@@ -1,10 +1,18 @@
 {
  "keys" : [{
-    "API_KEY_PLACEHOLDER": {
+    "SUPERCORE_API_KEY_PLACEHOLDER": {
       "millicore": {
         "email": "supercore@example.com",
         "roles": ["sub", "admin"]
       }
     }
+   },
+   {
+     "GITLAB_API_KEY_PLACEHOLDER": {
+       "millicore": {
+         "email": "gitlab@example.com",
+         "roles": ["sub", "admin"]
+       }
+     }
    }]
 }

@@ -16,7 +16,7 @@
     },
     {
       "name": "GITLAB_SHELL_IMAGE_VERSION",
-      "value": "2.0.0.pre-29",
+      "value": "2.0.0.pre-31",
       "description": "The version for the GITLAB_SHELL_IMAGE"
     },
     {
@@ -59,6 +59,10 @@
       "name": "SSH_SECRETS_DIR",
       "value": "/etc/feedhenry/gitlab-shell",
       "description": "Mount path for ssh keys"
+    },{
+      "name": "GITLAB_MILLICORE_SERVICE_KEY",
+      "value": "",
+      "description": "Service key used to call millicore http api"
     }
   ],
   "objects": [
@@ -89,7 +93,7 @@
         "name": "gitlab-shell"
       },
       "data": {
-        "config.yml": "user: git\ngitlab_url: \"${GITLAB_URL}\"\nhttp_settings:\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_ROOT}/repositories\"\nauth_file: \"${GIT_REPO_ROOT}/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nrabbit:\n  enabled: true\n  hosts:\n    - ${RABBITMQ_SERVICE}\n  vhost: ${RABBITMQ_VHOST}\n  user: ${RABBITMQ_USER}\n  password: ${RABBITMQ_PASSWORD}\n  queue: ${RABBITMQ_QUEUE}\nlog_level: INFO\naudit_usernames: false\n"
+        "config.yml": "user: git\ngitlab_url: \"${GITLAB_URL}\"\nhttp_settings:\n  enabled: true\n  servicekey: ${GITLAB_MILLICORE_SERVICE_KEY}\n  url: \"http://${FH_MILLICORE_SERVICE_HOST}:${FH_MILLICORE_SERVICE_PORT}\"\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_ROOT}/repositories\"\nauth_file: \"${GIT_REPO_ROOT}/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nlog_level: INFO\naudit_usernames: false\nrabbit:\n  enabled: false\n"
       }
     },
     {
