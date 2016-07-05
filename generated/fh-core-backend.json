@@ -808,7 +808,7 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "3.17.0-2450"
+            "value": "3.18.0-2467"
         },
         {
             "name": "CLUSTER_NAME",
