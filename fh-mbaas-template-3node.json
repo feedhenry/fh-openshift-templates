@@ -1363,7 +1363,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "4.0.4-1124",
+      "value": "4.0.4-1127",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {

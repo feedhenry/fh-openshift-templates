@@ -59,7 +59,8 @@
       "name": "SSH_SECRETS_DIR",
       "value": "/etc/feedhenry/gitlab-shell",
       "description": "Mount path for ssh keys"
-    },{
+    },
+    {
       "name": "GITLAB_MILLICORE_SERVICE_KEY",
       "value": "",
       "description": "Service key used to call millicore http api"
