@@ -23,7 +23,7 @@ export MCORE_MYSQL_DB="shard0"
 #infra
 export VERSION_MONGO="centos-2.4-24"
 export VERSION_MYSQL="5.5-17"
-export VERSION_MEMCACHED="1.4.15-9"
+export VERSION_MEMCACHED="1.4.15-12"
 export VERSION_REDIS="2.18.21"
 
 #backend
