@@ -122,7 +122,7 @@
     },
     {
       "name": "MEMCACHED_IMAGE_VERSION",
-      "value": "1.4.15-9",
+      "value": "1.4.15-12",
       "description": "The version for the MEMCACHED_IMAGE",
       "required": true
     },
