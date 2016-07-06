@@ -1432,7 +1432,7 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "3.20.0-2512"
+            "value": "3.21.0-2520"
         },
         {
             "name": "CLUSTER_NAME",
