@@ -11,7 +11,7 @@
   "parameters": [
     {
       "name": "GITLAB_SHELL_IMAGE",
-      "value": "rhmap/gitlab-shell",
+      "value": "docker.io/rhmap/gitlab-shell",
       "description": "The name of the gitlab-shell image"
     },
     {

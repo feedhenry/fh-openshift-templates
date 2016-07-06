@@ -160,7 +160,7 @@
   "parameters": [
     {
       "name": "MYSQL_IMAGE",
-      "value": "rhmap/mysql"
+      "value": "docker.io/rhmap/mysql"
     },
     {
       "name": "MYSQL_IMAGE_VERSION",
