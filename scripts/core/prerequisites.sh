@@ -40,9 +40,6 @@ do
          p)
              PROJECT=$OPTARG
              ;;
-         i)
-             PULL_IMAGES=1
-             ;;
          ?)
              usage
              exit
@@ -51,16 +48,9 @@ do
 done
 
 ## Create project if option was specified
-if [[ -n $PROJECT ]] 
+if [[ -n $PROJECT ]]
 then
      oc new-project $PROJECT
-fi
-
-## Pull docker images if needed
-if [[ PULL_IMAGES -eq 1 ]]
-then
-  echo "Download required images"
-  $SCRIPT_ROOT/download_images.sh
 fi
 
 ## Load common functions and environemnt variables
@@ -71,10 +61,10 @@ echo "Creating secrets"
 $SCRIPT_ROOT/secrets.sh
 
 echo "Initial setup completed. Please run the following commands to create system layers
-sudo oc create -f $PROJECT_ROOT/gitlab-shell/scc-anyuid-with-chroot.json 
-sudo oc adm policy add-scc-to-user anyuid-with-chroot system:serviceaccount:$(oc project -q):default 
+sudo oc create -f $PROJECT_ROOT/gitlab-shell/scc-anyuid-with-chroot.json
+sudo oc adm policy add-scc-to-user anyuid-with-chroot system:serviceaccount:$(oc project -q):default
 
-Create pods using following commands. Please verify that everything is running before executing next command from list. 
-$SCRIPT_ROOT/infra.sh 
-$SCRIPT_ROOT/backend.sh 
-$SCRIPT_ROOT/frontend.sh" 
+Create pods using following commands. Please verify that everything is running before executing next command from list.
+$SCRIPT_ROOT/infra.sh
+$SCRIPT_ROOT/backend.sh
+$SCRIPT_ROOT/frontend.sh"
