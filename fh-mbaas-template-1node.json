@@ -232,12 +232,7 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
-                "securityContext": {
-                  "capabilities": {},
-                  "privileged": false
-                }
+                "imagePullPolicy": "IfNotPresent"
               }
             ],
             "restartPolicy": "Always",
@@ -352,12 +347,7 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
-                "securityContext": {
-                  "capabilities": {},
-                  "privileged": false
-                }
+                "imagePullPolicy": "IfNotPresent"
               }
             ],
             "restartPolicy": "Always",
@@ -468,12 +458,7 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
-                "securityContext": {
-                  "capabilities": {},
-                  "privileged": false
-                }
+                "imagePullPolicy": "IfNotPresent"
               }
             ],
             "restartPolicy": "Always",
@@ -556,12 +541,7 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
-                "securityContext": {
-                  "capabilities": {},
-                  "privileged": false
-                }
+                "imagePullPolicy": "IfNotPresent"
               }
             ],
             "restartPolicy": "Always",
@@ -698,7 +678,6 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent"
               }
             ],
@@ -797,7 +776,6 @@
                 "value": "${ENDPOINT_COUNT}"
               }
             ],
-            "terminationMessagePath": "/dev/termination-log",
             "imagePullPolicy": "IfNotPresent"
           }
         ],

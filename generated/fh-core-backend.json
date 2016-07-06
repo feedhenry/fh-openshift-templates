@@ -319,11 +319,7 @@
                                     "failureThreshold": 1
                                 },
                                 "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "IfNotPresent",
-                                "securityContext": {
-                                    "capabilities": {},
-                                    "privileged": false
-                                }
+                                "imagePullPolicy": "IfNotPresent"
                             }
                         ],
                         "restartPolicy": "Always",
@@ -494,11 +490,7 @@
                                     "failureThreshold": 1
                                 },
                                 "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "IfNotPresent",
-                                "securityContext": {
-                                    "capabilities": {},
-                                    "privileged": false
-                                }
+                                "imagePullPolicy": "IfNotPresent"
                             }
                         ],
                         "restartPolicy": "Always",
