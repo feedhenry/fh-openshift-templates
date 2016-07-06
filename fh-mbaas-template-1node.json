@@ -27,9 +27,7 @@
         ],
         "selector": {
           "name": "fh-mbaas"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        }
       }
     },
     {
@@ -49,9 +47,7 @@
         ],
         "selector": {
           "name": "fh-messaging"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        }
       }
     },
     {
@@ -71,9 +67,7 @@
         ],
         "selector": {
           "name": "fh-metrics"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        }
       }
     },
     {
@@ -102,9 +96,7 @@
         ],
         "selector": {
           "name": "fh-statsd"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        }
       }
     },
     {
@@ -125,10 +117,7 @@
         "selector": {
           "name": "mongodb-replica"
         },
-        "portalIP": "None",
-        "clusterIP": "None",
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        "clusterIP": "None"
       }
     },
     {

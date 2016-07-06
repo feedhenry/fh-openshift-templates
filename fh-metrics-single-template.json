@@ -26,9 +26,7 @@
       ],
       "selector": {
         "name": "fh-metrics"
-      },
-      "type": "ClusterIP",
-      "sessionAffinity": "None"
+      }
     }
   },
     {

@@ -27,9 +27,7 @@
         ],
         "selector": {
           "name": "fh-messaging"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        }
       }
     },
     {
