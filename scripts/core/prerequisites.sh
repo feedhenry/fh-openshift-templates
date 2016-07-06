@@ -67,4 +67,4 @@ sudo oc adm policy add-scc-to-user anyuid-with-chroot system:serviceaccount:$(oc
 Create pods using following commands. Please verify that everything is running before executing next command from list.
 $SCRIPT_ROOT/infra.sh
 $SCRIPT_ROOT/backend.sh
-$SCRIPT_ROOT/frontend.sh"
+$SCRIPT_ROOT/front.sh"
