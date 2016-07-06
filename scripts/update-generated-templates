@@ -57,12 +57,12 @@ generate() {
     base/fh-core-backend
     # Component templates:
     fh-aaa-single-template
-    #fh-messaging-template
-    #fh-metrics-template
+    fh-messaging-single-template
+    fh-metrics-single-template
     fh-scm-single-template
     fh-supercore-single-template
     gitlab-shell/gitlab-shell-single-template
-    #unifiedpush-single-template
+    unifiedpush-single-template
   )
   generate "${ARGS[@]/%/.json}"
 

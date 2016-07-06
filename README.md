@@ -83,9 +83,10 @@ Productization will have new images less frequently, and will follow this flow:
 * create a new project oc new-project core
 * cd scripts/core
 * make sure docker login is configured as in [fhcap-documentation](https://github.com/fheng/fhcap/tree/master/flavours/rhel_openshift3#mounting-docker-credentials-into-the-vm-to-allow-pulling-of-private-images)
-* run ./prerequisites.sh
-* Manually execute commands printed as results of prerequisites:
+* in your vm as a system administrator run ./preqequisites.sh (sets up secrets)
 * run ./infra.sh  (in the ui wait till the mongo intiator is no longer visible)
+* as root user in your OS vm run oc create -f ../../gitlab-shell/scc-anyuid-with-chroot.json
+* then as root in your OS vm run oc adm policy add-scc-to-user anyuid-with-chroot system:serviceaccount:<YOUR_PROJECT>:default (sets up access for gitlab-shell)
 * run ./backend.sh (wait till all images are running and blue)
 * run ./front.sh
 * visit http://rhmap.local.feedhenry.io
@@ -137,7 +138,7 @@ Note some times it can help to restart millicore
 oc scale dc/millicore --replicas=0
 wait for it to stop
 oc scale dc/millicore --replicas=1
-wait for it to fully start  
+wait for it to fully start
 ```
 
 logout hard refresh and log back in
