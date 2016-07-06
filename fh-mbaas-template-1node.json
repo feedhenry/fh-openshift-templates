@@ -298,10 +298,6 @@
                     "value": "10 0 * * *"
                   },
                   {
-                    "name": "FH_MBAASID",
-                    "value": "${FH_MBAASID}"
-                  },
-                  {
                     "name": "MONGODB_FHMETRICS_USER",
                     "value": "${MONGODB_FHMETRICS_USER}"
                   },
