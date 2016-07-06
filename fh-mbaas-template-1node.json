@@ -234,9 +234,7 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -349,9 +347,7 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -460,9 +456,7 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -543,9 +537,7 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -680,9 +672,7 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -779,8 +769,7 @@
             "imagePullPolicy": "IfNotPresent"
           }
         ],
-        "restartPolicy": "Never",
-        "dnsPolicy": "ClusterFirst"
+        "restartPolicy": "Never"
       }
     },
     {

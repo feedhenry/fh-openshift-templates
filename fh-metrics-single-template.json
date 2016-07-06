@@ -155,9 +155,7 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
