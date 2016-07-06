@@ -718,18 +718,6 @@
                     "value": "fh-statsd"
                   },
                   {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
-                  },
-                  {
                     "name": "MONGODB_FHREPORTING_USER",
                     "value": "${MONGODB_FHREPORTING_USER}"
                   },
@@ -868,18 +856,6 @@
                   {
                     "name": "MONGODB_FHSTATSD_DATABASE",
                     "value": "fh-statsd"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
@@ -1022,18 +998,6 @@
                     "value": "fh-statsd"
                   },
                   {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
-                  },
-                  {
                     "name": "MONGODB_FHREPORTING_USER",
                     "value": "${MONGODB_FHREPORTING_USER}"
                   },
@@ -1118,18 +1082,6 @@
               {
                 "name": "MONGODB_ADMIN_PASSWORD",
                 "value": "${MONGODB_ADMIN_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHMETRICS_USER",
-                "value": "${MONGODB_FHMETRICS_USER}"
-              },
-              {
-                "name": "MONGODB_FHMETRICS_PASSWORD",
-                "value": "${MONGODB_FHMETRICS_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHMETRICS_DATABASE",
-                "value": "fh-metrics"
               },
               {
                 "name": "MONGODB_FHREPORTING_USER",
@@ -1229,17 +1181,6 @@
     {
       "name": "MONGODB_FHREPORTING_PASSWORD",
       "description": "The MongoDB Reporting password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "MONGODB_FHMETRICS_USER",
-      "value": "u-metrics",
-      "description": "The Metrics user name"
-    },
-    {
-      "name": "MONGODB_FHMETRICS_PASSWORD",
-      "description": "The MongoDB Metrics password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
