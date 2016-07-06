@@ -1433,7 +1433,7 @@
         {
             "name": "UPS_IMAGE",
             "description": "The name of the Unified Push image",
-            "value": "rhmap/unifiedpush-wildfly",
+            "value": "docker.io/rhmap/unifiedpush-wildfly",
             "required": true
         },
         {
