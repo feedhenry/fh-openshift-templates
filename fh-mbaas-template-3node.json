@@ -22,11 +22,7 @@
       "spec": {
         "ports": [
           {
-            "name": "fh-mbaas-service-ports",
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080,
-            "nodePort": 0
+            "port": 8080
           }
         ],
         "selector": {
@@ -48,11 +44,7 @@
       "spec": {
         "ports": [
           {
-            "name": "fh-messaging-service-ports",
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080,
-            "nodePort": 0
+            "port": 8080
           }
         ],
         "selector": {
@@ -74,11 +66,7 @@
       "spec": {
         "ports": [
           {
-            "name": "fh-metrics-service-ports",
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080,
-            "nodePort": 0
+            "port": 8080
           }
         ],
         "selector": {
@@ -131,10 +119,7 @@
       "spec": {
         "ports": [
           {
-            "protocol": "TCP",
-            "port": 27017,
-            "targetPort": 27017,
-            "nodePort": 0
+            "port": 27017
           }
         ],
         "selector": {
@@ -158,10 +143,7 @@
       "spec": {
         "ports": [
           {
-            "protocol": "TCP",
-            "port": 27017,
-            "targetPort": 27017,
-            "nodePort": 0
+            "port": 27017
           }
         ],
         "selector": {
@@ -185,10 +167,7 @@
       "spec": {
         "ports": [
           {
-            "protocol": "TCP",
-            "port": 27017,
-            "targetPort": 27017,
-            "nodePort": 0
+            "port": 27017
           }
         ],
         "selector": {
