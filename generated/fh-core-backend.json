@@ -735,7 +735,7 @@
         {
             "name": "FH_AAA_IMAGE",
             "description": "The name of the fh-aaa image",
-            "value": "rhmap/fh-aaa",
+            "value": "docker.io/rhmap/fh-aaa",
             "required": true
         },
         {
@@ -783,12 +783,12 @@
         {
             "name": "FH_SCM_IMAGE",
             "description": "The name of the fh-scm image",
-            "value": "rhmap/fh-scm"
+            "value": "docker.io/rhmap/fh-scm"
         },
         {
             "name": "FH_SCM_IMAGE_VERSION",
             "description": "The version for the FH_SCM_IMAGE",
-            "value": "0.17.1-243"
+            "value": "0.17.3-252"
         },
         {
             "name": "FH_MILLICORE_SERVICE_HOST",
@@ -803,12 +803,12 @@
         {
             "name": "FH_SUPERCORE_IMAGE",
             "description": "The name of the fh-supercore image",
-            "value": "rhmap/fh-supercore"
+            "value": "docker.io/rhmap/fh-supercore"
         },
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "3.18.0-2467"
+            "value": "3.18.0-2471"
         },
         {
             "name": "CLUSTER_NAME",
@@ -887,7 +887,7 @@
         {
             "name": "GITLAB_SHELL_IMAGE",
             "description": "The name of the gitlab-shell image",
-            "value": "rhmap/gitlab-shell"
+            "value": "docker.io/rhmap/gitlab-shell"
         },
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",

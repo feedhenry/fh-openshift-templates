@@ -813,7 +813,7 @@
         {
             "name": "FH_APPSTORE_IMAGE",
             "description": "The name of the fh-appstore image",
-            "value": "rhmap/fh-appstore",
+            "value": "docker.io/rhmap/fh-appstore",
             "required": true
         },
         {
@@ -830,7 +830,7 @@
         {
             "name": "FH_NGUI_IMAGE",
             "description": "The name of the fh-ngui image",
-            "value": "rhmap/fh-ngui",
+            "value": "docker.io/rhmap/fh-ngui",
             "required": true
         },
         {
@@ -863,13 +863,13 @@
         {
             "name": "HTTPD_IMAGE",
             "description": "The name of the image",
-            "value": "rhmap/httpd24",
+            "value": "docker.io/rhmap/httpd24",
             "required": true
         },
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-5",
+            "value": "2.4-6",
             "required": true
         },
         {
@@ -915,12 +915,12 @@
         {
             "name": "MILLICORE_IMAGE",
             "description": "Millicore docker image",
-            "value": "rhmap/millicore"
+            "value": "docker.io/rhmap/millicore"
         },
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.29.2"
+            "value": "7.29.3-2212"
         },
         {
             "name": "FH_ADMIN_USER_NAME",

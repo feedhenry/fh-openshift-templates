@@ -12,12 +12,12 @@
   "parameters": [
     {
       "name": "MILLICORE_IMAGE",
-      "value": "rhmap/millicore",
+      "value": "docker.io/rhmap/millicore",
       "description": "Millicore docker image"
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.29.2",
+      "value": "7.29.3-2212",
       "description": "Millicore image version"
     },
     {

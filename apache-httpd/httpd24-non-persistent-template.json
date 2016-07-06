@@ -205,13 +205,13 @@
     },
     {
       "name": "HTTPD_IMAGE",
-      "value": "rhmap/httpd24",
+      "value": "docker.io/rhmap/httpd24",
       "description": "The name of the image",
       "required": true
     },
     {
       "name": "HTTPD_IMAGE_VERSION",
-      "value": "2.4-5",
+      "value": "2.4-6",
       "description": "The version for the HTTPD_IMAGE",
       "required": true
     },

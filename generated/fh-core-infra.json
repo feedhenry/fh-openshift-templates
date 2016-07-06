@@ -750,7 +750,7 @@
         },
         {
             "name": "MYSQL_IMAGE",
-            "value": "rhmap/mysql"
+            "value": "docker.io/rhmap/mysql"
         },
         {
             "name": "MYSQL_IMAGE_VERSION",
@@ -809,7 +809,7 @@
         {
             "name": "REDIS_IMAGE",
             "description": "The name of the redis image",
-            "value": "rhmap/redis",
+            "value": "docker.io/rhmap/redis",
             "required": true
         },
         {
