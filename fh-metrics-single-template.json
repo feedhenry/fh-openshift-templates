@@ -100,18 +100,6 @@
                     "value": "fh-reporting"
                   },
                   {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
-                  },
-                  {
                     "name": "FH_METRICS_API_KEY",
                     "description": "API Key for calling fh-metrics",
                     "value": "${FH_METRICS_API_KEY}"
@@ -170,17 +158,6 @@
     {
       "name": "MONGODB_FHREPORTING_PASSWORD",
       "description": "The MongoDB Reporting password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "MONGODB_FHMETRICS_USER",
-      "value": "u-metrics",
-      "description": "The Metrics user name"
-    },
-    {
-      "name": "MONGODB_FHMETRICS_PASSWORD",
-      "description": "The MongoDB Metrics password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
