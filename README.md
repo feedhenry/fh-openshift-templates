@@ -54,16 +54,14 @@ Productization will have new images less frequently, and will follow this flow:
 * If part of a release, notify @jasonmadigan (engineering release manager)
 
 
-
 ## setup a local core
 
-* versions of images are currently stored in scripts/core/common.sh update the versions to versions you want to use
 * create a new project oc new-project core
 * cd scripts/core
-* in your OSE vm run ./download_images.sh
+* make sure docker login is configured as in [fhcap-documentation](https://github.com/fheng/fhcap/tree/master/flavours/rhel_openshift3#mounting-docker-credentials-into-the-vm-to-allow-pulling-of-private-images)
+* run ./prerequisites.sh 
+* Manually execute commands printed as results of prerequisites:
 * run ./infra.sh  (in the ui wait till the mongo intiator is no longer visible)
-* as root user in your OS vm run oc create -f ../../gitlab-shell/scc-anyuid-with-chroot.json
-* then as root in your OS vm run oc adm policy add-scc-to-user anyuid-with-chroot system:serviceaccount:<YOUR_PROJECT>:default
 * run ./backend.sh (wait till all images are running and blue)
 * run ./front.sh
 * visit http://rhmap.local.feedhenry.io
