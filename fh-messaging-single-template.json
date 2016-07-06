@@ -80,8 +80,7 @@
                 "image": "${FH_MESSAGING_IMAGE}:${FH_MESSAGING_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [

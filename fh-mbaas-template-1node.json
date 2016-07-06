@@ -170,8 +170,7 @@
                 "image": "${FH_MBAAS_IMAGE}:${FH_MBAAS_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
@@ -297,8 +296,7 @@
                 "image": "${FH_MESSAGING_IMAGE}:${FH_MESSAGING_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
@@ -418,8 +416,7 @@
                 "image": "${FH_METRICS_IMAGE}:${FH_METRICS_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
@@ -535,8 +532,7 @@
                 "image": "${FH_STATSD_IMAGE}:${FH_STATSD_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
@@ -619,8 +615,7 @@
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 27017,
-                    "protocol": "TCP"
+                    "containerPort": 27017
                   }
                 ],
                 "env": [
@@ -729,8 +724,7 @@
             "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
             "ports": [
               {
-                "containerPort": 27017,
-                "protocol": "TCP"
+                "containerPort": 27017
               }
             ],
             "command": [
