@@ -892,7 +892,7 @@
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.0.0.pre-31"
+            "value": "2.0.0.pre-37"
         },
         {
             "name": "GITLAB_URL",
