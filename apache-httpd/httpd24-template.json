@@ -19,14 +19,12 @@
       "spec": {
         "ports": [
           {
-            "name": "server-http-port",
-            "port": 80,
-            "protocol": "TCP"
+            "name": "server-git-port",
+            "port": 8080
           },
           {
-            "name": "server-git-port",
-            "port": 8080,
-            "protocol": "TCP"
+            "name": "server-http-port",
+            "port": 80
           }
         ],
         "selector": {
@@ -79,7 +77,10 @@
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${HTTPD_SERVICE_NAME}"
+        "name": "${HTTPD_SERVICE_NAME}",
+        "labels": {
+          "name": "${HTTPD_SERVICE_NAME}"
+        }
       },
       "spec": {
         "strategy": {
@@ -107,12 +108,13 @@
                 "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   },
                   {
-                    "containerPort": 8443,
-                    "protocol": "TCP"
+                    "containerPort": 8443
+                  },
+                  {
+                    "containerPort": 80
                   }
                 ],
                 "livenessProbe": {

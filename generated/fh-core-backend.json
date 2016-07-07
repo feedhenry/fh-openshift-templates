@@ -801,6 +801,10 @@
             "value": "8080"
         },
         {
+            "name": "FH_STATSD_API_KEY",
+            "value": "test"
+        },
+        {
             "name": "FH_SUPERCORE_IMAGE",
             "description": "The name of the fh-supercore image",
             "value": "docker.io/rhmap/fh-supercore"

@@ -25,30 +25,17 @@ $ npm run test --suite=generated # Runs tests on all templates
 
 $ npm run test --suite=aaa # Runs tests on all fh-aaa template
 ```
-### Template suites
-The list of available template suites which can be passed into `npm run test` are:
-* `component` - Runs all templates, but no groups, identical to `npm run test`
-* `backend` - All `fh-core-backend` templates
- - `aaa` - fh-aaa
- - `scm` - fh-scm
- - `supercore` - fh-supercore
- - `gitlab` - gitlab-shell
-* `frontend` - All `fh-core-frontend` templates
- - `millicore` - millicore
- - `appstore` - fh-appstore
- - `ngui` - fh-ngui
- - `httpd` - apache-httpd
- - `httpdp` - apache-httpd persistent
-* `infra` - All `fh-core-infra` templates
- - `memcached` - memcached
- - `mysql` - mysql
- - `mysqlp` - mysql persistent
- - `mongo` - mongodb
- - `redis` - redis
-* `generated` - All generated templates
- - `coreInfra` - `fh-core-infra`
- - `coreBackend` - `fh-core-backend`
- - `coreFrontend` - `fh-core-frontend`
+
+The list of available template suites which can be passed into `npm run test` can
+be found in files within the `suites/` directory. For example, the `backend.js` file
+contains the key `aaa`, this relates to the `fh-aaa-single-template.json` file
+and specifies some configuration options. To run the tests on the `fh-aaa` template
+just run `npm run test` with the `aaa` key specified as the `suite`. E.g.
+```shell
+npm run test --suite=aaa
+```
+This can be done with any key in any module in the `suites/` directory.
+
 
 ## Workflow Guidelines
 
