@@ -12,6 +12,30 @@ $ grunt
 ```
 The produced tar will be in the ```dist``` directory.
 
+## Testing
+To run tests on all templates, run
+```shell
+$ npm run test
+```
+
+To run tests on a specific template or a group of templates, run the following
+with `<suitename>` replaced with a specific suite defined in `test/suites/`
+
+```shell
+$ npm run test --suite=<suitename>
+```
+
+For example
+
+```shell
+npm run test --suite=redis
+```
+
+You can also run tests on multiple individual component templates, for example
+
+```shell
+npm run test --suite="scm aaa redis infra"
+```
 
 ## Workflow Guidelines
 
@@ -84,7 +108,7 @@ update sys_Sub set aaaActive=0 where guid !=""
 
 ```
 
-In the OSE vm 
+In the OSE vm
 
 ```
 sudo yum install telnet
@@ -112,5 +136,3 @@ wait for it to fully start
 ```
 
 logout hard refresh and log back in
-
-
