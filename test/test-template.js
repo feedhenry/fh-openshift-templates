@@ -89,9 +89,11 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
         var ports = _.map(options.ports, function (port) {
           return _.extend({protocol: 'TCP'}, port);
         });
-
+        // Ports in config are exactly equal to container ports
         var diff = _.xor(ports, containerPorts);
 
+        // Ports in config are subset of container ports
+        //var diff = _.differenceWith(ports, containerPorts, _.isEqual);
         // Container ports should match defined ports completely
         // because of the Service and container ports should match test
         // this means that the service ports are covered in this test too

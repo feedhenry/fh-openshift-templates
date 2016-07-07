@@ -37,7 +37,8 @@ module.exports =  {
   coreFrontend: {
     'fh-core-frontend': [require('../../generated/fh-core-frontend.json'), {
       ignoreEnv: [
-        "MYSQL_DB_NAME"
+        "FH_STATSD_SERVICE_HOST",
+        "FH_STATSD_SERVICE_PORT"
       ]
     }]
   },

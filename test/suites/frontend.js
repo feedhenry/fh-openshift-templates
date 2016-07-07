@@ -12,11 +12,12 @@ module.exports = {
     'fh-millicore': [require('../../fh-millicore-single-template.json'), {
       ports: [
         {containerPort: 8080},
-        {containerPort: 8009},
-        {containerPort: 514, protocol: "UDP"}
+        {containerPort: 514, protocol: 'UDP'},
+        {containerPort: 8009}
       ],
       ignoreEnv: [
-        "MYSQL_DB_NAME"
+        "FH_STATSD_SERVICE_HOST",
+        "FH_STATSD_SERVICE_PORT"
       ]
     }]
   },

@@ -22,7 +22,7 @@ function getVolumes (template) {
 module.exports = {
   findLabelNames: function (template) {
     return getObjectsByKind(template, 'DeploymentConfig')
-    .map('metadata.labels.name')
+    .map('spec.template.metadata.labels.name')
     .compact()
     .value();
   },
