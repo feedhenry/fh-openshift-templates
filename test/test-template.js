@@ -73,8 +73,6 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
 
       var servicePorts = helper.findServicePorts(template);
 
-      console.log(servicePorts);
-      console.log(containerPorts);
       var diff = _.differenceWith(servicePorts, containerPorts, _.isEqual);
 
       // Container ports and service ports should match completely

@@ -18,24 +18,37 @@ To run tests on all templates, run
 $ npm run test
 ```
 
-To run tests on a specific template or a group of templates, run the following
-with `<suitename>` replaced with a specific suite defined in `test/suites/`
-
+To run tests on a specific group of templates or an individual template pass in a `--suite` value
+to the tests.
 ```shell
-$ npm run test --suite=<suitename>
+$ npm run test --suite=generated # Runs tests on all templates
+
+$ npm run test --suite=aaa # Runs tests on all fh-aaa template
 ```
-
-For example
-
-```shell
-npm run test --suite=redis
-```
-
-You can also run tests on multiple individual component templates, for example
-
-```shell
-npm run test --suite="scm aaa redis infra"
-```
+### Template suites
+The list of available template suites which can be passed into `npm run test` are:
+* `component` - Runs all templates, but no groups, identical to `npm run test`
+* `backend` - All `fh-core-backend` templates
+ - `aaa` - fh-aaa
+ - `scm` - fh-scm
+ - `supercore` - fh-supercore
+ - `gitlab` - gitlab-shell
+* `frontend` - All `fh-core-frontend` templates
+ - `millicore` - millicore
+ - `appstore` - fh-appstore
+ - `ngui` - fh-ngui
+ - `httpd` - apache-httpd
+ - `httpdp` - apache-httpd persistent
+* `infra` - All `fh-core-infra` templates
+ - `memcached` - memcached
+ - `mysql` - mysql
+ - `mysqlp` - mysql persistent
+ - `mongo` - mongodb
+ - `redis` - redis
+* `generated` - All generated templates
+ - `coreInfra` - `fh-core-infra`
+ - `coreBackend` - `fh-core-backend`
+ - `coreFrontend` - `fh-core-frontend`
 
 ## Workflow Guidelines
 
@@ -83,7 +96,7 @@ Productization will have new images less frequently, and will follow this flow:
 * create a new project oc new-project core
 * cd scripts/core
 * make sure docker login is configured as in [fhcap-documentation](https://github.com/fheng/fhcap/tree/master/flavours/rhel_openshift3#mounting-docker-credentials-into-the-vm-to-allow-pulling-of-private-images)
-* run ./prerequisites.sh 
+* run ./prerequisites.sh
 * Manually execute commands printed as results of prerequisites:
 * run ./infra.sh  (in the ui wait till the mongo intiator is no longer visible)
 * run ./backend.sh (wait till all images are running and blue)

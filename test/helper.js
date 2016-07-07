@@ -84,7 +84,7 @@ module.exports = {
     .map(function (env) {
       return env.replace('${', '').replace('}', '');
     })
-    .value()
+    .value();
   },
 
   findVolumeMounts: function (template) {
