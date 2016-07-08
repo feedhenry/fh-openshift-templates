@@ -1234,7 +1234,7 @@
         {
             "name": "MONGODB_SERVICE_NAME",
             "description": "The mongodb service name",
-            "value": "mongodb-service-1"
+            "value": "mongodb-1"
         },
         {
             "name": "MONGODB_SERVICE_PORT",

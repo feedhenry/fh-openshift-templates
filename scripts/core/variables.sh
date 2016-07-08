@@ -2,7 +2,6 @@
 
 export TEMPLATES_DIR="$(dirname "${BASH_SOURCE}")/../.."
 
-export MONGO_SERVICE_NAME="mongodb-service"
 export MEMCACHED_SERVICE_NAME="memcached"
 export MONGO_PASSWORD="sameforall"
 export PROJECT="core"
