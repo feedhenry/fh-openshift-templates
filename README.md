@@ -12,6 +12,30 @@ $ grunt
 ```
 The produced tar will be in the ```dist``` directory.
 
+## Testing
+To run tests on all templates, run
+```shell
+$ npm run test
+```
+
+To run tests on a specific group of templates or an individual template pass in a `--suite` value
+to the tests.
+```shell
+$ npm run test --suite=generated # Runs tests on all templates
+
+$ npm run test --suite=aaa # Runs tests on all fh-aaa template
+```
+
+The list of available template suites which can be passed into `npm run test` can
+be found in files within the `suites/` directory. For example, the `backend.js` file
+contains the key `aaa`, this relates to the `fh-aaa-single-template.json` file
+and specifies some configuration options. To run the tests on the `fh-aaa` template
+just run `npm run test` with the `aaa` key specified as the `suite`. E.g.
+```shell
+npm run test --suite=aaa
+```
+This can be done with any key in any module in the `suites/` directory.
+
 
 ## Workflow Guidelines
 
@@ -59,7 +83,7 @@ Productization will have new images less frequently, and will follow this flow:
 * create a new project oc new-project core
 * cd scripts/core
 * make sure docker login is configured as in [fhcap-documentation](https://github.com/fheng/fhcap/tree/master/flavours/rhel_openshift3#mounting-docker-credentials-into-the-vm-to-allow-pulling-of-private-images)
-* run ./prerequisites.sh 
+* run ./prerequisites.sh
 * Manually execute commands printed as results of prerequisites:
 * run ./infra.sh  (in the ui wait till the mongo intiator is no longer visible)
 * run ./backend.sh (wait till all images are running and blue)
@@ -84,7 +108,7 @@ update sys_Sub set aaaActive=0 where guid !=""
 
 ```
 
-In the OSE vm 
+In the OSE vm
 
 ```
 sudo yum install telnet
@@ -112,5 +136,3 @@ wait for it to fully start
 ```
 
 logout hard refresh and log back in
-
-

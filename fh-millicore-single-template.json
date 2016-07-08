@@ -56,6 +56,11 @@
       "description": "MYSQL database port"
     },
     {
+      "name": "MYSQL_DB_NAME",
+      "value": "shard0",
+      "description": "Name of MYSQL database"
+    },
+    {
       "name": "AMQ_HOST",
       "value": "feedhenry.me",
       "description": "Message queue host"
@@ -248,7 +253,7 @@
         },
         "ports": [
           {
-            "protocol": "udp",
+            "protocol": "UDP",
             "port": 514
           }
         ]
@@ -287,6 +292,13 @@
                 "ports": [
                   {
                     "containerPort": 8080
+                  },
+                  {
+                    "protocol": "UDP",
+                    "containerPort": 514
+                  },
+                  {
+                    "containerPort": 8009
                   }
                 ],
                 "livenessProbe": {
@@ -346,7 +358,7 @@
                   },
                   {
                     "name": "MYSQL_DB_NAME",
-                    "value": "shard0"
+                    "value": "${MYSQL_DB_NAME}"
                   },
                   {
                     "name": "AMQ_HOST",

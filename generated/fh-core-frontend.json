@@ -271,16 +271,16 @@
             "spec": {
                 "ports": [
                     {
-                        "name": "server-http-port",
-                        "protocol": "TCP",
-                        "port": 80,
-                        "targetPort": 80
-                    },
-                    {
                         "name": "server-git-port",
                         "protocol": "TCP",
                         "port": 8080,
                         "targetPort": 8080
+                    },
+                    {
+                        "name": "server-http-port",
+                        "protocol": "TCP",
+                        "port": 80,
+                        "targetPort": 80
                     }
                 ],
                 "selector": {
@@ -347,7 +347,10 @@
             "apiVersion": "v1",
             "metadata": {
                 "name": "${HTTPD_SERVICE_NAME}",
-                "creationTimestamp": null
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "${HTTPD_SERVICE_NAME}"
+                }
             },
             "spec": {
                 "strategy": {
@@ -401,6 +404,10 @@
                                     {
                                         "containerPort": 8443,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 80,
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
@@ -438,6 +445,10 @@
                                     {
                                         "name": "git-data",
                                         "mountPath": "/srv/repositories"
+                                    },
+                                    {
+                                        "name": "sdk-templates-root",
+                                        "mountPath": "/tmp/"
                                     }
                                 ],
                                 "livenessProbe": {
@@ -602,6 +613,14 @@
                                     {
                                         "containerPort": 8080,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 514,
+                                        "protocol": "UDP"
+                                    },
+                                    {
+                                        "containerPort": 8009,
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
@@ -639,7 +658,7 @@
                                     },
                                     {
                                         "name": "MYSQL_DB_NAME",
-                                        "value": "shard0"
+                                        "value": "${MYSQL_DB_NAME}"
                                     },
                                     {
                                         "name": "AMQ_HOST",
@@ -956,6 +975,11 @@
             "name": "MYSQL_PORT",
             "description": "MYSQL database port",
             "value": "3306"
+        },
+        {
+            "name": "MYSQL_DB_NAME",
+            "description": "Name of MYSQL database",
+            "value": "shard0"
         },
         {
             "name": "AMQ_HOST",
