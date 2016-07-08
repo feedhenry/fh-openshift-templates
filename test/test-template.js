@@ -68,7 +68,7 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
       ).to.deep.equal(volumeDefinitions);
     });
 
-    it('should have matching service ports and container ports', function () {
+    it('should have a container port for each service port', function () {
       var containerPorts = helper.findContainerPorts(template);
 
       var servicePorts = helper.findServicePorts(template);
@@ -78,7 +78,8 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
       // Container ports and service ports should match completely
       expect(
         diff.length,
-        'Service and container ports do not match, ports are ' + _.map(diff,'containerPort').join(', ')
+        'Not every service port has a corresponding service port, the differences between service and container ports are ' +
+        _(diff).map(function (port) { return port.containerPort + ' (' + port.protocol + ')'; } ).join(',')
       ).to.equal(0);
     });
 
