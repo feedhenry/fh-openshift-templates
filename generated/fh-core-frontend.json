@@ -920,7 +920,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.29.3-2212"
+            "value": "7.29.3-2222"
         },
         {
             "name": "FH_ADMIN_USER_NAME",
