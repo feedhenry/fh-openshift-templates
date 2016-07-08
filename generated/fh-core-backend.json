@@ -811,14 +811,6 @@
                                         "value": "${FH_STATSD_API_KEY}"
                                     },
                                     {
-                                        "name": "MONGODB_SERVICE_NAME",
-                                        "value": "${MONGODB_SERVICE_NAME}"
-                                    },
-                                    {
-                                        "name": "MEMCACHED_SERVICE_HOST",
-                                        "value": "${MEMCACHED_SERVICE_NAME}"
-                                    },
-                                    {
                                         "name": "REDIS_SERVICE_NAME",
                                         "value": "${REDIS_SERVICE_NAME}"
                                     },

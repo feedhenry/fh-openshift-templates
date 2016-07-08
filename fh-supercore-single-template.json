@@ -278,24 +278,12 @@
                     "value": "${FH_STATSD_API_KEY}"
                   },
                   {
-                    "name": "MONGODB_SERVICE_NAME",
-                    "value": "${MONGODB_SERVICE_NAME}",
-                    "description": "The mongodb service name"
-                  },
-                  {
-                    "name": "MEMCACHED_SERVICE_HOST",
-                    "value": "${MEMCACHED_SERVICE_NAME}",
-                    "description": "The memcached service name"
-                  },
-                  {
                     "name": "REDIS_SERVICE_NAME",
-                    "value": "${REDIS_SERVICE_NAME}",
-                    "description": "The redis service name"
+                    "value": "${REDIS_SERVICE_NAME}"
                   },
                   {
                     "name": "REDIS_SERVICE_PORT",
-                    "value": "6379",
-                    "description": "The redis service port"
+                    "value": "6379"
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"
