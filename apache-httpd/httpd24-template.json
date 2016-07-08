@@ -211,7 +211,7 @@
     },
     {
       "name": "HTTPD_IMAGE",
-      "value": "rhmap/httpd24",
+      "value": "docker.io/rhmap/httpd24",
       "description": "The name of the image",
       "required": true
     },

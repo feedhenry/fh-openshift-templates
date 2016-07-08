@@ -22,18 +22,12 @@
       "spec": {
         "ports": [
           {
-            "name": "fh-mbaas-service-ports",
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080,
-            "nodePort": 0
+            "port": 8080
           }
         ],
         "selector": {
           "name": "fh-mbaas"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        }
       }
     },
     {
@@ -48,18 +42,12 @@
       "spec": {
         "ports": [
           {
-            "name": "fh-messaging-service-ports",
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080,
-            "nodePort": 0
+            "port": 8080
           }
         ],
         "selector": {
           "name": "fh-messaging"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        }
       }
     },
     {
@@ -74,18 +62,12 @@
       "spec": {
         "ports": [
           {
-            "name": "fh-metrics-service-ports",
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080,
-            "nodePort": 0
+            "port": 8080
           }
         ],
         "selector": {
           "name": "fh-metrics"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        }
       }
     },
     {
@@ -114,9 +96,7 @@
         ],
         "selector": {
           "name": "fh-statsd"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        }
       }
     },
     {
@@ -131,19 +111,13 @@
       "spec": {
         "ports": [
           {
-            "protocol": "TCP",
-            "port": 27017,
-            "targetPort": 27017,
-            "nodePort": 0
+            "port": 27017
           }
         ],
         "selector": {
           "name": "mongodb-replica-1"
         },
-        "portalIP": "None",
-        "clusterIP": "None",
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        "clusterIP": "None"
       }
     },
     {
@@ -158,19 +132,13 @@
       "spec": {
         "ports": [
           {
-            "protocol": "TCP",
-            "port": 27017,
-            "targetPort": 27017,
-            "nodePort": 0
+            "port": 27017
           }
         ],
         "selector": {
           "name": "mongodb-replica-2"
         },
-        "portalIP": "None",
-        "clusterIP": "None",
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        "clusterIP": "None"
       }
     },
     {
@@ -185,19 +153,13 @@
       "spec": {
         "ports": [
           {
-            "protocol": "TCP",
-            "port": 27017,
-            "targetPort": 27017,
-            "nodePort": 0
+            "port": 27017
           }
         ],
         "selector": {
           "name": "mongodb-replica-3"
         },
-        "portalIP": "None",
-        "clusterIP": "None",
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
+        "clusterIP": "None"
       }
     },
     {
@@ -212,11 +174,6 @@
       "spec": {
         "strategy": {
           "type": "Rolling",
-          "rollingParams": {
-            "updatePeriodSeconds": 1,
-            "intervalSeconds": 1,
-            "timeoutSeconds": 300
-          },
           "resources": {
             "limits": {
               "cpu": "800m",
@@ -250,8 +207,7 @@
                 "image": "${FH_MBAAS_IMAGE}:${FH_MBAAS_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
@@ -313,16 +269,9 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
-                "securityContext": {
-                  "capabilities": {},
-                  "privileged": false
-                }
+                "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -339,11 +288,6 @@
       "spec": {
         "strategy": {
           "type": "Rolling",
-          "rollingParams": {
-            "updatePeriodSeconds": 1,
-            "intervalSeconds": 1,
-            "timeoutSeconds": 300
-          },
           "resources": {
             "limits": {
               "cpu": "400m",
@@ -377,30 +321,13 @@
                 "image": "${FH_MESSAGING_IMAGE}:${FH_MESSAGING_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
                   {
                     "name": "FH_MESSAGING_CRON",
                     "value": "10 0 * * *"
-                  },
-                  {
-                    "name": "FH_MBAASID",
-                    "value": "${FH_MBAASID}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
@@ -434,16 +361,9 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
-                "securityContext": {
-                  "capabilities": {},
-                  "privileged": false
-                }
+                "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -460,11 +380,6 @@
       "spec": {
         "strategy": {
           "type": "Rolling",
-          "rollingParams": {
-            "updatePeriodSeconds": 1,
-            "intervalSeconds": 1,
-            "timeoutSeconds": 300
-          },
           "resources": {
             "limits": {
               "cpu": "400m",
@@ -498,8 +413,7 @@
                 "image": "${FH_METRICS_IMAGE}:${FH_METRICS_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
@@ -518,18 +432,6 @@
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
                     "value": "fh-reporting"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
                   },
                   {
                     "name": "FH_METRICS_API_KEY",
@@ -551,16 +453,9 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
-                "securityContext": {
-                  "capabilities": {},
-                  "privileged": false
-                }
+                "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -577,11 +472,6 @@
       "spec": {
         "strategy": {
           "type": "Rolling",
-          "rollingParams": {
-            "updatePeriodSeconds": 1,
-            "intervalSeconds": 1,
-            "timeoutSeconds": 300
-          },
           "resources": {
             "limits": {
               "cpu": "400m",
@@ -615,8 +505,7 @@
                 "image": "${FH_STATSD_IMAGE}:${FH_STATSD_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
+                    "containerPort": 8080
                   }
                 ],
                 "env": [
@@ -640,16 +529,9 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent",
-                "securityContext": {
-                  "capabilities": {},
-                  "privileged": false
-                }
+                "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -761,8 +643,7 @@
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 27017,
-                    "protocol": "TCP"
+                    "containerPort": 27017
                   }
                 ],
                 "volumeMounts": [
@@ -817,18 +698,6 @@
                     "value": "fh-statsd"
                   },
                   {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
-                  },
-                  {
                     "name": "MONGODB_FHREPORTING_USER",
                     "value": "${MONGODB_FHREPORTING_USER}"
                   },
@@ -851,12 +720,9 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -917,8 +783,7 @@
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 27017,
-                    "protocol": "TCP"
+                    "containerPort": 27017
                   }
                 ],
                 "volumeMounts": [
@@ -973,18 +838,6 @@
                     "value": "fh-statsd"
                   },
                   {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
-                  },
-                  {
                     "name": "MONGODB_FHREPORTING_USER",
                     "value": "${MONGODB_FHREPORTING_USER}"
                   },
@@ -1007,12 +860,9 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -1073,8 +923,7 @@
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 27017,
-                    "protocol": "TCP"
+                    "containerPort": 27017
                   }
                 ],
                 "volumeMounts": [
@@ -1129,18 +978,6 @@
                     "value": "fh-statsd"
                   },
                   {
-                    "name": "MONGODB_FHMETRICS_USER",
-                    "value": "${MONGODB_FHMETRICS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_PASSWORD",
-                    "value": "${MONGODB_FHMETRICS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMETRICS_DATABASE",
-                    "value": "fh-metrics"
-                  },
-                  {
                     "name": "MONGODB_FHREPORTING_USER",
                     "value": "${MONGODB_FHREPORTING_USER}"
                   },
@@ -1163,12 +1000,9 @@
                     "memory": "200Mi"
                   }
                 },
-                "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "dnsPolicy": "ClusterFirst"
+            ]
           }
         }
       }
@@ -1189,8 +1023,7 @@
             "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
             "ports": [
               {
-                "containerPort": 27017,
-                "protocol": "TCP"
+                "containerPort": 27017
               }
             ],
             "command": [
@@ -1231,18 +1064,6 @@
                 "value": "${MONGODB_ADMIN_PASSWORD}"
               },
               {
-                "name": "MONGODB_FHMETRICS_USER",
-                "value": "${MONGODB_FHMETRICS_USER}"
-              },
-              {
-                "name": "MONGODB_FHMETRICS_PASSWORD",
-                "value": "${MONGODB_FHMETRICS_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHMETRICS_DATABASE",
-                "value": "fh-metrics"
-              },
-              {
                 "name": "MONGODB_FHREPORTING_USER",
                 "value": "${MONGODB_FHREPORTING_USER}"
               },
@@ -1263,12 +1084,10 @@
                 "value": "${ENDPOINT_COUNT}"
               }
             ],
-            "terminationMessagePath": "/dev/termination-log",
             "imagePullPolicy": "IfNotPresent"
           }
         ],
-        "restartPolicy": "Never",
-        "dnsPolicy": "ClusterFirst"
+        "restartPolicy": "Never"
       }
     },
     {
@@ -1342,17 +1161,6 @@
     {
       "name": "MONGODB_FHREPORTING_PASSWORD",
       "description": "The MongoDB Reporting password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "MONGODB_FHMETRICS_USER",
-      "value": "u-metrics",
-      "description": "The Metrics user name"
-    },
-    {
-      "name": "MONGODB_FHMETRICS_PASSWORD",
-      "description": "The MongoDB Metrics password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },

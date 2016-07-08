@@ -50,7 +50,7 @@
     },
     {
       "name": "MONGODB_SERVICE_NAME",
-      "value": "mongodb-service-1",
+      "value": "mongodb-1",
       "description": "The mongodb service name"
     },
     {

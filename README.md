@@ -80,64 +80,41 @@ Productization will have new images less frequently, and will follow this flow:
 
 ## setup a local core
 
-* create a new project oc new-project core
-* cd scripts/core
-* make sure docker login is configured as in [fhcap-documentation](https://github.com/fheng/fhcap/tree/master/flavours/rhel_openshift3#mounting-docker-credentials-into-the-vm-to-allow-pulling-of-private-images)
-* run ./prerequisites.sh
-* Manually execute commands printed as results of prerequisites:
-* run ./infra.sh  (in the ui wait till the mongo intiator is no longer visible)
-* run ./backend.sh (wait till all images are running and blue)
-* run ./front.sh
-* visit http://rhmap.local.feedhenry.io
-* login with rhmap-admin@example.com
-
 Note: When using scripts on mac ssed tool should be installed. By default sed command is used for different purpose:
 
-	brew install ssed
-	alias sed='ssed'
+    brew install ssed
+    alias sed='ssed'
 
-## OMG I have no permissions
+* Ensure you're logged in to OpenShift with `oc` inside the `rhel_openshift3` VM, then paste the following (change the value of the project name in the first line if necessary):
 
-Just as with fhcap occasionally you can end up with no permissions at the first login
+``` shell
+export CORE_PROJECT_NAME=core
+oc new-project $CORE_PROJECT_NAME
+cd /mnt/src/fh-openshift-templates/scripts/core
 
-````
-oc get pods
+# Set up Secrets
+./prerequisites.sh
 
-oc rsh <mysql-pod>
+# Create new SecurityContextConstraint that allows `chroot` capability
+sudo oc create -f ../../gitlab-shell/scc-anyuid-with-chroot.json
 
-mysql -u root
+# Add the default ServiceAccount for the project to that SCC for gitlab-shell (sshd)
+sudo oc adm policy add-scc-to-user anyuid-with-chroot \
+    system:serviceaccount:${CORE_PROJECT_NAME}:default
 
-use shard0
-
-update sys_Sub set aaaActive=0 where guid !=""
-
+./infra.sh
 ```
 
-In the OSE vm
+* Wait until all the Pods are running, and the MongoDB initiator Pod has exited successfully, then continue with:
 
-```
-sudo yum install telnet
-
-```
-get the ip of the memcached container
-
-```
-oc describe svc memcached
-
-telnet <10.x.x.x> 11211
-
-flush_all
-
-ctrl + ]
-
-exit
-
-Note some times it can help to restart millicore
-
-oc scale dc/millicore --replicas=0
-wait for it to stop
-oc scale dc/millicore --replicas=1
-wait for it to fully start  
+``` shell
+./backend.sh
 ```
 
-logout hard refresh and log back in
+* Wait until all of the new Pods are running successfully, then continue with:
+
+``` shell
+./front.sh
+```
+
+* After this, and all Pods are successfully running, you should be able to login to http://rhmap.local.feedhenry.io as `rhmap-admin@example.com`
