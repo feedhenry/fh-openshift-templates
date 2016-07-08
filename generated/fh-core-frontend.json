@@ -661,22 +661,6 @@
                                         "value": "${MYSQL_DB_NAME}"
                                     },
                                     {
-                                        "name": "AMQ_HOST",
-                                        "value": "${AMQ_HOST}"
-                                    },
-                                    {
-                                        "name": "AMQ_PORT",
-                                        "value": "${AMQ_PORT}"
-                                    },
-                                    {
-                                        "name": "AMQ_USER",
-                                        "value": "${AMQ_USER}"
-                                    },
-                                    {
-                                        "name": "AMQ_PASSWORD",
-                                        "value": "${AMQ_PASSWORD}"
-                                    },
-                                    {
                                         "name": "MEMCACHED_SERVICE_HOST",
                                         "value": "${MEMCACHED_SERVICE_HOST}"
                                     },
@@ -939,7 +923,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.29.3-2222"
+            "value": "7.29.3-2223"
         },
         {
             "name": "FH_ADMIN_USER_NAME",
@@ -980,26 +964,6 @@
             "name": "MYSQL_DB_NAME",
             "description": "Name of MYSQL database",
             "value": "shard0"
-        },
-        {
-            "name": "AMQ_HOST",
-            "description": "Message queue host",
-            "value": "feedhenry.me"
-        },
-        {
-            "name": "AMQ_PORT",
-            "description": "Message queue port",
-            "value": "5672"
-        },
-        {
-            "name": "AMQ_USER",
-            "description": "Message queue user",
-            "value": "fhinternal"
-        },
-        {
-            "name": "AMQ_PASSWORD",
-            "description": "Message queue user password",
-            "value": "Jdxbf9f4hkJvs7T"
         },
         {
             "name": "MEMCACHED_SERVICE_HOST",
