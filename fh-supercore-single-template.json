@@ -35,27 +35,6 @@
       "description": "A default log level for all components"
     },
     {
-      "name": "AMQ_USER",
-      "value": "rhmap",
-      "description": "The AMQ user that is used by fh-supercore"
-    },
-    {
-      "name": "AMQ_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "The AMQ user that is used by fh-supercore"
-    },
-    {
-      "name": "RHMAP_AMQ_STOMP_HOST",
-      "value": "amq-service",
-      "description": "The AMQ user that is used by fh-supercore"
-    },
-    {
-      "name": "RHMAP_AMQ_STOMP_PORT",
-      "value": "rhmap",
-      "description": "The AMQ user that is used by fh-supercore"
-    },
-    {
       "name": "MONGODB_FHSUPERCORE_USER",
       "value": "u-supercore",
       "description": "The MongoDB username for fh-supercore"
@@ -273,22 +252,6 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_LOG_LEVEL}"
-                  },
-                  {
-                    "name": "AMQ_USER",
-                    "value": "${AMQ_USER}"
-                  },
-                  {
-                    "name": "AMQ_PASSWORD",
-                    "value": "${AMQ_PASSWORD}"
-                  },
-                  {
-                    "name": "RHMAP_AMQ_STOMP_HOST",
-                    "value": "${RHMAP_AMQ_STOMP_HOST}"
-                  },
-                  {
-                    "name": "RHMAP_AMQ_STOMP_PORT",
-                    "value": "${RHMAP_AMQ_STOMP_PORT}"
                   },
                   {
                     "name": "MONGODB_FHSUPERCORE_USER",

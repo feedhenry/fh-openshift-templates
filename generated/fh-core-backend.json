@@ -469,22 +469,6 @@
                                         "value": "${FH_LOG_LEVEL}"
                                     },
                                     {
-                                        "name": "AMQ_USER",
-                                        "value": "${AMQ_USER}"
-                                    },
-                                    {
-                                        "name": "AMQ_PASSWORD",
-                                        "value": "${AMQ_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "RHMAP_AMQ_STOMP_HOST",
-                                        "value": "${RHMAP_AMQ_STOMP_HOST}"
-                                    },
-                                    {
-                                        "name": "RHMAP_AMQ_STOMP_PORT",
-                                        "value": "${RHMAP_AMQ_STOMP_PORT}"
-                                    },
-                                    {
                                         "name": "MONGODB_FHSUPERCORE_USER",
                                         "value": "${MONGODB_FHSUPERCORE_USER}"
                                     },
@@ -817,27 +801,6 @@
         {
             "name": "CLUSTER_NAME",
             "description": "The name of this RHMAP Core cluster",
-            "value": "rhmap"
-        },
-        {
-            "name": "AMQ_USER",
-            "description": "The AMQ user that is used by fh-supercore",
-            "value": "rhmap"
-        },
-        {
-            "name": "AMQ_PASSWORD",
-            "description": "The AMQ user that is used by fh-supercore",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
-        },
-        {
-            "name": "RHMAP_AMQ_STOMP_HOST",
-            "description": "The AMQ user that is used by fh-supercore",
-            "value": "amq-service"
-        },
-        {
-            "name": "RHMAP_AMQ_STOMP_PORT",
-            "description": "The AMQ user that is used by fh-supercore",
             "value": "rhmap"
         },
         {
