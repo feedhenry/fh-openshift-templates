@@ -17,7 +17,7 @@
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.29.3-2222",
+      "value": "7.29.3-2223",
       "description": "Millicore image version"
     },
     {
@@ -59,26 +59,6 @@
       "name": "MYSQL_DB_NAME",
       "value": "shard0",
       "description": "Name of MYSQL database"
-    },
-    {
-      "name": "AMQ_HOST",
-      "value": "feedhenry.me",
-      "description": "Message queue host"
-    },
-    {
-      "name": "AMQ_PORT",
-      "value": "5672",
-      "description": "Message queue port"
-    },
-    {
-      "name": "AMQ_USER",
-      "value": "fhinternal",
-      "description": "Message queue user"
-    },
-    {
-      "name": "AMQ_PASSWORD",
-      "value": "Jdxbf9f4hkJvs7T",
-      "description": "Message queue user password"
     },
     {
       "name": "MEMCACHED_SERVICE_HOST",
@@ -359,22 +339,6 @@
                   {
                     "name": "MYSQL_DB_NAME",
                     "value": "${MYSQL_DB_NAME}"
-                  },
-                  {
-                    "name": "AMQ_HOST",
-                    "value": "${AMQ_HOST}"
-                  },
-                  {
-                    "name": "AMQ_PORT",
-                    "value": "${AMQ_PORT}"
-                  },
-                  {
-                    "name": "AMQ_USER",
-                    "value": "${AMQ_USER}"
-                  },
-                  {
-                    "name": "AMQ_PASSWORD",
-                    "value": "${AMQ_PASSWORD}"
                   },
                   {
                     "name": "MEMCACHED_SERVICE_HOST",

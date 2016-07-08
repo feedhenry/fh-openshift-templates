@@ -91,6 +91,11 @@ Productization will have new images less frequently, and will follow this flow:
 * visit http://rhmap.local.feedhenry.io
 * login with rhmap-admin@example.com
 
+Note: When using scripts on mac ssed tool should be installed. By default sed command is used for different purpose:
+
+	brew install ssed
+	alias sed='ssed'
+
 ## OMG I have no permissions
 
 Just as with fhcap occasionally you can end up with no permissions at the first login
