@@ -212,6 +212,14 @@
                 ],
                 "env": [
                   {
+                    "name": "MBAAS_NAMESPACE",
+                    "valueFrom":{
+                      "fieldRef": {
+                        "fieldPath": "metadata.namespace"
+                      }
+                    }
+                  },
+                  {
                     "name": "FH_CLUSTER",
                     "value": "${FH_CLUSTER}"
                   },
@@ -1032,6 +1040,14 @@
             ],
             "env": [
               {
+                "name": "MBAAS_NAMESPACE",
+                "valueFrom":{
+                  "fieldRef": {
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              },
+              {
                 "name": "MONGODB_REPLICA_NAME",
                 "value": "rs0"
               },
@@ -1171,7 +1187,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "4.0.4-1124",
+      "value": "4.0.6-1141",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
@@ -1211,7 +1227,7 @@
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "centos-3.2-26",
+      "value": "centos-3.2-29",
       "description": "The version for the MONGODB_IMAGE"
     },
     {
