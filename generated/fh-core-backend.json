@@ -869,9 +869,16 @@
             "spec": {
                 "ports": [
                     {
+                        "name": "internal-ssh-port",
                         "protocol": "TCP",
                         "port": 22,
                         "targetPort": 22
+                    },
+                    {
+                        "name": "server-http-port",
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
                     }
                 ],
                 "selector": {
@@ -885,6 +892,34 @@
             }
         },
         {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "gitlab-shell-http-route",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "gitlab-shell"
+                }
+            },
+            "spec": {
+                "host": "${GIT_HTTP_HOST}",
+                "to": {
+                    "kind": "Service",
+                    "name": "gitlab-shell"
+                },
+                "port": {
+                    "targetPort": "server-http-port"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Allow"
+                }
+            },
+            "status": {
+                "ingress": null
+            }
+        },
+        {
             "kind": "ConfigMap",
             "apiVersion": "v1",
             "metadata": {
@@ -892,7 +927,7 @@
                 "creationTimestamp": null
             },
             "data": {
-                "config.yml": "user: git\ngitlab_url: \"${GITLAB_URL}\"\nhttp_settings:\n  enabled: true\n  servicekey: ${GITLAB_MILLICORE_SERVICE_KEY}\n  url: \"http://${FH_MILLICORE_SERVICE_HOST}:${FH_MILLICORE_SERVICE_PORT}\"\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_ROOT}/repositories\"\nauth_file: \"${GIT_REPO_ROOT}/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nlog_level: INFO\naudit_usernames: false\nrabbit:\n  enabled: false\n"
+                "config.yml": "user: git\ngitlab_url: \"${GITLAB_MILLICORE_AUTH_URL}\"\nhttp_settings:\n  enabled: true\n  servicekey: ${GITLAB_MILLICORE_SERVICE_KEY}\n  url: \"http://${FH_MILLICORE_SERVICE_HOST}:${FH_MILLICORE_SERVICE_PORT}\"\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_ROOT}/repositories\"\nauth_file: \"${GIT_REPO_ROOT}/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nlog_level: INFO\naudit_usernames: false\nrabbit:\n  enabled: false\n"
             }
         },
         {
@@ -1005,9 +1040,62 @@
                                     },
                                     "initialDelaySeconds": 2,
                                     "timeoutSeconds": 5,
+                                    "periodSeconds": 30,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            },
+                            {
+                                "name": "gitlab-httpd-proxy",
+                                "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "MILLICORE_HTTP_HOST",
+                                        "value": "${MILLICORE_HTTP_HOST}"
+                                    },
+                                    {
+                                        "name": "HTTP_REPO_ROOT",
+                                        "value": "${HTTP_REPO_ROOT}"
+                                    }
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "git-data-volume",
+                                        "mountPath": "${HTTP_REPO_ROOT}"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 600,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 10,
+                                    "timeoutSeconds": 5,
                                     "periodSeconds": 10,
                                     "successThreshold": 1,
-                                    "failureThreshold": 1
+                                    "failureThreshold": 2
                                 },
                                 "terminationMessagePath": "/dev/termination-log",
                                 "imagePullPolicy": "IfNotPresent"
@@ -1375,35 +1463,9 @@
             "value": "2.0.0.pre-37"
         },
         {
-            "name": "GITLAB_URL",
+            "name": "GITLAB_MILLICORE_AUTH_URL",
             "description": "The URL that GitLab is exposed at",
             "value": "http://millicore:8080/box/api/gls/"
-        },
-        {
-            "name": "RABBITMQ_SERVICE",
-            "description": "The location of the RabbitMQ service",
-            "value": "rabbitmq-service"
-        },
-        {
-            "name": "RABBITMQ_VHOST",
-            "description": "The RabbitMQ vHost",
-            "value": "fhtasks"
-        },
-        {
-            "name": "RABBITMQ_USER",
-            "description": "The RabbitMQ user",
-            "value": "fhtasksuser"
-        },
-        {
-            "name": "RABBITMQ_PASSWORD",
-            "description": "The RabbitMQ password.",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{15}"
-        },
-        {
-            "name": "RABBITMQ_QUEUE",
-            "description": "The RabbitMQ queue",
-            "value": "fh-tasks-gitlab-postreceive"
         },
         {
             "name": "GIT_REPO_ROOT",
@@ -1417,7 +1479,37 @@
         },
         {
             "name": "GITLAB_MILLICORE_SERVICE_KEY",
-            "description": "Service key used to call millicore http api"
+            "description": "Service key used to call millicore http api",
+            "value": "SERVICE_KEY"
+        },
+        {
+            "name": "GIT_HTTP_HOST",
+            "description": "External dns name that would be setup for router"
+        },
+        {
+            "name": "HTTPD_IMAGE",
+            "description": "The name of the httpd proxy image used to serve git repositories",
+            "value": "docker.io/rhmap/httpd24"
+        },
+        {
+            "name": "HTTPD_IMAGE_VERSION",
+            "description": "The version for the HTTPD_IMAGE",
+            "value": "2.4-18"
+        },
+        {
+            "name": "MILLICORE_HTTP_HOST",
+            "description": "Internal hostname for millicore http service",
+            "value": "millicore:8080"
+        },
+        {
+            "name": "HTTP_REPO_ROOT",
+            "description": "Git repository mount directory for apache httpd",
+            "value": "/srv"
+        },
+        {
+            "name": "HTTPD_LOG_LEVEL",
+            "description": "Apache log level",
+            "value": "info"
         },
         {
             "name": "UPS_IMAGE",

@@ -19,10 +19,6 @@
       "spec": {
         "ports": [
           {
-            "name": "server-git-port",
-            "port": 8080
-          },
-          {
             "name": "server-http-port",
             "port": 80
           }
@@ -49,27 +45,10 @@
         "to": {
           "kind": "Service",
           "name": "${HTTPD_SERVICE_NAME}"
-        }
-      }
-    },
-    {
-      "apiVersion": "v1",
-      "kind": "Route",
-      "metadata": {
-        "labels": {
-          "app": "${HTTPD_SERVICE_NAME}"
         },
-        "name": "${HTTPD_SERVICE_NAME}-git-route"
-      },
-      "spec": {
-        "host": "",
-        "path": "/git",
-        "port": {
-          "targetPort": "server-git-port"
-        },
-        "to": {
-          "kind": "Service",
-          "name": "${HTTPD_SERVICE_NAME}"
+        "tls": {
+          "termination": "edge",
+          "insecureEdgeTerminationPolicy": "Allow"
         }
       }
     },
@@ -108,12 +87,6 @@
                 "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080
-                  },
-                  {
-                    "containerPort": 8443
-                  },
-                  {
                     "containerPort": 80
                   }
                 ],
@@ -141,10 +114,6 @@
                 },
                 "env": [
                   {
-                    "name": "MILLICORE_HTTP_HOST",
-                    "value": "${MILLICORE_HTTP_HOST}"
-                  },
-                  {
                     "name": "MILLICORE_AJP_HOST",
                     "value": "${MILLICORE_AJP_HOST}"
                   },
@@ -171,12 +140,8 @@
                 ],
                 "volumeMounts": [
                   {
-                    "name": "git-data",
-                    "mountPath": "/srv/repositories"
-                  },
-                  {
                     "name": "sdk-templates-root",
-                    "mountPath": "/opt/rh/httpd24/root/opt/feedhenry"
+                    "mountPath": "/opt/rh/httpd24/root/opt/feedhenry/latest"
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"
@@ -184,14 +149,13 @@
             ],
             "volumes": [
               {
-                "name": "git-data",
-                "emptyDir": {}
-              },
-              {
                 "name": "sdk-templates-root",
                 "emptyDir": {}
               }
-            ]
+            ],
+            "securityContext": {
+              "runAsUser": 0
+            }
           }
         }
       }
@@ -206,26 +170,17 @@
       "name": "HTTPD_SERVICE_NAME",
       "displayName": "Service Name",
       "description": "The name of the OpenShift Service for httpd server.",
-      "value": "httpd",
-      "required": true
+      "value": "httpd"
     },
     {
       "name": "HTTPD_IMAGE",
       "value": "docker.io/rhmap/httpd24",
-      "description": "The name of the image",
-      "required": true
+      "description": "The name of the image"
     },
     {
       "name": "HTTPD_IMAGE_VERSION",
-      "value": "2.4-20",
-      "description": "The version for the HTTPD_IMAGE",
-      "required": true
-    },
-    {
-      "name": "MILLICORE_HTTP_HOST",
-      "value": "millicore:8080",
-      "displayName": "Millicore http host",
-      "description": "Internal hostname for millicore http service"
+      "value": "2.4-38",
+      "description": "The version for the HTTPD_IMAGE"
     },
     {
       "name": "MILLICORE_AJP_HOST",
@@ -241,14 +196,13 @@
     },
     {
       "name": "NGUI_HOST",
-      "value": "fh-ngui:8080",
+      "value": "fh-ngui:8808",
       "displayName": "fh-ngui url",
       "description": "Internal hostname for fh-ngui"
     },
     {
       "name": "APP_STORE_HOST",
       "value": "fh-appstore:8080",
-      "displayName": "",
       "description": ""
     },
     {
@@ -258,7 +212,7 @@
       "description": "Service for mobile app builder (Digger)"
     },
     {
-      "name": "LOG_LEVEL",
+      "name": "HTTPD_LOG_LEVEL",
       "value": "info",
       "displayName": "Log level",
       "description": "Apache log level"
