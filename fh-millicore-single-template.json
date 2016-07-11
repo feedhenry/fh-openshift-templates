@@ -42,7 +42,8 @@
     },
     {
       "name": "MYSQL_PASSWORD",
-      "value": "coreadmin",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
       "description": "MYSQL database password"
     },
     {
@@ -182,9 +183,10 @@
       "description": "Supercore port"
     },
     {
-      "name": "FH_MILLICORE_API_KEY",
-      "value": "CHANGEMETOBEGENERATED",
-      "description": "TODO REMOVE AND REPLACE WITH GENERATED"
+      "name": "FH_SUPERCORE_API_KEY",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": ""
     },
     {
       "name": "CONFIGURATION_FOLDER",
@@ -434,7 +436,7 @@
                   },
                   {
                     "name": "SUPERCORE_API_KEY",
-                    "value": "${FH_MILLICORE_API_KEY}"
+                    "value": "${FH_SUPERCORE_API_KEY}"
                   },
                   {
                     "name": "CONFIGURATION_FOLDER",

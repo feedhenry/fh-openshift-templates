@@ -1138,11 +1138,11 @@
                                 "env": [
                                     {
                                         "name": "MYSQL_USER",
-                                        "value": "${MYSQL_USER}"
+                                        "value": "${UPS_USER}"
                                     },
                                     {
                                         "name": "MYSQL_PASSWORD",
-                                        "value": "${MYSQL_PASSWORD}"
+                                        "value": "${UPS_PASSWORD}"
                                     },
                                     {
                                         "name": "MYSQL_HOST",
@@ -1150,7 +1150,7 @@
                                     },
                                     {
                                         "name": "MYSQL_DATABASE",
-                                        "value": "${MYSQL_DATABASE}"
+                                        "value": "${UPS_DATABASE}"
                                     }
                                 ],
                                 "resources": {},
@@ -1432,17 +1432,18 @@
             "required": true
         },
         {
-            "name": "MYSQL_USER",
+            "name": "UPS_USER",
             "description": "MYSQL database user",
             "value": "unifiedpush"
         },
         {
-            "name": "MYSQL_PASSWORD",
+            "name": "UPS_PASSWORD",
             "description": "MYSQL database password",
-            "value": "unifiedpush"
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
         },
         {
-            "name": "MYSQL_DATABASE",
+            "name": "UPS_DATABASE",
             "description": "MYSQL database",
             "value": "unifiedpush"
         },
