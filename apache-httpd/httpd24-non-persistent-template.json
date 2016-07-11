@@ -49,7 +49,12 @@
         "to": {
           "kind": "Service",
           "name": "${HTTPD_SERVICE_NAME}"
+        },
+        "tls": {
+          "termination": "edge",
+          "insecureEdgeTerminationPolicy": "Allow"
         }
+
       }
     },
     {
@@ -70,6 +75,10 @@
         "to": {
           "kind": "Service",
           "name": "${HTTPD_SERVICE_NAME}"
+        },
+        "tls": {
+          "termination": "edge",
+          "insecureEdgeTerminationPolicy": "Allow"
         }
       }
     },

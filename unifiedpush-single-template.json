@@ -20,15 +20,16 @@
     "description": "The version for the UPS_IMAGE",
     "required": true
   }, {
-    "name": "MYSQL_USER",
+    "name": "UPS_USER",
     "value": "unifiedpush",
     "description": "MYSQL database user"
   }, {
-    "name": "MYSQL_PASSWORD",
-    "value": "unifiedpush",
+    "name": "UPS_PASSWORD",
+    "generate": "expression",
+    "from": "[a-zA-Z0-9]{40}",
     "description": "MYSQL database password"
   }, {
-    "name": "MYSQL_DATABASE",
+    "name": "UPS_DATABASE",
     "value": "unifiedpush",
     "description": "MYSQL database"
   }, {
@@ -130,16 +131,16 @@
             },
             "env": [{
               "name": "MYSQL_USER",
-              "value": "${MYSQL_USER}"
+              "value": "${UPS_USER}"
             }, {
               "name": "MYSQL_PASSWORD",
-              "value": "${MYSQL_PASSWORD}"
+              "value": "${UPS_PASSWORD}"
             }, {
               "name": "MYSQL_HOST",
               "value": "${MYSQL_HOST}"
             }, {
               "name": "MYSQL_DATABASE",
-              "value": "${MYSQL_DATABASE}"
+              "value": "${UPS_DATABASE}"
             }],
             "imagePullPolicy": "IfNotPresent"
           }]

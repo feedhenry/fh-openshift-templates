@@ -311,6 +311,10 @@
                 },
                 "port": {
                     "targetPort": "server-http-port"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Allow"
                 }
             },
             "status": {
@@ -336,6 +340,10 @@
                 },
                 "port": {
                     "targetPort": "server-git-port"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Allow"
                 }
             },
             "status": {
@@ -754,7 +762,7 @@
                                     },
                                     {
                                         "name": "SUPERCORE_API_KEY",
-                                        "value": "${FH_MILLICORE_API_KEY}"
+                                        "value": "${FH_SUPERCORE_API_KEY}"
                                     },
                                     {
                                         "name": "CONFIGURATION_FOLDER",
@@ -948,7 +956,8 @@
         {
             "name": "MYSQL_PASSWORD",
             "description": "MYSQL database password",
-            "value": "coreadmin"
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
         },
         {
             "name": "MYSQL_HOST",
@@ -1071,9 +1080,9 @@
             "value": "8080"
         },
         {
-            "name": "FH_MILLICORE_API_KEY",
-            "description": "TODO REMOVE AND REPLACE WITH GENERATED",
-            "value": "CHANGEMETOBEGENERATED"
+            "name": "FH_SUPERCORE_API_KEY",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
         },
         {
             "name": "CONFIGURATION_FOLDER",

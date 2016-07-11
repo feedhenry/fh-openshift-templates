@@ -220,7 +220,8 @@
       "name": "UPS_PASSWORD",
       "displayName": "Password for the UPS user.",
       "description": "Password for the UPS user.",
-      "value": "unifiedpush",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{16}",
       "required": true
     },
     {
