@@ -114,7 +114,7 @@ sudo oc adm policy add-scc-to-user anyuid-with-chroot \
 * Wait until all of the new Pods are running successfully, then continue with:
 
 ``` shell
-./front.sh
+./frontend.sh
 ```
 
 * After this, and all Pods are successfully running, you should be able to login to http://rhmap.local.feedhenry.io as `rhmap-admin@example.com`
