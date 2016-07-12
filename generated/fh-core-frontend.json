@@ -271,16 +271,16 @@
             "spec": {
                 "ports": [
                     {
-                        "name": "server-http-port",
-                        "protocol": "TCP",
-                        "port": 80,
-                        "targetPort": 80
-                    },
-                    {
                         "name": "server-git-port",
                         "protocol": "TCP",
                         "port": 8080,
                         "targetPort": 8080
+                    },
+                    {
+                        "name": "server-http-port",
+                        "protocol": "TCP",
+                        "port": 80,
+                        "targetPort": 80
                     }
                 ],
                 "selector": {
@@ -311,6 +311,10 @@
                 },
                 "port": {
                     "targetPort": "server-http-port"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Allow"
                 }
             },
             "status": {
@@ -336,6 +340,10 @@
                 },
                 "port": {
                     "targetPort": "server-git-port"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Allow"
                 }
             },
             "status": {
@@ -347,7 +355,10 @@
             "apiVersion": "v1",
             "metadata": {
                 "name": "${HTTPD_SERVICE_NAME}",
-                "creationTimestamp": null
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "${HTTPD_SERVICE_NAME}"
+                }
             },
             "spec": {
                 "strategy": {
@@ -401,6 +412,10 @@
                                     {
                                         "containerPort": 8443,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 80,
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
@@ -438,6 +453,10 @@
                                     {
                                         "name": "git-data",
                                         "mountPath": "/srv/repositories"
+                                    },
+                                    {
+                                        "name": "sdk-templates-root",
+                                        "mountPath": "/tmp/"
                                     }
                                 ],
                                 "livenessProbe": {
@@ -602,6 +621,14 @@
                                     {
                                         "containerPort": 8080,
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 514,
+                                        "protocol": "UDP"
+                                    },
+                                    {
+                                        "containerPort": 8009,
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
@@ -639,23 +666,7 @@
                                     },
                                     {
                                         "name": "MYSQL_DB_NAME",
-                                        "value": "shard0"
-                                    },
-                                    {
-                                        "name": "AMQ_HOST",
-                                        "value": "${AMQ_HOST}"
-                                    },
-                                    {
-                                        "name": "AMQ_PORT",
-                                        "value": "${AMQ_PORT}"
-                                    },
-                                    {
-                                        "name": "AMQ_USER",
-                                        "value": "${AMQ_USER}"
-                                    },
-                                    {
-                                        "name": "AMQ_PASSWORD",
-                                        "value": "${AMQ_PASSWORD}"
+                                        "value": "${MYSQL_DB_NAME}"
                                     },
                                     {
                                         "name": "MEMCACHED_SERVICE_HOST",
@@ -751,7 +762,7 @@
                                     },
                                     {
                                         "name": "SUPERCORE_API_KEY",
-                                        "value": "${FH_MILLICORE_API_KEY}"
+                                        "value": "${FH_SUPERCORE_API_KEY}"
                                     },
                                     {
                                         "name": "CONFIGURATION_FOLDER",
@@ -920,7 +931,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.29.3-2212"
+            "value": "7.29.3-2223"
         },
         {
             "name": "FH_ADMIN_USER_NAME",
@@ -945,7 +956,8 @@
         {
             "name": "MYSQL_PASSWORD",
             "description": "MYSQL database password",
-            "value": "coreadmin"
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
         },
         {
             "name": "MYSQL_HOST",
@@ -958,24 +970,9 @@
             "value": "3306"
         },
         {
-            "name": "AMQ_HOST",
-            "description": "Message queue host",
-            "value": "feedhenry.me"
-        },
-        {
-            "name": "AMQ_PORT",
-            "description": "Message queue port",
-            "value": "5672"
-        },
-        {
-            "name": "AMQ_USER",
-            "description": "Message queue user",
-            "value": "fhinternal"
-        },
-        {
-            "name": "AMQ_PASSWORD",
-            "description": "Message queue user password",
-            "value": "Jdxbf9f4hkJvs7T"
+            "name": "MYSQL_DB_NAME",
+            "description": "Name of MYSQL database",
+            "value": "shard0"
         },
         {
             "name": "MEMCACHED_SERVICE_HOST",
@@ -1083,9 +1080,9 @@
             "value": "8080"
         },
         {
-            "name": "FH_MILLICORE_API_KEY",
-            "description": "TODO REMOVE AND REPLACE WITH GENERATED",
-            "value": "CHANGEMETOBEGENERATED"
+            "name": "FH_SUPERCORE_API_KEY",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
         },
         {
             "name": "CONFIGURATION_FOLDER",

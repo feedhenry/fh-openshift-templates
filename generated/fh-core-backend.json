@@ -160,6 +160,324 @@
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
+                "name": "fh-messaging",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-messaging"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "name": "fh-messaging"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-messaging",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-messaging"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {
+                        "limits": {
+                            "cpu": "400m",
+                            "memory": "400Mi"
+                        },
+                        "requests": {
+                            "cpu": "200m",
+                            "memory": "200Mi"
+                        }
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "fh-messaging"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "fh-messaging"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "fh-messaging",
+                                "image": "${FH_MESSAGING_IMAGE}:${FH_MESSAGING_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "FH_MESSAGING_CRON",
+                                        "value": "10 07 * * *"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_USER",
+                                        "value": "${MONGODB_FHREPORTING_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_PASSWORD",
+                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_DATABASE",
+                                        "value": "fh-reporting"
+                                    },
+                                    {
+                                        "name": "FH_MESSAGING_API_KEY",
+                                        "value": "${FH_MESSAGING_API_KEY}"
+                                    },
+                                    {
+                                        "name": "FH_LOG_LEVEL",
+                                        "value": "${FH_DEFAULT_LOG_LEVEL}"
+                                    }
+                                ],
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "400m",
+                                        "memory": "400Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "200m",
+                                        "memory": "200Mi"
+                                    }
+                                },
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 55,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-metrics",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-metrics"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "name": "fh-metrics"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-metrics",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "fh-metrics"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {
+                        "limits": {
+                            "cpu": "400m",
+                            "memory": "400Mi"
+                        },
+                        "requests": {
+                            "cpu": "200m",
+                            "memory": "200Mi"
+                        }
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "fh-metrics"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "fh-metrics"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "fh-metrics",
+                                "image": "${FH_METRICS_IMAGE}:${FH_METRICS_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "FH_MBAASID",
+                                        "value": "${FH_MBAASID}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_PASSWORD",
+                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_USER",
+                                        "value": "${MONGODB_FHREPORTING_USER}"
+                                    },
+                                    {
+                                        "name": "MONGODB_FHREPORTING_DATABASE",
+                                        "value": "fh-reporting"
+                                    },
+                                    {
+                                        "name": "FH_METRICS_API_KEY",
+                                        "value": "${FH_METRICS_API_KEY}"
+                                    },
+                                    {
+                                        "name": "FH_LOG_LEVEL",
+                                        "value": "${FH_DEFAULT_LOG_LEVEL}"
+                                    }
+                                ],
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "400m",
+                                        "memory": "400Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "200m",
+                                        "memory": "200Mi"
+                                    }
+                                },
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 55,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/sys/info/ping",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
                 "name": "fh-scm",
                 "creationTimestamp": null,
                 "labels": {
@@ -469,22 +787,6 @@
                                         "value": "${FH_LOG_LEVEL}"
                                     },
                                     {
-                                        "name": "AMQ_USER",
-                                        "value": "${AMQ_USER}"
-                                    },
-                                    {
-                                        "name": "AMQ_PASSWORD",
-                                        "value": "${AMQ_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "RHMAP_AMQ_STOMP_HOST",
-                                        "value": "${RHMAP_AMQ_STOMP_HOST}"
-                                    },
-                                    {
-                                        "name": "RHMAP_AMQ_STOMP_PORT",
-                                        "value": "${RHMAP_AMQ_STOMP_PORT}"
-                                    },
-                                    {
                                         "name": "MONGODB_FHSUPERCORE_USER",
                                         "value": "${MONGODB_FHSUPERCORE_USER}"
                                     },
@@ -507,14 +809,6 @@
                                     {
                                         "name": "FH_STATSD_API_KEY",
                                         "value": "${FH_STATSD_API_KEY}"
-                                    },
-                                    {
-                                        "name": "MONGODB_SERVICE_NAME",
-                                        "value": "${MONGODB_SERVICE_NAME}"
-                                    },
-                                    {
-                                        "name": "MEMCACHED_SERVICE_HOST",
-                                        "value": "${MEMCACHED_SERVICE_NAME}"
                                     },
                                     {
                                         "name": "REDIS_SERVICE_NAME",
@@ -729,6 +1023,173 @@
                 }
             },
             "status": {}
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "ups",
+                "creationTimestamp": null,
+                "annotations": {
+                    "openshift.io/host.generated": "false"
+                }
+            },
+            "spec": {
+                "host": "",
+                "to": {
+                    "kind": "Service",
+                    "name": "ups"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Allow"
+                }
+            },
+            "status": {
+                "ingress": null
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "ups",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "ups"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "name": "ups"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "ups",
+                "creationTimestamp": null,
+                "labels": {
+                    "name": "ups"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "name": "ups"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "ups"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "ups",
+                                "image": "${UPS_IMAGE}:${UPS_IMAGE_VERSION}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8443,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9990,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "MYSQL_USER",
+                                        "value": "${UPS_USER}"
+                                    },
+                                    {
+                                        "name": "MYSQL_PASSWORD",
+                                        "value": "${UPS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MYSQL_HOST",
+                                        "value": "${MYSQL_HOST}"
+                                    },
+                                    {
+                                        "name": "MYSQL_DATABASE",
+                                        "value": "${UPS_DATABASE}"
+                                    }
+                                ],
+                                "resources": {},
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/ag-push",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 600,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 2
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/ag-push",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 100,
+                                    "timeoutSeconds": 5,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
         }
     ],
     "parameters": [
@@ -773,12 +1234,60 @@
         {
             "name": "MONGODB_SERVICE_NAME",
             "description": "The mongodb service name",
-            "value": "mongodb-service-1"
+            "value": "mongodb-1"
         },
         {
             "name": "MONGODB_SERVICE_PORT",
             "description": "The mongodb service port",
             "value": "27017"
+        },
+        {
+            "name": "FH_MESSAGING_API_KEY",
+            "description": "Key for communicating with the FH_MESSAGING Service",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "FH_MESSAGING_IMAGE",
+            "description": "The name of the fh-messaging image",
+            "value": "docker.io/rhmap/fh-messaging"
+        },
+        {
+            "name": "FH_MESSAGING_IMAGE_VERSION",
+            "description": "The version for the FH_MESSAGING_IMAGE",
+            "value": "2.0.0-368"
+        },
+        {
+            "name": "MONGODB_FHREPORTING_USER",
+            "description": "The Reporting user name",
+            "value": "u-reporting"
+        },
+        {
+            "name": "MONGODB_FHREPORTING_PASSWORD",
+            "description": "The MongoDB Reporting password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "FH_DEFAULT_LOG_LEVEL",
+            "description": "A default log level for all MBaaS components",
+            "value": "info"
+        },
+        {
+            "name": "FH_METRICS_IMAGE",
+            "description": "The name of the fh-metrics image",
+            "value": "docker.io/rhmap/fh-metrics"
+        },
+        {
+            "name": "FH_METRICS_IMAGE_VERSION",
+            "description": "The version for the FH_METRICS_IMAGE",
+            "value": "2.0.0-368"
+        },
+        {
+            "name": "FH_METRICS_API_KEY",
+            "description": "Key for communicating with the FH_METRICS Service",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
         },
         {
             "name": "FH_SCM_IMAGE",
@@ -801,6 +1310,10 @@
             "value": "8080"
         },
         {
+            "name": "FH_STATSD_API_KEY",
+            "value": "test"
+        },
+        {
             "name": "FH_SUPERCORE_IMAGE",
             "description": "The name of the fh-supercore image",
             "value": "docker.io/rhmap/fh-supercore"
@@ -808,32 +1321,11 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "3.18.0-2471"
+            "value": "3.19.0-2480"
         },
         {
             "name": "CLUSTER_NAME",
             "description": "The name of this RHMAP Core cluster",
-            "value": "rhmap"
-        },
-        {
-            "name": "AMQ_USER",
-            "description": "The AMQ user that is used by fh-supercore",
-            "value": "rhmap"
-        },
-        {
-            "name": "AMQ_PASSWORD",
-            "description": "The AMQ user that is used by fh-supercore",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
-        },
-        {
-            "name": "RHMAP_AMQ_STOMP_HOST",
-            "description": "The AMQ user that is used by fh-supercore",
-            "value": "amq-service"
-        },
-        {
-            "name": "RHMAP_AMQ_STOMP_PORT",
-            "description": "The AMQ user that is used by fh-supercore",
             "value": "rhmap"
         },
         {
@@ -850,18 +1342,6 @@
         {
             "name": "REDIS_PASSWORD",
             "description": "The Redis password for fh-supercore"
-        },
-        {
-            "name": "FH_MESSAGING_API_KEY",
-            "description": "Key for communicating with the FH_MESSAGING Service",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
-        },
-        {
-            "name": "FH_METRICS_API_KEY",
-            "description": "Key for communicating with the FH_METRICS Service",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
         },
         {
             "name": "FH_MILLICORE_API_KEY",
@@ -892,7 +1372,7 @@
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.0.0.pre-31"
+            "value": "2.0.0.pre-37"
         },
         {
             "name": "GITLAB_URL",
@@ -938,6 +1418,39 @@
         {
             "name": "GITLAB_MILLICORE_SERVICE_KEY",
             "description": "Service key used to call millicore http api"
+        },
+        {
+            "name": "UPS_IMAGE",
+            "description": "The name of the Unified Push image",
+            "value": "docker.io/rhmap/unifiedpush-wildfly",
+            "required": true
+        },
+        {
+            "name": "UPS_IMAGE_VERSION",
+            "description": "The version for the UPS_IMAGE",
+            "value": "latest",
+            "required": true
+        },
+        {
+            "name": "UPS_USER",
+            "description": "MYSQL database user",
+            "value": "unifiedpush"
+        },
+        {
+            "name": "UPS_PASSWORD",
+            "description": "MYSQL database password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "UPS_DATABASE",
+            "description": "MYSQL database",
+            "value": "unifiedpush"
+        },
+        {
+            "name": "MYSQL_HOST",
+            "description": "MYSQL database host",
+            "value": "mysql"
         }
     ]
 }

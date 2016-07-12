@@ -2,7 +2,6 @@
 
 export TEMPLATES_DIR="$(dirname "${BASH_SOURCE}")/../.."
 
-export MONGO_SERVICE_NAME="mongodb-service"
 export MEMCACHED_SERVICE_NAME="memcached"
 export MONGO_PASSWORD="sameforall"
 export PROJECT="core"
@@ -19,3 +18,4 @@ export CLUSTER_HOST="rhmap.local.feedhenry.io"
 export MCORE_MYSQL_PASSWORD="coreadmin"
 export MCORE_MYSQL_USER="coreadmin"
 export MCORE_MYSQL_DB="shard0"
+export UPS_MYSQL_PASS="unifiedpush"

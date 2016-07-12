@@ -11,13 +11,17 @@
   },
   "parameters": [
     {
+      "name": "FH_STATSD_API_KEY",
+      "value": "test"
+    },
+    {
       "name": "FH_SUPERCORE_IMAGE",
       "value": "docker.io/rhmap/fh-supercore",
       "description": "The name of the fh-supercore image"
     },
     {
       "name": "FH_SUPERCORE_IMAGE_VERSION",
-      "value": "3.18.0-2471",
+      "value": "3.19.0-2480",
       "description": "The version for the FH_SUPERCORE_IMAGE"
     },
     {
@@ -29,27 +33,6 @@
       "name": "FH_LOG_LEVEL",
       "value": "info",
       "description": "A default log level for all components"
-    },
-    {
-      "name": "AMQ_USER",
-      "value": "rhmap",
-      "description": "The AMQ user that is used by fh-supercore"
-    },
-    {
-      "name": "AMQ_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "The AMQ user that is used by fh-supercore"
-    },
-    {
-      "name": "RHMAP_AMQ_STOMP_HOST",
-      "value": "amq-service",
-      "description": "The AMQ user that is used by fh-supercore"
-    },
-    {
-      "name": "RHMAP_AMQ_STOMP_PORT",
-      "value": "rhmap",
-      "description": "The AMQ user that is used by fh-supercore"
     },
     {
       "name": "MONGODB_FHSUPERCORE_USER",
@@ -92,7 +75,7 @@
     },
     {
       "name": "MONGODB_SERVICE_NAME",
-      "value": "mongodb-service-1",
+      "value": "mongodb-1",
       "description": "The mongodb service name"
     },
     {
@@ -271,22 +254,6 @@
                     "value": "${FH_LOG_LEVEL}"
                   },
                   {
-                    "name": "AMQ_USER",
-                    "value": "${AMQ_USER}"
-                  },
-                  {
-                    "name": "AMQ_PASSWORD",
-                    "value": "${AMQ_PASSWORD}"
-                  },
-                  {
-                    "name": "RHMAP_AMQ_STOMP_HOST",
-                    "value": "${RHMAP_AMQ_STOMP_HOST}"
-                  },
-                  {
-                    "name": "RHMAP_AMQ_STOMP_PORT",
-                    "value": "${RHMAP_AMQ_STOMP_PORT}"
-                  },
-                  {
                     "name": "MONGODB_FHSUPERCORE_USER",
                     "value": "${MONGODB_FHSUPERCORE_USER}"
                   },
@@ -311,24 +278,12 @@
                     "value": "${FH_STATSD_API_KEY}"
                   },
                   {
-                    "name": "MONGODB_SERVICE_NAME",
-                    "value": "${MONGODB_SERVICE_NAME}",
-                    "description": "The mongodb service name"
-                  },
-                  {
-                    "name": "MEMCACHED_SERVICE_HOST",
-                    "value": "${MEMCACHED_SERVICE_NAME}",
-                    "description": "The memcached service name"
-                  },
-                  {
                     "name": "REDIS_SERVICE_NAME",
-                    "value": "${REDIS_SERVICE_NAME}",
-                    "description": "The redis service name"
+                    "value": "${REDIS_SERVICE_NAME}"
                   },
                   {
                     "name": "REDIS_SERVICE_PORT",
-                    "value": "6379",
-                    "description": "The redis service port"
+                    "value": "6379"
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"

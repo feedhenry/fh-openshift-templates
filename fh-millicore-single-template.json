@@ -17,7 +17,7 @@
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.29.3-2212",
+      "value": "7.29.3-2223",
       "description": "Millicore image version"
     },
     {
@@ -42,7 +42,8 @@
     },
     {
       "name": "MYSQL_PASSWORD",
-      "value": "coreadmin",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
       "description": "MYSQL database password"
     },
     {
@@ -56,24 +57,9 @@
       "description": "MYSQL database port"
     },
     {
-      "name": "AMQ_HOST",
-      "value": "feedhenry.me",
-      "description": "Message queue host"
-    },
-    {
-      "name": "AMQ_PORT",
-      "value": "5672",
-      "description": "Message queue port"
-    },
-    {
-      "name": "AMQ_USER",
-      "value": "fhinternal",
-      "description": "Message queue user"
-    },
-    {
-      "name": "AMQ_PASSWORD",
-      "value": "Jdxbf9f4hkJvs7T",
-      "description": "Message queue user password"
+      "name": "MYSQL_DB_NAME",
+      "value": "shard0",
+      "description": "Name of MYSQL database"
     },
     {
       "name": "MEMCACHED_SERVICE_HOST",
@@ -197,9 +183,10 @@
       "description": "Supercore port"
     },
     {
-      "name": "FH_MILLICORE_API_KEY",
-      "value": "CHANGEMETOBEGENERATED",
-      "description": "TODO REMOVE AND REPLACE WITH GENERATED"
+      "name": "FH_SUPERCORE_API_KEY",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": ""
     },
     {
       "name": "CONFIGURATION_FOLDER",
@@ -248,7 +235,7 @@
         },
         "ports": [
           {
-            "protocol": "udp",
+            "protocol": "UDP",
             "port": 514
           }
         ]
@@ -287,6 +274,13 @@
                 "ports": [
                   {
                     "containerPort": 8080
+                  },
+                  {
+                    "protocol": "UDP",
+                    "containerPort": 514
+                  },
+                  {
+                    "containerPort": 8009
                   }
                 ],
                 "livenessProbe": {
@@ -346,23 +340,7 @@
                   },
                   {
                     "name": "MYSQL_DB_NAME",
-                    "value": "shard0"
-                  },
-                  {
-                    "name": "AMQ_HOST",
-                    "value": "${AMQ_HOST}"
-                  },
-                  {
-                    "name": "AMQ_PORT",
-                    "value": "${AMQ_PORT}"
-                  },
-                  {
-                    "name": "AMQ_USER",
-                    "value": "${AMQ_USER}"
-                  },
-                  {
-                    "name": "AMQ_PASSWORD",
-                    "value": "${AMQ_PASSWORD}"
+                    "value": "${MYSQL_DB_NAME}"
                   },
                   {
                     "name": "MEMCACHED_SERVICE_HOST",
@@ -458,7 +436,7 @@
                   },
                   {
                     "name": "SUPERCORE_API_KEY",
-                    "value": "${FH_MILLICORE_API_KEY}"
+                    "value": "${FH_SUPERCORE_API_KEY}"
                   },
                   {
                     "name": "CONFIGURATION_FOLDER",
