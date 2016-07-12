@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.21.20",
+      "templateVersion": "0.21.22",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -171,7 +171,7 @@
                 "env": [
                   {
                     "name": "MBAAS_NAMESPACE",
-                    "valueFrom":{
+                    "valueFrom": {
                       "fieldRef": {
                         "fieldPath": "metadata.namespace"
                       }
@@ -651,7 +651,7 @@
             "env": [
               {
                 "name": "MBAAS_NAMESPACE",
-                "valueFrom":{
+                "valueFrom": {
                   "fieldRef": {
                     "fieldPath": "metadata.namespace"
                   }
