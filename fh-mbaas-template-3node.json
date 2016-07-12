@@ -257,7 +257,7 @@
                 "env": [
                   {
                     "name": "MBAAS_NAMESPACE",
-                    "valueFrom":{
+                    "valueFrom": {
                       "fieldRef": {
                         "fieldPath": "metadata.namespace"
                       }
@@ -1208,7 +1208,7 @@
             "env": [
               {
                 "name": "MBAAS_NAMESPACE",
-                "valueFrom":{
+                "valueFrom": {
                   "fieldRef": {
                     "fieldPath": "metadata.namespace"
                   }
