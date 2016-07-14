@@ -816,7 +816,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "2.0.0-368",
+      "value": "2.1.0-382",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
