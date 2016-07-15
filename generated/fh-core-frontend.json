@@ -146,8 +146,8 @@
                 "ports": [
                     {
                         "protocol": "TCP",
-                        "port": 8808,
-                        "targetPort": 8808
+                        "port": 8080,
+                        "targetPort": 8080
                     }
                 ],
                 "selector": {
@@ -206,7 +206,7 @@
                                 "image": "${FH_NGUI_IMAGE}:${FH_NGUI_IMAGE_VERSION}",
                                 "ports": [
                                     {
-                                        "containerPort": 8808,
+                                        "containerPort": 8080,
                                         "protocol": "TCP"
                                     }
                                 ],
@@ -228,7 +228,7 @@
                                 "livenessProbe": {
                                     "httpGet": {
                                         "path": "/sys/info/ping",
-                                        "port": 8808,
+                                        "port": 8080,
                                         "scheme": "HTTP"
                                     },
                                     "initialDelaySeconds": 55,
@@ -240,7 +240,7 @@
                                 "readinessProbe": {
                                     "httpGet": {
                                         "path": "/sys/info/ping",
-                                        "port": 8808,
+                                        "port": 8080,
                                         "scheme": "HTTP"
                                     },
                                     "timeoutSeconds": 5,
@@ -905,7 +905,7 @@
             "name": "NGUI_HOST",
             "displayName": "fh-ngui url",
             "description": "Internal hostname for fh-ngui",
-            "value": "fh-ngui:8808"
+            "value": "fh-ngui:8080"
         },
         {
             "name": "APP_STORE_HOST",

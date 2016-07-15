@@ -241,7 +241,7 @@
     },
     {
       "name": "NGUI_HOST",
-      "value": "fh-ngui:8808",
+      "value": "fh-ngui:8080",
       "displayName": "fh-ngui url",
       "description": "Internal hostname for fh-ngui"
     },
