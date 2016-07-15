@@ -9,26 +9,27 @@
       "iconClass": "icon-nodejs"
     }
   },
-  "objects": [ {
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-      "name": "fh-metrics",
-      "labels": {
-        "name": "fh-metrics"
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-metrics",
+        "labels": {
+          "name": "fh-metrics"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "port": 8080
+          }
+        ],
+        "selector": {
+          "name": "fh-metrics"
+        }
       }
     },
-    "spec": {
-      "ports": [
-        {
-          "port": 8080
-        }
-      ],
-      "selector": {
-        "name": "fh-metrics"
-      }
-    }
-  },
     {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
@@ -144,7 +145,7 @@
       }
     }
   ],
-  "parameters":[
+  "parameters": [
     {
       "name": "MONGODB_FHREPORTING_USER",
       "value": "u-reporting",
