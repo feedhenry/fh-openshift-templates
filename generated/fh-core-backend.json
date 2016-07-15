@@ -927,7 +927,7 @@
                 "creationTimestamp": null
             },
             "data": {
-                "config.yml": "user: git\ngitlab_url: \"${GITLAB_MILLICORE_AUTH_URL}\"\nhttp_settings:\n  enabled: true\n  servicekey: ${GITLAB_MILLICORE_SERVICE_KEY}\n  url: \"http://${FH_MILLICORE_SERVICE_HOST}:${FH_MILLICORE_SERVICE_PORT}\"\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_ROOT}/repositories\"\nauth_file: \"${GIT_REPO_ROOT}/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nlog_level: INFO\naudit_usernames: false\nrabbit:\n  enabled: false\n"
+                "config.yml": "user: git\ngitlab_url: \"${GITLAB_MILLICORE_AUTH_URL}\"\nhttp_settings:\n  enabled: true\n  servicekey: ${GITLAB_MILLICORE_SERVICE_KEY}\n  url: \"http://${FH_MILLICORE_SERVICE_HOST}:${FH_MILLICORE_SERVICE_PORT}\"\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_ROOT}/repositories\"\nauth_file: \"/home/git/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nlog_level: INFO\naudit_usernames: false\nrabbit:\n  enabled: false\n"
             }
         },
         {
@@ -1064,6 +1064,10 @@
                                     {
                                         "name": "HTTP_REPO_ROOT",
                                         "value": "${HTTP_REPO_ROOT}"
+                                    },
+                                    {
+                                        "name": "HTTPD_LOG_LEVEL",
+                                        "value": "${HTTPD_LOG_LEVEL}"
                                     }
                                 ],
                                 "resources": {},
@@ -1460,7 +1464,7 @@
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.0.0.pre-37"
+            "value": "2.0.0.pre-38"
         },
         {
             "name": "GITLAB_MILLICORE_AUTH_URL",
@@ -1494,7 +1498,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-18"
+            "value": "2.4-20"
         },
         {
             "name": "MILLICORE_HTTP_HOST",

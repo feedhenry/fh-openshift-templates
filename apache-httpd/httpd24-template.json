@@ -134,8 +134,8 @@
                     "value": "${BUILDER_SERVICE_URL}"
                   },
                   {
-                    "name": "LOG_LEVEL",
-                    "value": "${LOG_LEVEL}"
+                    "name": "HTTPD_LOG_LEVEL",
+                    "value": "${HTTPD_LOG_LEVEL}"
                   }
                 ],
                 "volumeMounts": [

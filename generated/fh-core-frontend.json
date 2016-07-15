@@ -393,8 +393,8 @@
                                         "value": "${BUILDER_SERVICE_URL}"
                                     },
                                     {
-                                        "name": "LOG_LEVEL",
-                                        "value": "${LOG_LEVEL}"
+                                        "name": "HTTPD_LOG_LEVEL",
+                                        "value": "${HTTPD_LOG_LEVEL}"
                                     }
                                 ],
                                 "resources": {},
@@ -853,14 +853,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-6",
-            "required": true
-        },
-        {
-            "name": "MILLICORE_HTTP_HOST",
-            "displayName": "Millicore http host",
-            "description": "Internal hostname for millicore http service",
-            "value": "millicore:8080"
+            "value": "2.4-38"
         },
         {
             "name": "MILLICORE_AJP_HOST",
@@ -878,7 +871,7 @@
             "name": "NGUI_HOST",
             "displayName": "fh-ngui url",
             "description": "Internal hostname for fh-ngui",
-            "value": "fh-ngui:8080"
+            "value": "fh-ngui:8808"
         },
         {
             "name": "APP_STORE_HOST",
@@ -904,7 +897,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.29.9-2250"
+            "value": "7.29.10-2252"
         },
         {
             "name": "FEEDHENRY_SDKS_IMAGE",
