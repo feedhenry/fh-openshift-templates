@@ -17,8 +17,23 @@
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.29.8-2246",
+      "value": "7.29.9-2249",
       "description": "Millicore image version"
+    },
+    {
+      "name": "FEEDHENRY_SDKS_IMAGE",
+      "value": "docker.io/rhmap/feedhenry-sdks",
+      "description": "FeedHenry SDKs and templates image name"
+    },
+    {
+      "name": "FEEDHENRY_SDKS_IMAGE_VERSION",
+      "value": "54",
+      "description": "FeedHenry SDKs and templates image version"
+    },
+    {
+      "name": "FEEDHENRY_SDKS_DIR",
+      "value": "/feedhenry-sdks",
+      "description": "FeedHenry SDKs and templates path"
     },
     {
       "name": "FH_ADMIN_USER_NAME",
@@ -453,9 +468,31 @@
                     "name": "config-volume",
                     "mountPath": "${CONFIGURATION_FOLDER}",
                     "readOnly": true
+                  },
+                  {
+                    "name": "templates-and-sdks",
+                    "mountPath": "${FEEDHENRY_SDKS_DIR}",
+                    "readOnly": true
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"
+              },
+              {
+                "name": "feedhenry-sdks",
+                "image": "${FEEDHENRY_SDKS_IMAGE}:${FEEDHENRY_SDKS_IMAGE_VERSION}",
+                "env": [
+                  {
+                    "name": "FEEDHENRY_SDKS_DIR",
+                    "value": "${FEEDHENRY_SDKS_DIR}"
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "templates-and-sdks",
+                    "mountPath": "${FEEDHENRY_SDKS_DIR}",
+                    "readOnly": false
+                  }
+                ]
               }
             ],
             "volumes": [
@@ -470,6 +507,10 @@
                 "secret": {
                   "secretName": "millicore-config"
                 }
+              },
+              {
+                "name": "templates-and-sdks",
+                "emptyDir": {}
               }
             ]
           }

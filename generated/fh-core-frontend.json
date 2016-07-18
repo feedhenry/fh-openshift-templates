@@ -611,6 +611,10 @@
                                 "secret": {
                                     "secretName": "millicore-config"
                                 }
+                            },
+                            {
+                                "name": "templates-and-sdks",
+                                "emptyDir": {}
                             }
                         ],
                         "containers": [
@@ -780,6 +784,11 @@
                                         "name": "config-volume",
                                         "readOnly": true,
                                         "mountPath": "${CONFIGURATION_FOLDER}"
+                                    },
+                                    {
+                                        "name": "templates-and-sdks",
+                                        "readOnly": true,
+                                        "mountPath": "${FEEDHENRY_SDKS_DIR}"
                                     }
                                 ],
                                 "livenessProbe": {
@@ -806,6 +815,25 @@
                                     "successThreshold": 1,
                                     "failureThreshold": 1
                                 },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "IfNotPresent"
+                            },
+                            {
+                                "name": "feedhenry-sdks",
+                                "image": "${FEEDHENRY_SDKS_IMAGE}:${FEEDHENRY_SDKS_IMAGE_VERSION}",
+                                "env": [
+                                    {
+                                        "name": "FEEDHENRY_SDKS_DIR",
+                                        "value": "${FEEDHENRY_SDKS_DIR}"
+                                    }
+                                ],
+                                "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "templates-and-sdks",
+                                        "mountPath": "${FEEDHENRY_SDKS_DIR}"
+                                    }
+                                ],
                                 "terminationMessagePath": "/dev/termination-log",
                                 "imagePullPolicy": "IfNotPresent"
                             }
@@ -931,7 +959,22 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.29.8-2246"
+            "value": "7.29.9-2249"
+        },
+        {
+            "name": "FEEDHENRY_SDKS_IMAGE",
+            "description": "FeedHenry SDKs and templates image name",
+            "value": "docker.io/rhmap/feedhenry-sdks"
+        },
+        {
+            "name": "FEEDHENRY_SDKS_IMAGE_VERSION",
+            "description": "FeedHenry SDKs and templates image version",
+            "value": "54"
+        },
+        {
+            "name": "FEEDHENRY_SDKS_DIR",
+            "description": "FeedHenry SDKs and templates path",
+            "value": "/feedhenry-sdks"
         },
         {
             "name": "FH_ADMIN_USER_NAME",
