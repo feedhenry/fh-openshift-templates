@@ -959,7 +959,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.29.7-2249"
+            "value": "7.29.9-2249"
         },
         {
             "name": "FEEDHENRY_SDKS_IMAGE",
