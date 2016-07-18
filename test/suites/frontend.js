@@ -33,7 +33,7 @@ module.exports = {
   ngui: {
     'fh-ngui': [require('../../fh-ngui-single-template.json'), {
       ports: [
-        {containerPort: 8808}
+        {containerPort: 8080}
       ]
     }]
   },
