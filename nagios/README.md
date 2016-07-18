@@ -2,7 +2,7 @@
 
 ### Test
 
-With a running RHMAP core:
+To test the template locally with a locally built image (tagged latest) and running RHMAP Core:
 
 ```
 oc new-app -f \

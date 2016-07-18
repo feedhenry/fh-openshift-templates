@@ -19,3 +19,13 @@ export MCORE_MYSQL_PASSWORD="coreadmin"
 export MCORE_MYSQL_USER="coreadmin"
 export MCORE_MYSQL_DB="shard0"
 export UPS_MYSQL_PASS="unifiedpush"
+
+export SMTP_SERVER="localhost"
+export SMTP_USERNAME="username"
+export SMTP_PASSWORD="password"
+export SMTP_TLS="auto"
+export SMTP_FROM_ADDRESS="admin@example.com"
+export ADMIN_EMAIL="root@localhost"
+export NAGIOS_USER="nagiosadmin"
+export NAGIOS_PASSWORD="password"
+export NAGIOS_HOST=$(printf "nagios-%s" "$CLUSTER_HOST")
