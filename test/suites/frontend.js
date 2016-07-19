@@ -38,12 +38,6 @@ module.exports = {
     }]
   },
 
-  httpd: {
-    'httpd-non-persistent': [require('../../apache-httpd/httpd24-non-persistent-template.json'), {
-      ports: httpdContainerPorts
-    }]
-  },
-
   httpdp: {
     'httpd-persistent': [require('../../apache-httpd/httpd24-template.json'), {
       ports: httpdContainerPorts

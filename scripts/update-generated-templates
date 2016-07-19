@@ -75,7 +75,7 @@ generate() {
     # Component templates:
     fh-appstore-single-template
     fh-ngui-single-template
-    apache-httpd/httpd24-non-persistent-template
+    apache-httpd/httpd24-template
     # NOTE: Even though it technically belongs in the "backend" category,
     # millicore goes into the frontend template in order to be deployed after
     # fh-supercore and fh-aaa.

@@ -271,12 +271,6 @@
             "spec": {
                 "ports": [
                     {
-                        "name": "server-git-port",
-                        "protocol": "TCP",
-                        "port": 8080,
-                        "targetPort": 8080
-                    },
-                    {
                         "name": "server-http-port",
                         "protocol": "TCP",
                         "port": 80,
@@ -311,35 +305,6 @@
                 },
                 "port": {
                     "targetPort": "server-http-port"
-                },
-                "tls": {
-                    "termination": "edge",
-                    "insecureEdgeTerminationPolicy": "Allow"
-                }
-            },
-            "status": {
-                "ingress": null
-            }
-        },
-        {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${HTTPD_SERVICE_NAME}-git-route",
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "${HTTPD_SERVICE_NAME}"
-                }
-            },
-            "spec": {
-                "host": "",
-                "path": "/git",
-                "to": {
-                    "kind": "Service",
-                    "name": "${HTTPD_SERVICE_NAME}"
-                },
-                "port": {
-                    "targetPort": "server-git-port"
                 },
                 "tls": {
                     "termination": "edge",
@@ -392,10 +357,6 @@
                     "spec": {
                         "volumes": [
                             {
-                                "name": "git-data",
-                                "emptyDir": {}
-                            },
-                            {
                                 "name": "sdk-templates-root",
                                 "emptyDir": {}
                             }
@@ -406,23 +367,11 @@
                                 "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
                                 "ports": [
                                     {
-                                        "containerPort": 8080,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "containerPort": 8443,
-                                        "protocol": "TCP"
-                                    },
-                                    {
                                         "containerPort": 80,
                                         "protocol": "TCP"
                                     }
                                 ],
                                 "env": [
-                                    {
-                                        "name": "MILLICORE_HTTP_HOST",
-                                        "value": "${MILLICORE_HTTP_HOST}"
-                                    },
                                     {
                                         "name": "MILLICORE_AJP_HOST",
                                         "value": "${MILLICORE_AJP_HOST}"
@@ -444,19 +393,15 @@
                                         "value": "${BUILDER_SERVICE_URL}"
                                     },
                                     {
-                                        "name": "LOG_LEVEL",
-                                        "value": "${LOG_LEVEL}"
+                                        "name": "HTTPD_LOG_LEVEL",
+                                        "value": "${HTTPD_LOG_LEVEL}"
                                     }
                                 ],
                                 "resources": {},
                                 "volumeMounts": [
                                     {
-                                        "name": "git-data",
-                                        "mountPath": "/srv/repositories"
-                                    },
-                                    {
                                         "name": "sdk-templates-root",
-                                        "mountPath": "/tmp/"
+                                        "mountPath": "/opt/rh/httpd24/root/opt/feedhenry/latest"
                                     }
                                 ],
                                 "livenessProbe": {
@@ -490,7 +435,9 @@
                         "restartPolicy": "Always",
                         "terminationGracePeriodSeconds": 30,
                         "dnsPolicy": "ClusterFirst",
-                        "securityContext": {}
+                        "securityContext": {
+                            "runAsUser": 0
+                        }
                     }
                 }
             },
@@ -896,26 +843,17 @@
             "name": "HTTPD_SERVICE_NAME",
             "displayName": "Service Name",
             "description": "The name of the OpenShift Service for httpd server.",
-            "value": "httpd",
-            "required": true
+            "value": "httpd"
         },
         {
             "name": "HTTPD_IMAGE",
             "description": "The name of the image",
-            "value": "docker.io/rhmap/httpd24",
-            "required": true
+            "value": "docker.io/rhmap/httpd24"
         },
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-20",
-            "required": true
-        },
-        {
-            "name": "MILLICORE_HTTP_HOST",
-            "displayName": "Millicore http host",
-            "description": "Internal hostname for millicore http service",
-            "value": "millicore:8080"
+            "value": "2.4-38"
         },
         {
             "name": "MILLICORE_AJP_HOST",
@@ -933,7 +871,7 @@
             "name": "NGUI_HOST",
             "displayName": "fh-ngui url",
             "description": "Internal hostname for fh-ngui",
-            "value": "fh-ngui:8080"
+            "value": "fh-ngui:8808"
         },
         {
             "name": "APP_STORE_HOST",
@@ -946,7 +884,7 @@
             "value": "http://example.com"
         },
         {
-            "name": "LOG_LEVEL",
+            "name": "HTTPD_LOG_LEVEL",
             "displayName": "Log level",
             "description": "Apache log level",
             "value": "info"
@@ -959,7 +897,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.29.9-2250"
+            "value": "7.29.10-2252"
         },
         {
             "name": "FEEDHENRY_SDKS_IMAGE",
