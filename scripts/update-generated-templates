@@ -82,4 +82,15 @@ generate() {
     fh-millicore-single-template
   )
   generate "${ARGS[@]/%/.json}"
+
+  # Generate Core Monitoring template.
+  ARGS=(
+    # Output:
+    generated/fh-core-monitoring
+    # Base template:
+    base/fh-core-monitoring
+    # Component templates:
+    nagios/nagios-template
+  )
+  generate "${ARGS[@]/%/.json}"
 )
