@@ -1498,7 +1498,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-20"
+            "value": "2.4-38"
         },
         {
             "name": "MILLICORE_HTTP_HOST",
