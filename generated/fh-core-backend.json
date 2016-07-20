@@ -1347,7 +1347,7 @@
         {
             "name": "FH_MESSAGING_IMAGE_VERSION",
             "description": "The version for the FH_MESSAGING_IMAGE",
-            "value": "2.1.1-386"
+            "value": "2.1.2-390"
         },
         {
             "name": "MONGODB_FHREPORTING_USER",
@@ -1373,7 +1373,7 @@
         {
             "name": "FH_METRICS_IMAGE_VERSION",
             "description": "The version for the FH_METRICS_IMAGE",
-            "value": "2.1.0-386"
+            "value": "2.1.1-390"
         },
         {
             "name": "FH_METRICS_API_KEY",
@@ -1413,7 +1413,7 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "3.19.0-2480"
+            "value": "3.19.1-2502"
         },
         {
             "name": "CLUSTER_NAME",
@@ -1498,7 +1498,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-20"
+            "value": "2.4-38"
         },
         {
             "name": "MILLICORE_HTTP_HOST",

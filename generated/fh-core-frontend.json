@@ -871,7 +871,7 @@
             "name": "NGUI_HOST",
             "displayName": "fh-ngui url",
             "description": "Internal hostname for fh-ngui",
-            "value": "fh-ngui:8808"
+            "value": "fh-ngui:8080"
         },
         {
             "name": "APP_STORE_HOST",
