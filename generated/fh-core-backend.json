@@ -931,6 +931,23 @@
             }
         },
         {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "git-data"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${GITLAB_SHELL_PVC_SIZE}"
+                    }
+                }
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -985,7 +1002,9 @@
                             },
                             {
                                 "name": "git-data-volume",
-                                "emptyDir": {}
+                                "persistentVolumeClaim": {
+                                    "claimName": "git-data"
+                                }
                             }
                         ],
                         "containers": [
@@ -1464,7 +1483,12 @@
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.0.0.pre-38"
+            "value": "2.0.0.pre-40"
+        },
+        {
+            "name": "GITLAB_SHELL_PVC_SIZE",
+            "description": "The size in bytes of the volume for repositories. Can be unadorned integers, or fixed-point integers with one of these SI suffices (E, P, T, G, M, K, m) or their power-of-two equivalents (Ei, Pi, Ti, Gi, Mi, Ki). For example, the following represent roughly the same value: 128974848, 129e6, 129M , 123Mi. Small quantities can be represented directly as decimals (e.g., 0.3), or using milli-units (e.g., 300m).",
+            "value": "1Gi"
         },
         {
             "name": "GITLAB_MILLICORE_AUTH_URL",
