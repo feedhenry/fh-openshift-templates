@@ -21,7 +21,7 @@
     },
     {
       "name": "FH_SUPERCORE_IMAGE_VERSION",
-      "value": "3.19.1-2502",
+      "value": "3.19.2-2508",
       "description": "The version for the FH_SUPERCORE_IMAGE"
     },
     {
