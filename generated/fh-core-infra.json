@@ -767,7 +767,7 @@
             "name": "MYSQL_USER",
             "displayName": "MySQL User",
             "description": "Username for MySQL user that will be used for accessing the database.",
-            "value": "user",
+            "value": "coreadmin",
             "required": true
         },
         {
@@ -782,7 +782,7 @@
             "name": "MYSQL_DATABASE",
             "displayName": "MySQL Database Name",
             "description": "Name of the MySQL database accessed.",
-            "value": "db",
+            "value": "shard0",
             "required": true
         },
         {
