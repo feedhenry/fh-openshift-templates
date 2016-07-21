@@ -16,8 +16,13 @@
     },
     {
       "name": "GITLAB_SHELL_IMAGE_VERSION",
-      "value": "2.0.0.pre-38",
+      "value": "2.0.0.pre-40",
       "description": "The version for the GITLAB_SHELL_IMAGE"
+    },
+    {
+      "name": "GITLAB_SHELL_PVC_SIZE",
+      "value": "1Gi",
+      "description": "The size in bytes of the volume for repositories. Can be unadorned integers, or fixed-point integers with one of these SI suffices (E, P, T, G, M, K, m) or their power-of-two equivalents (Ei, Pi, Ti, Gi, Mi, Ki). For example, the following represent roughly the same value: 128974848, 129e6, 129M , 123Mi. Small quantities can be represented directly as decimals (e.g., 0.3), or using milli-units (e.g., 300m)."
     },
     {
       "name": "GITLAB_MILLICORE_AUTH_URL",
@@ -129,6 +134,23 @@
       },
       "data": {
         "config.yml": "user: git\ngitlab_url: \"${GITLAB_MILLICORE_AUTH_URL}\"\nhttp_settings:\n  enabled: true\n  servicekey: ${GITLAB_MILLICORE_SERVICE_KEY}\n  url: \"http://${FH_MILLICORE_SERVICE_HOST}:${FH_MILLICORE_SERVICE_PORT}\"\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_ROOT}/repositories\"\nauth_file: \"/home/git/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nlog_level: INFO\naudit_usernames: false\nrabbit:\n  enabled: false\n"
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "git-data"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "${GITLAB_SHELL_PVC_SIZE}"
+          }
+        }
       }
     },
     {
@@ -281,7 +303,9 @@
               },
               {
                 "name": "git-data-volume",
-                "emptyDir": {}
+                "persistentVolumeClaim": {
+                  "claimName": "git-data"
+                }
               }
             ],
             "securityContext": {
