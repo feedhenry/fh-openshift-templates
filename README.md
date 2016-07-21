@@ -93,6 +93,8 @@ oc new-project $CORE_PROJECT_NAME
 cd /mnt/src/fh-openshift-templates/scripts/core
 
 # Set up Secrets
+# Note: On the Mac, you will need to replace the `sed` command in scripts/core/secrets.sh with `ssed`
+# Note: On the Mac, you will need to add a folder path to the `mktemp` command in scripts/core/secrets.sh
 ./prerequisites.sh
 
 # Create new SecurityContextConstraint that allows `chroot` capability
