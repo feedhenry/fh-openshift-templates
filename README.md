@@ -84,6 +84,8 @@ Note: When using scripts on mac ssed tool should be installed. By default sed co
 
     brew install ssed
     alias sed='ssed'
+    
+Note: If you want to deploy the core cluster to a remote openshift instance, the `local.feedhenry.io` addresses in `scripts/core/variables.sh` need to change to reflect the DNS address of your cluster (e.g. osm.skunkhenry.com)
 
 * Ensure you're logged in to OpenShift with `oc` inside the `rhel_openshift3` VM, then paste the following (change the value of the project name in the first line if necessary):
 
