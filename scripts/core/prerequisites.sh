@@ -4,7 +4,6 @@
 ## - oc tool configured and pointed to desired cluster
 set -o errexit
 set -o nounset
-set -o pipefail
 
 export SCRIPT_ROOT="$(dirname "${BASH_SOURCE}")"
 export PROJECT_ROOT="$(dirname "${BASH_SOURCE}")/../.."

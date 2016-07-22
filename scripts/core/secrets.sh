@@ -9,7 +9,6 @@
 
 set -o errexit
 set -o nounset
-set -o pipefail
 
 TEMP_KEY_STORE=`mktemp -q -d`
 TEMPLATES_STORE="$(dirname "${BASH_SOURCE}")/templates"
@@ -27,7 +26,7 @@ oc secrets new gitlab-ssh repoadmin-id-rsa=$TEMP_KEY_STORE/repoadmin_id_rsa \
                          gitlab-shell-id-rsa-pub=$TEMP_KEY_STORE/gitlab_shell_id_rsa.pub
 
 cp $TEMPLATES_STORE/servicekeys.json $TEMP_KEY_STORE/servicekeys.json
-sed -i -e "s/SUPERCORE_API_KEY_PLACEHOLDER/$MILLICORE_SERVICE_KEY/g" \
+sed -i"_tmp" -e "s/SUPERCORE_API_KEY_PLACEHOLDER/$MILLICORE_SERVICE_KEY/g" \
        -e "s/GITLAB_API_KEY_PLACEHOLDER/$GITLAB_MILLICORE_SERVICE_KEY/g" \
         $TEMP_KEY_STORE/servicekeys.json
 
