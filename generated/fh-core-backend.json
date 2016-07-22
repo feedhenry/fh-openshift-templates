@@ -1366,7 +1366,7 @@
         {
             "name": "FH_MESSAGING_IMAGE_VERSION",
             "description": "The version for the FH_MESSAGING_IMAGE",
-            "value": "2.1.2-393"
+            "value": "2.2.0-394"
         },
         {
             "name": "MONGODB_FHREPORTING_USER",
