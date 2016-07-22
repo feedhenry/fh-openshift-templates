@@ -1392,7 +1392,7 @@
         {
             "name": "FH_METRICS_IMAGE_VERSION",
             "description": "The version for the FH_METRICS_IMAGE",
-            "value": "2.1.2-392"
+            "value": "2.1.2-393"
         },
         {
             "name": "FH_METRICS_API_KEY",
