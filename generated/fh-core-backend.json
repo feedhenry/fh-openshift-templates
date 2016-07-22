@@ -1313,7 +1313,7 @@
         {
             "name": "FH_AAA_IMAGE_VERSION",
             "description": "The version for the FH_AAA_IMAGE",
-            "value": "0.2.10-332",
+            "value": "0.3.0-349",
             "required": true
         },
         {
