@@ -39,6 +39,7 @@ module.exports = {
     return getContainers(template)
     .map('ports')
     .flatten()
+    .compact()
     .map(function (port) {
       return _.extend({protocol: 'TCP'}, port);
     })
@@ -100,6 +101,7 @@ module.exports = {
     return getVolumes(template)
     .map('name')
     .compact()
+    .uniqBy()
     .value();
   },
 

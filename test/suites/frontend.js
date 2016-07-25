@@ -1,8 +1,6 @@
 var _ = require('lodash');
 
 var httpdContainerPorts = [
-  {containerPort: 8080},
-  {containerPort: 8443},
   {containerPort: 80}
 ];
 

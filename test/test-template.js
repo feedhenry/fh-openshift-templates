@@ -36,7 +36,19 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
       // Env var values should be a subset of parameter names, not equal
       expect(
         diff.length,
-        'Missing parameters for environment variables ' + diff.join(', ')
+        "Environment variable mismatch. \n\n \
+        The environment variables defined in template to not have corresponding parameters \n\n \
+        If this is expected then an exception should be added to the test configuration in suites/ \n\n \
+        The environment variables defined in the template are as follows: " +
+        _(envValues).join(', ') + "\n\n \
+        The parameters defined in the template are as follows: " +
+        _(paramNames).join(', ') + "\n\n \
+        The environment variable names to ignore (from test configuration) are as follows: " +
+        _(options.ignoreEnv).join(', ') + " \n\n \
+        The difference between the environment variables and the parameters in the template are as follows: " +
+        _(diff).join(', ') + "\n\n \
+        These environment variable values should either be placed into the ignoreEnv array in the test configuration \
+        or a parameter should be added for it \n\n"
       ).to.equal(0);
     });
 
@@ -50,7 +62,13 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
       // Labels should match completely
       expect(
         deploymentConfigLabels,
-        'Missing labels ' + diff.join(', ')
+        "Label mismatch. \n\n \
+        The 'name' label defined in DeploymentConfig(s) spec.template.metadata.labels.name does not match the 'name' label defined in Service(s) spec.selector.name \n\n \
+        The label defined in DeploymentConfig(s) spec.template.metadata.labels.name is " +
+        _(deploymentConfigLabels).join(', ') + " \n\n \
+        The label defined in Service(s) spec.selector.name is " +
+        _(serviceNames).join(', ') + "\n\n \
+        Update these values to ensure they match \n\n"
       ).to.deep.equal(serviceNames);
     });
 
@@ -59,13 +77,20 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
 
       var volumeDefinitions = helper.findVolumeDefinitions(template);
 
-      var diff = _.xor(volumeDefinitions, volumeMounts);
+      var diff = _.difference(volumeMounts, volumeDefinitions);
 
-      // Volume mounts and definitions should match completely
       expect(
-        volumeMounts,
-        'Missing volume mount/claim pairs for ' + diff.join(', ')
-      ).to.deep.equal(volumeDefinitions);
+        diff.length,
+        "Volume definition mismatch. \n\n \
+        The volume mounts defined in the template do not all have corresponding volume definitions \n\n \
+        The volume mounts defined in the template are as follows: " +
+        _(volumeMounts).join(', ') + " \n\n \
+        The volume definitions in the template are as follows: " +
+        _(volumeDefinitions).join(', ') + " \n\n \
+        The mismatch between the volume mounts and volume defintions are as follows: " +
+        _(diff).join(', ') + " \n\n \
+        Ensure that all volume mounts have a corresponding volume definition \n\n"
+      ).to.equal(0);
     });
 
     it('should have a container port for each service port', function () {
@@ -78,8 +103,19 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
       // Container ports and service ports should match completely
       expect(
         diff.length,
-        'Not every service port has a corresponding service port, the differences between service and container ports are ' +
-        _(diff).map(function (port) { return port.containerPort + ' (' + port.protocol + ')'; } ).join(',')
+        "Template port mismatch. \n\n \
+        The ports defined in spec.ports in Service(s) do not match the ports defined in spec.template.spec.containers in DeploymentConfig(s) \n\n \
+        The ports defined in Service(s) spec.ports are as follows: " +
+        _(servicePorts).map(function (p) { return p.containerPort + " (" + p.protocol + ") " })
+        .join(', ') + "\n\n \
+        The ports defined in DeploymentConfig(s) spec.template.spec.containers are as follows: " +
+        _(containerPorts).map(function (p) { return p.containerPort + " (" + p.protocol + ") " })
+        .join(', ') + "\n\n \
+        The ports which need to be added to DeploymentConfig(s) spec.template.spec.containers are as follows: " +
+        _(servicePorts)
+        .difference(containerPorts)
+        .map(function (p) { return p.containerPort + " (" + p.protocol + ") " })
+        .join(', ') + " \n\n"
       ).to.equal(0);
     });
 
@@ -98,7 +134,17 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
         // this means that the service ports are covered in this test too
         expect(
           containerPorts,
-          'Missing ports defined '+_.map(diff, 'port').join(', ')
+          "Template port mismatch. \n\n \
+           The ports defined in the templates are not equal to those defined in the test configuration \n\n \
+           The ports in the template are as follows: " +
+           _(containerPorts).sortBy('containerPort')
+           .map(function (p) { return p.containerPort + " (" + p.protocol + ") " })
+           .join(', ') + " \n\n \
+           The ports in the test configuration are as follows: " +
+           _(ports).sortBy('containerPort')
+           .map(function (p) { return p.containerPort + " (" + p.protocol + ") " })
+           .join(', ') + " \n\n \
+           If the test configuration is correct then remove/add any ports in the configuration that are not in the template \n\n"
         ).to.deep.equal(ports);
       });
     };

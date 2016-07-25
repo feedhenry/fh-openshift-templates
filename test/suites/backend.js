@@ -50,7 +50,8 @@ module.exports = {
   gitlab: {
     'gitlab-shell': [require('../../gitlab-shell/gitlab-shell-single-template.json'), {
       ports: [
-        {containerPort: 22}
+        {containerPort: 22},
+        {containerPort: 8080}
       ]
     }]
   },
