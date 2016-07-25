@@ -87,7 +87,30 @@ Note: When using scripts on mac ssed tool should be installed. By default sed co
     
 Note: If you want to deploy the core cluster to a remote openshift instance, the `local.feedhenry.io` addresses in `scripts/core/variables.sh` need to change to reflect the DNS address of your cluster (e.g. osm.skunkhenry.com)
 
-* Ensure you're logged in to OpenShift with `oc` inside the `rhel_openshift3` VM, then paste the following (change the value of the project name in the first line if necessary):
+Note: You will need a number of `Available` Persistent Volumes. The size of these may vary depending on the Pod requirement, but having enough of the minimum requirement should be sufficient (having a PV that is larger than the required amount is OK). To create a PV of 50Gi in your local dev vm, for example, use this template & command.
+
+```
+apiVersion: "v1"
+kind: "PersistentVolume"
+metadata:
+  name: "pv1"
+spec:
+  capacity:
+    storage: "50Gi"
+  accessModes:
+    - "ReadWriteOnce"
+  hostPath:
+    path: /home/vagrant/exp1
+```
+
+```
+sudo oc create -f pv.yaml
+```
+
+Due to the nature of development tearing up and down projects regularly, it is recommended to have many PV's on standby to avoid having their absence block a Core setup.
+If a Pod is failing to start due to no PV's being available, you can create the necesssary PV(s) then delete the pod using `oc delete <broken-pod>`, which will cause a new pod to come up and use the new PV. Alternatively, if the pod timed out starting, you mean need to redeploy it using `oc deploy --latest <deploy-config>`.
+
+* Ensure you're logged in to OpenShift with `oc` inside the `rhel_openshift3` VM as the `test` user, then paste the following (change the value of the project name in the first line if necessary):
 
 ``` shell
 export CORE_PROJECT_NAME=core
@@ -121,4 +144,12 @@ sudo oc adm policy add-scc-to-user anyuid-with-chroot \
 ./frontend.sh
 ```
 
-* After this, and all Pods are successfully running, you should be able to login to http://rhmap.local.feedhenry.io as `rhmap-admin@example.com`
+* Wait until all of the new Pods are running successfully, then setup the monitoring containers:
+
+``` shell
+./monitoring.sh
+```
+
+Note: the login credentials for the Nagios dashboard in a development environment are set in `./variables.sh` to nagiosadmin/password. You can access the Nagios dashboard from the exposed Nagios route i.e. https://nagios-rhmap.local.feedhenry.io/ in a local development VM.
+
+* When all Pods are successfully running, and all Nagios checks are passing (may take a few minutes for all checks to run at least once) you should be able to login to http://rhmap.local.feedhenry.io as rhmap-admin@example.com/Password1
