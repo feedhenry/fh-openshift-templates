@@ -21,6 +21,18 @@
       "description": "Millicore image version"
     },
     {
+      "name": "MONGODB_SERVICE_NAME",
+      "displayName": "Mongodb Service Name",
+      "description": "The name of the OpenShift Service exposed for mongodb.",
+      "value": "mongodb-1"
+    },
+    {
+      "name": "MONGODB_ADMIN_PASSWORD",
+      "description": "The MongoDB Admin password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
       "name": "FEEDHENRY_SDKS_IMAGE",
       "value": "docker.io/rhmap/feedhenry-sdks",
       "description": "FeedHenry SDKs and templates image name"
@@ -322,6 +334,14 @@
                 },
                 "env": [
                   {
+                    "name":"MONGODB_ADMIN_PASSWORD",
+                    "value":"${MONGODB_ADMIN_PASSWORD}"
+                  },
+                  {
+                    "name":"MONGODB_SERVICE_NAME",
+                    "value":"${MONGODB_SERVICE_NAME}"
+                  },
+                  {
                     "name": "FH_MESSAGING_API_KEY",
                     "value": "${FH_MESSAGING_API_KEY}"
                   },
@@ -432,14 +452,6 @@
                   {
                     "name": "FH_SCM_SERVICE_PORT",
                     "value": "${FH_SCM_SERVICE_PORT}"
-                  },
-                  {
-                    "name": "FH_STATSD_SERVICE_HOST",
-                    "value": "${FH_STATSD_SERVICE_HOST}"
-                  },
-                  {
-                    "name": "FH_STATSD_SERVICE_PORT",
-                    "value": "${FH_STATSD_SERVICE_PORT}"
                   },
                   {
                     "name": "SUPERCORE_SERVICE_HOST",
