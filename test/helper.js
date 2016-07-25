@@ -107,5 +107,12 @@ module.exports = {
 
   has: function (obj, keys) {
     return _.every(keys, _.partial(_.has, obj));
+  },
+
+  prettyPrintPorts: function (ports) {
+    return _(ports)
+    .sortBy('containerPort')
+    .map(function (p) { return p.containerPort + " (" + p.protocol + ") "; })
+    .join(', ');
   }
 };
