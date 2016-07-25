@@ -3,6 +3,10 @@
 export SCRIPT_ROOT="$(dirname "${BASH_SOURCE}")"
 source $SCRIPT_ROOT/variables.sh
 
+oc create serviceaccount nagios
+
+oc policy add-role-to-user admin -z nagios
+
 oc new-app -f "${TEMPLATES_DIR}/generated/fh-core-monitoring.json" \
   -p SMTP_SERVER="${SMTP_SERVER}" \
   -p SMTP_USERNAME="${SMTP_USERNAME}" \
