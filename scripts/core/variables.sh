@@ -32,3 +32,4 @@ export ADMIN_EMAIL="root@localhost"
 export NAGIOS_USER="nagiosadmin"
 export NAGIOS_PASSWORD="password"
 export NAGIOS_HOST=$(printf "nagios-%s" "$CLUSTER_HOST")
+export RHMAP_HOSTGROUPS="core"

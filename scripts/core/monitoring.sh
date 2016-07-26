@@ -17,4 +17,5 @@ oc new-app -f "${TEMPLATES_DIR}/generated/fh-core-monitoring.json" \
   -p NAGIOS_USER="${NAGIOS_USER}" \
   -p NAGIOS_PASSWORD="${NAGIOS_PASSWORD}" \
   -p RHMAP_ROUTER_DNS="${CLUSTER_HOST}" \
-  -p NAGIOS_HOST="${NAGIOS_HOST}"
+  -p NAGIOS_HOST="${NAGIOS_HOST}" \
+  -p RHMAP_HOSTGROUPS="${RHMAP_HOSTGROUPS}"
