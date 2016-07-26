@@ -4,6 +4,7 @@ export TEMPLATES_DIR="$(dirname "${BASH_SOURCE}")/../.."
 
 export MEMCACHED_SERVICE_NAME="memcached"
 export MONGO_PASSWORD="sameforall"
+export MONGO_ADMIN_PASSWORD="sameforall"
 export PROJECT="core"
 export MILLICORE_API_KEY="GENERATEME"
 export MILLICORE_SERVICE_KEY="GENERATEME"
