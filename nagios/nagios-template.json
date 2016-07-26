@@ -99,6 +99,10 @@
                   {
                     "name": "RHMAP_ROUTER_DNS",
                     "value": "${RHMAP_ROUTER_DNS}"
+                  },
+                  {
+                    "name": "RHMAP_HOSTGROUPS",
+                    "value": "${RHMAP_HOSTGROUPS}"
                   }
                 ],
                 "image": "${NAGIOS_IMAGE_NAME}:${NAGIOS_IMAGE_VERSION}",
@@ -172,6 +176,11 @@
       "description": "Host or Service name for RHMAP",
       "name": "RHMAP_ROUTER_DNS",
       "value": "fh-rhmap-service"
+    },
+    {
+      "description": "RHMAP hostgroups being monitored (core|mbaas|core,mbaas)",
+      "name": "RHMAP_HOSTGROUPS",
+      "value": "core"
     },
     {
       "description": "The name of the Nagios Docker image",

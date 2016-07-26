@@ -137,6 +137,10 @@
                                     {
                                         "name": "RHMAP_ROUTER_DNS",
                                         "value": "${RHMAP_ROUTER_DNS}"
+                                    },
+                                    {
+                                        "name": "RHMAP_HOSTGROUPS",
+                                        "value": "${RHMAP_HOSTGROUPS}"
                                     }
                                 ],
                                 "resources": {},
@@ -207,6 +211,11 @@
             "name": "RHMAP_ROUTER_DNS",
             "description": "Host or Service name for RHMAP",
             "value": "fh-rhmap-service"
+        },
+        {
+            "name": "RHMAP_HOSTGROUPS",
+            "description": "RHMAP hostgroups being monitored (core|mbaas|core,mbaas)",
+            "value": "core"
         },
         {
             "name": "NAGIOS_IMAGE_NAME",
