@@ -857,7 +857,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-38"
+            "value": "2.4-40"
         },
         {
             "name": "MILLICORE_AJP_HOST",
@@ -883,8 +883,8 @@
         },
         {
             "name": "NAGIOS_HOST",
-            "value": "nagios:8080",
-            "description": "Internal hostname for Nagios"
+            "description": "Internal hostname for Nagios",
+            "value": "nagios:8080"
         },
         {
             "name": "BUILDER_SERVICE_URL",

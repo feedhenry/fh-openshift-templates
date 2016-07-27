@@ -56,7 +56,7 @@
     },
     {
       "name": "HTTPD_IMAGE_VERSION",
-      "value": "2.4-38",
+      "value": "2.4-40",
       "description": "The version for the HTTPD_IMAGE"
     },
     {
