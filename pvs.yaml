@@ -1,0 +1,961 @@
+{
+  "kind": "List",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "pvs",
+    "annotations": {
+    }
+  },
+  "items": [
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv1"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv1"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv2"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv2"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv3"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv3"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv4"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv4"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv5"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv5"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv6"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv6"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv7"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv7"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv8"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv8"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv9"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv9"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv10"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv10"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv11"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv11"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv12"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv12"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv13"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv13"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv14"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv14"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv15"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv15"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv16"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv16"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv17"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv17"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv18"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv18"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv19"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv19"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv20"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "2Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv20"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv21"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv21"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv22"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv22"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv23"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv23"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv24"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv24"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv25"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv25"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv26"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv26"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv27"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv27"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv28"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv28"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv29"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv29"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv30"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "5Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv30"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv31"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv31"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv32"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv32"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv33"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv33"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv34"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv34"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv35"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv35"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv36"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv36"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv37"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv37"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv38"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv38"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv39"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv39"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv40"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "25Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv40"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv41"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv41"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv42"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv42"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv43"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv43"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv44"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv44"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv45"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv45"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv46"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv46"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv47"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv47"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv48"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv48"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv49"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv49"
+        }
+      }
+    },
+    {
+      "kind": "PersistentVolume",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "devpv50"
+      },
+      "spec": {
+        "capacity": {
+          "storage": "50Gi"
+        },
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "persistentVolumeReclaimPolicy": "Recycle",
+        "hostPath": {
+          "path": "/home/vagrant/devpv50"
+        }
+      }
+    }
+  ]
+}
