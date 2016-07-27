@@ -130,6 +130,10 @@
                     "value": "${APP_STORE_HOST}"
                   },
                   {
+                    "name": "NAGIOS_HOST",
+                    "value": "${NAGIOS_HOST}"
+                  },
+                  {
                     "name": "BUILDER_SERVICE_URL",
                     "value": "${BUILDER_SERVICE_URL}"
                   },
@@ -204,6 +208,11 @@
       "name": "APP_STORE_HOST",
       "value": "fh-appstore:8080",
       "description": ""
+    },
+    {
+      "name": "NAGIOS_HOST",
+      "value": "nagios:8080",
+      "description": "Internal hostname for Nagios"
     },
     {
       "name": "BUILDER_SERVICE_URL",
