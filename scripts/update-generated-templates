@@ -44,7 +44,7 @@ generate() {
     # Component templates:
     memcached/memcached-template
     mongodb/mongodb-core-single-template
-    mysql/mysql-non-persistent-template
+    mysql/mysql-persistent-template
     redis/redis-template
   )
   generate "${ARGS[@]/%/.json}"
