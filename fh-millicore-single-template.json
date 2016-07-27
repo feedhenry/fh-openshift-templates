@@ -18,7 +18,7 @@
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.32.0-2290",
+      "value": "7.32.0-2291",
       "description": "Millicore image version",
       "required": true
     },
@@ -55,16 +55,28 @@
       "required": true
     },
     {
-      "name": "FH_ADMIN_USER_NAME",
-      "value": "admin@feedhenry.net",
-      "description": "Millicore admin user",
-      "required": true
+      "name": "FH_SYS_ADMIN_USER_NAME",
+      "value": "admin@example.com",
+      "description": "Millicore system admin user"
     },
     {
-      "name": "FH_ADMIN_USER_PASSWORD",
-      "value": "Password1",
-      "description": "Millicore admin password",
+      "name": "FH_SYS_ADMIN_USER_PASSWORD",
+      "description": "The System Admin password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{24}"
+    },
+    {
+      "name": "FH_ADMIN_USER_NAME",
       "required": true
+      "value": "rhmap-admin@example.com",
+      "description": "Millicore reseller admin user"
+    },
+    {
+      "name": "FH_ADMIN_USER_PASSWORD,
+      "required": true,
+      "description": "The reseller Admin password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{24}"
     },
     {
       "name": "FH_DOMAIN_NAME",
@@ -512,6 +524,14 @@
                     "value": "${FH_MESSAGING_API_KEY}"
                   },
                   {
+                    "name": "FH_SYS_ADMIN_USER_PASSWORD",
+                    "value": "${FH_SYS_ADMIN_USER_PASSWORD}"
+                  },
+                  {
+                    "name": "FH_SYS_ADMIN_USER_NAME",
+                    "value": "${FH_SYS_ADMIN_USER_NAME}"
+                  },
+                  {
                     "name": "FH_ADMIN_USER_PASSWORD",
                     "value": "${FH_ADMIN_USER_PASSWORD}"
                   },
@@ -670,7 +690,7 @@
                 "livenessProbe": {
                   "httpGet": {
                     "path": "/health",
-                    "port": 8010 
+                    "port": 8010
                   },
                   "initialDelaySeconds": 600,
                   "timeoutSeconds": 5,
