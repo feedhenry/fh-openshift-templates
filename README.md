@@ -90,6 +90,7 @@ Note: If you want to deploy the core cluster to a remote openshift instance, the
 Note: You will need a number of `Available` Persistent Volumes. The size of these may vary depending on the Pod requirement, but having enough of the minimum requirement should be sufficient (having a PV that is larger than the required amount is OK). If no PV's are available in the dev vm, the sample pvs.yaml file can be used to create a range of PV's (e.g. 10x1Gi, 10x2Gi, 10x5Gi, 10x25Gi, 10x50Gi)
 
 ```
+for i in {1..50}; do mkdir /home/vagrant/devpv${i} && chmod 777 /home/vagrant/devpv${i} && chcon -R -t svirt_sandbox_file_t /home/vagrant/devpv${i}; done
 sudo oc create -f /mnt/src/fh-openshift-templates/pvs.yaml
 ```
 
