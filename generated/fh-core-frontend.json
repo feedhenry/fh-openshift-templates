@@ -511,6 +511,23 @@
             }
         },
         {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "metrics-backup-log-data"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${METRICS_BACKUP_LOG_PVC_SIZE}"
+                    }
+                }
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -566,6 +583,12 @@
                             {
                                 "name": "templates-and-sdks",
                                 "emptyDir": {}
+                            },
+                            {
+                                "name": "metrics-backup-log-volume",
+                                "persistentVolumeClaim": {
+                                    "claimName": "metrics-backup-log-data"
+                                }
                             }
                         ],
                         "containers": [
@@ -740,6 +763,10 @@
                                         "name": "templates-and-sdks",
                                         "readOnly": true,
                                         "mountPath": "${FEEDHENRY_SDKS_DIR}"
+                                    },
+                                    {
+                                        "name": "metrics-backup-log-volume",
+                                        "mountPath": "/var/log/feedhenry/metrics"
                                     }
                                 ],
                                 "livenessProbe": {
@@ -1090,6 +1117,11 @@
             "name": "CONFIGURATION_FOLDER",
             "description": "Folder to mount configuration including service keys",
             "value": "/etc/feedhenry/core/"
+        },
+        {
+            "name": "METRICS_BACKUP_LOG_PVC_SIZE",
+            "description": "The size of the volume for millicore metrics backup logs.",
+            "value": "5Gi"
         }
     ]
 }
