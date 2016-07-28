@@ -13,115 +13,125 @@
     {
       "name": "MILLICORE_IMAGE",
       "value": "docker.io/rhmap/millicore",
-      "description": "Millicore docker image"
+      "description": "Millicore docker image",
+      "required": true
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
       "value": "7.31.0-2276",
-      "description": "Millicore image version"
+      "description": "Millicore image version",
+      "required": true
     },
     {
       "name": "MONGODB_SERVICE_NAME",
       "displayName": "Mongodb Service Name",
       "description": "The name of the OpenShift Service exposed for mongodb.",
-      "value": "mongodb-1"
+      "value": "mongodb-1",
+      "required": true
     },
     {
       "name": "MONGODB_ADMIN_PASSWORD",
       "description": "The MongoDB Admin password",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "from": "[a-zA-Z0-9]{40}",
+      "required": true
     },
     {
       "name": "FEEDHENRY_SDKS_IMAGE",
       "value": "docker.io/rhmap/feedhenry-sdks",
-      "description": "FeedHenry SDKs and templates image name"
+      "description": "FeedHenry SDKs and templates image name",
+      "required": true
     },
     {
       "name": "FEEDHENRY_SDKS_IMAGE_VERSION",
       "value": "54",
-      "description": "FeedHenry SDKs and templates image version"
+      "description": "FeedHenry SDKs and templates image version",
+      "required": true
     },
     {
       "name": "FEEDHENRY_SDKS_DIR",
       "value": "/feedhenry-sdks",
-      "description": "FeedHenry SDKs and templates path"
+      "description": "FeedHenry SDKs and templates path",
+      "required": true
     },
     {
       "name": "FH_ADMIN_USER_NAME",
       "value": "admin@feedhenry.net",
-      "description": "Millicore admin user"
+      "description": "Millicore admin user",
+      "required": true
     },
     {
       "name": "FH_ADMIN_USER_PASSWORD",
       "value": "Password1",
-      "description": "Millicore admin password"
+      "description": "Millicore admin password",
+      "required": true
     },
     {
       "name": "FH_DOMAIN_NAME",
       "value": "rhmap",
-      "description": "Customer subdomain name"
+      "description": "Customer subdomain name",
+      "required": true
     },
     {
       "name": "MYSQL_USER",
       "value": "coreadmin",
-      "description": "MYSQL database user"
+      "description": "MYSQL database user",
+      "required": true
     },
     {
       "name": "MYSQL_PASSWORD",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "MYSQL database password"
+      "description": "MYSQL database password",
+      "required": true
     },
     {
       "name": "MYSQL_HOST",
       "value": "mysql",
-      "description": "MYSQL database host"
+      "description": "MYSQL database host",
+      "required": true
     },
     {
       "name": "MYSQL_PORT",
       "value": "3306",
-      "description": "MYSQL database port"
+      "description": "MYSQL database port",
+      "required": true
     },
     {
       "name": "MYSQL_DB_NAME",
       "value": "shard0",
-      "description": "Name of MYSQL database"
+      "description": "Name of MYSQL database",
+      "required": true
     },
     {
       "name": "MEMCACHED_SERVICE_HOST",
       "value": "memcached",
-      "description": "Memcached service host"
+      "description": "Memcached service host",
+      "required": true
     },
     {
       "name": "MEMCACHED_SERVICE_PORT",
       "value": "11211",
-      "description": "Memcached service port"
-    },
-    {
-      "name": "FH_DITCH_SERVICE_HOST",
-      "value": "",
-      "description": "Ditch service host"
-    },
-    {
-      "name": "FH_DITCH_SERVICE_PORT",
-      "value": "",
-      "description": "Ditch service port"
+      "description": "Memcached service port",
+      "required": true
     },
     {
       "name": "FH_AAA_SERVICE_HOST",
       "value": "fh-aaa",
-      "description": "fh-aaa service host"
+      "description": "fh-aaa service host",
+      "required": true
     },
     {
       "name": "FH_AAA_SERVICE_PORT",
       "value": "8080",
-      "description": "fh-aaa service port"
+      "description": "fh-aaa service port",
+      "required": true
     },
     {
       "name": "FH_GIT_SERVICE_HOST",
       "value": "gitlab-shell",
-      "description": "Git access host (including port)"
+      "description": "Git access host (including port)",
+      "required": true
     },
     {
       "name": "BUILDER_ANDROID_SERVICE_HOST",
@@ -146,84 +156,100 @@
     {
       "name": "CLUSTER_NAME",
       "value": "rhmap",
-      "description": "Cluster name"
+      "description": "Cluster name",
+      "required": true
     },
     {
       "name": "CLUSTER_DOMAIN",
       "value": "local.feedhenry.io",
-      "description": "Full domain used for build purposes"
+      "description": "Full domain used for build purposes",
+      "required": true
     },
     {
       "name": "FH_MILLICORE_SERVICE_HOST",
       "value": "millicore",
-      "description": "Internal service host"
+      "description": "Internal service host",
+      "required": true
     },
     {
       "name": "FH_MILLICORE_SERVICE_PORT",
       "value": "8080",
-      "description": "Internal service port"
+      "description": "Internal service port",
+      "required": true
     },
     {
       "name": "KEYCLOAK_SERVICE_HOST",
       "value": "ups",
-      "description": "Keycloak service host"
+      "description": "Keycloak service host",
+      "required": true
     },
     {
       "name": "KEYCLOAK_SERVICE_PORT",
       "value": "8080",
-      "description": "Keycloak service port"
+      "description": "Keycloak service port",
+      "required": true
     },
     {
       "name": "MESSAGE_SERVER_SERVICE_HOST",
       "value": "fh-messaging",
-      "description": "Internal feedhenry message server host"
+      "description": "Internal feedhenry message server host",
+      "required": true
     },
     {
       "name": "MESSAGE_SERVER_SERVICE_PORT",
       "value": "8080",
-      "description": "Internal feedhenry message server ports"
+      "description": "Internal feedhenry message server ports",
+      "required": true
     },
     {
       "name": "FH_MESSAGING_API_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the FH_MESSAGING Service"
+      "description": "Key for communicating with the FH_MESSAGING Service",
+      "required": true
     },
     {
       "name": "FH_SCM_SERVICE_HOST",
       "value": "fh-scm",
-      "description": "FH-SCM host"
+      "description": "FH-SCM host",
+      "required": true
     },
     {
       "name": "FH_SCM_SERVICE_PORT",
       "value": "8080",
-      "description": "FH-SCM port"
+      "description": "FH-SCM port",
+      "required": true
     },
     {
       "name": "SUPERCORE_SERVICE_HOST",
       "value": "fh-supercore",
-      "description": "Supercore host"
+      "description": "Supercore host",
+      "required": true
     },
     {
       "name": "SUPERCORE_SERVICE_PORT",
       "value": "8080",
-      "description": "Supercore port"
+      "description": "Supercore port",
+      "required": true
     },
     {
       "name": "FH_SUPERCORE_API_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": ""
+      "description": "",
+      "required": true
     },
     {
       "name": "CONFIGURATION_FOLDER",
       "value": "/etc/feedhenry/core/",
-      "description": "Folder to mount configuration including service keys"
+      "description": "Folder to mount configuration including service keys",
+      "required": true
     },
     {
       "name": "METRICS_BACKUP_LOG_PVC_SIZE",
       "value": "5Gi",
-      "description": "The size of the volume for millicore metrics backup logs."
+      "description": "The size of the volume for millicore metrics backup logs.",
+      "required": true
     }
   ],
   "objects": [

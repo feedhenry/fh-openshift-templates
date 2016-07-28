@@ -12,67 +12,80 @@
     {
       "name": "GITLAB_SHELL_IMAGE",
       "value": "docker.io/rhmap/gitlab-shell",
-      "description": "The name of the gitlab-shell image"
+      "description": "The name of the gitlab-shell image",
+      "required": true
     },
     {
       "name": "GITLAB_SHELL_IMAGE_VERSION",
       "value": "2.0.0.pre-40",
-      "description": "The version for the GITLAB_SHELL_IMAGE"
+      "description": "The version for the GITLAB_SHELL_IMAGE",
+      "required": true
     },
     {
       "name": "GITLAB_SHELL_PVC_SIZE",
       "value": "5Gi",
-      "description": "The size in bytes of the volume for repositories. Can be unadorned integers, or fixed-point integers with one of these SI suffices (E, P, T, G, M, K, m) or their power-of-two equivalents (Ei, Pi, Ti, Gi, Mi, Ki). For example, the following represent roughly the same value: 128974848, 129e6, 129M , 123Mi. Small quantities can be represented directly as decimals (e.g., 0.3), or using milli-units (e.g., 300m)."
+      "description": "The size in bytes of the volume for repositories. Can be unadorned integers, or fixed-point integers with one of these SI suffices (E, P, T, G, M, K, m) or their power-of-two equivalents (Ei, Pi, Ti, Gi, Mi, Ki). For example, the following represent roughly the same value: 128974848, 129e6, 129M , 123Mi. Small quantities can be represented directly as decimals (e.g., 0.3), or using milli-units (e.g., 300m).",
+      "required": true
     },
     {
       "name": "GITLAB_MILLICORE_AUTH_URL",
       "value": "http://millicore:8080/box/api/gls/",
-      "description": "The URL that GitLab is exposed at"
+      "description": "The URL that GitLab is exposed at",
+      "required": true
     },
     {
       "name": "GIT_REPO_ROOT",
       "value": "/home/git/data",
-      "description": "Path to data folder that would contain repositories and all other required files"
+      "description": "Path to data folder that would contain repositories and all other required files",
+      "required": true
     },
     {
       "name": "SSH_SECRETS_DIR",
       "value": "/etc/feedhenry/gitlab-shell",
-      "description": "Mount path for ssh keys"
+      "description": "Mount path for ssh keys",
+      "required": true
     },
     {
       "name": "GITLAB_MILLICORE_SERVICE_KEY",
       "value": "SERVICE_KEY",
-      "description": "Service key used to call millicore http api"
+      "description": "Service key used to call millicore http api",
+      "required": true
     },
     {
       "name": "GIT_HTTP_HOST",
       "value": "",
-      "description": "External dns name that would be setup for router"
+      "description": "External dns name that would be setup for router",
+      "required": true
     },
     {
       "name": "HTTPD_IMAGE",
       "value": "docker.io/rhmap/httpd24",
-      "description": "The name of the httpd proxy image used to serve git repositories"
+      "description": "The name of the httpd proxy image used to serve git repositories",
+      "required": true
     },
     {
       "name": "HTTPD_IMAGE_VERSION",
       "value": "2.4-40",
-      "description": "The version for the HTTPD_IMAGE"
+      "description": "The version for the HTTPD_IMAGE",
+      "required": true
     },
     {
       "name": "MILLICORE_HTTP_HOST",
       "value": "millicore:8080",
-      "description": "Internal hostname for millicore http service"
+      "description": "Internal hostname for millicore http service",
+      "required": true
     },
     {
       "name": "HTTP_REPO_ROOT",
       "value": "/srv",
-      "description": "Git repository mount directory for apache httpd"
+      "description": "Git repository mount directory for apache httpd",
+      "required": true
     },
     {
       "name": "HTTPD_LOG_LEVEL",
       "value": "info",
-      "description": "Apache log level"
+      "description": "Apache log level",
+      "required": true
     }
   ],
   "objects": [

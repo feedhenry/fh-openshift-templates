@@ -296,77 +296,91 @@
     {
       "name": "FH_CLUSTER",
       "value": "development",
-      "description": "the name of the cluster the mbaas was created from"
+      "description": "the name of the cluster the mbaas was created from",
+      "required": true
     },
     {
       "name": "MONGODB_FHAAA_USER",
       "value": "u-aaa",
-      "description": "The MongoDB aaa user name"
+      "description": "The MongoDB aaa user name",
+      "required": true
     },
     {
       "name": "MONGODB_FHAAA_PASSWORD",
       "description": "The MongoDB aaa password",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "from": "[a-zA-Z0-9]{40}",
+      "required": true
     },
     {
       "name": "MONGODB_FHAAA_DATABASE",
       "description": "The MongoDB aaa database",
-      "value": "fh-aaa"
+      "value": "fh-aaa",
+      "required": true
     },
     {
       "name": "MONGODB_FHSUPERCORE_USER",
       "value": "u-supercore",
-      "description": "The MongoDB supercore user name"
+      "description": "The MongoDB supercore user name",
+      "required": true
     },
     {
       "name": "MONGODB_FHSUPERCORE_PASSWORD",
       "description": "The MongoDB supercore password",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "from": "[a-zA-Z0-9]{40}",
+      "required": true
     },
     {
       "name": "MONGODB_FHSUPERCORE_DATABASE",
       "description": "The MongoDB supercore database",
-      "value": "fh-supercore"
+      "value": "fh-supercore",
+      "required": true
     },
     {
       "name": "MONGODB_FHREPORTING_USER",
       "value": "u-reporting",
-      "description": "The reporting user name"
+      "description": "The reporting user name",
+      "required": true
     },
     {
       "name": "MONGODB_FHREPORTING_PASSWORD",
       "description": "The MongoDB reporting password",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "from": "[a-zA-Z0-9]{40}",
+      "required": true
     },
     {
       "name": "MONGODB_FHREPORTING_DATABASE",
       "description": "The MongoDB reporting database",
-      "value": "fh-reporting"
+      "value": "fh-reporting",
+      "required": true
     },
     {
       "name": "MONGODB_KEYFILE_VALUE",
       "description": "The value of the MongoDB Key",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{255}"
+      "from": "[a-zA-Z0-9]{255}",
+      "required": true
     },
     {
       "name": "MONGODB_ADMIN_PASSWORD",
       "description": "The MongoDB Admin password",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "from": "[a-zA-Z0-9]{40}",
+      "required": true
     },
     {
       "name": "MONGODB_IMAGE",
       "value": "docker.io/rhmap/mongodb",
-      "description": "The name of the mongodb image"
+      "description": "The name of the mongodb image",
+      "required": true
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
       "value": "centos-2.4-24",
-      "description": "The version for the MONGODB_IMAGE"
+      "description": "The version for the MONGODB_IMAGE",
+      "required": true
     },
     {
       "name": "MONGODB_PVC_SIZE",
@@ -377,7 +391,8 @@
     {
       "name": "ENDPOINT_COUNT",
       "description": "The amount of database's to create a replica set",
-      "value": "1"
+      "value": "1",
+      "required": true
     }
   ],
   "labels": {

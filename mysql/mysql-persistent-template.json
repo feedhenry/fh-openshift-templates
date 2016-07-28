@@ -160,11 +160,13 @@
   "parameters": [
     {
       "name": "MYSQL_IMAGE",
-      "value": "docker.io/rhmap/mysql"
+      "value": "docker.io/rhmap/mysql",
+      "required": true
     },
     {
       "name": "MYSQL_IMAGE_VERSION",
-      "value": "5.5-17"
+      "value": "5.5-17",
+      "required": true
     },
     {
       "name": "MEMORY_LIMIT",

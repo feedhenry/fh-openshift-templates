@@ -721,77 +721,91 @@
         {
             "name": "FH_CLUSTER",
             "description": "the name of the cluster the mbaas was created from",
-            "value": "development"
+            "value": "development",
+            "required": true
         },
         {
             "name": "MONGODB_FHAAA_USER",
             "description": "The MongoDB aaa user name",
-            "value": "u-aaa"
+            "value": "u-aaa",
+            "required": true
         },
         {
             "name": "MONGODB_FHAAA_PASSWORD",
             "description": "The MongoDB aaa password",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "MONGODB_FHAAA_DATABASE",
             "description": "The MongoDB aaa database",
-            "value": "fh-aaa"
+            "value": "fh-aaa",
+            "required": true
         },
         {
             "name": "MONGODB_FHSUPERCORE_USER",
             "description": "The MongoDB supercore user name",
-            "value": "u-supercore"
+            "value": "u-supercore",
+            "required": true
         },
         {
             "name": "MONGODB_FHSUPERCORE_PASSWORD",
             "description": "The MongoDB supercore password",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "MONGODB_FHSUPERCORE_DATABASE",
             "description": "The MongoDB supercore database",
-            "value": "fh-supercore"
+            "value": "fh-supercore",
+            "required": true
         },
         {
             "name": "MONGODB_FHREPORTING_USER",
             "description": "The reporting user name",
-            "value": "u-reporting"
+            "value": "u-reporting",
+            "required": true
         },
         {
             "name": "MONGODB_FHREPORTING_PASSWORD",
             "description": "The MongoDB reporting password",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "MONGODB_FHREPORTING_DATABASE",
             "description": "The MongoDB reporting database",
-            "value": "fh-reporting"
+            "value": "fh-reporting",
+            "required": true
         },
         {
             "name": "MONGODB_KEYFILE_VALUE",
             "description": "The value of the MongoDB Key",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{255}"
+            "from": "[a-zA-Z0-9]{255}",
+            "required": true
         },
         {
             "name": "MONGODB_ADMIN_PASSWORD",
             "description": "The MongoDB Admin password",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "MONGODB_IMAGE",
             "description": "The name of the mongodb image",
-            "value": "docker.io/rhmap/mongodb"
+            "value": "docker.io/rhmap/mongodb",
+            "required": true
         },
         {
             "name": "MONGODB_IMAGE_VERSION",
             "description": "The version for the MONGODB_IMAGE",
-            "value": "centos-2.4-24"
+            "value": "centos-2.4-24",
+            "required": true
         },
         {
             "name": "MONGODB_PVC_SIZE",
@@ -802,15 +816,18 @@
         {
             "name": "ENDPOINT_COUNT",
             "description": "The amount of database's to create a replica set",
-            "value": "1"
+            "value": "1",
+            "required": true
         },
         {
             "name": "MYSQL_IMAGE",
-            "value": "docker.io/rhmap/mysql"
+            "value": "docker.io/rhmap/mysql",
+            "required": true
         },
         {
             "name": "MYSQL_IMAGE_VERSION",
-            "value": "5.5-17"
+            "value": "5.5-17",
+            "required": true
         },
         {
             "name": "DATABASE_SERVICE_NAME",

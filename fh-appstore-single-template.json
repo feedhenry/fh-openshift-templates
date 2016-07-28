@@ -25,7 +25,8 @@
     {
       "name": "FH_LOG_LEVEL",
       "value": "info",
-      "description": "A default log level for all components"
+      "description": "A default log level for all components",
+      "required": true
     }
   ],
   "objects": [

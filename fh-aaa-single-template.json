@@ -25,38 +25,45 @@
     {
       "name": "FH_LOG_LEVEL",
       "value": "info",
-      "description": "A default log level for all components"
+      "description": "A default log level for all components",
+      "required": true
     },
     {
       "name": "MONGODB_FHAAA_USER",
       "value": "u-aaa",
-      "description": "The MongoDB username for fh-aaa"
+      "description": "The MongoDB username for fh-aaa",
+      "required": true
     },
     {
       "name": "MONGODB_FHAAA_PASSWORD",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "The MongoDB password for fh-aaa"
+      "description": "The MongoDB password for fh-aaa",
+      "required": true
     },
     {
       "name": "MEMCACHED_SERVICE_NAME",
       "value": "memcached",
-      "description": "The memcached service name"
+      "description": "The memcached service name",
+      "required": true
     },
     {
       "name": "MEMCACHED_SERVICE_PORT",
       "value": "11211",
-      "description": "The memcached service port"
+      "description": "The memcached service port",
+      "required": true
     },
     {
       "name": "MONGODB_SERVICE_NAME",
       "value": "mongodb-1",
-      "description": "The mongodb service name"
+      "description": "The mongodb service name",
+      "required": true
     },
     {
       "name": "MONGODB_SERVICE_PORT",
       "value": "27017",
-      "description": "The mongodb service port"
+      "description": "The mongodb service port",
+      "required": true
     }
   ],
   "objects": [

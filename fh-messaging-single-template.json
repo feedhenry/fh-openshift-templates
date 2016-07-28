@@ -150,33 +150,39 @@
       "name": "FH_MESSAGING_API_KEY",
       "description": "Key for communicating with the FH_MESSAGING Service",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "from": "[a-zA-Z0-9]{40}",
+      "required": true
     },
     {
       "name": "FH_MESSAGING_IMAGE",
       "value": "docker.io/rhmap/fh-messaging",
-      "description": "The name of the fh-messaging image"
+      "description": "The name of the fh-messaging image",
+      "required": true
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
       "value": "2.2.0-394",
-      "description": "The version for the FH_MESSAGING_IMAGE"
+      "description": "The version for the FH_MESSAGING_IMAGE",
+      "required": true
     },
     {
       "name": "MONGODB_FHREPORTING_USER",
       "value": "u-reporting",
-      "description": "The Reporting user name"
+      "description": "The Reporting user name",
+      "required": true
     },
     {
       "name": "MONGODB_FHREPORTING_PASSWORD",
       "description": "The MongoDB Reporting password",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "from": "[a-zA-Z0-9]{40}",
+      "required": true
     },
     {
       "name": "FH_DEFAULT_LOG_LEVEL",
       "description": "A default log level for all MBaaS components",
-      "value": "info"
+      "value": "info",
+      "required": true
     }
   ]
 }
