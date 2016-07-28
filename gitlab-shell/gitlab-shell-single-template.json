@@ -21,7 +21,7 @@
     },
     {
       "name": "GITLAB_SHELL_PVC_SIZE",
-      "value": "1Gi",
+      "value": "5Gi",
       "description": "The size in bytes of the volume for repositories. Can be unadorned integers, or fixed-point integers with one of these SI suffices (E, P, T, G, M, K, m) or their power-of-two equivalents (Ei, Pi, Ti, Gi, Mi, Ki). For example, the following represent roughly the same value: 128974848, 129e6, 129M , 123Mi. Small quantities can be represented directly as decimals (e.g., 0.3), or using milli-units (e.g., 300m)."
     },
     {

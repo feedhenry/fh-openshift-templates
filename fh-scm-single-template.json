@@ -21,6 +21,11 @@
       "description": "The version for the FH_SCM_IMAGE"
     },
     {
+      "name": "FH_SCM_PVC_SIZE",
+      "value": "25Gi",
+      "description": "The size of the volume for the fh-scm workspace where git repos are cloned for use by the Core"
+    },
+    {
       "name": "FH_LOG_LEVEL",
       "value": "info",
       "description": "A default log level for all components"
@@ -37,6 +42,23 @@
     }
   ],
   "objects": [
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "scm-data"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "${FH_SCM_PVC_SIZE}"
+          }
+        }
+      }
+    },
     {
       "kind": "Service",
       "apiVersion": "v1",
@@ -152,7 +174,9 @@
             "volumes": [
               {
                 "name": "scm-data",
-                "emptyDir": {}
+                "persistentVolumeClaim": {
+                  "claimName": "scm-data"
+                }
               }
             ]
           }

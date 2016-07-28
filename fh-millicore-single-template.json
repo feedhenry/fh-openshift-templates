@@ -219,6 +219,11 @@
       "name": "CONFIGURATION_FOLDER",
       "value": "/etc/feedhenry/core/",
       "description": "Folder to mount configuration including service keys"
+    },
+    {
+      "name": "METRICS_BACKUP_LOG_PVC_SIZE",
+      "value": "5Gi",
+      "description": "The size of the volume for millicore metrics backup logs."
     }
   ],
   "objects": [
@@ -266,6 +271,23 @@
             "port": 514
           }
         ]
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "metrics-backup-log-data"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "${METRICS_BACKUP_LOG_PVC_SIZE}"
+          }
+        }
       }
     },
     {
@@ -485,6 +507,10 @@
                     "name": "templates-and-sdks",
                     "mountPath": "${FEEDHENRY_SDKS_DIR}",
                     "readOnly": true
+                  },
+                  {
+                    "name": "metrics-backup-log-volume",
+                    "mountPath": "/var/log/feedhenry/metrics"
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"
@@ -523,6 +549,12 @@
               {
                 "name": "templates-and-sdks",
                 "emptyDir": {}
+              },
+              {
+                "name": "metrics-backup-log-volume",
+                "persistentVolumeClaim": {
+                  "claimName": "metrics-backup-log-data"
+                }
               }
             ]
           }

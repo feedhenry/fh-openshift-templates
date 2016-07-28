@@ -37,6 +37,23 @@
       }
     },
     {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-claim-1"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "${MONGODB_PVC_SIZE}"
+          }
+        }
+      }
+    },
+    {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
@@ -75,6 +92,14 @@
             }
           },
           "spec": {
+            "volumes": [
+              {
+                "name": "mongodb-data-volume",
+                "persistentVolumeClaim": {
+                  "claimName": "mongodb-claim-1"
+                }
+              }
+            ],
             "containers": [
               {
                 "name": "mongodb",
@@ -149,6 +174,12 @@
                     "memory": "200Mi"
                   }
                 },
+                "volumeMounts": [
+                  {
+                    "name": "mongodb-data-volume",
+                    "mountPath": "/var/lib/mongodb/data"
+                  }
+                ],
                 "terminationMessagePath": "/dev/termination-log",
                 "imagePullPolicy": "IfNotPresent"
               }
@@ -336,6 +367,12 @@
       "name": "MONGODB_IMAGE_VERSION",
       "value": "centos-2.4-24",
       "description": "The version for the MONGODB_IMAGE"
+    },
+    {
+      "name": "MONGODB_PVC_SIZE",
+      "value": "25Gi",
+      "description": "The size of the volume for MongoDB Data",
+      "required": true
     },
     {
       "name": "ENDPOINT_COUNT",
