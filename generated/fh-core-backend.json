@@ -1338,96 +1338,114 @@
         {
             "name": "FH_LOG_LEVEL",
             "description": "A default log level for all components",
-            "value": "info"
+            "value": "info",
+            "required": true
         },
         {
             "name": "MONGODB_FHAAA_USER",
             "description": "The MongoDB username for fh-aaa",
-            "value": "u-aaa"
+            "value": "u-aaa",
+            "required": true
         },
         {
             "name": "MONGODB_FHAAA_PASSWORD",
             "description": "The MongoDB password for fh-aaa",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "MEMCACHED_SERVICE_NAME",
             "description": "The memcached service name",
-            "value": "memcached"
+            "value": "memcached",
+            "required": true
         },
         {
             "name": "MEMCACHED_SERVICE_PORT",
             "description": "The memcached service port",
-            "value": "11211"
+            "value": "11211",
+            "required": true
         },
         {
             "name": "MONGODB_SERVICE_NAME",
             "description": "The mongodb service name",
-            "value": "mongodb-1"
+            "value": "mongodb-1",
+            "required": true
         },
         {
             "name": "MONGODB_SERVICE_PORT",
             "description": "The mongodb service port",
-            "value": "27017"
+            "value": "27017",
+            "required": true
         },
         {
             "name": "FH_MESSAGING_API_KEY",
             "description": "Key for communicating with the FH_MESSAGING Service",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "FH_MESSAGING_IMAGE",
             "description": "The name of the fh-messaging image",
-            "value": "docker.io/rhmap/fh-messaging"
+            "value": "docker.io/rhmap/fh-messaging",
+            "required": true
         },
         {
             "name": "FH_MESSAGING_IMAGE_VERSION",
             "description": "The version for the FH_MESSAGING_IMAGE",
-            "value": "2.2.0-394"
+            "value": "2.2.0-394",
+            "required": true
         },
         {
             "name": "MONGODB_FHREPORTING_USER",
             "description": "The Reporting user name",
-            "value": "u-reporting"
+            "value": "u-reporting",
+            "required": true
         },
         {
             "name": "MONGODB_FHREPORTING_PASSWORD",
             "description": "The MongoDB Reporting password",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "FH_DEFAULT_LOG_LEVEL",
             "description": "A default log level for all MBaaS components",
-            "value": "info"
+            "value": "info",
+            "required": true
         },
         {
             "name": "FH_METRICS_IMAGE",
             "description": "The name of the fh-metrics image",
-            "value": "docker.io/rhmap/fh-metrics"
+            "value": "docker.io/rhmap/fh-metrics",
+            "required": true
         },
         {
             "name": "FH_METRICS_IMAGE_VERSION",
             "description": "The version for the FH_METRICS_IMAGE",
-            "value": "2.2.0-394"
+            "value": "2.2.0-394",
+            "required": true
         },
         {
             "name": "FH_METRICS_API_KEY",
             "description": "Key for communicating with the FH_METRICS Service",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "FH_SCM_IMAGE",
             "description": "The name of the fh-scm image",
-            "value": "docker.io/rhmap/fh-scm"
+            "value": "docker.io/rhmap/fh-scm",
+            "required": true
         },
         {
             "name": "FH_SCM_IMAGE_VERSION",
             "description": "The version for the FH_SCM_IMAGE",
-            "value": "0.18.1-265"
+            "value": "0.18.1-265",
+            "required": true
         },
         {
             "name": "FH_SCM_PVC_SIZE",
@@ -1437,131 +1455,159 @@
         {
             "name": "FH_MILLICORE_SERVICE_HOST",
             "description": "TODO: remove references to me once millicore is running on OpenShift",
-            "value": "millicore"
+            "value": "millicore",
+            "required": true
         },
         {
             "name": "FH_MILLICORE_SERVICE_PORT",
             "description": "TODO: remove references to me once millicore is running on OpenShift",
-            "value": "8080"
+            "value": "8080",
+            "required": true
         },
         {
             "name": "FH_STATSD_API_KEY",
-            "value": "test"
+            "value": "test",
+            "required": true
         },
         {
             "name": "FH_SUPERCORE_IMAGE",
             "description": "The name of the fh-supercore image",
-            "value": "docker.io/rhmap/fh-supercore"
+            "value": "docker.io/rhmap/fh-supercore",
+            "required": true
         },
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "3.21.2-2545"
+            "value": "3.21.2-2545",
+            "required": true
         },
         {
             "name": "CLUSTER_NAME",
             "description": "The name of this RHMAP Core cluster",
-            "value": "rhmap"
+            "value": "rhmap",
+            "required": true
         },
         {
             "name": "MONGODB_FHSUPERCORE_USER",
             "description": "The MongoDB username for fh-supercore",
-            "value": "u-supercore"
+            "value": "u-supercore",
+            "required": true
         },
         {
             "name": "MONGODB_FHSUPERCORE_PASSWORD",
             "description": "The MongoDB password for fh-supercore",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "REDIS_PASSWORD",
-            "description": "The Redis password for fh-supercore"
+            "description": "The Redis password for fh-supercore",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "FH_MILLICORE_API_KEY",
             "description": "Key for communicating with the millicore Service",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "REDIS_SERVICE_NAME",
             "description": "The redis service name",
-            "value": "redis"
+            "value": "redis",
+            "required": true
         },
         {
             "name": "FH_MILLICORE_SERVICE_KEY",
             "description": "Key for communicating with the millicore Service",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "FH_AAA_SERVICE_HOST",
-            "value": "fh-aaa"
+            "value": "fh-aaa",
+            "required": true
         },
         {
             "name": "GITLAB_SHELL_IMAGE",
             "description": "The name of the gitlab-shell image",
-            "value": "docker.io/rhmap/gitlab-shell"
+            "value": "docker.io/rhmap/gitlab-shell",
+            "required": true
         },
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.0.0.pre-40"
+            "value": "2.0.0.pre-40",
+            "required": true
         },
         {
             "name": "GITLAB_SHELL_PVC_SIZE",
             "description": "The size in bytes of the volume for repositories. Can be unadorned integers, or fixed-point integers with one of these SI suffices (E, P, T, G, M, K, m) or their power-of-two equivalents (Ei, Pi, Ti, Gi, Mi, Ki). For example, the following represent roughly the same value: 128974848, 129e6, 129M , 123Mi. Small quantities can be represented directly as decimals (e.g., 0.3), or using milli-units (e.g., 300m).",
-            "value": "5Gi"
+            "value": "5Gi",
+            "required": true
         },
         {
             "name": "GITLAB_MILLICORE_AUTH_URL",
             "description": "The URL that GitLab is exposed at",
-            "value": "http://millicore:8080/box/api/gls/"
+            "value": "http://millicore:8080/box/api/gls/",
+            "required": true
         },
         {
             "name": "GIT_REPO_ROOT",
             "description": "Path to data folder that would contain repositories and all other required files",
-            "value": "/home/git/data"
+            "value": "/home/git/data",
+            "required": true
         },
         {
             "name": "SSH_SECRETS_DIR",
             "description": "Mount path for ssh keys",
-            "value": "/etc/feedhenry/gitlab-shell"
+            "value": "/etc/feedhenry/gitlab-shell",
+            "required": true
         },
         {
             "name": "GITLAB_MILLICORE_SERVICE_KEY",
             "description": "Service key used to call millicore http api",
-            "value": "SERVICE_KEY"
+            "value": "SERVICE_KEY",
+            "required": true
         },
         {
             "name": "GIT_HTTP_HOST",
-            "description": "External dns name that would be setup for router"
+            "description": "External dns name that would be setup for router",
+            "required": true
         },
         {
             "name": "HTTPD_IMAGE",
             "description": "The name of the httpd proxy image used to serve git repositories",
-            "value": "docker.io/rhmap/httpd24"
+            "value": "docker.io/rhmap/httpd24",
+            "required": true
         },
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-40"
+            "value": "2.4-40",
+            "required": true
         },
         {
             "name": "MILLICORE_HTTP_HOST",
             "description": "Internal hostname for millicore http service",
-            "value": "millicore:8080"
+            "value": "millicore:8080",
+            "required": true
         },
         {
             "name": "HTTP_REPO_ROOT",
             "description": "Git repository mount directory for apache httpd",
-            "value": "/srv"
+            "value": "/srv",
+            "required": true
         },
         {
             "name": "HTTPD_LOG_LEVEL",
             "description": "Apache log level",
-            "value": "info"
+            "value": "info",
+            "required": true
         },
         {
             "name": "UPS_IMAGE",
@@ -1578,23 +1624,27 @@
         {
             "name": "UPS_USER",
             "description": "MYSQL database user",
-            "value": "unifiedpush"
+            "value": "unifiedpush",
+            "required": true
         },
         {
             "name": "UPS_PASSWORD",
             "description": "MYSQL database password",
             "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
         },
         {
             "name": "UPS_DATABASE",
             "description": "MYSQL database",
-            "value": "unifiedpush"
+            "value": "unifiedpush",
+            "required": true
         },
         {
             "name": "MYSQL_HOST",
             "description": "MYSQL database host",
-            "value": "mysql"
+            "value": "mysql",
+            "required": true
         }
     ]
 }

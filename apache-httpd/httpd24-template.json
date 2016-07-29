@@ -168,46 +168,54 @@
   "parameters": [
     {
       "name": "CLUSTER_HOST",
-      "value": "rhmap.feedhenry.local"
+      "value": "rhmap.feedhenry.local",
+      "require": true
     },
     {
       "name": "HTTPD_SERVICE_NAME",
       "displayName": "Service Name",
       "description": "The name of the OpenShift Service for httpd server.",
-      "value": "httpd"
+      "value": "httpd",
+      "require": true
     },
     {
       "name": "HTTPD_IMAGE",
       "value": "docker.io/rhmap/httpd24",
-      "description": "The name of the image"
+      "description": "The name of the image",
+      "require": true
     },
     {
       "name": "HTTPD_IMAGE_VERSION",
       "value": "2.4-40",
-      "description": "The version for the HTTPD_IMAGE"
+      "description": "The version for the HTTPD_IMAGE",
+      "require": true
     },
     {
       "name": "MILLICORE_AJP_HOST",
       "value": "millicore:8009",
       "displayName": "Millicore AJP host",
-      "description": "Internal hostname for millicore AJP service"
+      "description": "Internal hostname for millicore AJP service",
+      "require": true
     },
     {
       "name": "SUPERCORE_HOST",
       "value": "fh-supercore:8080",
       "displayName": "Supercore host",
-      "description": "Internal hostname with port for supercore service"
+      "description": "Internal hostname with port for supercore service",
+      "require": true
     },
     {
       "name": "NGUI_HOST",
       "value": "fh-ngui:8080",
       "displayName": "fh-ngui url",
-      "description": "Internal hostname for fh-ngui"
+      "description": "Internal hostname for fh-ngui",
+      "require": true
     },
     {
       "name": "APP_STORE_HOST",
       "value": "fh-appstore:8080",
-      "description": ""
+      "description": "",
+      "require": true
     },
     {
       "name": "NAGIOS_HOST",
@@ -218,13 +226,15 @@
       "name": "BUILDER_SERVICE_URL",
       "value": "http://example.com",
       "displayName": "Digger hostname",
-      "description": "Service for mobile app builder (Digger)"
+      "description": "Service for mobile app builder (Digger)",
+      "require": true
     },
     {
       "name": "HTTPD_LOG_LEVEL",
       "value": "info",
       "displayName": "Log level",
-      "description": "Apache log level"
+      "description": "Apache log level",
+      "require": true
     }
   ],
   "labels": {

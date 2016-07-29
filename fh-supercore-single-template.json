@@ -12,22 +12,26 @@
   "parameters": [
     {
       "name": "FH_STATSD_API_KEY",
-      "value": "test"
+      "value": "test",
+      "required": true
     },
     {
       "name": "FH_SUPERCORE_IMAGE",
       "value": "docker.io/rhmap/fh-supercore",
-      "description": "The name of the fh-supercore image"
+      "description": "The name of the fh-supercore image",
+      "required": true
     },
     {
       "name": "FH_SUPERCORE_IMAGE_VERSION",
       "value": "3.21.2-2545",
-      "description": "The version for the FH_SUPERCORE_IMAGE"
+      "description": "The version for the FH_SUPERCORE_IMAGE",
+      "required": true
     },
     {
       "name": "CLUSTER_NAME",
       "value": "rhmap",
-      "description": "The name of this RHMAP Core cluster"
+      "description": "The name of this RHMAP Core cluster",
+      "required": true
     },
     {
       "name": "FH_LOG_LEVEL",
@@ -37,41 +41,49 @@
     {
       "name": "MONGODB_FHSUPERCORE_USER",
       "value": "u-supercore",
-      "description": "The MongoDB username for fh-supercore"
+      "description": "The MongoDB username for fh-supercore",
+      "required": true
     },
     {
       "name": "MONGODB_FHSUPERCORE_PASSWORD",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "The MongoDB password for fh-supercore"
+      "description": "The MongoDB password for fh-supercore",
+      "required": true
     },
     {
       "name": "REDIS_PASSWORD",
-      "value": null,
-      "description": "The Redis password for fh-supercore"
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "The Redis password for fh-supercore",
+      "required": true
     },
     {
       "name": "FH_MESSAGING_API_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the FH_MESSAGING Service"
+      "description": "Key for communicating with the FH_MESSAGING Service",
+      "required": true
     },
     {
       "name": "FH_METRICS_API_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the FH_METRICS Service"
+      "description": "Key for communicating with the FH_METRICS Service",
+      "required": true
     },
     {
       "name": "FH_MILLICORE_API_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the millicore Service"
+      "description": "Key for communicating with the millicore Service",
+      "required": true
     },
     {
       "name": "MEMCACHED_SERVICE_NAME",
       "value": "memcached",
-      "description": "The memcached service name"
+      "description": "The memcached service name",
+      "required": true
     },
     {
       "name": "MONGODB_SERVICE_NAME",
@@ -81,17 +93,20 @@
     {
       "name": "REDIS_SERVICE_NAME",
       "value": "redis",
-      "description": "The redis service name"
+      "description": "The redis service name",
+      "required": true
     },
     {
       "name": "FH_MILLICORE_SERVICE_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the millicore Service"
+      "description": "Key for communicating with the millicore Service",
+      "required": true
     },
     {
       "name": "FH_AAA_SERVICE_HOST",
-      "value": "fh-aaa"
+      "value": "fh-aaa",
+      "required": true
     }
   ],
   "objects": [

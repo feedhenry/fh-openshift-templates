@@ -149,34 +149,40 @@
     {
       "name": "MONGODB_FHREPORTING_USER",
       "value": "u-reporting",
-      "description": "The Reporting user name"
+      "description": "The Reporting user name",
+      "required": true
     },
     {
       "name": "MONGODB_FHREPORTING_PASSWORD",
       "description": "The MongoDB Reporting password",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "from": "[a-zA-Z0-9]{40}",
+      "required": true
     },
     {
       "name": "FH_METRICS_IMAGE",
       "value": "docker.io/rhmap/fh-metrics",
-      "description": "The name of the fh-metrics image"
+      "description": "The name of the fh-metrics image",
+      "required": true
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
       "value": "2.2.0-394",
-      "description": "The version for the FH_METRICS_IMAGE"
+      "description": "The version for the FH_METRICS_IMAGE",
+      "required": true
     },
     {
       "name": "FH_METRICS_API_KEY",
       "description": "Key for communicating with the FH_METRICS Service",
       "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "from": "[a-zA-Z0-9]{40}",
+      "required": true
     },
     {
       "name": "FH_DEFAULT_LOG_LEVEL",
       "description": "A default log level for all MBaaS components",
-      "value": "info"
+      "value": "info",
+      "required": true
     }
   ]
 }

@@ -25,17 +25,20 @@
     {
       "name": "FH_LOG_LEVEL",
       "value": "info",
-      "description": "A default log level for all components"
+      "description": "A default log level for all components",
+      "required": true
     },
     {
       "name": "FH_MILLICORE_SERVICE_HOST",
       "value": "millicore",
-      "description": "TODO: remove references to me once millicore is running on OpenShift"
+      "description": "TODO: remove references to me once millicore is running on OpenShift",
+      "required": true
     },
     {
       "name": "FH_MILLICORE_SERVICE_PORT",
       "value": "8080",
-      "description": "TODO: remove references to me once millicore is running on OpenShift"
+      "description": "TODO: remove references to me once millicore is running on OpenShift",
+      "required": true
     }
   ],
   "objects": [
