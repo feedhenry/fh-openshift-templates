@@ -147,6 +147,12 @@
   ],
   "parameters": [
     {
+      "name": "FH_MBAASID",
+      "description": "id of the mbaas generated.",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{20}"
+    },
+    {
       "name": "MONGODB_FHREPORTING_USER",
       "value": "u-reporting",
       "description": "The Reporting user name",

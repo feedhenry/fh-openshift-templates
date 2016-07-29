@@ -1417,6 +1417,12 @@
             "required": true
         },
         {
+            "name": "FH_MBAASID",
+            "description": "id of the mbaas generated.",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{20}"
+        },
+        {
             "name": "FH_METRICS_IMAGE",
             "description": "The name of the fh-metrics image",
             "value": "docker.io/rhmap/fh-metrics",
