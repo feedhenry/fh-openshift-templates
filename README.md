@@ -80,11 +80,17 @@ Productization will have new images less frequently, and will follow this flow:
 
 ## setup a local core
 
+Start by creating openshift VM following this guide (setup section only): https://github.com/fheng/help/blob/master/developer_guides/rhmap_openshift/rhmap_on_openshift.md#setup.
+
+Clone this repository to folder specified in `<fhcap>/roles/dev.json` under `default_attributes/host_src_dir`.
+
+Run `vagrant ssh` from `<fhcap>/flavours/rhel_openshift3/`. Run `oc login` and login as `test` user with password `test`.
+
 Note: When using scripts on mac ssed tool should be installed. By default sed command is used for different purpose:
 
     brew install ssed
     alias sed='ssed'
-    
+
 Note: If you want to deploy the core cluster to a remote openshift instance, the `local.feedhenry.io` addresses in `scripts/core/variables.sh` need to change to reflect the DNS address of your cluster (e.g. osm.skunkhenry.com)
 
 Note: You will need a number of `Available` Persistent Volumes. The size of these may vary depending on the Pod requirement, but having enough of the minimum requirement should be sufficient (having a PV that is larger than the required amount is OK). If no PV's are available in the dev vm, the sample pvs.yaml file can be used to create a range of PV's (e.g. 10x1Gi, 10x2Gi, 10x5Gi, 10x25Gi, 10x50Gi)
@@ -141,3 +147,9 @@ sudo oc adm policy add-scc-to-user anyuid-with-chroot \
 Note: the login credentials for the Nagios dashboard in a development environment are set in `./variables.sh` to nagiosadmin/password. You can access the Nagios dashboard from the exposed Nagios route i.e. https://nagios-rhmap.local.feedhenry.io/ in a local development VM.
 
 * When all Pods are successfully running, and all Nagios checks are passing (may take a few minutes for all checks to run at least once) you should be able to login to http://rhmap.local.feedhenry.io as rhmap-admin@example.com/Password1
+
+### troubleshooting
+
+* After `./infra.sh` you may run into a problem when mongodb-initiator ends with an error. To resolve this run `oc delete dc mongodb-1`, `oc delete pod mongodb-initiator --grace-period=0` and then run `./infra.sh` again.
+
+* During setup there may be a problem caused by slow pull of images from docker. To resolve this delete the whole project and create it again.
