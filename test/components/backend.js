@@ -23,6 +23,29 @@ module.exports = {
     }]
   },
 
+  metrics: {
+    'fh-metrics': [require('../../fh-metrics-single-template.json'), {
+      ports: [
+        {containerPort: 8080}
+      ],
+      ignoreEnv: [
+        "MONGODB_FHREPORTING_DATABASE"
+      ]
+    }]
+  },
+
+  messaging: {
+    'fh-messaging': [require('../../fh-messaging-single-template.json'), {
+      ports: [
+        {containerPort: 8080}
+      ],
+      ignoreEnv: [
+        "FH_MESSAGING_CRON",
+        "MONGODB_FHREPORTING_DATABASE"
+      ]
+    }]
+  },
+
   supercore: {
     'fh-supercore': [require('../../fh-supercore-single-template.json'), {
       ports: [
@@ -50,7 +73,8 @@ module.exports = {
   gitlab: {
     'gitlab-shell': [require('../../gitlab-shell/gitlab-shell-single-template.json'), {
       ports: [
-        {containerPort: 22}
+        {containerPort: 22},
+        {containerPort: 8080}
       ]
     }]
   },
@@ -60,7 +84,7 @@ module.exports = {
       this.aaa,
       this.scm,
       this.supercore,
-      this.messagingMetrics,
+      this.metrics,
       this.gitlab
     );
 

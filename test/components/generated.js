@@ -20,7 +20,9 @@ module.exports =  {
         "MEMCACHED_SERVICE_HOST",
         "FH_SCM_FILE_SERVER_PATH",
         "FH_SCM_FILE_SERVER_BACKUP",
-        "FH_SCM_FILE_SERVER_KEY_STORE"
+        "FH_SCM_FILE_SERVER_KEY_STORE",
+        "FH_MESSAGING_CRON",
+        "MONGODB_FHREPORTING_DATABASE"
       ]
     }]
   },
