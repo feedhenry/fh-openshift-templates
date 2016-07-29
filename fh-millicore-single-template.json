@@ -67,12 +67,12 @@
     },
     {
       "name": "FH_ADMIN_USER_NAME",
-      "required": true
+      "required": true,
       "value": "rhmap-admin@example.com",
       "description": "Millicore reseller admin user"
     },
     {
-      "name": "FH_ADMIN_USER_PASSWORD,
+      "name": "FH_ADMIN_USER_PASSWORD",
       "required": true,
       "description": "The reseller Admin password",
       "generate": "expression",

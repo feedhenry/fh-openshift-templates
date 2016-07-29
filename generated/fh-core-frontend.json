@@ -265,192 +265,6 @@
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${HTTPD_SERVICE_NAME}",
-                "creationTimestamp": null
-            },
-            "spec": {
-                "ports": [
-                    {
-                        "name": "server-http-port",
-                        "protocol": "TCP",
-                        "port": 80,
-                        "targetPort": 80
-                    }
-                ],
-                "selector": {
-                    "name": "${HTTPD_SERVICE_NAME}"
-                },
-                "type": "ClusterIP",
-                "sessionAffinity": "None"
-            },
-            "status": {
-                "loadBalancer": {}
-            }
-        },
-        {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${HTTPD_SERVICE_NAME}-proxy-route",
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "${HTTPD_SERVICE_NAME}"
-                }
-            },
-            "spec": {
-                "host": "${CLUSTER_HOST}",
-                "to": {
-                    "kind": "Service",
-                    "name": "${HTTPD_SERVICE_NAME}"
-                },
-                "port": {
-                    "targetPort": "server-http-port"
-                },
-                "tls": {
-                    "termination": "edge",
-                    "insecureEdgeTerminationPolicy": "Allow"
-                }
-            },
-            "status": {
-                "ingress": null
-            }
-        },
-        {
-            "kind": "DeploymentConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${HTTPD_SERVICE_NAME}",
-                "creationTimestamp": null,
-                "labels": {
-                    "name": "${HTTPD_SERVICE_NAME}"
-                }
-            },
-            "spec": {
-                "strategy": {
-                    "type": "Rolling",
-                    "rollingParams": {
-                        "updatePeriodSeconds": 1,
-                        "intervalSeconds": 1,
-                        "timeoutSeconds": 600,
-                        "maxUnavailable": "25%",
-                        "maxSurge": "25%"
-                    },
-                    "resources": {}
-                },
-                "triggers": [
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
-                "test": false,
-                "selector": {
-                    "name": "${HTTPD_SERVICE_NAME}"
-                },
-                "template": {
-                    "metadata": {
-                        "creationTimestamp": null,
-                        "labels": {
-                            "name": "${HTTPD_SERVICE_NAME}"
-                        }
-                    },
-                    "spec": {
-                        "volumes": [
-                            {
-                                "name": "sdk-templates-root",
-                                "emptyDir": {}
-                            }
-                        ],
-                        "containers": [
-                            {
-                                "name": "${HTTPD_SERVICE_NAME}",
-                                "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
-                                "ports": [
-                                    {
-                                        "containerPort": 80,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "env": [
-                                    {
-                                        "name": "MILLICORE_AJP_HOST",
-                                        "value": "${MILLICORE_AJP_HOST}"
-                                    },
-                                    {
-                                        "name": "SUPERCORE_HOST",
-                                        "value": "${SUPERCORE_HOST}"
-                                    },
-                                    {
-                                        "name": "NGUI_HOST",
-                                        "value": "${NGUI_HOST}"
-                                    },
-                                    {
-                                        "name": "APP_STORE_HOST",
-                                        "value": "${APP_STORE_HOST}"
-                                    },
-                                    {
-                                        "name": "NAGIOS_HOST",
-                                        "value": "${NAGIOS_HOST}"
-                                    },
-                                    {
-                                        "name": "BUILDER_SERVICE_URL",
-                                        "value": "${BUILDER_SERVICE_URL}"
-                                    },
-                                    {
-                                        "name": "HTTPD_LOG_LEVEL",
-                                        "value": "${HTTPD_LOG_LEVEL}"
-                                    }
-                                ],
-                                "resources": {},
-                                "volumeMounts": [
-                                    {
-                                        "name": "sdk-templates-root",
-                                        "mountPath": "/opt/rh/httpd24/root/opt/feedhenry/latest"
-                                    }
-                                ],
-                                "livenessProbe": {
-                                    "httpGet": {
-                                        "path": "/health",
-                                        "port": 80,
-                                        "scheme": "HTTP"
-                                    },
-                                    "initialDelaySeconds": 600,
-                                    "timeoutSeconds": 5,
-                                    "periodSeconds": 60,
-                                    "successThreshold": 1,
-                                    "failureThreshold": 2
-                                },
-                                "readinessProbe": {
-                                    "httpGet": {
-                                        "path": "/health",
-                                        "port": 80,
-                                        "scheme": "HTTP"
-                                    },
-                                    "initialDelaySeconds": 10,
-                                    "timeoutSeconds": 5,
-                                    "periodSeconds": 10,
-                                    "successThreshold": 1,
-                                    "failureThreshold": 1
-                                },
-                                "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "IfNotPresent"
-                            }
-                        ],
-                        "restartPolicy": "Always",
-                        "terminationGracePeriodSeconds": 30,
-                        "dnsPolicy": "ClusterFirst",
-                        "securityContext": {
-                            "runAsUser": 0
-                        }
-                    }
-                }
-            },
-            "status": {}
-        },
-        {
-            "kind": "Service",
-            "apiVersion": "v1",
-            "metadata": {
                 "name": "millicore",
                 "creationTimestamp": null,
                 "labels": {
@@ -511,81 +325,91 @@
             }
         },
         {
-            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "name": "${HTTPD_SERVICE_NAME}"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "server-http-port",
+                        "port": "${HTTPD_PROXY_PORT}"
+                    }
+                ],
+                "selector": {
+                    "name": "millicore"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "metrics-backup-log-data"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${METRICS_BACKUP_LOG_PVC_SIZE}"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "Route",
             "apiVersion": "v1",
             "metadata": {
-                "name": "millicore",
+                "name": "${HTTPD_SERVICE_NAME}-proxy-route",
                 "creationTimestamp": null,
                 "labels": {
-                    "name": "millicore"
+                    "app": "${HTTPD_SERVICE_NAME}"
                 }
             },
             "spec": {
-                "strategy": {
-                    "type": "Rolling",
-                    "rollingParams": {
-                        "updatePeriodSeconds": 1,
-                        "intervalSeconds": 1,
-                        "timeoutSeconds": 600,
-                        "maxUnavailable": "25%",
-                        "maxSurge": "25%"
-                    },
-                    "resources": {}
+                "host": "${CLUSTER_HOST}",
+                "to": {
+                    "kind": "Service",
+                    "name": "${HTTPD_SERVICE_NAME}"
                 },
-                "triggers": [
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
+                "port": {
+                    "targetPort": "server-http-port"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Allow"
+                }
+            },
+            "status": {
+                "ingress": null
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "labels": {
+                    "name": "millicore"
+                },
+                "name": "millicore"
+            },
+            "spec": {
                 "replicas": 1,
-                "test": false,
                 "selector": {
                     "name": "millicore"
                 },
                 "template": {
                     "metadata": {
-                        "creationTimestamp": null,
                         "labels": {
                             "name": "millicore"
                         }
                     },
                     "spec": {
-                        "volumes": [
-                            {
-                                "name": "git-ssh-keys-volume",
-                                "secret": {
-                                    "secretName": "gitlab-ssh"
-                                }
-                            },
-                            {
-                                "name": "config-volume",
-                                "secret": {
-                                    "secretName": "millicore-config"
-                                }
-                            },
-                            {
-                                "name": "templates-and-sdks",
-                                "emptyDir": {}
-                            }
-                        ],
                         "containers": [
                             {
-                                "name": "millicore",
-                                "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
-                                "ports": [
-                                    {
-                                        "containerPort": 8080,
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "containerPort": 514,
-                                        "protocol": "UDP"
-                                    },
-                                    {
-                                        "containerPort": 8009,
-                                        "protocol": "TCP"
-                                    }
-                                ],
                                 "env": [
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
@@ -732,79 +556,194 @@
                                         "value": "${CONFIGURATION_FOLDER}"
                                     }
                                 ],
-                                "resources": {},
-                                "volumeMounts": [
-                                    {
-                                        "name": "git-ssh-keys-volume",
-                                        "readOnly": true,
-                                        "mountPath": "/etc/feedhenry/gitlab-shell"
-                                    },
-                                    {
-                                        "name": "config-volume",
-                                        "readOnly": true,
-                                        "mountPath": "${CONFIGURATION_FOLDER}"
-                                    },
-                                    {
-                                        "name": "templates-and-sdks",
-                                        "readOnly": true,
-                                        "mountPath": "${FEEDHENRY_SDKS_DIR}"
-                                    }
-                                ],
+                                "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
+                                "imagePullPolicy": "IfNotPresent",
                                 "livenessProbe": {
+                                    "failureThreshold": 2,
                                     "httpGet": {
                                         "path": "/box/api/sys/info/ping",
-                                        "port": 8080,
-                                        "scheme": "HTTP"
+                                        "port": 8080
                                     },
                                     "initialDelaySeconds": 600,
-                                    "timeoutSeconds": 5,
                                     "periodSeconds": 60,
                                     "successThreshold": 1,
-                                    "failureThreshold": 2
+                                    "timeoutSeconds": 5
                                 },
+                                "name": "millicore",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080
+                                    },
+                                    {
+                                        "containerPort": 514,
+                                        "protocol": "UDP"
+                                    },
+                                    {
+                                        "containerPort": 8009
+                                    }
+                                ],
                                 "readinessProbe": {
+                                    "failureThreshold": 1,
                                     "httpGet": {
                                         "path": "/box/api/sys/info/ping",
-                                        "port": 8080,
-                                        "scheme": "HTTP"
+                                        "port": 8080
                                     },
                                     "initialDelaySeconds": 100,
-                                    "timeoutSeconds": 5,
                                     "periodSeconds": 10,
                                     "successThreshold": 1,
-                                    "failureThreshold": 1
+                                    "timeoutSeconds": 5
                                 },
-                                "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "IfNotPresent"
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/feedhenry/gitlab-shell",
+                                        "name": "git-ssh-keys-volume",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "${CONFIGURATION_FOLDER}",
+                                        "name": "config-volume",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "${FEEDHENRY_SDKS_DIR}",
+                                        "name": "templates-and-sdks",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/var/log/feedhenry/metrics",
+                                        "name": "metrics-backup-log-volume"
+                                    }
+                                ]
                             },
                             {
-                                "name": "feedhenry-sdks",
-                                "image": "${FEEDHENRY_SDKS_IMAGE}:${FEEDHENRY_SDKS_IMAGE_VERSION}",
+                                "env": [
+                                    {
+                                        "name": "MILLICORE_AJP_HOST",
+                                        "value": "${MILLICORE_AJP_HOST}"
+                                    },
+                                    {
+                                        "name": "SUPERCORE_HOST",
+                                        "value": "${SUPERCORE_HOST}"
+                                    },
+                                    {
+                                        "name": "NGUI_HOST",
+                                        "value": "${NGUI_HOST}"
+                                    },
+                                    {
+                                        "name": "APP_STORE_HOST",
+                                        "value": "${APP_STORE_HOST}"
+                                    },
+                                    {
+                                        "name": "BUILDER_SERVICE_URL",
+                                        "value": "${BUILDER_SERVICE_URL}"
+                                    },
+                                    {
+                                        "name": "HTTPD_LOG_LEVEL",
+                                        "value": "${HTTPD_LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "HTTPD_PROXY_PORT",
+                                        "value": "${HTTPD_PROXY_PORT}"
+                                    },
+                                    {
+                                        "name": "PLATFORM_DOCUMENT_ROOT",
+                                        "value": "${PLATFORM_DOCUMENT_ROOT}"
+                                    },
+                                    {
+                                        "name": "TEMPLATES_SDK_FOLDER",
+                                        "value": "${TEMPLATES_SDK_FOLDER}"
+                                    }
+                                ],
+                                "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
+                                "livenessProbe": {
+                                    "failureThreshold": 2,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8010
+                                    },
+                                    "initialDelaySeconds": 600,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "name": "${HTTPD_SERVICE_NAME}",
+                                "ports": [
+                                    {
+                                        "containerPort": "${HTTPD_PROXY_PORT}"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 1,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8010
+                                    },
+                                    "initialDelaySeconds": 10,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "securityContext": {
+                                    "runAsUser": 0
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "${PLATFORM_DOCUMENT_ROOT}/${TEMPLATES_SDK_FOLDER}",
+                                        "name": "templates-and-sdks",
+                                        "readOnly": false
+                                    }
+                                ]
+                            },
+                            {
                                 "env": [
                                     {
                                         "name": "FEEDHENRY_SDKS_DIR",
                                         "value": "${FEEDHENRY_SDKS_DIR}"
                                     }
                                 ],
-                                "resources": {},
+                                "image": "${FEEDHENRY_SDKS_IMAGE}:${FEEDHENRY_SDKS_IMAGE_VERSION}",
+                                "name": "feedhenry-sdks",
                                 "volumeMounts": [
                                     {
+                                        "mountPath": "${FEEDHENRY_SDKS_DIR}",
                                         "name": "templates-and-sdks",
-                                        "mountPath": "${FEEDHENRY_SDKS_DIR}"
+                                        "readOnly": false
                                     }
-                                ],
-                                "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "IfNotPresent"
+                                ]
                             }
                         ],
-                        "restartPolicy": "Always",
-                        "terminationGracePeriodSeconds": 30,
-                        "dnsPolicy": "ClusterFirst",
-                        "securityContext": {}
+                        "volumes": [
+                            {
+                                "name": "git-ssh-keys-volume",
+                                "secret": {
+                                    "secretName": "gitlab-ssh"
+                                }
+                            },
+                            {
+                                "name": "config-volume",
+                                "secret": {
+                                    "secretName": "millicore-config"
+                                }
+                            },
+                            {
+                                "emptyDir": {},
+                                "name": "templates-and-sdks"
+                            },
+                            {
+                                "name": "metrics-backup-log-volume",
+                                "persistentVolumeClaim": {
+                                    "claimName": "metrics-backup-log-data"
+                                }
+                            }
+                        ]
                     }
-                }
-            },
-            "status": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
         }
     ],
     "parameters": [
@@ -817,13 +756,14 @@
         {
             "name": "FH_APPSTORE_IMAGE_VERSION",
             "description": "The version for the FH_APPSTORE_IMAGE",
-            "value": "1.0.6-83",
+            "value": "1.1.0-97",
             "required": true
         },
         {
             "name": "FH_LOG_LEVEL",
             "description": "A default log level for all components",
-            "value": "info"
+            "value": "info",
+            "required": true
         },
         {
             "name": "FH_NGUI_IMAGE",
@@ -834,18 +774,256 @@
         {
             "name": "FH_NGUI_IMAGE_VERSION",
             "description": "The version for the FH_NGUI_IMAGE",
-            "value": "4.11.2-2824",
+            "value": "4.11.3-2829",
             "required": true
         },
         {
             "name": "FH_MILLICORE_SERVICE_HOST",
             "description": "TODO: remove references to me once millicore is running on OpenShift",
-            "value": "millicore"
+            "value": "millicore",
+            "required": true
         },
         {
             "name": "FH_MILLICORE_SERVICE_PORT",
             "description": "TODO: remove references to me once millicore is running on OpenShift",
-            "value": "8080"
+            "value": "8080",
+            "required": true
+        },
+        {
+            "name": "MILLICORE_IMAGE",
+            "description": "Millicore docker image",
+            "value": "docker.io/rhmap/millicore",
+            "required": true
+        },
+        {
+            "name": "MILLICORE_IMAGE_VERSION",
+            "description": "Millicore image version",
+            "value": "7.32.0-2291",
+            "required": true
+        },
+        {
+            "name": "MONGODB_SERVICE_NAME",
+            "displayName": "Mongodb Service Name",
+            "description": "The name of the OpenShift Service exposed for mongodb.",
+            "value": "mongodb-1",
+            "required": true
+        },
+        {
+            "name": "MONGODB_ADMIN_PASSWORD",
+            "description": "The MongoDB Admin password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
+        },
+        {
+            "name": "FEEDHENRY_SDKS_IMAGE",
+            "description": "FeedHenry SDKs and templates image name",
+            "value": "docker.io/rhmap/feedhenry-sdks",
+            "required": true
+        },
+        {
+            "name": "FEEDHENRY_SDKS_IMAGE_VERSION",
+            "description": "FeedHenry SDKs and templates image version",
+            "value": "54",
+            "required": true
+        },
+        {
+            "name": "FEEDHENRY_SDKS_DIR",
+            "description": "FeedHenry SDKs and templates path",
+            "value": "/feedhenry-sdks",
+            "required": true
+        },
+        {
+            "name": "FH_SYS_ADMIN_USER_NAME",
+            "description": "Millicore system admin user",
+            "value": "admin@example.com"
+        },
+        {
+            "name": "FH_SYS_ADMIN_USER_PASSWORD",
+            "description": "The System Admin password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{24}"
+        },
+        {
+            "name": "FH_ADMIN_USER_NAME",
+            "description": "Millicore reseller admin user",
+            "value": "rhmap-admin@example.com",
+            "required": true
+        },
+        {
+            "name": "FH_ADMIN_USER_PASSWORD",
+            "description": "The reseller Admin password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{24}",
+            "required": true
+        },
+        {
+            "name": "FH_DOMAIN_NAME",
+            "description": "Customer subdomain name",
+            "value": "rhmap",
+            "required": true
+        },
+        {
+            "name": "MYSQL_USER",
+            "description": "MYSQL database user",
+            "value": "coreadmin",
+            "required": true
+        },
+        {
+            "name": "MYSQL_PASSWORD",
+            "description": "MYSQL database password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
+        },
+        {
+            "name": "MYSQL_HOST",
+            "description": "MYSQL database host",
+            "value": "mysql",
+            "required": true
+        },
+        {
+            "name": "MYSQL_PORT",
+            "description": "MYSQL database port",
+            "value": "3306",
+            "required": true
+        },
+        {
+            "name": "MYSQL_DB_NAME",
+            "description": "Name of MYSQL database",
+            "value": "shard0",
+            "required": true
+        },
+        {
+            "name": "MEMCACHED_SERVICE_HOST",
+            "description": "Memcached service host",
+            "value": "memcached",
+            "required": true
+        },
+        {
+            "name": "MEMCACHED_SERVICE_PORT",
+            "description": "Memcached service port",
+            "value": "11211",
+            "required": true
+        },
+        {
+            "name": "FH_AAA_SERVICE_HOST",
+            "description": "fh-aaa service host",
+            "value": "fh-aaa",
+            "required": true
+        },
+        {
+            "name": "FH_AAA_SERVICE_PORT",
+            "description": "fh-aaa service port",
+            "value": "8080",
+            "required": true
+        },
+        {
+            "name": "FH_GIT_SERVICE_HOST",
+            "description": "Git access host (including port)",
+            "value": "gitlab-shell",
+            "required": true
+        },
+        {
+            "name": "BUILDER_ANDROID_SERVICE_HOST",
+            "description": "Build farm android url"
+        },
+        {
+            "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
+            "description": "Build farm blackberry url"
+        },
+        {
+            "name": "BUILDER_IPHONE_SERVICE_HOST",
+            "description": "Build farm iphone url"
+        },
+        {
+            "name": "BUILDER_WINPHONE_SERVICE_HOST",
+            "description": "Build farm winphone url"
+        },
+        {
+            "name": "CLUSTER_NAME",
+            "description": "Cluster name",
+            "value": "rhmap",
+            "required": true
+        },
+        {
+            "name": "CLUSTER_DOMAIN",
+            "description": "Full domain used for build purposes",
+            "value": "local.feedhenry.io",
+            "required": true
+        },
+        {
+            "name": "KEYCLOAK_SERVICE_HOST",
+            "description": "Keycloak service host",
+            "value": "ups",
+            "required": true
+        },
+        {
+            "name": "KEYCLOAK_SERVICE_PORT",
+            "description": "Keycloak service port",
+            "value": "8080",
+            "required": true
+        },
+        {
+            "name": "MESSAGE_SERVER_SERVICE_HOST",
+            "description": "Internal feedhenry message server host",
+            "value": "fh-messaging",
+            "required": true
+        },
+        {
+            "name": "MESSAGE_SERVER_SERVICE_PORT",
+            "description": "Internal feedhenry message server ports",
+            "value": "8080",
+            "required": true
+        },
+        {
+            "name": "FH_MESSAGING_API_KEY",
+            "description": "Key for communicating with the FH_MESSAGING Service",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
+        },
+        {
+            "name": "FH_SCM_SERVICE_HOST",
+            "description": "FH-SCM host",
+            "value": "fh-scm",
+            "required": true
+        },
+        {
+            "name": "FH_SCM_SERVICE_PORT",
+            "description": "FH-SCM port",
+            "value": "8080",
+            "required": true
+        },
+        {
+            "name": "SUPERCORE_SERVICE_HOST",
+            "description": "Supercore host",
+            "value": "fh-supercore",
+            "required": true
+        },
+        {
+            "name": "SUPERCORE_SERVICE_PORT",
+            "description": "Supercore port",
+            "value": "8080",
+            "required": true
+        },
+        {
+            "name": "FH_SUPERCORE_API_KEY",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
+        },
+        {
+            "name": "CONFIGURATION_FOLDER",
+            "description": "Folder to mount configuration including service keys",
+            "value": "/etc/feedhenry/core/",
+            "required": true
+        },
+        {
+            "name": "METRICS_BACKUP_LOG_PVC_SIZE",
+            "description": "The size of the volume for millicore metrics backup logs.",
+            "value": "5Gi",
+            "required": true
         },
         {
             "name": "CLUSTER_HOST",
@@ -855,7 +1033,7 @@
             "name": "HTTPD_SERVICE_NAME",
             "displayName": "Service Name",
             "description": "The name of the OpenShift Service for httpd server.",
-            "value": "httpd"
+            "value": "rhmap-proxy"
         },
         {
             "name": "HTTPD_IMAGE",
@@ -865,7 +1043,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-40"
+            "value": "2.4-45"
         },
         {
             "name": "MILLICORE_AJP_HOST",
@@ -890,11 +1068,6 @@
             "value": "fh-appstore:8080"
         },
         {
-            "name": "NAGIOS_HOST",
-            "description": "Internal hostname for Nagios",
-            "value": "nagios:8080"
-        },
-        {
             "name": "BUILDER_SERVICE_URL",
             "displayName": "Digger hostname",
             "description": "Service for mobile app builder (Digger)",
@@ -907,209 +1080,25 @@
             "value": "info"
         },
         {
-            "name": "MILLICORE_IMAGE",
-            "description": "Millicore docker image",
-            "value": "docker.io/rhmap/millicore"
+            "name": "HTTPD_PROXY_PORT",
+            "displayName": "Httpd proxy port",
+            "description": "Httpd proxy port",
+            "value": "8010",
+            "required": true
         },
         {
-            "name": "MILLICORE_IMAGE_VERSION",
-            "description": "Millicore image version",
-            "value": "7.32.0-2291"
+            "name": "PLATFORM_DOCUMENT_ROOT",
+            "displayName": "Document root",
+            "description": "Httpd proxy document root folder",
+            "value": "/opt/rh/httpd24/root/opt/feedhenry",
+            "required": true
         },
         {
-            "name": "MONGODB_SERVICE_NAME",
-            "displayName": "Mongodb Service Name",
-            "description": "The name of the OpenShift Service exposed for mongodb.",
-            "value": "mongodb-1"
-        },
-        {
-            "name": "MONGODB_ADMIN_PASSWORD",
-            "description": "The MongoDB Admin password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
-        },
-        {
-            "name": "FEEDHENRY_SDKS_IMAGE",
-            "description": "FeedHenry SDKs and templates image name",
-            "value": "docker.io/rhmap/feedhenry-sdks"
-        },
-        {
-            "name": "FEEDHENRY_SDKS_IMAGE_VERSION",
-            "description": "FeedHenry SDKs and templates image version",
-            "value": "54"
-        },
-        {
-            "name": "FEEDHENRY_SDKS_DIR",
-            "description": "FeedHenry SDKs and templates path",
-            "value": "/feedhenry-sdks"
-        },
-        {
-            "name": "FH_SYS_ADMIN_USER_NAME",
-            "description": "Millicore system admin user",
-            "value": "admin@example.com"
-        },
-        {
-            "name": "FH_SYS_ADMIN_USER_PASSWORD",
-            "description": "The System Admin password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{24}"
-        },
-        {
-            "name": "FH_ADMIN_USER_NAME",
-            "description": "Millicore reseller admin user",
-            "value": "rhmap-admin@example.com"
-        },
-        {
-            "name": "FH_ADMIN_USER_PASSWORD",
-            "description": "The reseller Admin password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{24}"
-        },
-        {
-            "name": "FH_DOMAIN_NAME",
-            "description": "Customer subdomain name",
-            "value": "rhmap"
-        },
-        {
-            "name": "MYSQL_USER",
-            "description": "MYSQL database user",
-            "value": "coreadmin"
-        },
-        {
-            "name": "MYSQL_PASSWORD",
-            "description": "MYSQL database password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
-        },
-        {
-            "name": "MYSQL_HOST",
-            "description": "MYSQL database host",
-            "value": "mysql"
-        },
-        {
-            "name": "MYSQL_PORT",
-            "description": "MYSQL database port",
-            "value": "3306"
-        },
-        {
-            "name": "MYSQL_DB_NAME",
-            "description": "Name of MYSQL database",
-            "value": "shard0"
-        },
-        {
-            "name": "MEMCACHED_SERVICE_HOST",
-            "description": "Memcached service host",
-            "value": "memcached"
-        },
-        {
-            "name": "MEMCACHED_SERVICE_PORT",
-            "description": "Memcached service port",
-            "value": "11211"
-        },
-        {
-            "name": "FH_DITCH_SERVICE_HOST",
-            "description": "Ditch service host"
-        },
-        {
-            "name": "FH_DITCH_SERVICE_PORT",
-            "description": "Ditch service port"
-        },
-        {
-            "name": "FH_AAA_SERVICE_HOST",
-            "description": "fh-aaa service host",
-            "value": "fh-aaa"
-        },
-        {
-            "name": "FH_AAA_SERVICE_PORT",
-            "description": "fh-aaa service port",
-            "value": "8080"
-        },
-        {
-            "name": "FH_GIT_SERVICE_HOST",
-            "description": "Git access host (including port)",
-            "value": "gitlab-shell"
-        },
-        {
-            "name": "BUILDER_ANDROID_SERVICE_HOST",
-            "description": "Build farm android url"
-        },
-        {
-            "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
-            "description": "Build farm blackberry url"
-        },
-        {
-            "name": "BUILDER_IPHONE_SERVICE_HOST",
-            "description": "Build farm iphone url"
-        },
-        {
-            "name": "BUILDER_WINPHONE_SERVICE_HOST",
-            "description": "Build farm winphone url"
-        },
-        {
-            "name": "CLUSTER_NAME",
-            "description": "Cluster name",
-            "value": "rhmap"
-        },
-        {
-            "name": "CLUSTER_DOMAIN",
-            "description": "Full domain used for build purposes",
-            "value": "local.feedhenry.io"
-        },
-        {
-            "name": "KEYCLOAK_SERVICE_HOST",
-            "description": "Keycloak service host",
-            "value": "ups"
-        },
-        {
-            "name": "KEYCLOAK_SERVICE_PORT",
-            "description": "Keycloak service port",
-            "value": "8080"
-        },
-        {
-            "name": "MESSAGE_SERVER_SERVICE_HOST",
-            "description": "Internal feedhenry message server host",
-            "value": "fh-messaging"
-        },
-        {
-            "name": "MESSAGE_SERVER_SERVICE_PORT",
-            "description": "Internal feedhenry message server ports",
-            "value": "8080"
-        },
-        {
-            "name": "FH_MESSAGING_API_KEY",
-            "description": "Key for communicating with the FH_MESSAGING Service",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
-        },
-        {
-            "name": "FH_SCM_SERVICE_HOST",
-            "description": "FH-SCM host",
-            "value": "fh-scm"
-        },
-        {
-            "name": "FH_SCM_SERVICE_PORT",
-            "description": "FH-SCM port",
-            "value": "8080"
-        },
-        {
-            "name": "SUPERCORE_SERVICE_HOST",
-            "description": "Supercore host",
-            "value": "fh-supercore"
-        },
-        {
-            "name": "SUPERCORE_SERVICE_PORT",
-            "description": "Supercore port",
-            "value": "8080"
-        },
-        {
-            "name": "FH_SUPERCORE_API_KEY",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}"
-        },
-        {
-            "name": "CONFIGURATION_FOLDER",
-            "description": "Folder to mount configuration including service keys",
-            "value": "/etc/feedhenry/core/"
+            "name": "TEMPLATES_SDK_FOLDER",
+            "displayName": "Templates and sdk folder name",
+            "description": "Folder name for templates and sdk",
+            "value": "templates_sdks",
+            "required": true
         }
     ]
 }
