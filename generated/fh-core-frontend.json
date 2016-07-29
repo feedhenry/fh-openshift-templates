@@ -914,7 +914,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.32.0-2277"
+            "value": "7.32.0-2291"
         },
         {
             "name": "MONGODB_SERVICE_NAME",
