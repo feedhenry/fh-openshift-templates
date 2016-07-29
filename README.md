@@ -13,29 +13,49 @@ $ grunt
 The produced tar will be in the ```dist``` directory.
 
 ## Testing
+
+### Testing all templates
+
 To run tests on all templates, run
 ```shell
 $ npm run test
 ```
 
-To run tests on a specific group of templates or an individual template pass in a `--suite` value
-to the tests.
-```shell
-$ npm run test --suite=generated # Runs tests on all templates
+### Testing individual templates
 
+At some points it may be desirable to run tests on only one template at a time and work on only those errors.
+
+To do this you should specify the component template you wish to run tests on in
+the `--components` argument. For example, to run tests on only the `fh-aaa` template
+you should run:
+```shell
 $ npm run test --suite=aaa # Runs tests on all fh-aaa template
 ```
 
-The list of available template suites which can be passed into `npm run test` can
-be found in files within the `suites/` directory. For example, the `backend.js` file
-contains the key `aaa`, this relates to the `fh-aaa-single-template.json` file
-and specifies some configuration options. To run the tests on the `fh-aaa` template
-just run `npm run test` with the `aaa` key specified as the `suite`. E.g.
-```shell
-npm run test --suite=aaa
-```
-This can be done with any key in any module in the `suites/` directory.
+The list of available template components which can be used can
+be found in files within the `test/components/` directory.
 
+For example, the `test/components/backend.js` file contains the key `scm`,
+this relates to the `fh-scm-single-template.json` template.
+
+The object also specifies some configuration options about how to run the tests.
+
+To run the tests on the `fh-scm` template we would then run the following:
+```shell
+npm run test --suite=scm
+```
+This can be done with any key in any module in the `test/components/` directory, including
+those which specify groups of templates.
+
+### Testing groups templates
+
+If you wish to run tests on two or more component templates that are not specified
+as a group in the `test/components/` directory then you can specify a list of keys
+in `--components`. For example to run tests on the `fh-scm-single-template.json` and
+`generated/fh-core-backend.json` templates together you would run:
+```shell
+npm run test --suite="scm coreBackend"
+```
 
 ## Workflow Guidelines
 
