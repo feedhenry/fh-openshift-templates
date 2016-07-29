@@ -1,30 +1,30 @@
 var expect = require('chai').expect;
 var withData = require('leche').withData;
 var helper = require('./helper');
-var suites = require('./suites');
+var components = require('./components');
 var _ = require('lodash');
 
 // Default tests to the all component suite
-var componentSuite = suites['component'];
+var componentGroup = components.all;
 var params = ['component'];
 
-if (process.env.npm_config_suite) {
-  params = process.env.npm_config_suite.split(' ');
+if (process.env.npm_config_components) {
+  params = process.env.npm_config_components.split(' ');
 
-  if(helper.has(suites, params)) {
-    // Retrieve leche component suite from suites.js
-    componentSuite = {};
+  if(helper.has(components, params)) {
+    // Retrieve leche component suite from components.js
+    componentGroup = {};
     _.forEach(params, function (param) {
-      _.extend(componentSuite, suites[param]);
+      _.extend(componentGroup, components[param]);
     });
   } else {
     process.exit(1);
   }
 }
 
-describe('Openshift Template on component suite(s) "' + params.join(', ') + '"', function() {
+describe('Openshift Template on component group(s) "' + params.join(', ') + '"', function() {
   // Run each test with the selected suite of components
-  withData(componentSuite, function (template, options) {
+  withData(componentGroup, function (template, options) {
 
     it('should have a parameter for each env var', function () {
       var paramNames = _.map(template.parameters, 'name');
@@ -38,7 +38,7 @@ describe('Openshift Template on component suite(s) "' + params.join(', ') + '"',
         diff.length,
         "Environment variable mismatch. \n\n " +
         "The environment variables defined in template to not have corresponding parameters \n\n " +
-        "If this is expected then an exception should be added to the test configuration in suites/ \n\n " +
+        "If this is expected then an exception should be added to the test configuration in components/ \n\n " +
         "The environment variables defined in the template are as follows: " + _(envValues).join(', ') + "\n\n " +
         "The parameters defined in the template are as follows: " + _(paramNames).join(', ') + "\n\n " +
         "The environment variable names to ignore (from test configuration) are as follows: " + _(options.ignoreEnv).join(', ') + " \n\n " +

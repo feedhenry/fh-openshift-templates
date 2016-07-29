@@ -1,31 +1,31 @@
 var _ = require('lodash');
 var requireDir = require('require-dir');
 
-var componentSuites;
+var componentGroups;
 var allComponents;
 
 // Import all modules in ./suites and add them to the template suite list
-_.forEach(requireDir('./suites'), function (value, key) {
+_.forEach(requireDir('./components'), function (value, key) {
   _.forEach(value, function(value, key) {
     if (_.size(value) === 1) {
       allComponents = _.extend({}, allComponents, value);
     }
   });
-  componentSuites = _.extend({}, componentSuites, value);
+  componentGroups = _.extend({}, componentGroups, value);
 });
 
-var suites = {
-  buildSuiteConfig: function (componentSuites) {
+var components = {
+  buildSuiteConfig: function (componentGroups) {
     // Templates from the component suites in ./suites/
-    _.extend(this, componentSuites);
+    _.extend(this, componentGroups);
 
     // All single components
-    this.component = allComponents;
+    this.all = allComponents;
 
     // We don't want to pollute the component suite
     delete this.buildSuiteConfig;
     return this;
   }
-}.buildSuiteConfig(componentSuites);
+}.buildSuiteConfig(componentGroups);
 
-module.exports = suites;
+module.exports = components;
