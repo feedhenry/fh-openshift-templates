@@ -16,7 +16,7 @@
     "required": true
   }, {
     "name": "UPS_IMAGE_VERSION",
-    "value": "latest",
+    "value": "1.1.4-0",
     "description": "The version for the UPS_IMAGE",
     "required": true
   }, {
