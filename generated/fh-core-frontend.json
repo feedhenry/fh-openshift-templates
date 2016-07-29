@@ -424,6 +424,14 @@
                                         "value": "${FH_MESSAGING_API_KEY}"
                                     },
                                     {
+                                        "name": "FH_SYS_ADMIN_USER_PASSWORD",
+                                        "value": "${FH_SYS_ADMIN_USER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "FH_SYS_ADMIN_USER_NAME",
+                                        "value": "${FH_SYS_ADMIN_USER_NAME}"
+                                    },
+                                    {
                                         "name": "FH_ADMIN_USER_PASSWORD",
                                         "value": "${FH_ADMIN_USER_PASSWORD}"
                                     },
@@ -790,7 +798,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.32.0-2290",
+            "value": "7.32.0-2291",
             "required": true
         },
         {
@@ -826,15 +834,27 @@
             "required": true
         },
         {
+            "name": "FH_SYS_ADMIN_USER_NAME",
+            "description": "Millicore system admin user",
+            "value": "admin@example.com"
+        },
+        {
+            "name": "FH_SYS_ADMIN_USER_PASSWORD",
+            "description": "The System Admin password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{24}"
+        },
+        {
             "name": "FH_ADMIN_USER_NAME",
-            "description": "Millicore admin user",
-            "value": "admin@feedhenry.net",
+            "description": "Millicore reseller admin user",
+            "value": "rhmap-admin@example.com",
             "required": true
         },
         {
             "name": "FH_ADMIN_USER_PASSWORD",
-            "description": "Millicore admin password",
-            "value": "Password1",
+            "description": "The reseller Admin password",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{24}",
             "required": true
         },
         {
