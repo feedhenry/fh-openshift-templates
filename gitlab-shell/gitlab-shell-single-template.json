@@ -89,10 +89,10 @@
     },
     {
       "name": "HTTPD_GIT_PORT",
-      "value" : "8000",
+      "value": "8000",
       "displayName": "Httpd git proxy port",
       "description": "Httpd git proxy port",
-      "required":true
+      "required": true
     }
   ],
   "objects": [
@@ -302,7 +302,6 @@
                     "name": "HTTPD_GIT_PORT",
                     "value": "${HTTPD_GIT_PORT}"
                   }
-
                 ],
                 "volumeMounts": [
                   {

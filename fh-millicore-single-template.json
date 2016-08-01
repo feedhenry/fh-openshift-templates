@@ -320,21 +320,21 @@
     },
     {
       "name": "HTTPD_PROXY_PORT",
-      "value" : "8010",
+      "value": "8010",
       "displayName": "Httpd proxy port",
       "description": "Httpd proxy port",
       "required": true
     },
     {
-      "name" : "PLATFORM_DOCUMENT_ROOT",
-      "value" : "/opt/rh/httpd24/root/opt/feedhenry",
+      "name": "PLATFORM_DOCUMENT_ROOT",
+      "value": "/opt/rh/httpd24/root/opt/feedhenry",
       "displayName": "Document root",
       "description": "Httpd proxy document root folder",
       "required": true
     },
     {
-      "name" : "TEMPLATES_SDK_FOLDER",
-      "value" : "templates_sdks",
+      "name": "TEMPLATES_SDK_FOLDER",
+      "value": "templates_sdks",
       "displayName": "Templates and sdk folder name",
       "description": "Folder name for templates and sdk",
       "required": true
@@ -552,7 +552,7 @@
                     "value": "${MYSQL_PASSWORD}"
                   },
                   {
-                   "name": "MYSQL_HOST",
+                    "name": "MYSQL_HOST",
                     "value": "${MYSQL_HOST}"
                   },
                   {
@@ -806,4 +806,3 @@
     }
   ]
 }
-
