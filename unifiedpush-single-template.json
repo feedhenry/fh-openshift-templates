@@ -9,147 +9,173 @@
       "iconClass": "icon-jboss"
     }
   },
-  "parameters": [{
-    "name": "UPS_IMAGE",
-    "value": "docker.io/rhmap/unifiedpush-wildfly",
-    "description": "The name of the Unified Push image",
-    "required": true
-  }, {
-    "name": "UPS_IMAGE_VERSION",
-    "value": "1.1.4-0",
-    "description": "The version for the UPS_IMAGE",
-    "required": true
-  }, {
-    "name": "UPS_USER",
-    "value": "unifiedpush",
-    "description": "MYSQL database user",
-    "required": true
-  }, {
-    "name": "UPS_PASSWORD",
-    "generate": "expression",
-    "from": "[a-zA-Z0-9]{40}",
-    "description": "MYSQL database password",
-    "required": true
-  }, {
-    "name": "UPS_DATABASE",
-    "value": "unifiedpush",
-    "description": "MYSQL database",
-    "required": true
-  }, {
-    "name": "MYSQL_HOST",
-    "value": "mysql",
-    "description": "MYSQL database host",
-    "required": true
-  }],
-  "objects": [{
-    "kind": "Route",
-    "apiVersion": "v1",
-    "metadata": {
-      "name": "ups",
-      "annotations": {
-        "openshift.io/host.generated": "false"
-      }
+  "parameters": [
+    {
+      "name": "UPS_IMAGE",
+      "value": "docker.io/rhmap/unifiedpush-wildfly",
+      "description": "The name of the Unified Push image",
+      "required": true
     },
-    "spec": {
-      "to": {
-        "kind": "Service",
-        "name": "ups"
-      },
-      "tls": {
-        "termination": "edge",
-        "insecureEdgeTerminationPolicy": "Allow"
-      }
+    {
+      "name": "UPS_IMAGE_VERSION",
+      "value": "1.1.4-0",
+      "description": "The version for the UPS_IMAGE",
+      "required": true
+    },
+    {
+      "name": "UPS_USER",
+      "value": "unifiedpush",
+      "description": "MYSQL database user",
+      "required": true
+    },
+    {
+      "name": "UPS_PASSWORD",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "MYSQL database password",
+      "required": true
+    },
+    {
+      "name": "UPS_DATABASE",
+      "value": "unifiedpush",
+      "description": "MYSQL database",
+      "required": true
+    },
+    {
+      "name": "MYSQL_HOST",
+      "value": "mysql",
+      "description": "MYSQL database host",
+      "required": true
     }
-  }, {
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-      "name": "ups",
-      "labels": {
-        "name": "ups"
-      }
-    },
-    "spec": {
-      "selector": {
-        "name": "ups"
+  ],
+  "objects": [
+    {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "ups",
+        "annotations": {
+          "openshift.io/host.generated": "false"
+        }
       },
-      "ports": [{
-        "port": 8080
-      }]
-    }
-  }, {
-    "kind": "DeploymentConfig",
-    "apiVersion": "v1",
-    "metadata": {
-      "name": "ups",
-      "labels": {
-        "name": "ups"
-      }
-    },
-    "spec": {
-      "triggers": [{
-        "type": "ConfigChange"
-      }],
-      "replicas": 1,
-      "selector": {
-        "name": "ups"
-      },
-      "template": {
-        "metadata": {
-          "labels": {
-            "name": "ups"
-          }
+      "spec": {
+        "to": {
+          "kind": "Service",
+          "name": "ups"
         },
-        "spec": {
-          "containers": [{
-            "name": "ups",
-            "image": "${UPS_IMAGE}:${UPS_IMAGE_VERSION}",
-            "ports": [{
-              "containerPort": 8443
-            }, {
-              "containerPort": 8080
-            }, {
-              "containerPort": 9990
-            }],
-            "livenessProbe": {
-              "httpGet": {
-                "path": "/ag-push",
-                "port": 8080
-              },
-              "initialDelaySeconds": 600,
-              "timeoutSeconds": 5,
-              "periodSeconds": 60,
-              "successThreshold": 1,
-              "failureThreshold": 2
-            },
-            "readinessProbe": {
-              "httpGet": {
-                "path": "/ag-push",
-                "port": 8080
-              },
-              "initialDelaySeconds": 100,
-              "timeoutSeconds": 5,
-              "periodSeconds": 10,
-              "successThreshold": 1,
-              "failureThreshold": 1
-            },
-            "env": [{
-              "name": "MYSQL_USER",
-              "value": "${UPS_USER}"
-            }, {
-              "name": "MYSQL_PASSWORD",
-              "value": "${UPS_PASSWORD}"
-            }, {
-              "name": "MYSQL_HOST",
-              "value": "${MYSQL_HOST}"
-            }, {
-              "name": "MYSQL_DATABASE",
-              "value": "${UPS_DATABASE}"
-            }],
-            "imagePullPolicy": "IfNotPresent"
-          }]
+        "tls": {
+          "termination": "edge",
+          "insecureEdgeTerminationPolicy": "Allow"
+        }
+      }
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "ups",
+        "labels": {
+          "name": "ups"
+        }
+      },
+      "spec": {
+        "selector": {
+          "name": "ups"
+        },
+        "ports": [
+          {
+            "port": 8080
+          }
+        ]
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "ups",
+        "labels": {
+          "name": "ups"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "ups"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "ups"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "ups",
+                "image": "${UPS_IMAGE}:${UPS_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 8443
+                  },
+                  {
+                    "containerPort": 8080
+                  },
+                  {
+                    "containerPort": 9990
+                  }
+                ],
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/ag-push",
+                    "port": 8080
+                  },
+                  "initialDelaySeconds": 600,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 60,
+                  "successThreshold": 1,
+                  "failureThreshold": 2
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/ag-push",
+                    "port": 8080
+                  },
+                  "initialDelaySeconds": 100,
+                  "timeoutSeconds": 5,
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "failureThreshold": 1
+                },
+                "env": [
+                  {
+                    "name": "MYSQL_USER",
+                    "value": "${UPS_USER}"
+                  },
+                  {
+                    "name": "MYSQL_PASSWORD",
+                    "value": "${UPS_PASSWORD}"
+                  },
+                  {
+                    "name": "MYSQL_HOST",
+                    "value": "${MYSQL_HOST}"
+                  },
+                  {
+                    "name": "MYSQL_DATABASE",
+                    "value": "${UPS_DATABASE}"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ]
+          }
         }
       }
     }
-  }]
+  ]
 }
