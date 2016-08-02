@@ -23,7 +23,7 @@
     },
     {
       "name": "FH_SUPERCORE_IMAGE_VERSION",
-      "value": "3.22.0-2550",
+      "value": "3.22.1-2559",
       "description": "The version for the FH_SUPERCORE_IMAGE",
       "required": true
     },
