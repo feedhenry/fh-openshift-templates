@@ -23,6 +23,8 @@ export MCORE_MYSQL_USER="coreadmin"
 export MCORE_MYSQL_DB="shard0"
 export UPS_MYSQL_PASS="unifiedpush"
 export FH_ADMIN_USER_PASSWORD="Password1"
+export BUILDER_ANDROID_SERVICE_HOST="meh1-builder.feedhenry.net"
+export BUILDER_IPHONE_SERVICE_HOST="meh1-builder.feedhenry.net"
 
 export SMTP_SERVER="localhost"
 export SMTP_USERNAME="username"
