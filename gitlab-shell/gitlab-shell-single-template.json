@@ -65,9 +65,9 @@
     },
     {
       "name": "HTTPD_IMAGE_VERSION",
-      "value": "2.4-40",
-      "description": "The version for the HTTPD_IMAGE",
-      "required": true
+      "required": true,
+      "value": "2.4-45",
+      "description": "The version for the HTTPD_IMAGE"
     },
     {
       "name": "MILLICORE_HTTP_HOST",
@@ -85,6 +85,13 @@
       "name": "HTTPD_LOG_LEVEL",
       "value": "info",
       "description": "Apache log level",
+      "required": true
+    },
+    {
+      "name": "HTTPD_GIT_PORT",
+      "value": "8000",
+      "displayName": "Httpd git proxy port",
+      "description": "Httpd git proxy port",
       "required": true
     }
   ],
@@ -109,7 +116,7 @@
           },
           {
             "name": "server-http-port",
-            "port": 8080
+            "port": "${HTTPD_GIT_PORT}"
           }
         ]
       }
@@ -253,13 +260,13 @@
                 "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 8080
+                    "containerPort": "${HTTPD_GIT_PORT}"
                   }
                 ],
                 "livenessProbe": {
                   "httpGet": {
                     "path": "/health",
-                    "port": 8080
+                    "port": 8000
                   },
                   "initialDelaySeconds": 600,
                   "timeoutSeconds": 5,
@@ -270,7 +277,7 @@
                 "readinessProbe": {
                   "httpGet": {
                     "path": "/health",
-                    "port": 8080
+                    "port": 8000
                   },
                   "initialDelaySeconds": 10,
                   "timeoutSeconds": 5,
@@ -290,6 +297,10 @@
                   {
                     "name": "HTTPD_LOG_LEVEL",
                     "value": "${HTTPD_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "HTTPD_GIT_PORT",
+                    "value": "${HTTPD_GIT_PORT}"
                   }
                 ],
                 "volumeMounts": [

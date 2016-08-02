@@ -876,38 +876,28 @@
             "status": {}
         },
         {
-            "kind": "Service",
             "apiVersion": "v1",
+            "kind": "Service",
             "metadata": {
-                "name": "gitlab-shell",
-                "creationTimestamp": null,
                 "labels": {
                     "name": "gitlab-shell"
-                }
+                },
+                "name": "gitlab-shell"
             },
             "spec": {
                 "ports": [
                     {
                         "name": "internal-ssh-port",
-                        "protocol": "TCP",
-                        "port": 22,
-                        "targetPort": 22
+                        "port": 22
                     },
                     {
                         "name": "server-http-port",
-                        "protocol": "TCP",
-                        "port": 8080,
-                        "targetPort": 8080
+                        "port": "${HTTPD_GIT_PORT}"
                     }
                 ],
                 "selector": {
                     "name": "gitlab-shell"
-                },
-                "type": "ClusterIP",
-                "sessionAffinity": "None"
-            },
-            "status": {
-                "loadBalancer": {}
+                }
             }
         },
         {
@@ -967,51 +957,148 @@
             }
         },
         {
-            "kind": "DeploymentConfig",
             "apiVersion": "v1",
+            "kind": "DeploymentConfig",
             "metadata": {
-                "name": "gitlab-shell",
-                "creationTimestamp": null,
                 "labels": {
                     "name": "gitlab-shell"
-                }
+                },
+                "name": "gitlab-shell"
             },
             "spec": {
-                "strategy": {
-                    "type": "Rolling",
-                    "rollingParams": {
-                        "updatePeriodSeconds": 1,
-                        "intervalSeconds": 1,
-                        "timeoutSeconds": 600,
-                        "maxUnavailable": "25%",
-                        "maxSurge": "25%"
-                    },
-                    "resources": {}
-                },
-                "triggers": [
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
                 "replicas": 1,
-                "test": false,
                 "selector": {
                     "name": "gitlab-shell"
                 },
                 "template": {
                     "metadata": {
-                        "creationTimestamp": null,
                         "labels": {
                             "name": "gitlab-shell"
                         }
                     },
                     "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "GIT_REPO_ROOT",
+                                        "value": "${GIT_REPO_ROOT}"
+                                    },
+                                    {
+                                        "name": "SSH_SECRETS_DIR",
+                                        "value": "${SSH_SECRETS_DIR}"
+                                    }
+                                ],
+                                "image": "${GITLAB_SHELL_IMAGE}:${GITLAB_SHELL_IMAGE_VERSION}",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 2,
+                                    "initialDelaySeconds": 600,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "tcpSocket": {
+                                        "port": 22
+                                    },
+                                    "timeoutSeconds": 5
+                                },
+                                "name": "gitlab-shell",
+                                "ports": [
+                                    {
+                                        "containerPort": 22
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 2,
+                                    "initialDelaySeconds": 2,
+                                    "periodSeconds": 30,
+                                    "successThreshold": 1,
+                                    "tcpSocket": {
+                                        "port": 22
+                                    },
+                                    "timeoutSeconds": 5
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/home/git/gitlab-config",
+                                        "name": "gitlab-shell-configmap"
+                                    },
+                                    {
+                                        "mountPath": "${SSH_SECRETS_DIR}",
+                                        "name": "git-ssh-keys-volume",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "${GIT_REPO_ROOT}",
+                                        "name": "git-data-volume"
+                                    }
+                                ]
+                            },
+                            {
+                                "env": [
+                                    {
+                                        "name": "MILLICORE_HTTP_HOST",
+                                        "value": "${MILLICORE_HTTP_HOST}"
+                                    },
+                                    {
+                                        "name": "HTTP_REPO_ROOT",
+                                        "value": "${HTTP_REPO_ROOT}"
+                                    },
+                                    {
+                                        "name": "HTTPD_LOG_LEVEL",
+                                        "value": "${HTTPD_LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "HTTPD_GIT_PORT",
+                                        "value": "${HTTPD_GIT_PORT}"
+                                    }
+                                ],
+                                "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 2,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8000
+                                    },
+                                    "initialDelaySeconds": 600,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "name": "gitlab-httpd-proxy",
+                                "ports": [
+                                    {
+                                        "containerPort": "${HTTPD_GIT_PORT}"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 2,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8000
+                                    },
+                                    "initialDelaySeconds": 10,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "${HTTP_REPO_ROOT}",
+                                        "name": "git-data-volume"
+                                    }
+                                ]
+                            }
+                        ],
+                        "securityContext": {
+                            "runAsUser": 0
+                        },
                         "volumes": [
                             {
-                                "name": "gitlab-shell-configmap",
                                 "configMap": {
                                     "name": "gitlab-shell"
-                                }
+                                },
+                                "name": "gitlab-shell-configmap"
                             },
                             {
                                 "name": "git-ssh-keys-volume",
@@ -1025,134 +1112,15 @@
                                     "claimName": "git-data"
                                 }
                             }
-                        ],
-                        "containers": [
-                            {
-                                "name": "gitlab-shell",
-                                "image": "${GITLAB_SHELL_IMAGE}:${GITLAB_SHELL_IMAGE_VERSION}",
-                                "ports": [
-                                    {
-                                        "containerPort": 22,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "env": [
-                                    {
-                                        "name": "GIT_REPO_ROOT",
-                                        "value": "${GIT_REPO_ROOT}"
-                                    },
-                                    {
-                                        "name": "SSH_SECRETS_DIR",
-                                        "value": "${SSH_SECRETS_DIR}"
-                                    }
-                                ],
-                                "resources": {},
-                                "volumeMounts": [
-                                    {
-                                        "name": "gitlab-shell-configmap",
-                                        "mountPath": "/home/git/gitlab-config"
-                                    },
-                                    {
-                                        "name": "git-ssh-keys-volume",
-                                        "readOnly": true,
-                                        "mountPath": "${SSH_SECRETS_DIR}"
-                                    },
-                                    {
-                                        "name": "git-data-volume",
-                                        "mountPath": "${GIT_REPO_ROOT}"
-                                    }
-                                ],
-                                "livenessProbe": {
-                                    "tcpSocket": {
-                                        "port": 22
-                                    },
-                                    "initialDelaySeconds": 600,
-                                    "timeoutSeconds": 5,
-                                    "periodSeconds": 60,
-                                    "successThreshold": 1,
-                                    "failureThreshold": 2
-                                },
-                                "readinessProbe": {
-                                    "tcpSocket": {
-                                        "port": 22
-                                    },
-                                    "initialDelaySeconds": 2,
-                                    "timeoutSeconds": 5,
-                                    "periodSeconds": 30,
-                                    "successThreshold": 1,
-                                    "failureThreshold": 2
-                                },
-                                "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "IfNotPresent"
-                            },
-                            {
-                                "name": "gitlab-httpd-proxy",
-                                "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
-                                "ports": [
-                                    {
-                                        "containerPort": 8080,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "env": [
-                                    {
-                                        "name": "MILLICORE_HTTP_HOST",
-                                        "value": "${MILLICORE_HTTP_HOST}"
-                                    },
-                                    {
-                                        "name": "HTTP_REPO_ROOT",
-                                        "value": "${HTTP_REPO_ROOT}"
-                                    },
-                                    {
-                                        "name": "HTTPD_LOG_LEVEL",
-                                        "value": "${HTTPD_LOG_LEVEL}"
-                                    }
-                                ],
-                                "resources": {},
-                                "volumeMounts": [
-                                    {
-                                        "name": "git-data-volume",
-                                        "mountPath": "${HTTP_REPO_ROOT}"
-                                    }
-                                ],
-                                "livenessProbe": {
-                                    "httpGet": {
-                                        "path": "/health",
-                                        "port": 8080,
-                                        "scheme": "HTTP"
-                                    },
-                                    "initialDelaySeconds": 600,
-                                    "timeoutSeconds": 5,
-                                    "periodSeconds": 60,
-                                    "successThreshold": 1,
-                                    "failureThreshold": 2
-                                },
-                                "readinessProbe": {
-                                    "httpGet": {
-                                        "path": "/health",
-                                        "port": 8080,
-                                        "scheme": "HTTP"
-                                    },
-                                    "initialDelaySeconds": 10,
-                                    "timeoutSeconds": 5,
-                                    "periodSeconds": 10,
-                                    "successThreshold": 1,
-                                    "failureThreshold": 2
-                                },
-                                "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "IfNotPresent"
-                            }
-                        ],
-                        "restartPolicy": "Always",
-                        "terminationGracePeriodSeconds": 30,
-                        "dnsPolicy": "ClusterFirst",
-                        "securityContext": {
-                            "runAsUser": 0
-                        }
+                        ]
                     }
-                }
-            },
-            "status": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
         },
         {
             "kind": "Route",
@@ -1594,7 +1562,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-40",
+            "value": "2.4-45",
             "required": true
         },
         {
@@ -1616,6 +1584,13 @@
             "required": true
         },
         {
+            "name": "HTTPD_GIT_PORT",
+            "displayName": "Httpd git proxy port",
+            "description": "Httpd git proxy port",
+            "value": "8000",
+            "required": true
+        },
+        {
             "name": "UPS_IMAGE",
             "description": "The name of the Unified Push image",
             "value": "docker.io/rhmap/unifiedpush-wildfly",
@@ -1624,7 +1599,7 @@
         {
             "name": "UPS_IMAGE_VERSION",
             "description": "The version for the UPS_IMAGE",
-            "value": "latest",
+            "value": "1.1.4-0",
             "required": true
         },
         {

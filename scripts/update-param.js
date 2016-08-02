@@ -19,6 +19,7 @@ function main() {
   var fhScmSingle = fs.realpathSync("fh-scm-single-template.json");
   var fhSupercoreSingle = fs.realpathSync("fh-supercore-single-template.json");
   var millicore = fs.realpathSync("fh-millicore-single-template.json");
+  var ups = fs.realpathSync("unifiedpush-single-template.json");
 
   var gitlabShell = fs.realpathSync("gitlab-shell/gitlab-shell-single-template.json");
   var httpd = fs.realpathSync("apache-httpd/httpd24-template.json");
@@ -47,7 +48,8 @@ function main() {
     mysqlPersistent,
     mysqlNonPersistent,
     nagios,
-    redis
+    redis,
+    ups
   ]);
 
   templates.updateParameter(templateMap, argv.p, argv.v);
