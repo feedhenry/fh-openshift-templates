@@ -22,6 +22,7 @@ export MCORE_MYSQL_PASSWORD="coreadmin"
 export MCORE_MYSQL_USER="coreadmin"
 export MCORE_MYSQL_DB="shard0"
 export UPS_MYSQL_PASS="unifiedpush"
+export FH_ADMIN_USER_PASSWORD="Password1"
 
 export SMTP_SERVER="localhost"
 export SMTP_USERNAME="username"
