@@ -151,19 +151,9 @@
       "description": "Build farm android url"
     },
     {
-      "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
-      "value": "",
-      "description": "Build farm blackberry url"
-    },
-    {
       "name": "BUILDER_IPHONE_SERVICE_HOST",
       "value": "",
       "description": "Build farm iphone url"
-    },
-    {
-      "name": "BUILDER_WINPHONE_SERVICE_HOST",
-      "value": "",
-      "description": "Build farm winphone url"
     },
     {
       "name": "CLUSTER_NAME",
