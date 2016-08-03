@@ -22,7 +22,6 @@ function main() {
   var ups = fs.realpathSync("unifiedpush-single-template.json");
 
   var gitlabShell = fs.realpathSync("gitlab-shell/gitlab-shell-single-template.json");
-  var httpd = fs.realpathSync("apache-httpd/httpd24-template.json");
   var memcached = fs.realpathSync("memcached/memcached-template.json");
   var mongodb = fs.realpathSync("mongodb/mongodb-core-single-template.json");
   var mysqlPersistent = fs.realpathSync("mysql/mysql-non-persistent-template.json");
@@ -42,7 +41,6 @@ function main() {
     fhSupercoreSingle,
     millicore,
     gitlabShell,
-    httpd,
     memcached,
     mongodb,
     mysqlPersistent,
