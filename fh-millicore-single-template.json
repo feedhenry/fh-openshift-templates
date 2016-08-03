@@ -18,7 +18,7 @@
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.32.0-2291",
+      "value": "7.32.0-2294",
       "description": "Millicore image version",
       "required": true
     },
@@ -280,7 +280,7 @@
     },
     {
       "name": "HTTPD_IMAGE_VERSION",
-      "value": "2.4-45",
+      "value": "2.4-47",
       "description": "The version for the HTTPD_IMAGE"
     },
     {
@@ -654,6 +654,10 @@
                   {
                     "name": "CONFIGURATION_FOLDER",
                     "value": "${CONFIGURATION_FOLDER}"
+                  },
+                  {
+                    "name": "STATIC_FILES_DIR",
+                    "value": "/opt/millicore/static"
                   }
                 ],
                 "volumeMounts": [
@@ -675,6 +679,11 @@
                   {
                     "name": "metrics-backup-log-volume",
                     "mountPath": "/var/log/feedhenry/metrics"
+                  },
+                  {
+                    "name": "millicore-app-preview",
+                    "mountPath": "/opt/millicore/static",
+                    "readOnly": false
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"
@@ -791,6 +800,10 @@
               },
               {
                 "name": "templates-and-sdks",
+                "emptyDir": {}
+              },
+              {
+                "name": "millicore-app-preview",
                 "emptyDir": {}
               },
               {

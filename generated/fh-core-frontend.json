@@ -554,6 +554,10 @@
                                     {
                                         "name": "CONFIGURATION_FOLDER",
                                         "value": "${CONFIGURATION_FOLDER}"
+                                    },
+                                    {
+                                        "name": "STATIC_FILES_DIR",
+                                        "value": "/opt/millicore/static"
                                     }
                                 ],
                                 "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
@@ -612,6 +616,11 @@
                                     {
                                         "mountPath": "/var/log/feedhenry/metrics",
                                         "name": "metrics-backup-log-volume"
+                                    },
+                                    {
+                                        "mountPath": "/opt/millicore/static",
+                                        "name": "millicore-app-preview",
+                                        "readOnly": false
                                     }
                                 ]
                             },
@@ -730,6 +739,10 @@
                                 "name": "templates-and-sdks"
                             },
                             {
+                                "emptyDir": {},
+                                "name": "millicore-app-preview"
+                            },
+                            {
                                 "name": "metrics-backup-log-volume",
                                 "persistentVolumeClaim": {
                                     "claimName": "metrics-backup-log-data"
@@ -798,7 +811,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.32.0-2291",
+            "value": "7.32.0-2294",
             "required": true
         },
         {
@@ -1043,7 +1056,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-45"
+            "value": "2.4-47"
         },
         {
             "name": "MILLICORE_AJP_HOST",
