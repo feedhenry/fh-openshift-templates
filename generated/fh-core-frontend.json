@@ -488,16 +488,8 @@
                                         "value": "${BUILDER_ANDROID_SERVICE_HOST}"
                                     },
                                     {
-                                        "name": "BUILDER_BLACKBERRY_SERVICE_HOST",
-                                        "value": "${BUILDER_BLACKBERRY_SERVICE_HOST}"
-                                    },
-                                    {
                                         "name": "BUILDER_IPHONE_SERVICE_HOST",
                                         "value": "${BUILDER_IPHONE_SERVICE_HOST}"
-                                    },
-                                    {
-                                        "name": "BUILDER_WINPHONE_SERVICE_HOST",
-                                        "value": "${BUILDER_WINPHONE_SERVICE_HOST}"
                                     },
                                     {
                                         "name": "CLUSTER_NAME",
@@ -643,8 +635,12 @@
                                         "value": "${APP_STORE_HOST}"
                                     },
                                     {
-                                        "name": "BUILDER_SERVICE_URL",
-                                        "value": "${BUILDER_SERVICE_URL}"
+                                        "name": "BUILDER_ANDROID_SERVICE_HOST",
+                                        "value": "https://${BUILDER_ANDROID_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "BUILDER_IPHONE_SERVICE_HOST",
+                                        "value": "https://${BUILDER_IPHONE_SERVICE_HOST}"
                                     },
                                     {
                                         "name": "HTTPD_LOG_LEVEL",
@@ -1048,7 +1044,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-47"
+            "value": "2.4-50"
         },
         {
             "name": "MILLICORE_AJP_HOST",
@@ -1071,12 +1067,6 @@
         {
             "name": "APP_STORE_HOST",
             "value": "fh-appstore:8080"
-        },
-        {
-            "name": "BUILDER_SERVICE_URL",
-            "displayName": "Digger hostname",
-            "description": "Service for mobile app builder (Digger)",
-            "value": "http://example.com"
         },
         {
             "name": "HTTPD_LOG_LEVEL",
