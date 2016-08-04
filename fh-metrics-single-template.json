@@ -173,7 +173,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "2.2.0-394",
+      "value": "2.2.1-398",
       "description": "The version for the FH_METRICS_IMAGE",
       "required": true
     },
