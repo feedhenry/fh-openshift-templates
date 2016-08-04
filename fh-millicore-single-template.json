@@ -662,6 +662,9 @@
                     "readOnly": false
                   }
                 ],
+                "securityContext": {
+                  "runAsNonRoot": true
+                },
                 "imagePullPolicy": "IfNotPresent"
               },
               {
