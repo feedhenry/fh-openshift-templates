@@ -1362,7 +1362,7 @@
         {
             "name": "FH_MESSAGING_IMAGE_VERSION",
             "description": "The version for the FH_MESSAGING_IMAGE",
-            "value": "2.2.2-398",
+            "value": "2.2.1-396",
             "required": true
         },
         {
