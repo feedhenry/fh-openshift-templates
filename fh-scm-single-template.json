@@ -18,7 +18,7 @@
     },
     {
       "name": "FH_SCM_IMAGE_VERSION",
-      "value": "0.18.1-268",
+      "value": "0.18.1-270",
       "description": "The version for the FH_SCM_IMAGE",
       "required": true
     },
