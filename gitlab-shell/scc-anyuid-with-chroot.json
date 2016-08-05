@@ -7,7 +7,6 @@
             "kubernetes.io/description": "anyuid-with-chroot provides all features of the anyuid SCC but allows chroot inside containers."
         }
     },
-    "priority": 10,
     "allowPrivilegedContainer": false,
     "defaultAddCapabilities": null,
     "requiredDropCapabilities": [
