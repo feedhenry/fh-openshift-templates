@@ -12,13 +12,13 @@
   "parameters": [
     {
       "name": "FH_SCM_IMAGE",
-      "value": "docker.io/rhmap/fh-scm",
+      "value": "rhmap42/fh-scm",
       "description": "The name of the fh-scm image",
       "required": true
     },
     {
       "name": "FH_SCM_IMAGE_VERSION",
-      "value": "0.18.1-265",
+      "value": "0.18.1-1",
       "description": "The version for the FH_SCM_IMAGE",
       "required": true
     },

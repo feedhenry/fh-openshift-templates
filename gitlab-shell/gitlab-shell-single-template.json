@@ -11,13 +11,13 @@
   "parameters": [
     {
       "name": "GITLAB_SHELL_IMAGE",
-      "value": "docker.io/rhmap/gitlab-shell",
+      "value": "rhmap42/gitlab-shell",
       "description": "The name of the gitlab-shell image",
       "required": true
     },
     {
       "name": "GITLAB_SHELL_IMAGE_VERSION",
-      "value": "2.0.0.pre-40",
+      "value": "2.0.0-3",
       "description": "The version for the GITLAB_SHELL_IMAGE",
       "required": true
     },
@@ -59,14 +59,14 @@
     },
     {
       "name": "HTTPD_IMAGE",
-      "value": "docker.io/rhmap/httpd24",
+      "value": "rhmap42/httpd",
       "description": "The name of the httpd proxy image used to serve git repositories",
       "required": true
     },
     {
       "name": "HTTPD_IMAGE_VERSION",
       "required": true,
-      "value": "2.4-47",
+      "value": "2.4-6",
       "description": "The version for the HTTPD_IMAGE"
     },
     {
