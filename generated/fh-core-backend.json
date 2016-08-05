@@ -1362,7 +1362,7 @@
         {
             "name": "FH_MESSAGING_IMAGE_VERSION",
             "description": "The version for the FH_MESSAGING_IMAGE",
-            "value": "2.2.2-398",
+            "value": "2.2.1-396",
             "required": true
         },
         {
@@ -1418,7 +1418,7 @@
         {
             "name": "FH_SCM_IMAGE_VERSION",
             "description": "The version for the FH_SCM_IMAGE",
-            "value": "0.18.1-265",
+            "value": "0.18.1-270",
             "required": true
         },
         {
@@ -1452,7 +1452,7 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "3.22.5-2580",
+            "value": "3.22.5-2581",
             "required": true
         },
         {
@@ -1562,7 +1562,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-47",
+            "value": "2.4-58",
             "required": true
         },
         {
