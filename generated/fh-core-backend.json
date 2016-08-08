@@ -1399,7 +1399,7 @@
         {
             "name": "FH_METRICS_IMAGE_VERSION",
             "description": "The version for the FH_METRICS_IMAGE",
-            "value": "2.2.1-398",
+            "value": "2.2.1-415",
             "required": true
         },
         {
