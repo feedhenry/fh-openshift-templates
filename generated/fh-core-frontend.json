@@ -660,6 +660,14 @@
                                     {
                                         "name": "TEMPLATES_SDK_FOLDER",
                                         "value": "${TEMPLATES_SDK_FOLDER}"
+                                    },
+                                    {
+                                        "name": "GIT_EXTERNAL_HOST",
+                                        "value": "${GIT_EXTERNAL_HOST}"
+                                    },
+                                    {
+                                        "name": "GIT_EXTERNAL_PROTOCOL",
+                                        "value": "${GIT_EXTERNAL_PROTOCOL}"
                                     }
                                 ],
                                 "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
@@ -810,7 +818,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.32.1-2307",
+            "value": "7.32.1-2313",
             "required": true
         },
         {
@@ -1096,6 +1104,20 @@
             "displayName": "Templates and sdk folder name",
             "description": "Folder name for templates and sdk",
             "value": "templates_sdks",
+            "required": true
+        },
+        {
+            "name": "GIT_EXTERNAL_HOST",
+            "displayName": "git host",
+            "description": "Git host exposed to end users",
+            "value": "rhmap.feedhenry.local",
+            "required": true
+        },
+        {
+            "name": "GIT_EXTERNAL_PROTOCOL",
+            "displayName": "git protocol",
+            "description": "Git protocol exposed to end users",
+            "value": "https",
             "required": true
         }
     ]
