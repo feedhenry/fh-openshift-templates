@@ -911,7 +911,7 @@
                 }
             },
             "spec": {
-                "host": "${GIT_HTTP_HOST}",
+                "host": "${GIT_EXTERNAL_HOST}",
                 "to": {
                     "kind": "Service",
                     "name": "gitlab-shell"
@@ -1549,7 +1549,7 @@
             "required": true
         },
         {
-            "name": "GIT_HTTP_HOST",
+            "name": "GIT_EXTERNAL_HOST",
             "description": "External dns name that would be setup for router",
             "required": true
         },

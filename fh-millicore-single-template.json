@@ -18,7 +18,7 @@
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.32.1-2307",
+      "value": "7.32.1-2313",
       "description": "Millicore image version",
       "required": true
     },
@@ -321,6 +321,20 @@
       "value": "templates_sdks",
       "displayName": "Templates and sdk folder name",
       "description": "Folder name for templates and sdk",
+      "required": true
+    },    
+    {
+      "name": "GIT_EXTERNAL_HOST",
+      "value": "rhmap.feedhenry.local",
+      "displayName": "git host",
+      "description": "Git host exposed to end users",
+      "required": true
+    },
+    {
+      "name": "GIT_EXTERNAL_PROTOCOL",
+      "value": "https",
+      "displayName": "git protocol",
+      "description": "Git protocol exposed to end users",
       "required": true
     }
   ],
@@ -737,6 +751,14 @@
                   {
                     "name": "TEMPLATES_SDK_FOLDER",
                     "value": "${TEMPLATES_SDK_FOLDER}"
+                  },
+                  {
+                    "name": "GIT_EXTERNAL_HOST",
+                    "value": "${GIT_EXTERNAL_HOST}"
+                  },                  
+                  {
+                    "name": "GIT_EXTERNAL_PROTOCOL",
+                    "value": "${GIT_EXTERNAL_PROTOCOL}"
                   }
                 ],
                 "volumeMounts": [

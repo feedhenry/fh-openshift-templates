@@ -52,7 +52,7 @@
       "required": true
     },
     {
-      "name": "GIT_HTTP_HOST",
+      "name": "GIT_EXTERNAL_HOST",
       "value": "",
       "description": "External dns name that would be setup for router",
       "required": true
@@ -131,7 +131,7 @@
         "name": "gitlab-shell-http-route"
       },
       "spec": {
-        "host": "${GIT_HTTP_HOST}",
+        "host": "${GIT_EXTERNAL_HOST}",
         "path": "",
         "port": {
           "targetPort": "server-http-port"
