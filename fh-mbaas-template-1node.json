@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.21.92",
+      "templateVersion": "0.21.125",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -650,7 +650,7 @@
             ],
             "env": [
               {
-                "name": "MBAAS_NAMESPACE",
+                "name": "METADATA_NAMESPACE",
                 "valueFrom": {
                   "fieldRef": {
                     "fieldPath": "metadata.namespace"
@@ -806,7 +806,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "2.2.2-398",
+      "value": "2.2.2-415",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -816,7 +816,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "2.2.1-398",
+      "value": "2.2.1-415",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
@@ -836,7 +836,7 @@
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "centos-3.2-29",
+      "value": "centos-3.2-32",
       "description": "The version for the MONGODB_IMAGE"
     },
     {

@@ -335,6 +335,15 @@
                         ],
                         "env": [
                             {
+                                "name": "METADATA_NAMESPACE",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.namespace"
+                                    }
+                                }
+                            },
+                            {
                                 "name": "MONGODB_REPLICA_NAME",
                                 "value": "rs0"
                             },
@@ -804,7 +813,7 @@
         {
             "name": "MONGODB_IMAGE_VERSION",
             "description": "The version for the MONGODB_IMAGE",
-            "value": "centos-2.4-24",
+            "value": "centos-3.2-32",
             "required": true
         },
         {
