@@ -322,7 +322,7 @@
       "displayName": "Templates and sdk folder name",
       "description": "Folder name for templates and sdk",
       "required": true
-    },    
+    },
     {
       "name": "GIT_EXTERNAL_HOST",
       "value": "rhmap.feedhenry.local",
@@ -652,7 +652,7 @@
                   {
                     "name": "GIT_EXTERNAL_HOST",
                     "value": "${GIT_EXTERNAL_HOST}"
-                  },                  
+                  },
                   {
                     "name": "GIT_EXTERNAL_PROTOCOL",
                     "value": "${GIT_EXTERNAL_PROTOCOL}"
