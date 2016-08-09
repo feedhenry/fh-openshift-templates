@@ -550,6 +550,14 @@
                                     {
                                         "name": "STATIC_FILES_DIR",
                                         "value": "/opt/millicore/static"
+                                    },
+                                    {
+                                        "name": "GIT_EXTERNAL_HOST",
+                                        "value": "${GIT_EXTERNAL_HOST}"
+                                    },
+                                    {
+                                        "name": "GIT_EXTERNAL_PROTOCOL",
+                                        "value": "${GIT_EXTERNAL_PROTOCOL}"
                                     }
                                 ],
                                 "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
@@ -660,14 +668,6 @@
                                     {
                                         "name": "TEMPLATES_SDK_FOLDER",
                                         "value": "${TEMPLATES_SDK_FOLDER}"
-                                    },
-                                    {
-                                        "name": "GIT_EXTERNAL_HOST",
-                                        "value": "${GIT_EXTERNAL_HOST}"
-                                    },
-                                    {
-                                        "name": "GIT_EXTERNAL_PROTOCOL",
-                                        "value": "${GIT_EXTERNAL_PROTOCOL}"
                                     }
                                 ],
                                 "image": "${HTTPD_IMAGE}:${HTTPD_IMAGE_VERSION}",
