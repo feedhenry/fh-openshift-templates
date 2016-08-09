@@ -1040,7 +1040,7 @@
             ],
             "env": [
               {
-                "name": "MBAAS_NAMESPACE",
+                "name": "METADATA_NAMESPACE",
                 "valueFrom": {
                   "fieldRef": {
                     "fieldPath": "metadata.namespace"
@@ -1227,7 +1227,7 @@
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "centos-3.2-29",
+      "value": "centos-3.2-32",
       "description": "The version for the MONGODB_IMAGE"
     },
     {
