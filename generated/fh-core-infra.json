@@ -804,7 +804,7 @@
         {
             "name": "MONGODB_IMAGE_VERSION",
             "description": "The version for the MONGODB_IMAGE",
-            "value": "centos-2.4-24",
+            "value": "centos-3.2-29",
             "required": true
         },
         {
