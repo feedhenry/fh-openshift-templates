@@ -584,15 +584,15 @@
                                     },
                                     {
                                         "name": "FH_SCM_FILE_SERVER_PATH",
-                                        "value": "/tmp/fh-scm"
+                                        "value": "/opt/scm-data/fh-scm"
                                     },
                                     {
                                         "name": "FH_SCM_FILE_SERVER_BACKUP",
-                                        "value": "/tmp/fh-scm/backup"
+                                        "value": "/opt/scm-data/fh-scm/backup"
                                     },
                                     {
                                         "name": "FH_SCM_FILE_SERVER_KEY_STORE",
-                                        "value": "/tmp/fh-scm/keystore"
+                                        "value": "/opt/scm-data/fh-scm/keystore"
                                     },
                                     {
                                         "name": "FH_MILLICORE_SERVICE_HOST",
@@ -607,7 +607,7 @@
                                 "volumeMounts": [
                                     {
                                         "name": "scm-data",
-                                        "mountPath": "/tmp"
+                                        "mountPath": "/opt/scm-data"
                                     }
                                 ],
                                 "livenessProbe": {
@@ -640,7 +640,9 @@
                         "restartPolicy": "Always",
                         "terminationGracePeriodSeconds": 30,
                         "dnsPolicy": "ClusterFirst",
-                        "securityContext": {}
+                        "securityContext": {
+                            "runAsUser": 1001
+                        }
                     }
                 }
             },
@@ -1362,7 +1364,7 @@
         {
             "name": "FH_MESSAGING_IMAGE_VERSION",
             "description": "The version for the FH_MESSAGING_IMAGE",
-            "value": "2.2.2-415",
+            "value": "2.2.1-396",
             "required": true
         },
         {

@@ -148,15 +148,15 @@
                   },
                   {
                     "name": "FH_SCM_FILE_SERVER_PATH",
-                    "value": "/tmp/fh-scm"
+                    "value": "/opt/scm-data/fh-scm"
                   },
                   {
                     "name": "FH_SCM_FILE_SERVER_BACKUP",
-                    "value": "/tmp/fh-scm/backup"
+                    "value": "/opt/scm-data/fh-scm/backup"
                   },
                   {
                     "name": "FH_SCM_FILE_SERVER_KEY_STORE",
-                    "value": "/tmp/fh-scm/keystore"
+                    "value": "/opt/scm-data/fh-scm/keystore"
                   },
                   {
                     "name": "FH_MILLICORE_SERVICE_HOST",
@@ -170,7 +170,7 @@
                 "volumeMounts": [
                   {
                     "name": "scm-data",
-                    "mountPath": "/tmp"
+                    "mountPath": "/opt/scm-data"
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"
@@ -183,7 +183,10 @@
                   "claimName": "scm-data"
                 }
               }
-            ]
+            ],
+            "securityContext": {
+              "runAsUser": 1001
+            }
           }
         }
       }
