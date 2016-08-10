@@ -838,22 +838,6 @@
                                     {
                                         "name": "REDIS_SERVICE_PORT",
                                         "value": "6379"
-                                    },
-                                    {
-                                        "name": "FH_NGUI_SERVICE_HOST",
-                                        "value": "fh-ngui"
-                                    },
-                                    {
-                                        "name": "FH_NGUI_SERVICE_PORT",
-                                        "value": "8080"
-                                    },
-                                    {
-                                        "name": "FH_APPSTORE_SERVICE_HOST",
-                                        "value": "fh-ngui"
-                                    },
-                                    {
-                                        "name": "FH_APPSTORE_SERVICE_PORT",
-                                        "value": "8080"
                                     }
                                 ],
                                 "resources": {},
@@ -1470,7 +1454,7 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "3.22.8-2637",
+            "value": "4.0.0-2638",
             "required": true
         },
         {
@@ -1533,7 +1517,7 @@
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.1.0.pre-55",
+            "value": "2.0.0.pre-40",
             "required": true
         },
         {
