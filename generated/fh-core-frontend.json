@@ -468,7 +468,12 @@
                                     },
                                     {
                                         "name": "MYSQL_HOST",
-                                        "value": "${MYSQL_HOST}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-host",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_PORT",
@@ -894,12 +899,6 @@
             "name": "FH_DOMAIN_NAME",
             "description": "Customer subdomain name",
             "value": "rhmap",
-            "required": true
-        },
-        {
-            "name": "MYSQL_HOST",
-            "description": "MYSQL database host",
-            "value": "mysql",
             "required": true
         },
         {

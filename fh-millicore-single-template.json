@@ -78,12 +78,6 @@
       "required": true
     },
     {
-      "name": "MYSQL_HOST",
-      "value": "mysql",
-      "description": "MYSQL database host",
-      "required": true
-    },
-    {
       "name": "MYSQL_PORT",
       "value": "3306",
       "description": "MYSQL database port",
@@ -540,7 +534,12 @@
                   },
                   {
                     "name": "MYSQL_HOST",
-                    "value": "${MYSQL_HOST}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-host"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_PORT",

@@ -17,6 +17,8 @@
         "name": "mysql-keys"
       },
       "data": {
+        "mysql-host": "${DATABASE_SERVICE_NAME}",
+
         "mysql-millicore-user": "${MYSQL_USER}",
         "mysql-millicore-password": "${MYSQL_PASSWORD}",
         "mysql-millicore-database": "${MYSQL_DATABASE}",

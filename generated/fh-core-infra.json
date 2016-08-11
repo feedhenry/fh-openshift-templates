@@ -494,6 +494,7 @@
                 "creationTimestamp": null
             },
             "data": {
+                "mysql-host": "${DATABASE_SERVICE_NAME}",
                 "mysql-millicore-database": "${MYSQL_DATABASE}",
                 "mysql-millicore-password": "${MYSQL_PASSWORD}",
                 "mysql-millicore-user": "${MYSQL_USER}",
