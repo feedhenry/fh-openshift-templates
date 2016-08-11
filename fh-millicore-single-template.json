@@ -30,13 +30,6 @@
       "required": true
     },
     {
-      "name": "MONGODB_ADMIN_PASSWORD",
-      "description": "The MongoDB Admin password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "required": true
-    },
-    {
       "name": "FEEDHENRY_SDKS_IMAGE",
       "value": "docker.io/rhmap/feedhenry-sdks",
       "description": "FeedHenry SDKs and templates image name",
@@ -85,19 +78,6 @@
       "required": true
     },
     {
-      "name": "MYSQL_USER",
-      "value": "coreadmin",
-      "description": "MYSQL database user",
-      "required": true
-    },
-    {
-      "name": "MYSQL_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "MYSQL database password",
-      "required": true
-    },
-    {
       "name": "MYSQL_HOST",
       "value": "mysql",
       "description": "MYSQL database host",
@@ -107,12 +87,6 @@
       "name": "MYSQL_PORT",
       "value": "3306",
       "description": "MYSQL database port",
-      "required": true
-    },
-    {
-      "name": "MYSQL_DB_NAME",
-      "value": "shard0",
-      "description": "Name of MYSQL database",
       "required": true
     },
     {
@@ -511,7 +485,12 @@
                 "env": [
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-admin-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
@@ -543,11 +522,21 @@
                   },
                   {
                     "name": "MYSQL_USER",
-                    "value": "${MYSQL_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-millicore-user"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_PASSWORD",
-                    "value": "${MYSQL_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-millicore-password"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_HOST",
@@ -559,7 +548,12 @@
                   },
                   {
                     "name": "MYSQL_DB_NAME",
-                    "value": "${MYSQL_DB_NAME}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-millicore-database"
+                      }
+                    }
                   },
                   {
                     "name": "MEMCACHED_SERVICE_HOST",

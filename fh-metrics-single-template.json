@@ -85,7 +85,12 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-reporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
@@ -156,13 +161,6 @@
       "name": "MONGODB_FHREPORTING_USER",
       "value": "u-reporting",
       "description": "The Reporting user name",
-      "required": true
-    },
-    {
-      "name": "MONGODB_FHREPORTING_PASSWORD",
-      "description": "The MongoDB Reporting password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
       "required": true
     },
     {

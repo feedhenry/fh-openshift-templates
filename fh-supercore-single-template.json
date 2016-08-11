@@ -39,19 +39,6 @@
       "description": "A default log level for all components"
     },
     {
-      "name": "MONGODB_FHSUPERCORE_USER",
-      "value": "u-supercore",
-      "description": "The MongoDB username for fh-supercore",
-      "required": true
-    },
-    {
-      "name": "MONGODB_FHSUPERCORE_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "The MongoDB password for fh-supercore",
-      "required": true
-    },
-    {
       "name": "REDIS_PASSWORD",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
@@ -270,11 +257,21 @@
                   },
                   {
                     "name": "MONGODB_FHSUPERCORE_USER",
-                    "value": "${MONGODB_FHSUPERCORE_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-supercore-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHSUPERCORE_PASSWORD",
-                    "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-supercore-password"
+                      }
+                    }
                   },
                   {
                     "name": "REDIS_PASSWORD",

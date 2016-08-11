@@ -413,7 +413,12 @@
                                 "env": [
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
-                                        "value": "${MONGODB_ADMIN_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mongodb-admin-password",
+                                                "name": "mongodb-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_SERVICE_NAME",
@@ -445,11 +450,21 @@
                                     },
                                     {
                                         "name": "MYSQL_USER",
-                                        "value": "${MYSQL_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-millicore-user",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_PASSWORD",
-                                        "value": "${MYSQL_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-millicore-password",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_HOST",
@@ -461,7 +476,12 @@
                                     },
                                     {
                                         "name": "MYSQL_DB_NAME",
-                                        "value": "${MYSQL_DB_NAME}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-millicore-database",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MEMCACHED_SERVICE_HOST",
@@ -829,13 +849,6 @@
             "required": true
         },
         {
-            "name": "MONGODB_ADMIN_PASSWORD",
-            "description": "The MongoDB Admin password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
-            "required": true
-        },
-        {
             "name": "FEEDHENRY_SDKS_IMAGE",
             "description": "FeedHenry SDKs and templates image name",
             "value": "docker.io/rhmap/feedhenry-sdks",
@@ -884,19 +897,6 @@
             "required": true
         },
         {
-            "name": "MYSQL_USER",
-            "description": "MYSQL database user",
-            "value": "coreadmin",
-            "required": true
-        },
-        {
-            "name": "MYSQL_PASSWORD",
-            "description": "MYSQL database password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
-            "required": true
-        },
-        {
             "name": "MYSQL_HOST",
             "description": "MYSQL database host",
             "value": "mysql",
@@ -906,12 +906,6 @@
             "name": "MYSQL_PORT",
             "description": "MYSQL database port",
             "value": "3306",
-            "required": true
-        },
-        {
-            "name": "MYSQL_DB_NAME",
-            "description": "Name of MYSQL database",
-            "value": "shard0",
             "required": true
         },
         {

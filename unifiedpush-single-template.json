@@ -23,25 +23,6 @@
       "required": true
     },
     {
-      "name": "UPS_USER",
-      "value": "unifiedpush",
-      "description": "MYSQL database user",
-      "required": true
-    },
-    {
-      "name": "UPS_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "MYSQL database password",
-      "required": true
-    },
-    {
-      "name": "UPS_DATABASE",
-      "value": "unifiedpush",
-      "description": "MYSQL database",
-      "required": true
-    },
-    {
       "name": "MYSQL_HOST",
       "value": "mysql",
       "description": "MYSQL database host",
@@ -155,11 +136,21 @@
                 "env": [
                   {
                     "name": "MYSQL_USER",
-                    "value": "${UPS_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-ups-user"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_PASSWORD",
-                    "value": "${UPS_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-ups-password"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_HOST",
@@ -167,7 +158,12 @@
                   },
                   {
                     "name": "MYSQL_DATABASE",
-                    "value": "${UPS_DATABASE}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-ups-database"
+                      }
+                    }
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"

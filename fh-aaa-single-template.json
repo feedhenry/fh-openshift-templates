@@ -29,19 +29,6 @@
       "required": true
     },
     {
-      "name": "MONGODB_FHAAA_USER",
-      "value": "u-aaa",
-      "description": "The MongoDB username for fh-aaa",
-      "required": true
-    },
-    {
-      "name": "MONGODB_FHAAA_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "The MongoDB password for fh-aaa",
-      "required": true
-    },
-    {
       "name": "MEMCACHED_SERVICE_NAME",
       "value": "memcached",
       "description": "The memcached service name",
@@ -151,11 +138,21 @@
                   },
                   {
                     "name": "MONGODB_USER",
-                    "value": "${MONGODB_FHAAA_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-aaa-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_PASSWORD",
-                    "value": "${MONGODB_FHAAA_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-aaa-password"
+                      }
+                    }
                   },
                   {
                     "name": "MEMCACHED_SERVICE_NAME",

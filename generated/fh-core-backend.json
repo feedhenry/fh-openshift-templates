@@ -96,11 +96,21 @@
                                     },
                                     {
                                         "name": "MONGODB_USER",
-                                        "value": "${MONGODB_FHAAA_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-aaa-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_PASSWORD",
-                                        "value": "${MONGODB_FHAAA_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-aaa-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MEMCACHED_SERVICE_NAME",
@@ -250,15 +260,30 @@
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_USER",
-                                        "value": "${MONGODB_FHREPORTING_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
-                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_DATABASE",
-                                        "value": "fh-reporting"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-database"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_MESSAGING_API_KEY",
@@ -409,7 +434,12 @@
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
-                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_USER",
@@ -809,11 +839,21 @@
                                     },
                                     {
                                         "name": "MONGODB_FHSUPERCORE_USER",
-                                        "value": "${MONGODB_FHSUPERCORE_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-supercore-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHSUPERCORE_PASSWORD",
-                                        "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-supercore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "REDIS_PASSWORD",
@@ -1238,11 +1278,21 @@
                                 "env": [
                                     {
                                         "name": "MYSQL_USER",
-                                        "value": "${UPS_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mysql-keys",
+                                                "key": "mysql-ups-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_PASSWORD",
-                                        "value": "${UPS_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mysql-keys",
+                                                "key": "mysql-ups-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_HOST",
@@ -1250,7 +1300,12 @@
                                     },
                                     {
                                         "name": "MYSQL_DATABASE",
-                                        "value": "${UPS_DATABASE}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mysql-keys",
+                                                "key": "mysql-ups-database"
+                                            }
+                                        }
                                     }
                                 ],
                                 "resources": {},
@@ -1312,19 +1367,6 @@
             "required": true
         },
         {
-            "name": "MONGODB_FHAAA_USER",
-            "description": "The MongoDB username for fh-aaa",
-            "value": "u-aaa",
-            "required": true
-        },
-        {
-            "name": "MONGODB_FHAAA_PASSWORD",
-            "description": "The MongoDB password for fh-aaa",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
-            "required": true
-        },
-        {
             "name": "MEMCACHED_SERVICE_NAME",
             "description": "The memcached service name",
             "value": "memcached",
@@ -1368,19 +1410,6 @@
             "required": true
         },
         {
-            "name": "MONGODB_FHREPORTING_USER",
-            "description": "The Reporting user name",
-            "value": "u-reporting",
-            "required": true
-        },
-        {
-            "name": "MONGODB_FHREPORTING_PASSWORD",
-            "description": "The MongoDB Reporting password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
-            "required": true
-        },
-        {
             "name": "FH_DEFAULT_LOG_LEVEL",
             "description": "A default log level for all MBaaS components",
             "value": "info",
@@ -1391,6 +1420,12 @@
             "description": "id of the mbaas generated.",
             "generate": "expression",
             "from": "[a-zA-Z0-9]{20}"
+        },
+        {
+            "name": "MONGODB_FHREPORTING_USER",
+            "description": "The Reporting user name",
+            "value": "u-reporting",
+            "required": true
         },
         {
             "name": "FH_METRICS_IMAGE",
@@ -1461,19 +1496,6 @@
             "name": "CLUSTER_NAME",
             "description": "The name of this RHMAP Core cluster",
             "value": "rhmap",
-            "required": true
-        },
-        {
-            "name": "MONGODB_FHSUPERCORE_USER",
-            "description": "The MongoDB username for fh-supercore",
-            "value": "u-supercore",
-            "required": true
-        },
-        {
-            "name": "MONGODB_FHSUPERCORE_PASSWORD",
-            "description": "The MongoDB password for fh-supercore",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
             "required": true
         },
         {
@@ -1602,25 +1624,6 @@
             "name": "UPS_IMAGE_VERSION",
             "description": "The version for the UPS_IMAGE",
             "value": "1.1.4-0",
-            "required": true
-        },
-        {
-            "name": "UPS_USER",
-            "description": "MYSQL database user",
-            "value": "unifiedpush",
-            "required": true
-        },
-        {
-            "name": "UPS_PASSWORD",
-            "description": "MYSQL database password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
-            "required": true
-        },
-        {
-            "name": "UPS_DATABASE",
-            "description": "MYSQL database",
-            "value": "unifiedpush",
             "required": true
         },
         {
