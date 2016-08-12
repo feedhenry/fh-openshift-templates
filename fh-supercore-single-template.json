@@ -17,7 +17,7 @@
     },
     {
       "name": "FH_SUPERCORE_IMAGE",
-      "value": "docker.io/rhmap/fh-supercore",
+      "value": "rhmap42/fh-supercore",
       "description": "The name of the fh-supercore image",
       "required": true
     },

@@ -185,12 +185,12 @@
     {
       "description": "The name of the Nagios Docker image",
       "name": "NAGIOS_IMAGE_NAME",
-      "value": "docker.io/rhmap/nagios4"
+      "value": "rhmap42/nagios"
     },
     {
       "description": "The version of the Nagios Docker image",
       "name": "NAGIOS_IMAGE_VERSION",
-      "value": "4.0.8-86"
+      "value": "4.0.8-15"
     }
   ]
 }
