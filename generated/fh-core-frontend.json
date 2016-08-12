@@ -426,7 +426,12 @@
                                     },
                                     {
                                         "name": "FH_MESSAGING_API_KEY",
-                                        "value": "${FH_MESSAGING_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "fh-messaging-api-key",
+                                                "name": "fh-messaging-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_SYS_ADMIN_USER_PASSWORD",
@@ -566,7 +571,12 @@
                                     },
                                     {
                                         "name": "SUPERCORE_API_KEY",
-                                        "value": "${FH_SUPERCORE_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "millicore-api-key",
+                                                "name": "supercore-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "CONFIGURATION_FOLDER",
@@ -1010,12 +1020,6 @@
             "name": "SUPERCORE_SERVICE_PORT",
             "description": "Supercore port",
             "value": "8080",
-            "required": true
-        },
-        {
-            "name": "FH_SUPERCORE_API_KEY",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
             "required": true
         },
         {

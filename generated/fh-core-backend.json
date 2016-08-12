@@ -167,6 +167,17 @@
             "status": {}
         },
         {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-messaging-keys",
+                "creationTimestamp": null
+            },
+            "data": {
+                "fh-messaging-api-key": "${FH_MESSAGING_API_KEY}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
@@ -287,7 +298,12 @@
                                     },
                                     {
                                         "name": "FH_MESSAGING_API_KEY",
-                                        "value": "${FH_MESSAGING_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "fh-messaging-keys",
+                                                "key": "fh-messaging-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_LOG_LEVEL",
@@ -339,6 +355,17 @@
                 }
             },
             "status": {}
+        },
+        {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-metrics-keys",
+                "creationTimestamp": null
+            },
+            "data": {
+                "fh-metrics-api-key": "${FH_METRICS_API_KEY}"
+            }
         },
         {
             "kind": "Service",
@@ -443,15 +470,30 @@
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_USER",
-                                        "value": "${MONGODB_FHREPORTING_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_DATABASE",
-                                        "value": "fh-reporting"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-database"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_METRICS_API_KEY",
-                                        "value": "${FH_METRICS_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "fh-metrics-keys",
+                                                "key": "fh-metrics-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_LOG_LEVEL",
@@ -679,6 +721,18 @@
             "status": {}
         },
         {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "supercore-keys",
+                "creationTimestamp": null
+            },
+            "data": {
+                "millicore-api-key": "${FH_MILLICORE_API_KEY}",
+                "millicore-service-key": "${FH_MILLICORE_SERVICE_KEY}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
@@ -819,11 +873,21 @@
                                     },
                                     {
                                         "name": "FH_MILLICORE_SERVICE_KEY",
-                                        "value": "${FH_MILLICORE_SERVICE_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "supercore-keys",
+                                                "key": "millicore-service-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_MILLICORE_API_KEY",
-                                        "value": "${FH_MILLICORE_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "supercore-keys",
+                                                "key": "millicore-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_SERVICE_NAME",
@@ -861,11 +925,21 @@
                                     },
                                     {
                                         "name": "FH_MESSAGING_API_KEY",
-                                        "value": "${FH_MESSAGING_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "fh-messaging-keys",
+                                                "key": "fh-messaging-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_METRICS_API_KEY",
-                                        "value": "${FH_METRICS_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "fh-metrics-keys",
+                                                "key": "fh-metrics-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_STATSD_API_KEY",
@@ -1427,12 +1501,6 @@
             "from": "[a-zA-Z0-9]{20}"
         },
         {
-            "name": "MONGODB_FHREPORTING_USER",
-            "description": "The Reporting user name",
-            "value": "u-reporting",
-            "required": true
-        },
-        {
             "name": "FH_METRICS_IMAGE",
             "description": "The name of the fh-metrics image",
             "value": "docker.io/rhmap/fh-metrics",
@@ -1580,6 +1648,7 @@
         {
             "name": "GIT_EXTERNAL_HOST",
             "description": "External dns name that would be setup for router",
+            "value": "git.local.feedhenry.io",
             "required": true
         },
         {

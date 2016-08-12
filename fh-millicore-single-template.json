@@ -203,13 +203,6 @@
       "required": true
     },
     {
-      "name": "FH_SUPERCORE_API_KEY",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "",
-      "required": true
-    },
-    {
       "name": "CONFIGURATION_FOLDER",
       "value": "/etc/feedhenry/core/",
       "description": "Folder to mount configuration including service keys",
@@ -492,7 +485,12 @@
                   },
                   {
                     "name": "FH_MESSAGING_API_KEY",
-                    "value": "${FH_MESSAGING_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "fh-messaging-keys",
+                        "key": "fh-messaging-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_SYS_ADMIN_USER_PASSWORD",
@@ -632,7 +630,12 @@
                   },
                   {
                     "name": "SUPERCORE_API_KEY",
-                    "value": "${FH_SUPERCORE_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "supercore-keys",
+                        "key": "millicore-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "CONFIGURATION_FOLDER",

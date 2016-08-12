@@ -53,7 +53,7 @@
     },
     {
       "name": "GIT_EXTERNAL_HOST",
-      "value": "",
+      "value": "git.local.feedhenry.io",
       "description": "External dns name that would be setup for router",
       "required": true
     },

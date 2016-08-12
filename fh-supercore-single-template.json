@@ -46,20 +46,6 @@
       "required": true
     },
     {
-      "name": "FH_MESSAGING_API_KEY",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the FH_MESSAGING Service",
-      "required": true
-    },
-    {
-      "name": "FH_METRICS_API_KEY",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the FH_METRICS Service",
-      "required": true
-    },
-    {
       "name": "FH_MILLICORE_API_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
@@ -97,6 +83,17 @@
     }
   ],
   "objects": [
+    {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "supercore-keys"
+      },
+      "data": {
+        "millicore-api-key": "${FH_MILLICORE_API_KEY}",
+        "millicore-service-key": "${FH_MILLICORE_SERVICE_KEY}"
+      }
+    },
     {
       "kind": "Service",
       "apiVersion": "v1",
@@ -237,11 +234,21 @@
                   },
                   {
                     "name": "FH_MILLICORE_SERVICE_KEY",
-                    "value": "${FH_MILLICORE_SERVICE_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "supercore-keys",
+                        "key": "millicore-service-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_MILLICORE_API_KEY",
-                    "value": "${FH_MILLICORE_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "supercore-keys",
+                        "key": "millicore-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
@@ -279,11 +286,21 @@
                   },
                   {
                     "name": "FH_MESSAGING_API_KEY",
-                    "value": "${FH_MESSAGING_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "fh-messaging-keys",
+                        "key": "fh-messaging-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_METRICS_API_KEY",
-                    "value": "${FH_METRICS_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "fh-metrics-keys",
+                        "key": "fh-metrics-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_STATSD_API_KEY",

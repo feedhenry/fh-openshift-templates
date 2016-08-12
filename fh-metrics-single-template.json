@@ -11,6 +11,16 @@
   },
   "objects": [
     {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-metrics-keys"
+      },
+      "data": {
+        "fh-metrics-api-key": "${FH_METRICS_API_KEY}"
+      }
+    },
+    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
@@ -94,16 +104,31 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-reporting-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value": "fh-reporting"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-reporting-database"
+                      }
+                    }
                   },
                   {
                     "name": "FH_METRICS_API_KEY",
                     "description": "API Key for calling fh-metrics",
-                    "value": "${FH_METRICS_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "fh-metrics-keys",
+                        "key": "fh-metrics-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_LOG_LEVEL",
@@ -156,12 +181,6 @@
       "description": "id of the mbaas generated.",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{20}"
-    },
-    {
-      "name": "MONGODB_FHREPORTING_USER",
-      "value": "u-reporting",
-      "description": "The Reporting user name",
-      "required": true
     },
     {
       "name": "FH_METRICS_IMAGE",

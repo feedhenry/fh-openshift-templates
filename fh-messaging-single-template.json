@@ -11,6 +11,16 @@
   },
   "objects": [
     {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-messaging-keys"
+      },
+      "data": {
+        "fh-messaging-api-key": "${FH_MESSAGING_API_KEY}"
+      }
+    },
+    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
@@ -113,7 +123,12 @@
                   {
                     "name": "FH_MESSAGING_API_KEY",
                     "description": "API Key for calling fh-messaging",
-                    "value": "${FH_MESSAGING_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "fh-messaging-keys",
+                        "key": "fh-messaging-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_LOG_LEVEL",
