@@ -122,7 +122,7 @@
     },
     {
       "name": "REDIS_IMAGE_VERSION",
-      "value": "2.18.21",
+      "value": "2.18.22",
       "description": "The version for the REDIS_IMAGE",
       "required": true
     }
