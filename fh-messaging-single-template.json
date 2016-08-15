@@ -113,12 +113,7 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongodb-keys",
-                        "key": "mongodb-fh-reporting-database"
-                      }
-                    }
+                    "value": "fh-reporting"
                   },
                   {
                     "name": "FH_MESSAGING_API_KEY",

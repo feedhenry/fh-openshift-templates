@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-#set up mysql mongo memcached
+# Redis, Memcached, MongoDB, MySQL
 
-oc new-app -f "${TEMPLATES_DIR}/generated/fh-core-infra.json"
+oc new-app -f ../../generated/fh-core-infra.json
