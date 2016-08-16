@@ -932,10 +932,6 @@
                                         }
                                     },
                                     {
-                                        "name": "FH_STATSD_API_KEY",
-                                        "value": "${FH_STATSD_API_KEY}"
-                                    },
-                                    {
                                         "name": "REDIS_SERVICE_NAME",
                                         "value": "${REDIS_SERVICE_NAME}"
                                     },
@@ -1536,11 +1532,6 @@
             "name": "FH_MILLICORE_SERVICE_PORT",
             "description": "TODO: remove references to me once millicore is running on OpenShift",
             "value": "8080",
-            "required": true
-        },
-        {
-            "name": "FH_STATSD_API_KEY",
-            "value": "test",
             "required": true
         },
         {

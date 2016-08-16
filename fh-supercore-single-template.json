@@ -11,11 +11,6 @@
   },
   "parameters": [
     {
-      "name": "FH_STATSD_API_KEY",
-      "value": "test",
-      "required": true
-    },
-    {
       "name": "FH_SUPERCORE_IMAGE",
       "value": "docker.io/rhmap/fh-supercore",
       "description": "The name of the fh-supercore image",
@@ -301,10 +296,6 @@
                         "key": "fh-metrics-api-key"
                       }
                     }
-                  },
-                  {
-                    "name": "FH_STATSD_API_KEY",
-                    "value": "${FH_STATSD_API_KEY}"
                   },
                   {
                     "name": "REDIS_SERVICE_NAME",
