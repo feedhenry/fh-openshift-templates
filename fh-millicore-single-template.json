@@ -131,7 +131,7 @@
     },
     {
       "name": "CLUSTER_DOMAIN",
-      "value": "local.feedhenry.io",
+      "value": "",
       "description": "Full domain used for build purposes",
       "required": true
     },
@@ -216,7 +216,7 @@
     },
     {
       "name": "CLUSTER_HOST",
-      "value": "rhmap.feedhenry.local"
+      "value": ""
     },
     {
       "name": "HTTPD_SERVICE_NAME",
