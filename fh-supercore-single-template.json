@@ -23,7 +23,7 @@
     },
     {
       "name": "FH_SUPERCORE_IMAGE_VERSION",
-      "value": "3.22.8-2637",
+      "value": "4.0.0-2638",
       "description": "The version for the FH_SUPERCORE_IMAGE",
       "required": true
     },
@@ -299,22 +299,6 @@
                   {
                     "name": "REDIS_SERVICE_PORT",
                     "value": "6379"
-                  },
-                  {
-                    "name": "FH_NGUI_SERVICE_HOST",
-                    "value": "fh-ngui"
-                  },
-                  {
-                    "name": "FH_NGUI_SERVICE_PORT",
-                    "value": "8080"
-                  },
-                  {
-                    "name": "FH_APPSTORE_SERVICE_HOST",
-                    "value": "fh-ngui"
-                  },
-                  {
-                    "name": "FH_APPSTORE_SERVICE_PORT",
-                    "value": "8080"
                   }
                 ],
                 "imagePullPolicy": "IfNotPresent"

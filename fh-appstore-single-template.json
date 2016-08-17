@@ -18,7 +18,7 @@
     },
     {
       "name": "FH_APPSTORE_IMAGE_VERSION",
-      "value": "1.1.0-97",
+      "value": "2.0.0-118",
       "description": "The version for the FH_APPSTORE_IMAGE",
       "required": true
     },

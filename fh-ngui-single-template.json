@@ -18,7 +18,7 @@
     },
     {
       "name": "FH_NGUI_IMAGE_VERSION",
-      "value": "4.14.3-2889",
+      "value": "5.0.0-2893",
       "description": "The version for the FH_NGUI_IMAGE",
       "required": true
     },

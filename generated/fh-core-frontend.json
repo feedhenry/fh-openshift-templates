@@ -776,7 +776,7 @@
         {
             "name": "FH_APPSTORE_IMAGE_VERSION",
             "description": "The version for the FH_APPSTORE_IMAGE",
-            "value": "1.1.0-97",
+            "value": "2.0.0-118",
             "required": true
         },
         {
@@ -794,7 +794,7 @@
         {
             "name": "FH_NGUI_IMAGE_VERSION",
             "description": "The version for the FH_NGUI_IMAGE",
-            "value": "4.14.3-2889",
+            "value": "5.0.0-2893",
             "required": true
         },
         {
@@ -818,7 +818,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.32.2-2321",
+            "value": "7.32.3-2327",
             "required": true
         },
         {
