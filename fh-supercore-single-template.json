@@ -41,6 +41,13 @@
       "required": true
     },
     {
+      "name": "GITLAB_MILLICORE_SERVICE_KEY",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "Key for communicating with the millicore Service",
+      "required": true
+    },
+    {
       "name": "FH_MILLICORE_API_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
@@ -78,6 +85,16 @@
     }
   ],
   "objects": [
+    {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "millicore-configuration"
+      },
+      "data": {
+        "servicekeys.json": "{\"keys\":[{\"${FH_MILLICORE_SERVICE_KEY}\":{\"millicore\":{\"email\":\"supercore@example.com\",\"roles\":[\"sub\",\"admin\"]}}},{\"${GITLAB_MILLICORE_SERVICE_KEY}\":{\"millicore\":{\"email\":\"gitlab@example.com\",\"roles\":[\"sub\",\"admin\"]}}}]}"
+      }
+    },
     {
       "kind": "ConfigMap",
       "apiVersion": "v1",

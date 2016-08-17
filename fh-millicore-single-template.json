@@ -795,8 +795,8 @@
               },
               {
                 "name": "config-volume",
-                "secret": {
-                  "secretName": "millicore-config"
+                "configMap": {
+                  "name": "millicore-configuration"
                 }
               },
               {

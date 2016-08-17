@@ -771,10 +771,10 @@
                                 }
                             },
                             {
-                                "name": "config-volume",
-                                "secret": {
-                                    "secretName": "millicore-config"
-                                }
+                                "configMap": {
+                                    "name": "millicore-configuration"
+                                },
+                                "name": "config-volume"
                             },
                             {
                                 "emptyDir": {},

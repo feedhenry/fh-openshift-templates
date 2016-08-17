@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 ## Secrets generator for RHMAP git integration
-## 
+##
 ## Run this script before running template to make sure that proper secrets are required
-## 
+##
 ## Requirements:
 ## - oc client installed and configured to talk with openshift cluster
 ## - bash and ssh-keygen tool available
@@ -24,10 +24,3 @@ oc secrets new gitlab-ssh repoadmin-id-rsa=$TEMP_KEY_STORE/repoadmin_id_rsa \
                          repoadmin-id-rsa-pub=$TEMP_KEY_STORE/repoadmin_id_rsa.pub \
                          gitlab-shell-id-rsa=$TEMP_KEY_STORE/gitlab_shell_id_rsa \
                          gitlab-shell-id-rsa-pub=$TEMP_KEY_STORE/gitlab_shell_id_rsa.pub
-
-cp $TEMPLATES_STORE/servicekeys.json $TEMP_KEY_STORE/servicekeys.json
-sed -i"_tmp" -e "s/SUPERCORE_API_KEY_PLACEHOLDER/$MILLICORE_SERVICE_KEY/g" \
-       -e "s/GITLAB_API_KEY_PLACEHOLDER/$GITLAB_MILLICORE_SERVICE_KEY/g" \
-        $TEMP_KEY_STORE/servicekeys.json
-
-oc secrets new millicore-config servicekeys.json=$TEMP_KEY_STORE/servicekeys.json

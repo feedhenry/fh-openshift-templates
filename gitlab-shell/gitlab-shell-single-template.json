@@ -46,12 +46,6 @@
       "required": true
     },
     {
-      "name": "GITLAB_MILLICORE_SERVICE_KEY",
-      "value": "SERVICE_KEY",
-      "description": "Service key used to call millicore http api",
-      "required": true
-    },
-    {
       "name": "GIT_EXTERNAL_HOST",
       "value": "",
       "description": "External dns name that would be setup for router",
