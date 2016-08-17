@@ -1517,7 +1517,7 @@
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.0.0.pre-40",
+            "value": "2.1.0.pre-55",
             "required": true
         },
         {
