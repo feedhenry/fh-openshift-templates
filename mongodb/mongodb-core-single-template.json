@@ -10,6 +10,28 @@
   },
   "objects": [
     {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-keys"
+      },
+      "data": {
+        "mongodb-fh-reporting-user": "${MONGODB_FHREPORTING_USER}",
+        "mongodb-fh-reporting-password": "${MONGODB_FHREPORTING_PASSWORD}",
+        "mongodb-fh-reporting-database": "${MONGODB_FHREPORTING_DATABASE}",
+
+        "mongodb-fh-aaa-user": "${MONGODB_FHAAA_USER}",
+        "mongodb-fh-aaa-password": "${MONGODB_FHAAA_PASSWORD}",
+        "mongodb-fh-aaa-database": "${MONGODB_FHAAA_DATABASE}",
+
+        "mongodb-fh-supercore-user": "${MONGODB_FHSUPERCORE_USER}",
+        "mongodb-fh-supercore-password": "${MONGODB_FHSUPERCORE_PASSWORD}",
+        "mongodb-fh-supercore-database": "${MONGODB_FHSUPERCORE_DATABASE}",
+
+        "mongodb-admin-password": "${MONGODB_ADMIN_PASSWORD}"
+      }
+    },
+    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
@@ -125,43 +147,93 @@
                   },
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-admin-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHAAA_USER",
-                    "value": "${MONGODB_FHAAA_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-aaa-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHAAA_PASSWORD",
-                    "value": "${MONGODB_FHAAA_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-aaa-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHAAA_DATABASE",
-                    "value": "${MONGODB_FHAAA_DATABASE}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-aaa-database"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHSUPERCORE_USER",
-                    "value": "${MONGODB_FHSUPERCORE_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-supercore-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHSUPERCORE_PASSWORD",
-                    "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-supercore-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHSUPERCORE_DATABASE",
-                    "value": "${MONGODB_FHSUPERCORE_DATABASE}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-supercore-database"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-reporting-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-reporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value": "${MONGODB_FHREPORTING_DATABASE}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-reporting-database"
+                      }
+                    }
                   }
                 ],
                 "resources": {

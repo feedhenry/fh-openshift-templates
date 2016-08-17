@@ -116,6 +116,26 @@
             }
         },
         {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mongodb-keys",
+                "creationTimestamp": null
+            },
+            "data": {
+                "mongodb-admin-password": "${MONGODB_ADMIN_PASSWORD}",
+                "mongodb-fh-aaa-database": "${MONGODB_FHAAA_DATABASE}",
+                "mongodb-fh-aaa-password": "${MONGODB_FHAAA_PASSWORD}",
+                "mongodb-fh-aaa-user": "${MONGODB_FHAAA_USER}",
+                "mongodb-fh-reporting-database": "${MONGODB_FHREPORTING_DATABASE}",
+                "mongodb-fh-reporting-password": "${MONGODB_FHREPORTING_PASSWORD}",
+                "mongodb-fh-reporting-user": "${MONGODB_FHREPORTING_USER}",
+                "mongodb-fh-supercore-database": "${MONGODB_FHSUPERCORE_DATABASE}",
+                "mongodb-fh-supercore-password": "${MONGODB_FHSUPERCORE_PASSWORD}",
+                "mongodb-fh-supercore-user": "${MONGODB_FHSUPERCORE_USER}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
@@ -240,43 +260,93 @@
                                     },
                                     {
                                         "name": "MONGODB_ADMIN_PASSWORD",
-                                        "value": "${MONGODB_ADMIN_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-admin-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHAAA_USER",
-                                        "value": "${MONGODB_FHAAA_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-aaa-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHAAA_PASSWORD",
-                                        "value": "${MONGODB_FHAAA_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-aaa-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHAAA_DATABASE",
-                                        "value": "${MONGODB_FHAAA_DATABASE}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-aaa-database"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHSUPERCORE_USER",
-                                        "value": "${MONGODB_FHSUPERCORE_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-supercore-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHSUPERCORE_PASSWORD",
-                                        "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-supercore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHSUPERCORE_DATABASE",
-                                        "value": "${MONGODB_FHSUPERCORE_DATABASE}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-supercore-database"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_USER",
-                                        "value": "${MONGODB_FHREPORTING_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
-                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_DATABASE",
-                                        "value": "${MONGODB_FHREPORTING_DATABASE}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-database"
+                                            }
+                                        }
                                     }
                                 ],
                                 "resources": {
@@ -417,6 +487,23 @@
             "status": {}
         },
         {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "mysql-keys",
+                "creationTimestamp": null
+            },
+            "data": {
+                "mysql-host": "${DATABASE_SERVICE_NAME}",
+                "mysql-millicore-database": "${MYSQL_DATABASE}",
+                "mysql-millicore-password": "${MYSQL_PASSWORD}",
+                "mysql-millicore-user": "${MYSQL_USER}",
+                "mysql-ups-database": "${UPS_DATABASE}",
+                "mysql-ups-password": "${UPS_PASSWORD}",
+                "mysql-ups-user": "${UPS_USER}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
@@ -485,27 +572,57 @@
                                 "env": [
                                     {
                                         "name": "MYSQL_USER",
-                                        "value": "${MYSQL_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-millicore-user",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_PASSWORD",
-                                        "value": "${MYSQL_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-millicore-password",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_DATABASE",
-                                        "value": "${MYSQL_DATABASE}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-millicore-database",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "UPS_USER",
-                                        "value": "${UPS_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-ups-user",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "UPS_PASSWORD",
-                                        "value": "${UPS_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-ups-password",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "UPS_DATABASE",
-                                        "value": "${UPS_DATABASE}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "key": "mysql-ups-database",
+                                                "name": "mysql-keys"
+                                            }
+                                        }
                                     }
                                 ],
                                 "image": "${MYSQL_IMAGE}:${MYSQL_IMAGE_VERSION}",

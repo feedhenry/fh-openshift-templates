@@ -30,13 +30,6 @@
       "required": true
     },
     {
-      "name": "MONGODB_ADMIN_PASSWORD",
-      "description": "The MongoDB Admin password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "required": true
-    },
-    {
       "name": "FEEDHENRY_SDKS_IMAGE",
       "value": "docker.io/rhmap/feedhenry-sdks",
       "description": "FeedHenry SDKs and templates image name",
@@ -85,34 +78,9 @@
       "required": true
     },
     {
-      "name": "MYSQL_USER",
-      "value": "coreadmin",
-      "description": "MYSQL database user",
-      "required": true
-    },
-    {
-      "name": "MYSQL_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "MYSQL database password",
-      "required": true
-    },
-    {
-      "name": "MYSQL_HOST",
-      "value": "mysql",
-      "description": "MYSQL database host",
-      "required": true
-    },
-    {
       "name": "MYSQL_PORT",
       "value": "3306",
       "description": "MYSQL database port",
-      "required": true
-    },
-    {
-      "name": "MYSQL_DB_NAME",
-      "value": "shard0",
-      "description": "Name of MYSQL database",
       "required": true
     },
     {
@@ -163,7 +131,7 @@
     },
     {
       "name": "CLUSTER_DOMAIN",
-      "value": "local.feedhenry.io",
+      "value": "",
       "description": "Full domain used for build purposes",
       "required": true
     },
@@ -235,13 +203,6 @@
       "required": true
     },
     {
-      "name": "FH_SUPERCORE_API_KEY",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "",
-      "required": true
-    },
-    {
       "name": "CONFIGURATION_FOLDER",
       "value": "/etc/feedhenry/core/",
       "description": "Folder to mount configuration including service keys",
@@ -255,7 +216,7 @@
     },
     {
       "name": "CLUSTER_HOST",
-      "value": "rhmap.feedhenry.local"
+      "value": ""
     },
     {
       "name": "HTTPD_SERVICE_NAME",
@@ -511,7 +472,12 @@
                 "env": [
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-admin-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
@@ -519,7 +485,12 @@
                   },
                   {
                     "name": "FH_MESSAGING_API_KEY",
-                    "value": "${FH_MESSAGING_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "fh-messaging-keys",
+                        "key": "fh-messaging-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_SYS_ADMIN_USER_PASSWORD",
@@ -543,15 +514,30 @@
                   },
                   {
                     "name": "MYSQL_USER",
-                    "value": "${MYSQL_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-millicore-user"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_PASSWORD",
-                    "value": "${MYSQL_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-millicore-password"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_HOST",
-                    "value": "${MYSQL_HOST}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-host"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_PORT",
@@ -559,7 +545,12 @@
                   },
                   {
                     "name": "MYSQL_DB_NAME",
-                    "value": "${MYSQL_DB_NAME}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-millicore-database"
+                      }
+                    }
                   },
                   {
                     "name": "MEMCACHED_SERVICE_HOST",
@@ -639,7 +630,12 @@
                   },
                   {
                     "name": "SUPERCORE_API_KEY",
-                    "value": "${FH_SUPERCORE_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "supercore-keys",
+                        "key": "millicore-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "CONFIGURATION_FOLDER",
@@ -799,8 +795,8 @@
               },
               {
                 "name": "config-volume",
-                "secret": {
-                  "secretName": "millicore-config"
+                "configMap": {
+                  "name": "millicore-configuration"
                 }
               },
               {

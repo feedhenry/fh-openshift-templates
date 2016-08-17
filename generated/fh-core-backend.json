@@ -96,11 +96,21 @@
                                     },
                                     {
                                         "name": "MONGODB_USER",
-                                        "value": "${MONGODB_FHAAA_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-aaa-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_PASSWORD",
-                                        "value": "${MONGODB_FHAAA_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-aaa-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MEMCACHED_SERVICE_NAME",
@@ -155,6 +165,17 @@
                 }
             },
             "status": {}
+        },
+        {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-messaging-keys",
+                "creationTimestamp": null
+            },
+            "data": {
+                "fh-messaging-api-key": "${FH_MESSAGING_API_KEY}"
+            }
         },
         {
             "kind": "Service",
@@ -250,11 +271,21 @@
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_USER",
-                                        "value": "${MONGODB_FHREPORTING_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
-                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_DATABASE",
@@ -262,7 +293,12 @@
                                     },
                                     {
                                         "name": "FH_MESSAGING_API_KEY",
-                                        "value": "${FH_MESSAGING_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "fh-messaging-keys",
+                                                "key": "fh-messaging-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_LOG_LEVEL",
@@ -314,6 +350,17 @@
                 }
             },
             "status": {}
+        },
+        {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "fh-metrics-keys",
+                "creationTimestamp": null
+            },
+            "data": {
+                "fh-metrics-api-key": "${FH_METRICS_API_KEY}"
+            }
         },
         {
             "kind": "Service",
@@ -409,11 +456,21 @@
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
-                                        "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_USER",
-                                        "value": "${MONGODB_FHREPORTING_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-reporting-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHREPORTING_DATABASE",
@@ -421,7 +478,12 @@
                                     },
                                     {
                                         "name": "FH_METRICS_API_KEY",
-                                        "value": "${FH_METRICS_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "fh-metrics-keys",
+                                                "key": "fh-metrics-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_LOG_LEVEL",
@@ -649,6 +711,29 @@
             "status": {}
         },
         {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "millicore-configuration",
+                "creationTimestamp": null
+            },
+            "data": {
+                "servicekeys.json": "{\"keys\":[{\"${FH_MILLICORE_SERVICE_KEY}\":{\"millicore\":{\"email\":\"supercore@example.com\",\"roles\":[\"sub\",\"admin\"]}}},{\"${GITLAB_MILLICORE_SERVICE_KEY}\":{\"millicore\":{\"email\":\"gitlab@example.com\",\"roles\":[\"sub\",\"admin\"]}}}]}"
+            }
+        },
+        {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "supercore-keys",
+                "creationTimestamp": null
+            },
+            "data": {
+                "millicore-api-key": "${FH_MILLICORE_API_KEY}",
+                "millicore-service-key": "${FH_MILLICORE_SERVICE_KEY}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
@@ -789,11 +874,21 @@
                                     },
                                     {
                                         "name": "FH_MILLICORE_SERVICE_KEY",
-                                        "value": "${FH_MILLICORE_SERVICE_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "supercore-keys",
+                                                "key": "millicore-service-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_MILLICORE_API_KEY",
-                                        "value": "${FH_MILLICORE_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "supercore-keys",
+                                                "key": "millicore-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_SERVICE_NAME",
@@ -809,11 +904,21 @@
                                     },
                                     {
                                         "name": "MONGODB_FHSUPERCORE_USER",
-                                        "value": "${MONGODB_FHSUPERCORE_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-supercore-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MONGODB_FHSUPERCORE_PASSWORD",
-                                        "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mongodb-keys",
+                                                "key": "mongodb-fh-supercore-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "REDIS_PASSWORD",
@@ -821,15 +926,21 @@
                                     },
                                     {
                                         "name": "FH_MESSAGING_API_KEY",
-                                        "value": "${FH_MESSAGING_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "fh-messaging-keys",
+                                                "key": "fh-messaging-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "FH_METRICS_API_KEY",
-                                        "value": "${FH_METRICS_API_KEY}"
-                                    },
-                                    {
-                                        "name": "FH_STATSD_API_KEY",
-                                        "value": "${FH_STATSD_API_KEY}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "fh-metrics-keys",
+                                                "key": "fh-metrics-api-key"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "REDIS_SERVICE_NAME",
@@ -1238,19 +1349,39 @@
                                 "env": [
                                     {
                                         "name": "MYSQL_USER",
-                                        "value": "${UPS_USER}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mysql-keys",
+                                                "key": "mysql-ups-user"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_PASSWORD",
-                                        "value": "${UPS_PASSWORD}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mysql-keys",
+                                                "key": "mysql-ups-password"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_HOST",
-                                        "value": "${MYSQL_HOST}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mysql-keys",
+                                                "key": "mysql-host"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MYSQL_DATABASE",
-                                        "value": "${UPS_DATABASE}"
+                                        "valueFrom": {
+                                            "configMapKeyRef": {
+                                                "name": "mysql-keys",
+                                                "key": "mysql-ups-database"
+                                            }
+                                        }
                                     }
                                 ],
                                 "resources": {},
@@ -1312,19 +1443,6 @@
             "required": true
         },
         {
-            "name": "MONGODB_FHAAA_USER",
-            "description": "The MongoDB username for fh-aaa",
-            "value": "u-aaa",
-            "required": true
-        },
-        {
-            "name": "MONGODB_FHAAA_PASSWORD",
-            "description": "The MongoDB password for fh-aaa",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
-            "required": true
-        },
-        {
             "name": "MEMCACHED_SERVICE_NAME",
             "description": "The memcached service name",
             "value": "memcached",
@@ -1365,19 +1483,6 @@
             "name": "FH_MESSAGING_IMAGE_VERSION",
             "description": "The version for the FH_MESSAGING_IMAGE",
             "value": "3.0.0-419",
-            "required": true
-        },
-        {
-            "name": "MONGODB_FHREPORTING_USER",
-            "description": "The Reporting user name",
-            "value": "u-reporting",
-            "required": true
-        },
-        {
-            "name": "MONGODB_FHREPORTING_PASSWORD",
-            "description": "The MongoDB Reporting password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
             "required": true
         },
         {
@@ -1441,11 +1546,6 @@
             "required": true
         },
         {
-            "name": "FH_STATSD_API_KEY",
-            "value": "test",
-            "required": true
-        },
-        {
             "name": "FH_SUPERCORE_IMAGE",
             "description": "The name of the fh-supercore image",
             "value": "docker.io/rhmap/fh-supercore",
@@ -1464,21 +1564,15 @@
             "required": true
         },
         {
-            "name": "MONGODB_FHSUPERCORE_USER",
-            "description": "The MongoDB username for fh-supercore",
-            "value": "u-supercore",
-            "required": true
-        },
-        {
-            "name": "MONGODB_FHSUPERCORE_PASSWORD",
-            "description": "The MongoDB password for fh-supercore",
+            "name": "REDIS_PASSWORD",
+            "description": "The Redis password for fh-supercore",
             "generate": "expression",
             "from": "[a-zA-Z0-9]{40}",
             "required": true
         },
         {
-            "name": "REDIS_PASSWORD",
-            "description": "The Redis password for fh-supercore",
+            "name": "GITLAB_MILLICORE_SERVICE_KEY",
+            "description": "Key for communicating with the millicore Service",
             "generate": "expression",
             "from": "[a-zA-Z0-9]{40}",
             "required": true
@@ -1545,12 +1639,6 @@
             "required": true
         },
         {
-            "name": "GITLAB_MILLICORE_SERVICE_KEY",
-            "description": "Service key used to call millicore http api",
-            "value": "SERVICE_KEY",
-            "required": true
-        },
-        {
             "name": "GIT_EXTERNAL_HOST",
             "description": "External dns name that would be setup for router",
             "required": true
@@ -1602,31 +1690,6 @@
             "name": "UPS_IMAGE_VERSION",
             "description": "The version for the UPS_IMAGE",
             "value": "1.1.4-0",
-            "required": true
-        },
-        {
-            "name": "UPS_USER",
-            "description": "MYSQL database user",
-            "value": "unifiedpush",
-            "required": true
-        },
-        {
-            "name": "UPS_PASSWORD",
-            "description": "MYSQL database password",
-            "generate": "expression",
-            "from": "[a-zA-Z0-9]{40}",
-            "required": true
-        },
-        {
-            "name": "UPS_DATABASE",
-            "description": "MYSQL database",
-            "value": "unifiedpush",
-            "required": true
-        },
-        {
-            "name": "MYSQL_HOST",
-            "description": "MYSQL database host",
-            "value": "mysql",
             "required": true
         }
     ]

@@ -11,6 +11,16 @@
   },
   "objects": [
     {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-messaging-keys"
+      },
+      "data": {
+        "fh-messaging-api-key": "${FH_MESSAGING_API_KEY}"
+      }
+    },
+    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
@@ -85,11 +95,21 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-reporting-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-reporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
@@ -98,7 +118,12 @@
                   {
                     "name": "FH_MESSAGING_API_KEY",
                     "description": "API Key for calling fh-messaging",
-                    "value": "${FH_MESSAGING_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "fh-messaging-keys",
+                        "key": "fh-messaging-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_LOG_LEVEL",
@@ -163,19 +188,6 @@
       "name": "FH_MESSAGING_IMAGE_VERSION",
       "value": "3.0.0-419",
       "description": "The version for the FH_MESSAGING_IMAGE",
-      "required": true
-    },
-    {
-      "name": "MONGODB_FHREPORTING_USER",
-      "value": "u-reporting",
-      "description": "The Reporting user name",
-      "required": true
-    },
-    {
-      "name": "MONGODB_FHREPORTING_PASSWORD",
-      "description": "The MongoDB Reporting password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
       "required": true
     },
     {

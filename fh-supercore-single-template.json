@@ -11,11 +11,6 @@
   },
   "parameters": [
     {
-      "name": "FH_STATSD_API_KEY",
-      "value": "test",
-      "required": true
-    },
-    {
       "name": "FH_SUPERCORE_IMAGE",
       "value": "docker.io/rhmap/fh-supercore",
       "description": "The name of the fh-supercore image",
@@ -39,19 +34,6 @@
       "description": "A default log level for all components"
     },
     {
-      "name": "MONGODB_FHSUPERCORE_USER",
-      "value": "u-supercore",
-      "description": "The MongoDB username for fh-supercore",
-      "required": true
-    },
-    {
-      "name": "MONGODB_FHSUPERCORE_PASSWORD",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "The MongoDB password for fh-supercore",
-      "required": true
-    },
-    {
       "name": "REDIS_PASSWORD",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
@@ -59,17 +41,10 @@
       "required": true
     },
     {
-      "name": "FH_MESSAGING_API_KEY",
+      "name": "GITLAB_MILLICORE_SERVICE_KEY",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the FH_MESSAGING Service",
-      "required": true
-    },
-    {
-      "name": "FH_METRICS_API_KEY",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}",
-      "description": "Key for communicating with the FH_METRICS Service",
+      "description": "Key for communicating with the millicore Service",
       "required": true
     },
     {
@@ -110,6 +85,27 @@
     }
   ],
   "objects": [
+    {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "millicore-configuration"
+      },
+      "data": {
+        "servicekeys.json": "{\"keys\":[{\"${FH_MILLICORE_SERVICE_KEY}\":{\"millicore\":{\"email\":\"supercore@example.com\",\"roles\":[\"sub\",\"admin\"]}}},{\"${GITLAB_MILLICORE_SERVICE_KEY}\":{\"millicore\":{\"email\":\"gitlab@example.com\",\"roles\":[\"sub\",\"admin\"]}}}]}"
+      }
+    },
+    {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "supercore-keys"
+      },
+      "data": {
+        "millicore-api-key": "${FH_MILLICORE_API_KEY}",
+        "millicore-service-key": "${FH_MILLICORE_SERVICE_KEY}"
+      }
+    },
     {
       "kind": "Service",
       "apiVersion": "v1",
@@ -250,11 +246,21 @@
                   },
                   {
                     "name": "FH_MILLICORE_SERVICE_KEY",
-                    "value": "${FH_MILLICORE_SERVICE_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "supercore-keys",
+                        "key": "millicore-service-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_MILLICORE_API_KEY",
-                    "value": "${FH_MILLICORE_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "supercore-keys",
+                        "key": "millicore-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
@@ -270,11 +276,21 @@
                   },
                   {
                     "name": "MONGODB_FHSUPERCORE_USER",
-                    "value": "${MONGODB_FHSUPERCORE_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-supercore-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHSUPERCORE_PASSWORD",
-                    "value": "${MONGODB_FHSUPERCORE_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-keys",
+                        "key": "mongodb-fh-supercore-password"
+                      }
+                    }
                   },
                   {
                     "name": "REDIS_PASSWORD",
@@ -282,15 +298,21 @@
                   },
                   {
                     "name": "FH_MESSAGING_API_KEY",
-                    "value": "${FH_MESSAGING_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "fh-messaging-keys",
+                        "key": "fh-messaging-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "FH_METRICS_API_KEY",
-                    "value": "${FH_METRICS_API_KEY}"
-                  },
-                  {
-                    "name": "FH_STATSD_API_KEY",
-                    "value": "${FH_STATSD_API_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "fh-metrics-keys",
+                        "key": "fh-metrics-api-key"
+                      }
+                    }
                   },
                   {
                     "name": "REDIS_SERVICE_NAME",

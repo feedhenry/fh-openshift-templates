@@ -11,6 +11,24 @@
   },
   "objects": [
     {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mysql-keys"
+      },
+      "data": {
+        "mysql-host": "${DATABASE_SERVICE_NAME}",
+
+        "mysql-millicore-user": "${MYSQL_USER}",
+        "mysql-millicore-password": "${MYSQL_PASSWORD}",
+        "mysql-millicore-database": "${MYSQL_DATABASE}",
+
+        "mysql-ups-user": "${UPS_USER}",
+        "mysql-ups-password": "${UPS_PASSWORD}",
+        "mysql-ups-database": "${UPS_DATABASE}"
+      }
+    },
+    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
@@ -107,27 +125,57 @@
                 "env": [
                   {
                     "name": "MYSQL_USER",
-                    "value": "${MYSQL_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-millicore-user"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_PASSWORD",
-                    "value": "${MYSQL_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-millicore-password"
+                      }
+                    }
                   },
                   {
                     "name": "MYSQL_DATABASE",
-                    "value": "${MYSQL_DATABASE}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-millicore-database"
+                      }
+                    }
                   },
                   {
                     "name": "UPS_USER",
-                    "value": "${UPS_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-ups-user"
+                      }
+                    }
                   },
                   {
                     "name": "UPS_PASSWORD",
-                    "value": "${UPS_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-ups-password"
+                      }
+                    }
                   },
                   {
                     "name": "UPS_DATABASE",
-                    "value": "${UPS_DATABASE}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mysql-keys",
+                        "key": "mysql-ups-database"
+                      }
+                    }
                   }
                 ],
                 "resources": {
