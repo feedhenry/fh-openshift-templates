@@ -24,8 +24,7 @@ function main() {
   var gitlabShell = fs.realpathSync("gitlab-shell/gitlab-shell-single-template.json");
   var memcached = fs.realpathSync("memcached/memcached-template.json");
   var mongodb = fs.realpathSync("mongodb/mongodb-core-single-template.json");
-  var mysqlPersistent = fs.realpathSync("mysql/mysql-non-persistent-template.json");
-  var mysqlNonPersistent = fs.realpathSync("mysql/mysql-persistent-template.json");
+  var mysqlPersistent = fs.realpathSync("mysql/mysql-persistent-template.json");
   var nagios = fs.realpathSync("nagios/nagios-template.json");
   var redis = fs.realpathSync("redis/redis-template.json");
 
@@ -44,7 +43,6 @@ function main() {
     memcached,
     mongodb,
     mysqlPersistent,
-    mysqlNonPersistent,
     nagios,
     redis,
     ups
