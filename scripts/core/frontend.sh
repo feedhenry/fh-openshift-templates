@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-# appstore, millicore, apache, ngui
+export SCRIPT_ROOT="$(dirname "${BASH_SOURCE}")"
 
-oc new-app -f ../../generated/fh-core-frontend.json --param=FH_ADMIN_USER_PASSWORD="Password1",GIT_EXTERNAL_PROTOCOL="http",CLUSTER_HOST="rhmap.local.feedhenry.io",CLUSTER_DOMAIN="local.feedhenry.io"
+source $SCRIPT_ROOT/variables.sh
+
+#setup appstore, millicore, apache, ngui
+
+oc new-app --param=FH_ADMIN_USER_PASSWORD="$FH_ADMIN_USER_PASSWORD",CLUSTER_DOMAIN="$CLUSTER_DOMAIN",CLUSTER_HOST="$CLUSTER_HOST",FH_MESSAGING_API_KEY="$MESSAGING_API_KEY",BUILDER_ANDROID_SERVICE_HOST="$BUILDER_ANDROID_SERVICE_HOST",BUILDER_IPHONE_SERVICE_HOST="$BUILDER_IPHONE_SERVICE_HOST",GIT_EXTERNAL_HOST="$GIT_EXTERNAL_HOST",GIT_EXTERNAL_PROTOCOL="$GIT_EXTERNAL_PROTOCOL" -f "${TEMPLATES_DIR}/generated/fh-core-frontend.json"

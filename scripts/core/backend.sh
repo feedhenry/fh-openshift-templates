@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-# aaa, messaging, metrics, scm, supercore, gitlab-shell, ups
+export SCRIPT_ROOT="$(dirname "${BASH_SOURCE}")"
+source $SCRIPT_ROOT/variables.sh
 
-oc new-app -f ../../generated/fh-core-backend.json --param=GIT_EXTERNAL_HOST="git.local.feedhenry.io"
+oc new-app --param=REDIS_PASSWORD="$REDIS_PASSWORD",FH_MESSAGING_API_KEY="$MESSAGING_API_KEY",FH_METRICS_API_KEY="$METRICS_API_KEY",FH_MILLICORE_API_KEY="$MILLICORE_API_KEY",FH_MILLICORE_SERVICE_KEY="$MILLICORE_SERVICE_KEY",GITLAB_MILLICORE_SERVICE_KEY="$GITLAB_MILLICORE_SERVICE_KEY",GIT_EXTERNAL_HOST="$GIT_EXTERNAL_HOST" -f "${TEMPLATES_DIR}/generated/fh-core-backend.json"
