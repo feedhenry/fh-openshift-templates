@@ -19,15 +19,12 @@
         "mongodb-fh-reporting-user": "${MONGODB_FHREPORTING_USER}",
         "mongodb-fh-reporting-password": "${MONGODB_FHREPORTING_PASSWORD}",
         "mongodb-fh-reporting-database": "${MONGODB_FHREPORTING_DATABASE}",
-
         "mongodb-fh-aaa-user": "${MONGODB_FHAAA_USER}",
         "mongodb-fh-aaa-password": "${MONGODB_FHAAA_PASSWORD}",
         "mongodb-fh-aaa-database": "${MONGODB_FHAAA_DATABASE}",
-
         "mongodb-fh-supercore-user": "${MONGODB_FHSUPERCORE_USER}",
         "mongodb-fh-supercore-password": "${MONGODB_FHSUPERCORE_PASSWORD}",
         "mongodb-fh-supercore-database": "${MONGODB_FHSUPERCORE_DATABASE}",
-
         "mongodb-admin-password": "${MONGODB_ADMIN_PASSWORD}"
       }
     },

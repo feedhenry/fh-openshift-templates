@@ -18,11 +18,9 @@
       },
       "data": {
         "mysql-host": "${DATABASE_SERVICE_NAME}",
-
         "mysql-millicore-user": "${MYSQL_USER}",
         "mysql-millicore-password": "${MYSQL_PASSWORD}",
         "mysql-millicore-database": "${MYSQL_DATABASE}",
-
         "mysql-ups-user": "${UPS_USER}",
         "mysql-ups-password": "${UPS_PASSWORD}",
         "mysql-ups-database": "${UPS_DATABASE}"
