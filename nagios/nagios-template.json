@@ -105,7 +105,7 @@
                     "value": "${RHMAP_HOSTGROUPS}"
                   }
                 ],
-                "image": "${NAGIOS_IMAGE_NAME}:${NAGIOS_IMAGE_VERSION}",
+                "image": "${NAGIOS_IMAGE}:${NAGIOS_IMAGE_VERSION}",
                 "name": "nagios",
                 "ports": [
                   {
@@ -184,7 +184,7 @@
     },
     {
       "description": "The name of the Nagios Docker image",
-      "name": "NAGIOS_IMAGE_NAME",
+      "name": "NAGIOS_IMAGE",
       "value": "docker.io/rhmap/nagios4"
     },
     {
