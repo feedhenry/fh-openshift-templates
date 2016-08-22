@@ -1,5 +1,18 @@
 var _ = require("lodash");
-var template = require("../fh-mbaas-template-1node.json");
+var path = require('path');
+
+var argv = require('yargs')
+    .usage("Usage: npm run get-images -- -t /path/to/template.json")
+    .help('help')
+    .option('t', {
+      alias: 'template',
+      default: path.resolve(__dirname, '../fh-mbaas-template-3node.json'),
+      describe: 'Template file to load',
+      type: 'string'
+    })
+    .argv;
+
+var template = require(path.resolve(argv.t));
 
 var NAME_SUFFIX_REGEXP = /_IMAGE$|_IMAGE_VERSION$/;
 
