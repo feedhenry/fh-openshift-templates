@@ -15,7 +15,7 @@ SMTP_FROM_ADDRESS=admin@example.com,\
 ADMIN_EMAIL=root@localhost,\
 NAGIOS_USER=nagiosadmin,\
 NAGIOS_PASSWORD=password,\
-NAGIOS_IMAGE_NAME=docker.io/rhmap/nagios4,\
+NAGIOS_IMAGE=docker.io/rhmap/nagios4,\
 NAGIOS_IMAGE_VERSION=latest,\
 RHMAP_ROUTER_DNS=$(oc get route httpd-proxy-route -o=go-template={{.spec.host}}),\
 NAGIOS_HOST=$(printf "nagios-%s" "$(oc get route httpd-proxy-route -o=go-template={{.spec.host}})")
