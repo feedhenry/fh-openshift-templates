@@ -107,6 +107,16 @@
       }
     },
     {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "platform-info"
+      },
+      "data": {
+        "platform-info.json": "{\"version\": \"4.2.0\",\"grid\": {\"id\": \"DEVELOPMENT\",\"name\": \" \",\"region\": \" \"},\"site\": {\"id\": \"development\"},\"env\": {\"id\": \"development\",\"name\": \" \",\"size\": \" \",\"descr\": \" \"}}"
+      }
+    },
+    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
@@ -339,7 +349,22 @@
                     "value": "8080"
                   }
                 ],
+                "volumeMounts": [
+                  {
+                    "name": "platform-info",
+                    "mountPath": "/etc/feedhenry/",
+                    "readOnly": true
+                  }
+                ],
                 "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes": [
+              {
+                "name": "platform-info",
+                "configMap": {
+                  "name": "platform-info"
+                }
               }
             ]
           }
