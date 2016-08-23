@@ -837,6 +837,10 @@
                                         "value": "fh-aaa"
                                     },
                                     {
+                                        "name": "FH_ES_LOGGING_ENABLED",
+                                        "value": "false"
+                                    },
+                                    {
                                         "name": "FH_AAA_SERVICE_PORT",
                                         "value": "8080"
                                     },
@@ -1575,7 +1579,7 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "4.0.8-2692",
+            "value": "4.1.0-2696",
             "required": true
         },
         {
@@ -1622,6 +1626,36 @@
             "name": "FH_AAA_SERVICE_HOST",
             "value": "fh-aaa",
             "required": true
+        },
+        {
+            "name": "FH_ES_LOGGING_ENABLED",
+            "description": "Boolean flag for whether centralised logging is enabled or not",
+            "value": "false",
+            "required": true
+        },
+        {
+            "name": "FH_ES_LOGGING_HOST",
+            "description": "The host for connecting to elasticsearch"
+        },
+        {
+            "name": "FH_ES_LOGGING_PORT",
+            "description": "The port for connecting to elasticsearch",
+            "value": "9200"
+        },
+        {
+            "name": "FH_ES_LOGGING_API_VERSION",
+            "description": "The elasticsearch API version.",
+            "value": "1.5"
+        },
+        {
+            "name": "FH_ES_LOGGING_KEY_PATH",
+            "description": "The path to the ssl key for making requests to elasticsearch.",
+            "value": "/etc/feedhenry/es-keys/key"
+        },
+        {
+            "name": "FH_ES_LOGGING_CERT_PATH",
+            "description": "The path to the ssl certificate for making requests to elasticsearch.",
+            "value": "/etc/feedhenry/es-keys/crt"
         },
         {
             "name": "GITLAB_SHELL_IMAGE",
