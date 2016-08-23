@@ -258,6 +258,11 @@
       "description": ""
     },
     {
+      "name": "NAGIOS_HOST",
+      "value": "nagios:8080",
+      "description": "Internal hostname for Nagios"
+    },
+    {
       "name": "HTTPD_LOG_LEVEL",
       "value": "info",
       "displayName": "Log level",
@@ -731,6 +736,10 @@
                   {
                     "name": "APP_STORE_HOST",
                     "value": "${APP_STORE_HOST}"
+                  },
+                  {
+                    "name": "NAGIOS_HOST",
+                    "value": "${NAGIOS_HOST}"
                   },
                   {
                     "name": "BUILDER_ANDROID_SERVICE_HOST",
