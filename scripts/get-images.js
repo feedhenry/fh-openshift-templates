@@ -2,17 +2,22 @@ var _ = require("lodash");
 var path = require('path');
 
 var argv = require('yargs')
-    .usage("Usage: npm run get-images -- -t /path/to/template.json")
+    .usage("Usage: npm run get-images -- -t /path/to/template.json /path/to/template2.json")
     .help('help')
     .option('t', {
-      alias: 'template',
+      alias: 'templates',
       default: path.resolve(__dirname, '../fh-mbaas-template-3node.json'),
-      describe: 'Template file to load',
-      type: 'string'
+      describe: 'Template files to load',
+      type: 'array'
+    })
+    .option('sudo', {
+      default: true,
+      describe: 'Prepend sudo to pull commands',
+      type: 'boolean'
     })
     .argv;
 
-var template = require(path.resolve(argv.t));
+var templates = Array.isArray(argv.t) ? argv.t : [argv.t];
 
 var NAME_SUFFIX_REGEXP = /_IMAGE$|_IMAGE_VERSION$/;
 
@@ -26,10 +31,14 @@ function reduceGroupedParams(paramGroup, accum) {
   }, accum);
 }
 
-var relevantParameters = _.filter(template.parameters, function(parameter) {
-  return parameter.name &&
-    _.split(parameter.name, NAME_SUFFIX_REGEXP).length === 2;
-});
+var relevantParameters = _.flatten(_.map(templates, function(t) {
+      var template = require(path.resolve(t));
+      return _.filter(template.parameters, function(parameter) {
+        return parameter.name &&
+            _.split(parameter.name, NAME_SUFFIX_REGEXP).length === 2;
+      });
+    }
+));
 
 var groupedComponents = _.groupBy(relevantParameters, namePropertyWithoutSuffix);
 
@@ -38,7 +47,7 @@ var images = _.map(_.values(groupedComponents), function(group) {
 });
 
 var pullCommand = _.join(_.map(_.values(groupedComponents), function(group) {
-  return reduceGroupedParams(group, "sudo docker pull ");
+  return reduceGroupedParams(group, _.compact([argv.sudo ? 'sudo' : '', 'docker', 'pull ']).join(' '));
 }), " && \\\n");
 
 console.log("Docker image tags defined in parameters:");
