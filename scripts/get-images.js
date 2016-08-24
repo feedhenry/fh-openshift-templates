@@ -10,9 +10,13 @@ var argv = require('yargs')
       describe: 'Template files to load',
       type: 'array'
     })
+    .option('sudo', {
+      default: true,
+      describe: 'Prepend sudo to pull commands',
+      type: 'boolean'
+    })
     .argv;
 
-console.log(argv.sudo);
 var templates = Array.isArray(argv.t) ? argv.t : [argv.t];
 
 var NAME_SUFFIX_REGEXP = /_IMAGE$|_IMAGE_VERSION$/;
@@ -43,7 +47,7 @@ var images = _.map(_.values(groupedComponents), function(group) {
 });
 
 var pullCommand = _.join(_.map(_.values(groupedComponents), function(group) {
-  return reduceGroupedParams(group, "sudo docker pull ");
+  return reduceGroupedParams(group, _.compact([argv.sudo ? 'sudo' : '', 'docker', 'pull ']).join(' '));
 }), " && \\\n");
 
 console.log("Docker image tags defined in parameters:");
