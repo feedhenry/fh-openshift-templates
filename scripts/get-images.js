@@ -2,17 +2,18 @@ var _ = require("lodash");
 var path = require('path');
 
 var argv = require('yargs')
-    .usage("Usage: npm run get-images -- -t /path/to/template.json")
+    .usage("Usage: npm run get-images -- -t /path/to/template.json /path/to/template2.json")
     .help('help')
     .option('t', {
-      alias: 'template',
+      alias: 'templates',
       default: path.resolve(__dirname, '../fh-mbaas-template-3node.json'),
-      describe: 'Template file to load',
-      type: 'string'
+      describe: 'Template files to load',
+      type: 'array'
     })
     .argv;
 
-var template = require(path.resolve(argv.t));
+console.log(argv.sudo);
+var templates = Array.isArray(argv.t) ? argv.t : [argv.t];
 
 var NAME_SUFFIX_REGEXP = /_IMAGE$|_IMAGE_VERSION$/;
 
@@ -26,10 +27,14 @@ function reduceGroupedParams(paramGroup, accum) {
   }, accum);
 }
 
-var relevantParameters = _.filter(template.parameters, function(parameter) {
-  return parameter.name &&
-    _.split(parameter.name, NAME_SUFFIX_REGEXP).length === 2;
-});
+var relevantParameters = _.flatten(_.map(templates, function(t) {
+      var template = require(path.resolve(t));
+      return _.filter(template.parameters, function(parameter) {
+        return parameter.name &&
+            _.split(parameter.name, NAME_SUFFIX_REGEXP).length === 2;
+      });
+    }
+));
 
 var groupedComponents = _.groupBy(relevantParameters, namePropertyWithoutSuffix);
 
