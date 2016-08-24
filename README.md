@@ -168,6 +168,10 @@ Note: the login credentials for the Nagios dashboard in a development environmen
 
 * When all Pods are successfully running, and all Nagios checks are passing (may take a few minutes for all checks to run at least once) you should be able to login to http://rhmap.local.feedhenry.io as rhmap-admin@example.com/Password1
 
+## Setting up centralised logging (Optional)
+
+When the core has been set up, you can create a centralised logging installation by using the `./scripts/logging` scripts. ([see README](scripts/logging/README.md))
+
 ### troubleshooting
 
 * After `./infra.sh` you may run into a problem when mongodb-initiator ends with an error. To resolve this run `oc delete dc mongodb-1`, `oc delete pod mongodb-initiator --grace-period=0` and then run `./infra.sh` again.
