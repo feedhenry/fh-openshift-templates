@@ -133,7 +133,22 @@
                     "value": "${FH_MILLICORE_SERVICE_PORT}"
                   }
                 ],
+                "volumeMounts": [
+                  {
+                    "name": "platform-info",
+                    "mountPath": "/etc/feedhenry/",
+                    "readOnly": true
+                  }
+                ],
                 "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes":[
+              {
+                "name": "platform-info",
+                "configMap": {
+                  "name": "platform-info"
+                }
               }
             ]
           }
