@@ -631,7 +631,7 @@
             "containers": [
               {
                 "name": "nagios",
-                "image": "${NAGIOS_IMAGE_NAME}:${NAGIOS_IMAGE_VERSION}",
+                "image": "${NAGIOS_IMAGE}:${NAGIOS_IMAGE_VERSION}",
                 "ports": [
                   {
                     "containerPort": 8080,
@@ -1504,7 +1504,7 @@
       "value": "mbaas"
     },
     {
-      "name": "NAGIOS_IMAGE_NAME",
+      "name": "NAGIOS_IMAGE",
       "description": "The name of the Nagios Docker image",
       "value": "docker.io/rhmap/nagios4"
     },
