@@ -200,6 +200,14 @@
                         }
                     },
                     "spec": {
+                        "volumes": [
+                            {
+                                "name": "platform-info",
+                                "configMap": {
+                                    "name": "platform-info"
+                                }
+                            }
+                        ],
                         "containers": [
                             {
                                 "name": "fh-ngui",
@@ -225,6 +233,13 @@
                                     }
                                 ],
                                 "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "platform-info",
+                                        "readOnly": true,
+                                        "mountPath": "/etc/feedhenry/"
+                                    }
+                                ],
                                 "livenessProbe": {
                                     "httpGet": {
                                         "path": "/sys/info/ping",

@@ -734,6 +734,17 @@
             }
         },
         {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "platform-info",
+                "creationTimestamp": null
+            },
+            "data": {
+                "platform-info.json": "{\"version\": \"4.2.0\",\"grid\": {\"id\": \"DEVELOPMENT\",\"name\": \" \",\"region\": \" \"},\"site\": {\"id\": \"development\"},\"env\": {\"id\": \"development\",\"name\": \" \",\"size\": \" \",\"descr\": \" \"}}"
+            }
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
@@ -801,6 +812,14 @@
                         }
                     },
                     "spec": {
+                        "volumes": [
+                            {
+                                "name": "platform-info",
+                                "configMap": {
+                                    "name": "platform-info"
+                                }
+                            }
+                        ],
                         "containers": [
                             {
                                 "name": "fh-supercore",
@@ -968,6 +987,13 @@
                                     }
                                 ],
                                 "resources": {},
+                                "volumeMounts": [
+                                    {
+                                        "name": "platform-info",
+                                        "readOnly": true,
+                                        "mountPath": "/etc/feedhenry/"
+                                    }
+                                ],
                                 "livenessProbe": {
                                     "httpGet": {
                                         "path": "/sys/info/ping",
