@@ -1278,31 +1278,6 @@
             }
         },
         {
-            "kind": "Route",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "ups",
-                "creationTimestamp": null,
-                "annotations": {
-                    "openshift.io/host.generated": "false"
-                }
-            },
-            "spec": {
-                "host": "",
-                "to": {
-                    "kind": "Service",
-                    "name": "ups"
-                },
-                "tls": {
-                    "termination": "edge",
-                    "insecureEdgeTerminationPolicy": "Allow"
-                }
-            },
-            "status": {
-                "ingress": null
-            }
-        },
-        {
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
@@ -1424,6 +1399,10 @@
                                                 "key": "mysql-ups-database"
                                             }
                                         }
+                                    },
+                                    {
+                                        "name": "KEYCLOAK_BASE_URL",
+                                        "value": "http://${KEYCLOAK_SERVICE_HOST}:${KEYCLOAK_SERVICE_PORT}"
                                     }
                                 ],
                                 "resources": {},
@@ -1725,13 +1704,25 @@
         {
             "name": "UPS_IMAGE",
             "description": "The name of the Unified Push image",
-            "value": "docker.io/rhmap/unifiedpush-wildfly",
+            "value": "docker.io/rhmap/unifiedpush-eap",
             "required": true
         },
         {
             "name": "UPS_IMAGE_VERSION",
             "description": "The version for the UPS_IMAGE",
-            "value": "1.1.4-0",
+            "value": "1.1.4-9",
+            "required": true
+        },
+        {
+            "name": "KEYCLOAK_SERVICE_HOST",
+            "description": "Keycloak service host",
+            "value": "ups",
+            "required": true
+        },
+        {
+            "name": "KEYCLOAK_SERVICE_PORT",
+            "description": "Keycloak service port",
+            "value": "8080",
             "required": true
         }
     ]
