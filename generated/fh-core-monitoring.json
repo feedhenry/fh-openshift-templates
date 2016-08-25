@@ -44,7 +44,7 @@
                 "creationTimestamp": null
             },
             "spec": {
-                "host": "${NAGIOS_HOST}",
+                "host": "",
                 "to": {
                     "kind": "Service",
                     "name": "nagios"
@@ -161,11 +161,6 @@
         }
     ],
     "parameters": [
-        {
-            "name": "NAGIOS_HOST",
-            "description": "Nagios hostname to expose a route as",
-            "required": true
-        },
         {
             "name": "SMTP_SERVER",
             "description": "SMTP server address to use for sending alert emails e.g. 1.2.3.4:25",
