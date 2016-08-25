@@ -1060,7 +1060,7 @@
             "kind": "Route",
             "apiVersion": "v1",
             "metadata": {
-                "name": "gitlab-shell-http-route",
+                "name": "git",
                 "creationTimestamp": null,
                 "labels": {
                     "app": "gitlab-shell"
@@ -1661,8 +1661,7 @@
         },
         {
             "name": "GIT_EXTERNAL_HOST",
-            "description": "External dns name that would be setup for router",
-            "required": true
+            "description": "External route to expose Git repositories from. If this is not set, the route will default to git-\u003cproject\u003e.\u003crouter-subdomain\u003e e.g. git-rhmap.openshift.example.com"
         },
         {
             "name": "HTTPD_IMAGE",
