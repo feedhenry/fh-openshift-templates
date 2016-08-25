@@ -1576,7 +1576,7 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "4.0.7-2688",
+            "value": "4.0.8-2692",
             "required": true
         },
         {
