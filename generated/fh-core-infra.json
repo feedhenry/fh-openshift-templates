@@ -247,7 +247,8 @@
                                 ],
                                 "env": [
                                     {
-                                        "name": "MONGODB_REPLICA_NAME"
+                                        "name": "MONGODB_REPLICA_NAME",
+                                        "value": "${MONGODB_REPLICA_NAME}"
                                     },
                                     {
                                         "name": "MONGODB_SERVICE_NAME",
@@ -834,6 +835,11 @@
             "name": "ENDPOINT_COUNT",
             "description": "The amount of database's to create a replica set",
             "value": "1",
+            "required": true
+        },
+        {
+            "name": "MONGODB_REPLICA_NAME",
+            "description": "The name of the openshift replicaset",
             "required": true
         },
         {
