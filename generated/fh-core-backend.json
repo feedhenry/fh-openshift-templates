@@ -1402,8 +1402,7 @@
                                         }
                                     },
                                     {
-                                        "name": "KEYCLOAK_BASE_URL",
-                                        "value": "http://${KEYCLOAK_SERVICE_HOST}:${KEYCLOAK_SERVICE_PORT}"
+                                        "name": "KEYCLOAK_BASE_URL"
                                     }
                                 ],
                                 "resources": {},
@@ -1712,18 +1711,6 @@
             "name": "UPS_IMAGE_VERSION",
             "description": "The version for the UPS_IMAGE",
             "value": "1.1.4-9",
-            "required": true
-        },
-        {
-            "name": "KEYCLOAK_SERVICE_HOST",
-            "description": "Keycloak service host",
-            "value": "ups",
-            "required": true
-        },
-        {
-            "name": "KEYCLOAK_SERVICE_PORT",
-            "description": "Keycloak service port",
-            "value": "8080",
             "required": true
         }
     ]
