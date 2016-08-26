@@ -378,14 +378,14 @@
             "kind": "Route",
             "apiVersion": "v1",
             "metadata": {
-                "name": "${HTTPD_SERVICE_NAME}-proxy-route",
+                "name": "rhmap",
                 "creationTimestamp": null,
                 "labels": {
                     "app": "${HTTPD_SERVICE_NAME}"
                 }
             },
             "spec": {
-                "host": "${CLUSTER_HOST}",
+                "host": "${FH_DOMAIN_NAME}.${CLUSTER_DOMAIN}",
                 "to": {
                     "kind": "Service",
                     "name": "${HTTPD_SERVICE_NAME}"
@@ -1053,9 +1053,6 @@
             "required": true
         },
         {
-            "name": "CLUSTER_HOST"
-        },
-        {
             "name": "HTTPD_SERVICE_NAME",
             "displayName": "Service Name",
             "description": "The name of the OpenShift Service for httpd server.",
@@ -1127,9 +1124,7 @@
         },
         {
             "name": "GIT_EXTERNAL_HOST",
-            "displayName": "git host",
-            "description": "Git host exposed to end users",
-            "value": "rhmap.feedhenry.local",
+            "description": "External route where gitlab-shell can be accessed from. This host will be used in the Studio for the clone URL of App repositories",
             "required": true
         },
         {

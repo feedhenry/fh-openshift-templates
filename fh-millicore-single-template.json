@@ -215,10 +215,6 @@
       "required": true
     },
     {
-      "name": "CLUSTER_HOST",
-      "value": ""
-    },
-    {
       "name": "HTTPD_SERVICE_NAME",
       "displayName": "Service Name",
       "description": "The name of the OpenShift Service for httpd server.",
@@ -291,9 +287,7 @@
     },
     {
       "name": "GIT_EXTERNAL_HOST",
-      "value": "rhmap.feedhenry.local",
-      "displayName": "git host",
-      "description": "Git host exposed to end users",
+      "description": "External route where gitlab-shell can be accessed from. This host will be used in the Studio for the clone URL of App repositories",
       "required": true
     },
     {
@@ -393,10 +387,10 @@
         "labels": {
           "app": "${HTTPD_SERVICE_NAME}"
         },
-        "name": "${HTTPD_SERVICE_NAME}-proxy-route"
+        "name": "rhmap"
       },
       "spec": {
-        "host": "${CLUSTER_HOST}",
+        "host": "${FH_DOMAIN_NAME}.${CLUSTER_DOMAIN}",
         "port": {
           "targetPort": "server-http-port"
         },

@@ -48,8 +48,7 @@
     {
       "name": "GIT_EXTERNAL_HOST",
       "value": "",
-      "description": "External dns name that would be setup for router",
-      "required": true
+      "description": "External route to expose Git repositories from. If this is not set, the route will default to git-<project>.<router-subdomain> e.g. git-rhmap.openshift.example.com"
     },
     {
       "name": "HTTPD_IMAGE",
@@ -122,7 +121,7 @@
         "labels": {
           "app": "gitlab-shell"
         },
-        "name": "gitlab-shell-http-route"
+        "name": "git"
       },
       "spec": {
         "host": "${GIT_EXTERNAL_HOST}",
