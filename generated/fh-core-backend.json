@@ -303,6 +303,10 @@
                                     {
                                         "name": "FH_LOG_LEVEL",
                                         "value": "${FH_DEFAULT_LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "MONGODB_REPLICA_NAME",
+                                        "value": "${MONGODB_REPLICA_NAME}"
                                     }
                                 ],
                                 "resources": {
@@ -488,6 +492,10 @@
                                     {
                                         "name": "FH_LOG_LEVEL",
                                         "value": "${FH_DEFAULT_LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "MONGODB_REPLICA_NAME",
+                                        "value": "${MONGODB_REPLICA_NAME}"
                                     }
                                 ],
                                 "resources": {
@@ -1507,13 +1515,18 @@
         {
             "name": "FH_MESSAGING_IMAGE_VERSION",
             "description": "The version for the FH_MESSAGING_IMAGE",
-            "value": "3.0.0-419",
+            "value": "3.0.1-423",
             "required": true
         },
         {
             "name": "FH_DEFAULT_LOG_LEVEL",
             "description": "A default log level for all MBaaS components",
             "value": "info",
+            "required": true
+        },
+        {
+            "name": "MONGODB_REPLICA_NAME",
+            "description": "The mongodb replicaset name",
             "required": true
         },
         {
@@ -1531,7 +1544,7 @@
         {
             "name": "FH_METRICS_IMAGE_VERSION",
             "description": "The version for the FH_METRICS_IMAGE",
-            "value": "3.0.0-419",
+            "value": "3.0.1-423",
             "required": true
         },
         {
