@@ -372,8 +372,7 @@
     {
       "name": "MONGODB_REPLICA_NAME",
       "description": "The name of the openshift replicaset",
-      "value": "",
-      "required": true
+      "value": ""
     }
   ],
   "labels": {
