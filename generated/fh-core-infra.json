@@ -839,8 +839,7 @@
         },
         {
             "name": "MONGODB_REPLICA_NAME",
-            "description": "The name of the openshift replicaset",
-            "required": true
+            "description": "The name of the openshift replicaset"
         },
         {
             "name": "MYSQL_IMAGE",
