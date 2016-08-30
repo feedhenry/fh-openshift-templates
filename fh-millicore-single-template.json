@@ -23,10 +23,10 @@
       "required": true
     },
     {
-      "name": "MILLICORE_LOG_LEVEL",
+      "name": "FH_LOG_LEVEL",
       "value": "WARN",
       "description": "Millicore log level, defaults to WARN",
-      "required": false
+      "required": true
     },
     {
       "name": "MONGODB_SERVICE_NAME",
