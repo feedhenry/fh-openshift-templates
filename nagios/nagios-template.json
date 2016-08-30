@@ -170,7 +170,7 @@
     {
       "description": "Host or Service name for RHMAP",
       "name": "RHMAP_ROUTER_DNS",
-      "value": "fh-rhmap-service"
+      "value": "localhost"
     },
     {
       "description": "RHMAP hostgroups being monitored (core|mbaas|core,mbaas)",

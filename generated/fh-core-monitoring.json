@@ -205,7 +205,7 @@
         {
             "name": "RHMAP_ROUTER_DNS",
             "description": "Host or Service name for RHMAP",
-            "value": "fh-rhmap-service"
+            "value": "localhost"
         },
         {
             "name": "RHMAP_HOSTGROUPS",
