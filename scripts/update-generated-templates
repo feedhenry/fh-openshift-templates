@@ -10,7 +10,7 @@ set -o pipefail
 PROJECT_ROOT="$(dirname "${BASH_SOURCE}")/.."
 
 TEMPLATE_TOOL='openshift-template-tool'
-TEMPLATE_TOOL_URL='github.com/fheng/openshift-template-tool'
+TEMPLATE_TOOL_URL='github.com/feedhenry/openshift-template-tool'
 
 # Check that the required template tool is available and try to install it
 # otherwise.
@@ -37,7 +37,7 @@ checktool() {
   if ! hash "${TEMPLATE_TOOL}" 2>/dev/null; then
     echo >&2 "Could not find ${TEMPLATE_TOOL}." \
              'Follow the installation instructions in' \
-             'https://github.com/fheng/openshift-template-tool,' \
+             'https://github.com/feedhenry/openshift-template-tool,' \
              'or place a pre-built binary in your PATH.'
     return 1
   fi

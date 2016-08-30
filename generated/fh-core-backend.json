@@ -129,7 +129,16 @@
                                         "value": "${MONGODB_SERVICE_PORT}"
                                     }
                                 ],
-                                "resources": {},
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "800m",
+                                        "memory": "800Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "20m",
+                                        "memory": "100Mi"
+                                    }
+                                },
                                 "livenessProbe": {
                                     "httpGet": {
                                         "path": "/sys/info/ping",
@@ -225,16 +234,7 @@
                         "maxUnavailable": "25%",
                         "maxSurge": "25%"
                     },
-                    "resources": {
-                        "limits": {
-                            "cpu": "400m",
-                            "memory": "400Mi"
-                        },
-                        "requests": {
-                            "cpu": "200m",
-                            "memory": "200Mi"
-                        }
-                    }
+                    "resources": {}
                 },
                 "triggers": [
                     {
@@ -414,16 +414,7 @@
                         "maxUnavailable": "25%",
                         "maxSurge": "25%"
                     },
-                    "resources": {
-                        "limits": {
-                            "cpu": "400m",
-                            "memory": "400Mi"
-                        },
-                        "requests": {
-                            "cpu": "200m",
-                            "memory": "200Mi"
-                        }
-                    }
+                    "resources": {}
                 },
                 "triggers": [
                     {
@@ -673,7 +664,16 @@
                                         "value": "${FH_MILLICORE_SERVICE_PORT}"
                                     }
                                 ],
-                                "resources": {},
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "800m",
+                                        "memory": "800Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "12m",
+                                        "memory": "70Mi"
+                                    }
+                                },
                                 "volumeMounts": [
                                     {
                                         "name": "scm-data",
@@ -999,7 +999,16 @@
                                         "value": "8080"
                                     }
                                 ],
-                                "resources": {},
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "800m",
+                                        "memory": "800Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "20m",
+                                        "memory": "200Mi"
+                                    }
+                                },
                                 "volumeMounts": [
                                     {
                                         "name": "platform-info",
@@ -1185,6 +1194,16 @@
                                     },
                                     "timeoutSeconds": 5
                                 },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "800m",
+                                        "memory": "800Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "10m",
+                                        "memory": "50Mi"
+                                    }
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/home/git/gitlab-config",
@@ -1249,6 +1268,16 @@
                                     "periodSeconds": 10,
                                     "successThreshold": 1,
                                     "timeoutSeconds": 5
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "800m",
+                                        "memory": "800Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "10m",
+                                        "memory": "50Mi"
+                                    }
                                 },
                                 "volumeMounts": [
                                     {
@@ -1417,7 +1446,16 @@
                                         "name": "KEYCLOAK_BASE_URL"
                                     }
                                 ],
-                                "resources": {},
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "2",
+                                        "memory": "5000Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "400m",
+                                        "memory": "900Mi"
+                                    }
+                                },
                                 "livenessProbe": {
                                     "httpGet": {
                                         "path": "/ag-push",

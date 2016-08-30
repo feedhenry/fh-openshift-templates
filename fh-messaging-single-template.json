@@ -50,19 +50,6 @@
         }
       },
       "spec": {
-        "strategy": {
-          "type": "Rolling",
-          "resources": {
-            "limits": {
-              "cpu": "400m",
-              "memory": "400Mi"
-            },
-            "requests": {
-              "cpu": "200m",
-              "memory": "200Mi"
-            }
-          }
-        },
         "triggers": [
           {
             "type": "ConfigChange"

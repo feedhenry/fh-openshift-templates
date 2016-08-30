@@ -101,7 +101,12 @@
                                 },
                                 "resources": {
                                     "limits": {
+                                        "cpu": "800m",
                                         "memory": "${MEMORY_LIMIT}"
+                                    },
+                                    "requests": {
+                                        "cpu": "10m",
+                                        "memory": "30Mi"
                                     }
                                 }
                             }
@@ -183,68 +188,31 @@
             }
         },
         {
-            "kind": "DeploymentConfig",
             "apiVersion": "v1",
+            "kind": "DeploymentConfig",
             "metadata": {
-                "name": "mongodb-1",
-                "creationTimestamp": null,
                 "labels": {
                     "name": "mongodb"
-                }
+                },
+                "name": "mongodb-1"
             },
             "spec": {
-                "strategy": {
-                    "type": "Recreate",
-                    "recreateParams": {
-                        "timeoutSeconds": 600
-                    },
-                    "resources": {
-                        "limits": {
-                            "cpu": "1",
-                            "memory": "1000Mi"
-                        },
-                        "requests": {
-                            "cpu": "200m",
-                            "memory": "200Mi"
-                        }
-                    }
-                },
-                "triggers": [
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
                 "replicas": 1,
-                "test": false,
                 "selector": {
                     "name": "mongodb-replica"
                 },
+                "strategy": {
+                    "type": "Recreate"
+                },
                 "template": {
                     "metadata": {
-                        "creationTimestamp": null,
                         "labels": {
                             "name": "mongodb-replica"
                         }
                     },
                     "spec": {
-                        "volumes": [
-                            {
-                                "name": "mongodb-data-volume",
-                                "persistentVolumeClaim": {
-                                    "claimName": "mongodb-claim-1"
-                                }
-                            }
-                        ],
                         "containers": [
                             {
-                                "name": "mongodb",
-                                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
-                                "ports": [
-                                    {
-                                        "containerPort": 27017,
-                                        "protocol": "TCP"
-                                    }
-                                ],
                                 "env": [
                                     {
                                         "name": "MONGODB_REPLICA_NAME",
@@ -262,8 +230,8 @@
                                         "name": "MONGODB_ADMIN_PASSWORD",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-admin-password"
+                                                "key": "mongodb-admin-password",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     },
@@ -271,8 +239,8 @@
                                         "name": "MONGODB_FHAAA_USER",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-fh-aaa-user"
+                                                "key": "mongodb-fh-aaa-user",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     },
@@ -280,8 +248,8 @@
                                         "name": "MONGODB_FHAAA_PASSWORD",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-fh-aaa-password"
+                                                "key": "mongodb-fh-aaa-password",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     },
@@ -289,8 +257,8 @@
                                         "name": "MONGODB_FHAAA_DATABASE",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-fh-aaa-database"
+                                                "key": "mongodb-fh-aaa-database",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     },
@@ -298,8 +266,8 @@
                                         "name": "MONGODB_FHSUPERCORE_USER",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-fh-supercore-user"
+                                                "key": "mongodb-fh-supercore-user",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     },
@@ -307,8 +275,8 @@
                                         "name": "MONGODB_FHSUPERCORE_PASSWORD",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-fh-supercore-password"
+                                                "key": "mongodb-fh-supercore-password",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     },
@@ -316,8 +284,8 @@
                                         "name": "MONGODB_FHSUPERCORE_DATABASE",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-fh-supercore-database"
+                                                "key": "mongodb-fh-supercore-database",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     },
@@ -325,8 +293,8 @@
                                         "name": "MONGODB_FHREPORTING_USER",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-fh-reporting-user"
+                                                "key": "mongodb-fh-reporting-user",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     },
@@ -334,8 +302,8 @@
                                         "name": "MONGODB_FHREPORTING_PASSWORD",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-fh-reporting-password"
+                                                "key": "mongodb-fh-reporting-password",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     },
@@ -343,15 +311,24 @@
                                         "name": "MONGODB_FHREPORTING_DATABASE",
                                         "valueFrom": {
                                             "configMapKeyRef": {
-                                                "name": "mongodb-keys",
-                                                "key": "mongodb-fh-reporting-database"
+                                                "key": "mongodb-fh-reporting-database",
+                                                "name": "mongodb-keys"
                                             }
                                         }
                                     }
                                 ],
+                                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "mongodb",
+                                "ports": [
+                                    {
+                                        "containerPort": 27017,
+                                        "protocol": "TCP"
+                                    }
+                                ],
                                 "resources": {
                                     "limits": {
-                                        "cpu": "1",
+                                        "cpu": "1000m",
                                         "memory": "1000Mi"
                                     },
                                     "requests": {
@@ -359,24 +336,33 @@
                                         "memory": "200Mi"
                                     }
                                 },
+                                "terminationMessagePath": "/dev/termination-log",
                                 "volumeMounts": [
                                     {
-                                        "name": "mongodb-data-volume",
-                                        "mountPath": "/var/lib/mongodb/data"
+                                        "mountPath": "/var/lib/mongodb/data",
+                                        "name": "mongodb-data-volume"
                                     }
-                                ],
-                                "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "IfNotPresent"
+                                ]
                             }
                         ],
-                        "restartPolicy": "Always",
-                        "terminationGracePeriodSeconds": 30,
                         "dnsPolicy": "ClusterFirst",
-                        "securityContext": {}
+                        "restartPolicy": "Always",
+                        "volumes": [
+                            {
+                                "name": "mongodb-data-volume",
+                                "persistentVolumeClaim": {
+                                    "claimName": "mongodb-claim-1"
+                                }
+                            }
+                        ]
                     }
-                }
-            },
-            "status": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
         },
         {
             "kind": "ConfigMap",
@@ -551,7 +537,12 @@
                                 },
                                 "resources": {
                                     "limits": {
+                                        "cpu": "3200m",
                                         "memory": "${MEMORY_LIMIT}"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "700Mi"
                                     }
                                 },
                                 "volumeMounts": [

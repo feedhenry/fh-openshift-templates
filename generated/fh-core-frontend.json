@@ -95,7 +95,16 @@
                                         "value": "${FH_LOG_LEVEL}"
                                     }
                                 ],
-                                "resources": {},
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "800m",
+                                        "memory": "800Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "1m",
+                                        "memory": "50Mi"
+                                    }
+                                },
                                 "livenessProbe": {
                                     "httpGet": {
                                         "path": "/sys/info/ping",
@@ -232,7 +241,16 @@
                                         "value": "${FH_MILLICORE_SERVICE_PORT}"
                                     }
                                 ],
-                                "resources": {},
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "800m",
+                                        "memory": "800Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "10m",
+                                        "memory": "250Mi"
+                                    }
+                                },
                                 "volumeMounts": [
                                     {
                                         "name": "platform-info",
@@ -647,6 +665,16 @@
                                     "successThreshold": 1,
                                     "timeoutSeconds": 5
                                 },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "2",
+                                        "memory": "2000Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "1",
+                                        "memory": "1500Mi"
+                                    }
+                                },
                                 "securityContext": {
                                     "runAsNonRoot": true
                                 },
@@ -753,6 +781,16 @@
                                     "successThreshold": 1,
                                     "timeoutSeconds": 5
                                 },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "800m",
+                                        "memory": "800Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "10m",
+                                        "memory": "50Mi"
+                                    }
+                                },
                                 "securityContext": {
                                     "runAsUser": 0
                                 },
@@ -773,6 +811,16 @@
                                 ],
                                 "image": "${FEEDHENRY_SDKS_IMAGE}:${FEEDHENRY_SDKS_IMAGE_VERSION}",
                                 "name": "feedhenry-sdks",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "800m",
+                                        "memory": "800Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "200m",
+                                        "memory": "200Mi"
+                                    }
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "${FEEDHENRY_SDKS_DIR}",

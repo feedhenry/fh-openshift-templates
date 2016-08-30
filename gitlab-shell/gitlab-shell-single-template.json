@@ -246,7 +246,17 @@
                     "name": "git-data-volume",
                     "mountPath": "${GIT_REPO_ROOT}"
                   }
-                ]
+                ],
+                "resources": {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "10m",
+                    "memory": "50Mi"
+                  }
+                }
               },
               {
                 "name": "gitlab-httpd-proxy",
@@ -302,7 +312,17 @@
                     "mountPath": "${HTTP_REPO_ROOT}"
                   }
                 ],
-                "imagePullPolicy": "IfNotPresent"
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "10m",
+                    "memory": "50Mi"
+                  }
+                }
               }
             ],
             "volumes": [

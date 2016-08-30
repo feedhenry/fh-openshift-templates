@@ -140,7 +140,17 @@
                     "readOnly": true
                   }
                 ],
-                "imagePullPolicy": "IfNotPresent"
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "10m",
+                    "memory": "250Mi"
+                  }
+                }
               }
             ],
             "volumes": [
