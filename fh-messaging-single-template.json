@@ -203,8 +203,7 @@
     {
       "name": "MONGODB_REPLICA_NAME",
       "description": "The mongodb replicaset name",
-      "value": "",
-      "required": true
+      "value": ""
     }
   ]
 }
