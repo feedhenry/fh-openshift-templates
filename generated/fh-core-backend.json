@@ -1526,8 +1526,7 @@
         },
         {
             "name": "MONGODB_REPLICA_NAME",
-            "description": "The mongodb replicaset name",
-            "required": true
+            "description": "The mongodb replicaset name"
         },
         {
             "name": "FH_MBAASID",
