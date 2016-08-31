@@ -205,7 +205,7 @@
         {
             "name": "RHMAP_ROUTER_DNS",
             "description": "Host or Service name for RHMAP",
-            "value": "fh-rhmap-service"
+            "value": "localhost"
         },
         {
             "name": "RHMAP_HOSTGROUPS",
@@ -220,7 +220,7 @@
         {
             "name": "NAGIOS_IMAGE_VERSION",
             "description": "The version of the Nagios Docker image",
-            "value": "4.0.8-111"
+            "value": "4.0.8-112"
         }
     ]
 }
