@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.22.39",
+      "templateVersion": "0.22.49",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -326,6 +326,10 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "MONGODB_REPLICA_NAME",
+                    "value": "${MONGODB_REPLICA_NAME}"
                   }
                 ],
                 "resources": {
@@ -418,6 +422,10 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "MONGODB_REPLICA_NAME",
+                    "value": "${MONGODB_REPLICA_NAME}"
                   }
                 ],
                 "resources": {
@@ -510,6 +518,10 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "MONGODB_REPLICA_NAME",
+                    "value": "${MONGODB_REPLICA_NAME}"
                   }
                 ],
                 "resources": {
@@ -825,7 +837,7 @@
                 "env": [
                   {
                     "name": "MONGODB_REPLICA_NAME",
-                    "value": "rs0"
+                    "value": "${MONGODB_REPLICA_NAME}"
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
@@ -965,7 +977,7 @@
                 "env": [
                   {
                     "name": "MONGODB_REPLICA_NAME",
-                    "value": "rs0"
+                    "value": "${MONGODB_REPLICA_NAME}"
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
@@ -1105,7 +1117,7 @@
                 "env": [
                   {
                     "name": "MONGODB_REPLICA_NAME",
-                    "value": "rs0"
+                    "value": "${MONGODB_REPLICA_NAME}"
                   },
                   {
                     "name": "MONGODB_SERVICE_NAME",
@@ -1211,7 +1223,7 @@
               },
               {
                 "name": "MONGODB_REPLICA_NAME",
-                "value": "rs0"
+                "value": "${MONGODB_REPLICA_NAME}"
               },
               {
                 "name": "MONGODB_SERVICE_NAME",
@@ -1381,7 +1393,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "3.0.0-419",
+      "value": "3.0.1-423",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -1391,7 +1403,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.0.0-419",
+      "value": "3.0.1-423",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
@@ -1521,7 +1533,12 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.0.8-100"
+      "value": "4.0.8-112"
+    },
+    {
+      "name": "MONGODB_REPLICA_NAME",
+      "description": "The mongodb replicaset name",
+      "value": "rs0"
     }
   ]
 }
