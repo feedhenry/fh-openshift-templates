@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.22.50",
+      "templateVersion": "0.22.52",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -1533,7 +1533,7 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.0.8-113"
+      "value": "4.0.8-115"
     },
     {
       "name": "MONGODB_REPLICA_NAME",
