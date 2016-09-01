@@ -173,7 +173,17 @@
                     "mountPath": "/opt/scm-data"
                   }
                 ],
-                "imagePullPolicy": "IfNotPresent"
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "12m",
+                    "memory": "70Mi"
+                  }
+                }
               }
             ],
             "volumes": [

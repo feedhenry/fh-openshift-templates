@@ -149,7 +149,17 @@
                     "value": ""
                   }
                 ],
-                "imagePullPolicy": "IfNotPresent"
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                  "limits": {
+                    "cpu": "2000m",
+                    "memory": "5000Mi"
+                  },
+                  "requests": {
+                    "cpu": "400m",
+                    "memory": "900Mi"
+                  }
+                }
               }
             ]
           }

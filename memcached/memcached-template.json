@@ -75,7 +75,12 @@
                 ],
                 "resources": {
                   "limits": {
+                    "cpu": "800m",
                     "memory": "${MEMORY_LIMIT}"
+                  },
+                  "requests": {
+                    "cpu": "10m",
+                    "memory": "30Mi"
                   }
                 },
                 "livenessProbe": {

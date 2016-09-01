@@ -83,17 +83,7 @@
       },
       "spec": {
         "strategy": {
-          "type": "Recreate",
-          "resources": {
-            "limits": {
-              "cpu": "1000m",
-              "memory": "1000Mi"
-            },
-            "requests": {
-              "cpu": "200m",
-              "memory": "200Mi"
-            }
-          }
+          "type": "Recreate"
         },
         "triggers": [
           {
@@ -239,8 +229,8 @@
                     "memory": "1000Mi"
                   },
                   "requests": {
-                    "cpu": "200m",
-                    "memory": "200Mi"
+                    "cpu": "500m",
+                    "memory": "600Mi"
                   }
                 },
                 "volumeMounts": [
@@ -250,7 +240,17 @@
                   }
                 ],
                 "terminationMessagePath": "/dev/termination-log",
-                "imagePullPolicy": "IfNotPresent"
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "1000Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                }
               }
             ],
             "restartPolicy": "Always",

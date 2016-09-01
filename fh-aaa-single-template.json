@@ -171,7 +171,17 @@
                     "value": "${MONGODB_SERVICE_PORT}"
                   }
                 ],
-                "imagePullPolicy": "IfNotPresent"
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "20m",
+                    "memory": "100Mi"
+                  }
+                }
               }
             ]
           }

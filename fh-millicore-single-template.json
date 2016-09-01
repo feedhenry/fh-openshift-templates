@@ -682,7 +682,17 @@
                 "securityContext": {
                   "runAsNonRoot": true
                 },
-                "imagePullPolicy": "IfNotPresent"
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                  "limits": {
+                    "cpu": "2",
+                    "memory": "2000Mi"
+                  },
+                  "requests": {
+                    "cpu": "1",
+                    "memory": "1500Mi"
+                  }
+                }
               },
               {
                 "name": "${HTTPD_SERVICE_NAME}",
@@ -769,6 +779,16 @@
                 ],
                 "securityContext": {
                   "runAsUser": 0
+                },
+                "resources": {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "10m",
+                    "memory": "50Mi"
+                  }
                 }
               },
               {
@@ -786,7 +806,17 @@
                     "mountPath": "${FEEDHENRY_SDKS_DIR}",
                     "readOnly": false
                   }
-                ]
+                ],
+                "resources": {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                }
               }
             ],
             "volumes": [

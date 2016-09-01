@@ -113,7 +113,17 @@
                     "value": "${FH_LOG_LEVEL}"
                   }
                 ],
-                "imagePullPolicy": "IfNotPresent"
+                "imagePullPolicy": "IfNotPresent",
+                "resources": {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "1m",
+                    "memory": "50Mi"
+                  }
+                }
               }
             ]
           }
