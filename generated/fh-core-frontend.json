@@ -824,13 +824,13 @@
         {
             "name": "FH_APPSTORE_IMAGE",
             "description": "The name of the fh-appstore image",
-            "value": "docker.io/rhmap/fh-appstore",
+            "value": "rhmap42/fh-appstore",
             "required": true
         },
         {
             "name": "FH_APPSTORE_IMAGE_VERSION",
             "description": "The version for the FH_APPSTORE_IMAGE",
-            "value": "2.0.0-118",
+            "value": "2.0.0-1",
             "required": true
         },
         {
@@ -842,13 +842,13 @@
         {
             "name": "FH_NGUI_IMAGE",
             "description": "The name of the fh-ngui image",
-            "value": "docker.io/rhmap/fh-ngui",
+            "value": "rhmap42/fh-ngui",
             "required": true
         },
         {
             "name": "FH_NGUI_IMAGE_VERSION",
             "description": "The version for the FH_NGUI_IMAGE",
-            "value": "5.1.2-2984",
+            "value": "5.1.2-1",
             "required": true
         },
         {
@@ -866,13 +866,13 @@
         {
             "name": "MILLICORE_IMAGE",
             "description": "Millicore docker image",
-            "value": "docker.io/rhmap/millicore",
+            "value": "rhmap42/millicore",
             "required": true
         },
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.32.5-2348",
+            "value": "7.32.5-1",
             "required": true
         },
         {
@@ -885,13 +885,13 @@
         {
             "name": "FEEDHENRY_SDKS_IMAGE",
             "description": "FeedHenry SDKs and templates image name",
-            "value": "docker.io/rhmap/feedhenry-sdks",
+            "value": "rhmap42/fh-sdks",
             "required": true
         },
         {
             "name": "FEEDHENRY_SDKS_IMAGE_VERSION",
             "description": "FeedHenry SDKs and templates image version",
-            "value": "54",
+            "value": "0.0.1-55",
             "required": true
         },
         {
@@ -1061,12 +1061,12 @@
         {
             "name": "HTTPD_IMAGE",
             "description": "The name of the image",
-            "value": "docker.io/rhmap/httpd24"
+            "value": "rhmap42/httpd"
         },
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-58"
+            "value": "2.4-7"
         },
         {
             "name": "MILLICORE_AJP_HOST",
