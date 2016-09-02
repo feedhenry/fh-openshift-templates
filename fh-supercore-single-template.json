@@ -12,13 +12,13 @@
   "parameters": [
     {
       "name": "FH_SUPERCORE_IMAGE",
-      "value": "docker.io/rhmap/fh-supercore",
+      "value": "rhmap42/fh-supercore",
       "description": "The name of the fh-supercore image",
       "required": true
     },
     {
       "name": "FH_SUPERCORE_IMAGE_VERSION",
-      "value": "4.2.2-2725",
+      "value": "4.2.2-1",
       "description": "The version for the FH_SUPERCORE_IMAGE",
       "required": true
     },

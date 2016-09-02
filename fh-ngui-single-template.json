@@ -12,13 +12,13 @@
   "parameters": [
     {
       "name": "FH_NGUI_IMAGE",
-      "value": "docker.io/rhmap/fh-ngui",
+      "value": "rhmap42/fh-ngui",
       "description": "The name of the fh-ngui image",
       "required": true
     },
     {
       "name": "FH_NGUI_IMAGE_VERSION",
-      "value": "5.1.2-2984",
+      "value": "5.1.2-1",
       "description": "The version for the FH_NGUI_IMAGE",
       "required": true
     },

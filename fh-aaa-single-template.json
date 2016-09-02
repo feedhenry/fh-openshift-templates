@@ -12,13 +12,13 @@
   "parameters": [
     {
       "name": "FH_AAA_IMAGE",
-      "value": "docker.io/rhmap/fh-aaa",
+      "value": "rhmap42/fh-aaa",
       "description": "The name of the fh-aaa image",
       "required": true
     },
     {
       "name": "FH_AAA_IMAGE_VERSION",
-      "value": "1.0.0-387",
+      "value": "1.0.0-1",
       "description": "The version for the FH_AAA_IMAGE",
       "required": true
     },
