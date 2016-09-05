@@ -918,7 +918,7 @@
         {
             "name": "REDIS_IMAGE_VERSION",
             "description": "The version for the REDIS_IMAGE",
-            "value": "2.8.21-15",
+            "value": "2.8.21-16",
             "required": true
         }
     ]
