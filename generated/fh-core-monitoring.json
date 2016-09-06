@@ -59,6 +59,27 @@
             }
         },
         {
+            "kind": "PersistentVolumeClaim",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "nagios-claim-1",
+                "creationTimestamp": null
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "1Gi"
+                    }
+                }
+            },
+            "status": {
+                "phase": "Pending"
+            }
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
@@ -91,6 +112,14 @@
                         }
                     },
                     "spec": {
+                        "volumes": [
+                            {
+                                "name": "nagios-data-volume",
+                                "persistentVolumeClaim": {
+                                    "claimName": "nagios-claim-1"
+                                }
+                            }
+                        ],
                         "containers": [
                             {
                                 "name": "nagios",
@@ -153,6 +182,12 @@
                                         "memory": "200Mi"
                                     }
                                 },
+                                "volumeMounts": [
+                                    {
+                                        "name": "nagios-data-volume",
+                                        "mountPath": "/var/log/nagios"
+                                    }
+                                ],
                                 "terminationMessagePath": "/dev/termination-log",
                                 "imagePullPolicy": "IfNotPresent"
                             }
