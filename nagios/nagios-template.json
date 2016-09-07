@@ -41,6 +41,23 @@
       }
     },
     {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "nagios-claim-1"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "1Gi"
+          }
+        }
+      }
+    },
+    {
       "apiVersion": "v1",
       "kind": "DeploymentConfig",
       "metadata": {
@@ -61,6 +78,14 @@
             }
           },
           "spec": {
+            "volumes": [
+              {
+                "name": "nagios-data-volume",
+                "persistentVolumeClaim": {
+                  "claimName": "nagios-claim-1"
+                }
+              }
+            ],
             "containers": [
               {
                 "env": [
@@ -110,6 +135,12 @@
                 "ports": [
                   {
                     "containerPort": 8080
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "nagios-data-volume",
+                    "mountPath": "/var/log/nagios"
                   }
                 ],
                 "resources": {
@@ -195,7 +226,7 @@
     {
       "description": "The version of the Nagios Docker image",
       "name": "NAGIOS_IMAGE_VERSION",
-      "value": "4.0.8-117"
+      "value": "4.0.8-118"
     }
   ]
 }
