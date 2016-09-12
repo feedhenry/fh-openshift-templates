@@ -302,6 +302,36 @@
       "displayName": "git protocol",
       "description": "Git protocol exposed to end users",
       "required": true
+    },
+    {
+      "name": "SMTP_SERVER",
+      "description": "SMTP server address to use for sending Core emails e.g. mail.example.com",
+      "value": "localhost"
+    },
+    {
+      "name": "SMTP_PORT",
+      "description": "SMTP server listen port e.g. 25 for no security, 587 for tls",
+      "value": "25"
+    },
+    {
+      "name": "SMTP_AUTH",
+      "description": "Flag for if the SMTP server expects a username & password to be used",
+      "value": "false"
+    },
+    {
+      "name": "SMTP_TLS",
+      "description": "Flag for if the SMTP server expects to communicate over TLS",
+      "value": "false"
+    },
+    {
+      "name": "SMTP_USERNAME",
+      "description": "SMTP Username, used if SMTP_AUTH is 'true'",
+      "value": "${SMTP_USERNAME}"
+    },
+    {
+      "name": "SMTP_PASSWORD",
+      "description": "SMTP Password, used if SMTP_AUTH is 'true'",
+      "value": "${SMTP_PASSWORD}"
     }
   ],
   "objects": [
@@ -657,6 +687,30 @@
                   {
                     "name": "GIT_EXTERNAL_PROTOCOL",
                     "value": "${GIT_EXTERNAL_PROTOCOL}"
+                  },
+                  {
+                    "name": "SMTP_SERVER",
+                    "value": "${SMTP_SERVER}"
+                  },
+                  {
+                    "name": "SMTP_PORT",
+                    "value": "${SMTP_PORT}"
+                  },
+                  {
+                    "name": "SMTP_AUTH",
+                    "value": "${SMTP_AUTH}"
+                  },
+                  {
+                    "name": "SMTP_TLS",
+                    "value": "${SMTP_TLS}"
+                  },
+                  {
+                    "name": "SMTP_USERNAME",
+                    "value": "${SMTP_USERNAME}"
+                  },
+                  {
+                    "name": "SMTP_PASSWORD",
+                    "value": "${SMTP_PASSWORD}"
                   }
                 ],
                 "volumeMounts": [
