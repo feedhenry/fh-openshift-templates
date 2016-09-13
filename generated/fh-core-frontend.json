@@ -896,7 +896,7 @@
         {
             "name": "FH_NGUI_IMAGE_VERSION",
             "description": "The version for the FH_NGUI_IMAGE",
-            "value": "5.4.3-3062",
+            "value": "5.4.4-3068",
             "required": true
         },
         {
@@ -920,7 +920,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.34.5-2389",
+            "value": "7.34.6-2393",
             "required": true
         },
         {
