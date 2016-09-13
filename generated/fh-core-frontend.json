@@ -626,6 +626,30 @@
                                     {
                                         "name": "GIT_EXTERNAL_PROTOCOL",
                                         "value": "${GIT_EXTERNAL_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "SMTP_SERVER",
+                                        "value": "${SMTP_SERVER}"
+                                    },
+                                    {
+                                        "name": "SMTP_PORT",
+                                        "value": "${SMTP_PORT}"
+                                    },
+                                    {
+                                        "name": "SMTP_AUTH",
+                                        "value": "${SMTP_AUTH}"
+                                    },
+                                    {
+                                        "name": "SMTP_TLS",
+                                        "value": "${SMTP_TLS}"
+                                    },
+                                    {
+                                        "name": "SMTP_USERNAME",
+                                        "value": "${SMTP_USERNAME}"
+                                    },
+                                    {
+                                        "name": "SMTP_PASSWORD",
+                                        "value": "${SMTP_PASSWORD}"
                                     }
                                 ],
                                 "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
@@ -920,7 +944,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.34.6-2393",
+            "value": "7.34.7-2400",
             "required": true
         },
         {
@@ -1181,6 +1205,36 @@
             "description": "Git protocol exposed to end users",
             "value": "https",
             "required": true
+        },
+        {
+            "name": "SMTP_SERVER",
+            "description": "SMTP server address to use for sending Core emails e.g. mail.example.com",
+            "value": "localhost"
+        },
+        {
+            "name": "SMTP_PORT",
+            "description": "SMTP server listen port e.g. 25 for no security, 587 for tls",
+            "value": "25"
+        },
+        {
+            "name": "SMTP_AUTH",
+            "description": "Flag for if the SMTP server expects a username \u0026 password to be used",
+            "value": "false"
+        },
+        {
+            "name": "SMTP_TLS",
+            "description": "Flag for if the SMTP server expects to communicate over TLS",
+            "value": "false"
+        },
+        {
+            "name": "SMTP_USERNAME",
+            "description": "SMTP Username, used if SMTP_AUTH is 'true'",
+            "value": "${SMTP_USERNAME}"
+        },
+        {
+            "name": "SMTP_PASSWORD",
+            "description": "SMTP Password, used if SMTP_AUTH is 'true'",
+            "value": "${SMTP_PASSWORD}"
         }
     ]
 }
