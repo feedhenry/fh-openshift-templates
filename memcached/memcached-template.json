@@ -121,13 +121,13 @@
     },
     {
       "name": "MEMCACHED_IMAGE",
-      "value": "docker.io/rhmap/memcached",
+      "value": "rhmap42/memcached",
       "description": "The name of the memcached image",
       "required": true
     },
     {
       "name": "MEMCACHED_IMAGE_VERSION",
-      "value": "1.4.15-12",
+      "value": "1.4.15-5",
       "description": "The version for the MEMCACHED_IMAGE",
       "required": true
     },

@@ -12,13 +12,13 @@
   "parameters": [
     {
       "name": "MILLICORE_IMAGE",
-      "value": "docker.io/rhmap/millicore",
+      "value": "rhmap42/millicore",
       "description": "Millicore docker image",
       "required": true
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.34.8-2402",
+      "value": "7.34.8-1",
       "description": "Millicore image version",
       "required": true
     },
@@ -37,13 +37,13 @@
     },
     {
       "name": "FEEDHENRY_SDKS_IMAGE",
-      "value": "docker.io/rhmap/feedhenry-sdks",
+      "value": "rhmap42/fh-sdks",
       "description": "FeedHenry SDKs and templates image name",
       "required": true
     },
     {
       "name": "FEEDHENRY_SDKS_IMAGE_VERSION",
-      "value": "54",
+      "value": "0.0.1-55",
       "description": "FeedHenry SDKs and templates image version",
       "required": true
     },
@@ -228,12 +228,12 @@
     },
     {
       "name": "HTTPD_IMAGE",
-      "value": "docker.io/rhmap/httpd24",
+      "value": "rhmap42/httpd",
       "description": "The name of the image"
     },
     {
       "name": "HTTPD_IMAGE_VERSION",
-      "value": "2.4-58",
+      "value": "2.4-7",
       "description": "The version for the HTTPD_IMAGE"
     },
     {
