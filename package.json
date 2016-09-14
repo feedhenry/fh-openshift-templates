@@ -1,7 +1,7 @@
 {
   "name": "fh-openshift-templates",
   "description": "OpenShift V3 Templates for FH MBaaS",
-  "version": "0.22.119",
+  "version": "0.22.120",
   "scripts": {
     "get-images": "node ./scripts/get-images.js",
     "update-param": "node ./scripts/update-param.js",
