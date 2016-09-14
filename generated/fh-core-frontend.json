@@ -726,6 +726,11 @@
                                         "mountPath": "/opt/millicore/static",
                                         "name": "millicore-app-preview",
                                         "readOnly": false
+                                    },
+                                    {
+                                        "mountPath": "/opt/webserver/work",
+                                        "name": "tomcat-work-directory",
+                                        "readOnly": false
                                     }
                                 ]
                             },
@@ -880,6 +885,10 @@
                                 "persistentVolumeClaim": {
                                     "claimName": "metrics-backup-log-data"
                                 }
+                            },
+                            {
+                                "emptyDir": {},
+                                "name": "tomcat-work-directory"
                             }
                         ]
                     }
@@ -944,7 +953,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.34.9-2411",
+            "value": "7.34.10-2414",
             "required": true
         },
         {
