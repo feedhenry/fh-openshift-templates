@@ -1113,7 +1113,7 @@
                 "creationTimestamp": null
             },
             "data": {
-                "config.yml": "user: git\ngitlab_url: \"${GITLAB_MILLICORE_AUTH_URL}\"\nhttp_settings:\n  enabled: true\n  servicekey: ${GITLAB_MILLICORE_SERVICE_KEY}\n  url: \"http://${FH_MILLICORE_SERVICE_HOST}:${FH_MILLICORE_SERVICE_PORT}\"\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_ROOT}/repositories\"\nauth_file: \"/home/git/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nlog_level: INFO\naudit_usernames: false\nrabbit:\n  enabled: false\n"
+                "config.yml": "user: git\ngitlab_url: \"${GITLAB_MILLICORE_AUTH_URL}\"\nhttp_settings:\n  enabled: true\n  servicekey: ${GITLAB_MILLICORE_SERVICE_KEY}\n  url: \"http://${FH_MILLICORE_SERVICE_HOST}:${FH_MILLICORE_SERVICE_PORT}\"\n  self_signed_cert: false\nrepos_path: \"${GIT_REPO_MOUNT}${GIT_REPO_PATH}/repositories\"\nauth_file: \"/home/git/.ssh/authorized_keys\"\nredis:\n  bin: /home/git/gitlab-shell/bin/dummy-redis-cli\n  database: 0\n  socket: /var/run/redis/redis.sock\n  namespace: resque:gitlab\nlog_level: INFO\naudit_usernames: false\nrabbit:\n  enabled: false\n"
             }
         },
         {
@@ -1159,7 +1159,11 @@
                                 "env": [
                                     {
                                         "name": "GIT_REPO_ROOT",
-                                        "value": "${GIT_REPO_ROOT}"
+                                        "value": "${GIT_REPO_MOUNT}${GIT_REPO_PATH}"
+                                    },
+                                    {
+                                        "name": "GIT_REPO_MOUNT",
+                                        "value": "${GIT_REPO_MOUNT}"
                                     },
                                     {
                                         "name": "SSH_SECRETS_DIR",
@@ -1215,13 +1219,17 @@
                                         "readOnly": true
                                     },
                                     {
-                                        "mountPath": "${GIT_REPO_ROOT}",
+                                        "mountPath": "${GIT_REPO_MOUNT}",
                                         "name": "git-data-volume"
                                     }
                                 ]
                             },
                             {
                                 "env": [
+                                    {
+                                        "name": "REPO_FOLDER_NAME",
+                                        "value": "${GIT_REPO_PATH}/repositories"
+                                    },
                                     {
                                         "name": "MILLICORE_HTTP_HOST",
                                         "value": "${MILLICORE_HTTP_HOST}"
@@ -1716,7 +1724,7 @@
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.1.1.pre-56",
+            "value": "2.1.1.pre-69",
             "required": true
         },
         {
@@ -1732,9 +1740,15 @@
             "required": true
         },
         {
-            "name": "GIT_REPO_ROOT",
-            "description": "Path to data folder that would contain repositories and all other required files",
+            "name": "GIT_REPO_MOUNT",
+            "description": "Mounted path for git data persistent volume",
             "value": "/home/git/data",
+            "required": true
+        },
+        {
+            "name": "GIT_REPO_PATH",
+            "description": "Path from GIT_REPO_MOUNT where repositories are stored",
+            "value": "/gls",
             "required": true
         },
         {
