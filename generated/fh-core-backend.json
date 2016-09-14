@@ -749,8 +749,8 @@
                 "creationTimestamp": null
             },
             "data": {
-                "core-version": "4.2.0",
-                "platform-info.json": "{\"version\": \"4.2.0\",\"grid\": {\"id\": \"DEVELOPMENT\",\"name\": \" \",\"region\": \" \"},\"site\": {\"id\": \"development\"},\"env\": {\"id\": \"development\",\"name\": \" \",\"size\": \" \",\"descr\": \" \"}}"
+                "core-version": "4.2.0-ER3",
+                "platform-info.json": "{\"version\": \"4.2.0-ER3\",\"grid\": {\"id\": \"DEVELOPMENT\",\"name\": \" \",\"region\": \" \"},\"site\": {\"id\": \"development\"},\"env\": {\"id\": \"development\",\"name\": \" \",\"size\": \" \",\"descr\": \" \"}}"
             }
         },
         {
