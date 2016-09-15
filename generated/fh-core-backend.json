@@ -931,10 +931,6 @@
                                         "value": "${MONGODB_SERVICE_NAME}"
                                     },
                                     {
-                                        "name": "CLUSTER_NAME",
-                                        "value": "${CLUSTER_NAME}"
-                                    },
-                                    {
                                         "name": "FH_LOG_LEVEL",
                                         "value": "${FH_LOG_LEVEL}"
                                     },
@@ -1642,12 +1638,6 @@
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
             "value": "4.4.3-2914",
-            "required": true
-        },
-        {
-            "name": "CLUSTER_NAME",
-            "description": "The name of this RHMAP Core cluster",
-            "value": "rhmap",
             "required": true
         },
         {
