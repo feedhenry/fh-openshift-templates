@@ -313,6 +313,10 @@
                     }
                   },
                   {
+                    "name": "FH_METRIC_COLLECTION_SCHEDULE",
+                    "value": "45 00 * * *"
+                  },
+                  {
                     "name": "MONGODB_SERVICE_NAME",
                     "value": "${MONGODB_SERVICE_NAME}"
                   },
