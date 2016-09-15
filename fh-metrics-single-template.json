@@ -170,13 +170,13 @@
     },
     {
       "name": "FH_METRICS_IMAGE",
-      "value": "docker.io/rhmap/fh-metrics",
+      "value": "rhmap42/fh-metrics",
       "description": "The name of the fh-metrics image",
       "required": true
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.0.1-423",
+      "value": "3.0.1-1",
       "description": "The version for the FH_METRICS_IMAGE",
       "required": true
     },

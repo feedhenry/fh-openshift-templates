@@ -12,13 +12,13 @@
   "parameters": [
     {
       "name": "FH_SUPERCORE_IMAGE",
-      "value": "docker.io/rhmap/fh-supercore",
+      "value": "rhmap42/fh-supercore",
       "description": "The name of the fh-supercore image",
       "required": true
     },
     {
       "name": "FH_SUPERCORE_IMAGE_VERSION",
-      "value": "4.4.0-2871",
+      "value": "4.4.0-1",
       "description": "The version for the FH_SUPERCORE_IMAGE",
       "required": true
     },
@@ -148,8 +148,8 @@
         "name": "platform-info"
       },
       "data": {
-        "core-version": "4.2.0",
-        "platform-info.json": "{\"version\": \"4.2.0\",\"grid\": {\"id\": \"DEVELOPMENT\",\"name\": \" \",\"region\": \" \"},\"site\": {\"id\": \"development\"},\"env\": {\"id\": \"development\",\"name\": \" \",\"size\": \" \",\"descr\": \" \"}}"
+        "core-version": "4.2.0-ER3",
+        "platform-info.json": "{\"version\": \"4.2.0-ER3\",\"grid\": {\"id\": \"DEVELOPMENT\",\"name\": \" \",\"region\": \" \"},\"site\": {\"id\": \"development\"},\"env\": {\"id\": \"development\",\"name\": \" \",\"size\": \" \",\"descr\": \" \"}}"
       }
     },
     {
