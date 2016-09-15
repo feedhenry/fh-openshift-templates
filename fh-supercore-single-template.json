@@ -23,12 +23,6 @@
       "required": true
     },
     {
-      "name": "CLUSTER_NAME",
-      "value": "rhmap",
-      "description": "The name of this RHMAP Core cluster",
-      "required": true
-    },
-    {
       "name": "FH_LOG_LEVEL",
       "value": "info",
       "description": "A default log level for all components"
@@ -319,10 +313,6 @@
                   {
                     "name": "MONGODB_SERVICE_NAME",
                     "value": "${MONGODB_SERVICE_NAME}"
-                  },
-                  {
-                    "name": "CLUSTER_NAME",
-                    "value": "${CLUSTER_NAME}"
                   },
                   {
                     "name": "FH_LOG_LEVEL",

@@ -130,12 +130,6 @@
       "description": "Build farm iphone url"
     },
     {
-      "name": "CLUSTER_NAME",
-      "value": "rhmap",
-      "description": "Cluster name",
-      "required": true
-    },
-    {
       "name": "CLUSTER_DOMAIN",
       "value": "",
       "description": "Full domain used for build purposes",
@@ -614,10 +608,6 @@
                   {
                     "name": "BUILDER_IPHONE_SERVICE_HOST",
                     "value": "${BUILDER_IPHONE_SERVICE_HOST}"
-                  },
-                  {
-                    "name": "CLUSTER_NAME",
-                    "value": "${CLUSTER_NAME}"
                   },
                   {
                     "name": "CLUSTER_DOMAIN",
