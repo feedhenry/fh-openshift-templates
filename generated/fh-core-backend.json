@@ -923,6 +923,10 @@
                                         }
                                     },
                                     {
+                                        "name": "FH_METRIC_COLLECTION_SCHEDULE",
+                                        "value": "45 00 * * *"
+                                    },
+                                    {
                                         "name": "MONGODB_SERVICE_NAME",
                                         "value": "${MONGODB_SERVICE_NAME}"
                                     },
@@ -1637,7 +1641,7 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "4.4.1-2883",
+            "value": "4.4.2-2909",
             "required": true
         },
         {
