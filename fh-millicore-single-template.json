@@ -43,7 +43,7 @@
     },
     {
       "name": "FEEDHENRY_SDKS_IMAGE_VERSION",
-      "value": "54",
+      "value": "60",
       "description": "FeedHenry SDKs and templates image version",
       "required": true
     },
