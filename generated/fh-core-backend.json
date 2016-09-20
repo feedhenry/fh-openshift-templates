@@ -1608,7 +1608,7 @@
         {
             "name": "FH_SCM_IMAGE_VERSION",
             "description": "The version for the FH_SCM_IMAGE",
-            "value": "1.0.2-1",
+            "value": "1.0.2-2",
             "required": true
         },
         {
@@ -1718,7 +1718,7 @@
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.1.1-1",
+            "value": "2.1.1-2",
             "required": true
         },
         {
@@ -1801,7 +1801,7 @@
         {
             "name": "UPS_IMAGE_VERSION",
             "description": "The version for the UPS_IMAGE",
-            "value": "0.1.0-1",
+            "value": "1.1.4-2",
             "required": true
         }
     ]
