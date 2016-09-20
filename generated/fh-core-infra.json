@@ -714,13 +714,13 @@
         {
             "name": "MEMCACHED_IMAGE",
             "description": "The name of the memcached image",
-            "value": "docker.io/rhmap/memcached",
+            "value": "rhmap42/memcached",
             "required": true
         },
         {
             "name": "MEMCACHED_IMAGE_VERSION",
             "description": "The version for the MEMCACHED_IMAGE",
-            "value": "1.4.15-12",
+            "value": "1.4.15-6",
             "required": true
         },
         {
@@ -817,13 +817,13 @@
         {
             "name": "MONGODB_IMAGE",
             "description": "The name of the mongodb image",
-            "value": "docker.io/rhmap/mongodb",
+            "value": "rhmap42/mongodb",
             "required": true
         },
         {
             "name": "MONGODB_IMAGE_VERSION",
             "description": "The version for the MONGODB_IMAGE",
-            "value": "centos-3.2-33",
+            "value": "3.2-6",
             "required": true
         },
         {
@@ -844,12 +844,12 @@
         },
         {
             "name": "MYSQL_IMAGE",
-            "value": "docker.io/rhmap/mysql",
+            "value": "rhmap42/mysql",
             "required": true
         },
         {
             "name": "MYSQL_IMAGE_VERSION",
-            "value": "5.5-17",
+            "value": "5.5-4",
             "required": true
         },
         {
@@ -913,13 +913,13 @@
         {
             "name": "REDIS_IMAGE",
             "description": "The name of the redis image",
-            "value": "docker.io/rhmap/redis",
+            "value": "rhmap42/redis",
             "required": true
         },
         {
             "name": "REDIS_IMAGE_VERSION",
             "description": "The version for the REDIS_IMAGE",
-            "value": "2.18.22",
+            "value": "2.8.21-17",
             "required": true
         }
     ]
