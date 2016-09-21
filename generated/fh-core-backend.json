@@ -1512,7 +1512,7 @@
         {
             "name": "FH_AAA_IMAGE_VERSION",
             "description": "The version for the FH_AAA_IMAGE",
-            "value": "1.0.1-391",
+            "value": "1.0.2-397",
             "required": true
         },
         {
@@ -1637,7 +1637,7 @@
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "4.4.8-2935",
+            "value": "4.4.10-2946",
             "required": true
         },
         {
