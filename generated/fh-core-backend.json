@@ -1801,7 +1801,7 @@
         {
             "name": "UPS_IMAGE_VERSION",
             "description": "The version for the UPS_IMAGE",
-            "value": "1.1.4-26",
+            "value": "1.1.4.Final-28",
             "required": true
         }
     ]
