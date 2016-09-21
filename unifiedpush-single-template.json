@@ -18,7 +18,7 @@
     },
     {
       "name": "UPS_IMAGE_VERSION",
-      "value": "1.1.4-26",
+      "value": "1.1.4.Final-28",
       "description": "The version for the UPS_IMAGE",
       "required": true
     }
