@@ -1137,7 +1137,7 @@
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-60"
+            "value": "2.4-61"
         },
         {
             "name": "MILLICORE_AJP_HOST",
