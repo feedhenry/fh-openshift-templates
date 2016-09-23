@@ -18,7 +18,7 @@
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.34.13-2434",
+      "value": "7.34.14-2436",
       "description": "Millicore image version",
       "required": true
     },
@@ -333,7 +333,7 @@
       "from": "[a-zA-Z0-9]{40}",
       "description": "Salt used when generating User & App API Keys"
     },
-    { 
+    {
       "name": "APIKEYS_SECRET_SALT",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
