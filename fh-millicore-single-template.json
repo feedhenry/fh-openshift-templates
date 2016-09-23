@@ -18,7 +18,7 @@
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.34.13-2431",
+      "value": "7.34.14-2436",
       "description": "Millicore image version",
       "required": true
     },
@@ -326,6 +326,18 @@
       "name": "SMTP_PASSWORD",
       "description": "SMTP Password, used if SMTP_AUTH is 'true'",
       "value": "${SMTP_PASSWORD}"
+    },
+    {
+      "name": "APIKEYS_API_SALT",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "Salt used when generating User & App API Keys"
+    },
+    {
+      "name": "APIKEYS_SECRET_SALT",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}",
+      "description": "Salt used when generating User & App Secret Keys"
     }
   ],
   "objects": [
@@ -701,6 +713,14 @@
                   {
                     "name": "SMTP_PASSWORD",
                     "value": "${SMTP_PASSWORD}"
+                  },
+                  {
+                    "name": "APIKEYS_API_SALT",
+                    "value": "${APIKEYS_API_SALT}"
+                  },
+                  {
+                    "name": "APIKEYS_SECRET_SALT",
+                    "value": "${APIKEYS_SECRET_SALT}"
                   }
                 ],
                 "volumeMounts": [
