@@ -823,7 +823,7 @@
         {
             "name": "MONGODB_IMAGE_VERSION",
             "description": "The version for the MONGODB_IMAGE",
-            "value": "centos-3.2-33",
+            "value": "centos-3.2-40",
             "required": true
         },
         {
