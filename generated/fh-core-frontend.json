@@ -646,6 +646,14 @@
                                     {
                                         "name": "SMTP_PASSWORD",
                                         "value": "${SMTP_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "APIKEYS_API_SALT",
+                                        "value": "${APIKEYS_API_SALT}"
+                                    },
+                                    {
+                                        "name": "APIKEYS_SECRET_SALT",
+                                        "value": "${APIKEYS_SECRET_SALT}"
                                     }
                                 ],
                                 "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
@@ -949,7 +957,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.34.12-2433",
+            "value": "7.34.13-2438",
             "required": true
         },
         {
@@ -1234,6 +1242,18 @@
             "name": "SMTP_PASSWORD",
             "description": "SMTP Password, used if SMTP_AUTH is 'true'",
             "value": "${SMTP_PASSWORD}"
+        },
+        {
+            "name": "APIKEYS_API_SALT",
+            "description": "Salt used when generating User \u0026 App API Keys",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "APIKEYS_SECRET_SALT",
+            "description": "Salt used when generating User \u0026 App Secret Keys",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}"
         }
     ]
 }
