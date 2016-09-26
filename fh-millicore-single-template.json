@@ -333,7 +333,7 @@
       "from": "[a-zA-Z0-9]{40}",
       "description": "Salt used when generating User & App API Keys"
     },
-    { 
+    {
       "name": "APIKEYS_SECRET_SALT",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}",
