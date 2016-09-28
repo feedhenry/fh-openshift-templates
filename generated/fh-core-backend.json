@@ -1506,13 +1506,13 @@
         {
             "name": "FH_AAA_IMAGE",
             "description": "The name of the fh-aaa image",
-            "value": "docker.io/rhmap/fh-aaa",
+            "value": "rhmap42/fh-aaa",
             "required": true
         },
         {
             "name": "FH_AAA_IMAGE_VERSION",
             "description": "The version for the FH_AAA_IMAGE",
-            "value": "1.0.2-400",
+            "value": "1.0.2-1",
             "required": true
         },
         {
@@ -1555,13 +1555,13 @@
         {
             "name": "FH_MESSAGING_IMAGE",
             "description": "The name of the fh-messaging image",
-            "value": "docker.io/rhmap/fh-messaging",
+            "value": "rhmap42/fh-messaging",
             "required": true
         },
         {
             "name": "FH_MESSAGING_IMAGE_VERSION",
             "description": "The version for the FH_MESSAGING_IMAGE",
-            "value": "3.0.1-423",
+            "value": "3.0.1-2",
             "required": true
         },
         {
@@ -1583,13 +1583,13 @@
         {
             "name": "FH_METRICS_IMAGE",
             "description": "The name of the fh-metrics image",
-            "value": "docker.io/rhmap/fh-metrics",
+            "value": "rhmap42/fh-metrics",
             "required": true
         },
         {
             "name": "FH_METRICS_IMAGE_VERSION",
             "description": "The version for the FH_METRICS_IMAGE",
-            "value": "3.0.1-423",
+            "value": "3.0.1-2",
             "required": true
         },
         {
@@ -1602,13 +1602,13 @@
         {
             "name": "FH_SCM_IMAGE",
             "description": "The name of the fh-scm image",
-            "value": "docker.io/rhmap/fh-scm",
+            "value": "rhmap42/fh-scm",
             "required": true
         },
         {
             "name": "FH_SCM_IMAGE_VERSION",
             "description": "The version for the FH_SCM_IMAGE",
-            "value": "1.0.2-303",
+            "value": "1.0.2-2",
             "required": true
         },
         {
@@ -1631,13 +1631,13 @@
         {
             "name": "FH_SUPERCORE_IMAGE",
             "description": "The name of the fh-supercore image",
-            "value": "docker.io/rhmap/fh-supercore",
+            "value": "rhmap42/fh-supercore",
             "required": true
         },
         {
             "name": "FH_SUPERCORE_IMAGE_VERSION",
             "description": "The version for the FH_SUPERCORE_IMAGE",
-            "value": "4.4.14-2975",
+            "value": "4.4.14-1",
             "required": true
         },
         {
@@ -1712,13 +1712,13 @@
         {
             "name": "GITLAB_SHELL_IMAGE",
             "description": "The name of the gitlab-shell image",
-            "value": "docker.io/rhmap/gitlab-shell",
+            "value": "rhmap42/gitlab-shell",
             "required": true
         },
         {
             "name": "GITLAB_SHELL_IMAGE_VERSION",
             "description": "The version for the GITLAB_SHELL_IMAGE",
-            "value": "2.1.1.pre-69",
+            "value": "2.1.1-2",
             "required": true
         },
         {
@@ -1758,13 +1758,13 @@
         {
             "name": "HTTPD_IMAGE",
             "description": "The name of the httpd proxy image used to serve git repositories",
-            "value": "docker.io/rhmap/httpd24",
+            "value": "rhmap42/httpd",
             "required": true
         },
         {
             "name": "HTTPD_IMAGE_VERSION",
             "description": "The version for the HTTPD_IMAGE",
-            "value": "2.4-61",
+            "value": "2.4-10",
             "required": true
         },
         {
@@ -1795,13 +1795,13 @@
         {
             "name": "UPS_IMAGE",
             "description": "The name of the Unified Push image",
-            "value": "docker.io/rhmap/unifiedpush-eap",
+            "value": "rhmap42/ups-eap",
             "required": true
         },
         {
             "name": "UPS_IMAGE_VERSION",
             "description": "The version for the UPS_IMAGE",
-            "value": "1.1.4.Final-28",
+            "value": "1.1.4-3",
             "required": true
         }
     ]
