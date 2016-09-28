@@ -12,13 +12,13 @@
   "parameters": [
     {
       "name": "UPS_IMAGE",
-      "value": "docker.io/rhmap/unifiedpush-eap",
+      "value": "rhmap42/ups-eap",
       "description": "The name of the Unified Push image",
       "required": true
     },
     {
       "name": "UPS_IMAGE_VERSION",
-      "value": "1.1.4.Final-28",
+      "value": "1.1.4-3",
       "description": "The version for the UPS_IMAGE",
       "required": true
     }
