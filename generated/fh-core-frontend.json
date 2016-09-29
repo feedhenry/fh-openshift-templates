@@ -654,6 +654,10 @@
                                     {
                                         "name": "APIKEYS_SECRET_SALT",
                                         "value": "${APIKEYS_SECRET_SALT}"
+                                    },
+                                    {
+                                        "name": "EMAIL_REPLYTO",
+                                        "value": "${EMAIL_REPLYTO}"
                                     }
                                 ],
                                 "image": "${MILLICORE_IMAGE}:${MILLICORE_IMAGE_VERSION}",
@@ -957,7 +961,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.34.14-2436",
+            "value": "7.34.15-2439",
             "required": true
         },
         {
@@ -1254,6 +1258,11 @@
             "description": "Salt used when generating User \u0026 App Secret Keys",
             "generate": "expression",
             "from": "[a-zA-Z0-9]{40}"
+        },
+        {
+            "name": "EMAIL_REPLYTO",
+            "description": "Value for the 'replyTo' field in the emails sent by the platform",
+            "value": "noreply@example.com"
         }
     ]
 }
