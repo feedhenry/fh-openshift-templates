@@ -341,7 +341,7 @@
     },
     {
       "name": "EMAIL_REPLYTO",
-      "value": "",
+      "value": "noreply@example.com",
       "description": "Value for the 'replyTo' field in the emails sent by the platform"
     }
   ],

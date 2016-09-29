@@ -1261,7 +1261,8 @@
         },
         {
             "name": "EMAIL_REPLYTO",
-            "description": "Value for the 'replyTo' field in the emails sent by the platform"
+            "description": "Value for the 'replyTo' field in the emails sent by the platform",
+            "value": "noreply@example.com"
         }
     ]
 }
