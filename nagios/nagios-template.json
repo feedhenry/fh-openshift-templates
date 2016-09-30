@@ -173,14 +173,14 @@
       "value": "localhost"
     },
     {
-      "description": "SMTP username",
       "name": "SMTP_USERNAME",
-      "required": true
+      "description": "SMTP username",
+      "value": "username"
     },
     {
-      "description": "SMTP password",
       "name": "SMTP_PASSWORD",
-      "required": true
+      "description": "SMTP password",
+      "value": "password"
     },
     {
       "description": "Use TLS for message delivery (auto|yes|no)",
