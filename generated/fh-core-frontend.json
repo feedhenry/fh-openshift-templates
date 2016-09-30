@@ -889,10 +889,8 @@
                                 "name": "millicore-app-preview"
                             },
                             {
-                                "name": "metrics-backup-log-volume",
-                                "persistentVolumeClaim": {
-                                    "claimName": "metrics-backup-log-data"
-                                }
+                                "emptyDir": {},
+                                "name": "metrics-backup-log-volume"
                             },
                             {
                                 "emptyDir": {},

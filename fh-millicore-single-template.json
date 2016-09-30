@@ -926,9 +926,7 @@
               },
               {
                 "name": "metrics-backup-log-volume",
-                "persistentVolumeClaim": {
-                  "claimName": "metrics-backup-log-data"
-                }
+                "emptyDir": {}
               },
               {
                 "name": "tomcat-work-directory",
