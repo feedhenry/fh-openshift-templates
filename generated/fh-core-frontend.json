@@ -961,7 +961,7 @@
         {
             "name": "MILLICORE_IMAGE_VERSION",
             "description": "Millicore image version",
-            "value": "7.34.15-2439",
+            "value": "7.34.16-2441",
             "required": true
         },
         {
