@@ -18,7 +18,7 @@
     },
     {
       "name": "MILLICORE_IMAGE_VERSION",
-      "value": "7.34.14-2442",
+      "value": "7.34.16-2444",
       "description": "Millicore image version",
       "required": true
     },
@@ -926,9 +926,7 @@
               },
               {
                 "name": "metrics-backup-log-volume",
-                "persistentVolumeClaim": {
-                  "claimName": "metrics-backup-log-data"
-                }
+                "emptyDir": {}
               },
               {
                 "name": "tomcat-work-directory",
