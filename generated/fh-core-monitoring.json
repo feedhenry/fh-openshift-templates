@@ -213,12 +213,12 @@
         {
             "name": "SMTP_USERNAME",
             "description": "SMTP username",
-            "required": true
+            "value": "username"
         },
         {
             "name": "SMTP_PASSWORD",
             "description": "SMTP password",
-            "required": true
+            "value": "password"
         },
         {
             "name": "SMTP_TLS",
