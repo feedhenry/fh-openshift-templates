@@ -337,13 +337,13 @@
     },
     {
       "name": "MONGODB_IMAGE",
-      "value": "docker.io/rhmap/mongodb",
+      "value": "rhmap42/mongodb",
       "description": "The name of the mongodb image",
       "required": true
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "centos-3.2-40",
+      "value": "3.2-9",
       "description": "The version for the MONGODB_IMAGE",
       "required": true
     },

@@ -211,12 +211,12 @@
   "parameters": [
     {
       "name": "MYSQL_IMAGE",
-      "value": "docker.io/rhmap/mysql",
+      "value": "rhmap42/mysql",
       "required": true
     },
     {
       "name": "MYSQL_IMAGE_VERSION",
-      "value": "5.5-17",
+      "value": "5.5-6",
       "required": true
     },
     {
