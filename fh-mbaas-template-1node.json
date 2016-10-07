@@ -818,7 +818,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "5.2.5-1215",
+      "value": "5.2.5-1219",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
