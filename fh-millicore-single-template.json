@@ -770,7 +770,7 @@
                 "resources": {
                   "limits": {
                     "cpu": "2",
-                    "memory": "2000Mi"
+                    "memory": "3500Mi"
                   },
                   "requests": {
                     "cpu": "1",
