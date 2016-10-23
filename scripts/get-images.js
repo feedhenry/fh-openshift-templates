@@ -1,62 +1,54 @@
-var _ = require("lodash");
-var path = require('path');
+'use strict';
 
-var argv = require('yargs')
-    .usage("Usage: npm run get-images -- -t /path/to/template.json /path/to/template2.json")
-    .help('help')
-    .option('t', {
-      alias: 'templates',
-      default: path.resolve(__dirname, '../fh-mbaas-template-3node.json'),
-      describe: 'Template files to load',
-      type: 'array'
-    })
-    .option('sudo', {
-      default: true,
-      describe: 'Prepend sudo to pull commands',
-      type: 'boolean'
-    })
-    .argv;
+const _ = require('lodash');
+const path = require('path');
 
-var templates = Array.isArray(argv.t) ? argv.t : [argv.t];
+const argv = require('yargs')
+      .usage('Usage: npm run get-images [-- [--sudo true] [--templates template.json...]]')
+      .help('help')
+      .option('sudo', {
+        default: true,
+        describe: 'Prepend sudo to pull commands',
+        type: 'boolean'
+      })
+      .option('t', {
+        alias: 'templates',
+        default: [path.resolve(__dirname, '../fh-mbaas-template-3node.json')],
+        describe: 'Template files to load',
+        type: 'array'
+      })
+      .argv;
 
-var NAME_SUFFIX_REGEXP = /_IMAGE$|_IMAGE_VERSION$/;
+const SUFFIX_REGEXP = /_IMAGE$|_IMAGE_VERSION$/;
+const templates = Array.isArray(argv.t) ? argv.t : [argv.t];
+const prefix = argv.sudo ? 'sudo docker pull ' : 'docker pull ';
+
+const relevantParameters = templates
+      .map(t => require(path.resolve(t)))
+      .map(t => t.parameters
+           .filter(p => p.name && p.name.split(SUFFIX_REGEXP).length === 2))
+      .reduce((prev, cur) => prev.concat(cur), []);
+
+const groupedComponents = _.groupBy(relevantParameters, namePropertyWithoutSuffix);
 
 function namePropertyWithoutSuffix(parameter) {
-  return _.replace(parameter.name, NAME_SUFFIX_REGEXP, "");
+  return _.replace(parameter.name, SUFFIX_REGEXP, '');
 }
 
 function reduceGroupedParams(paramGroup, accum) {
-  return _.reduce(paramGroup, function(result, elem) {
-    return result === accum ? result + elem.value : result + ":" + elem.value;
-  }, accum);
+  return paramGroup.reduce(
+    (prev, cur) => prev === accum ? `${prev}${cur.value}` : `${prev}:${cur.value}`, accum);
 }
 
-var relevantParameters = _.flatten(_.map(templates, function(t) {
-      var template = require(path.resolve(t));
-      return _.filter(template.parameters, function(parameter) {
-        return parameter.name &&
-            _.split(parameter.name, NAME_SUFFIX_REGEXP).length === 2;
-      });
-    }
-));
+function stringifyGroupedComponents(groupedComponents, linePrefix, lineSeparator) {
+  return _.values(groupedComponents)
+    .map(g => reduceGroupedParams(g, linePrefix))
+    .join(lineSeparator);
+}
 
-var groupedComponents = _.groupBy(relevantParameters, namePropertyWithoutSuffix);
-
-var images = _.map(_.values(groupedComponents), function(group) {
-  return reduceGroupedParams(group, "");
-});
-
-var pullCommand = _.join(_.map(_.values(groupedComponents), function(group) {
-  return reduceGroupedParams(group, _.compact([argv.sudo ? 'sudo' : '', 'docker', 'pull ']).join(' '));
-}), " && \\\n");
-
-console.log("Docker image tags defined in parameters:");
-console.log("---------------------------------------\n");
-
-_.forEach(images, function(image) {
-  console.log(image);
-});
-
-console.log("\nCommand to pull all images:");
-console.log("---------------------------");
-console.log(pullCommand);
+console.log('Docker image tags defined in parameters:\n' +
+            '----------------------------------------\n' +
+            stringifyGroupedComponents(groupedComponents, '', '\n') +
+            '\n\nCommand to pull all images:' +
+            '\n---------------------------\n' +
+            stringifyGroupedComponents(groupedComponents, prefix, ' && \\\n'));
