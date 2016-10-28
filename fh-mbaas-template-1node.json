@@ -233,10 +233,6 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
-                  },
-                  {
-                    "name": "MONGODB_REPLICA_NAME",
-                    "value": "${MONGODB_REPLICA_NAME}"
                   }
                 ],
                 "resources": {
@@ -329,10 +325,6 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
-                  },
-                  {
-                    "name": "MONGODB_REPLICA_NAME",
-                    "value": "${MONGODB_REPLICA_NAME}"
                   }
                 ],
                 "resources": {
@@ -425,10 +417,6 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
-                  },
-                  {
-                    "name": "MONGODB_REPLICA_NAME",
-                    "value": "${MONGODB_REPLICA_NAME}"
                   }
                 ],
                 "resources": {
@@ -545,6 +533,9 @@
               "cpu": "200m",
               "memory": "200Mi"
             }
+          },
+          "recreateParams": {
+            "timeoutSeconds": 600
           }
         },
         "triggers": [
@@ -553,6 +544,7 @@
           }
         ],
         "replicas": 1,
+        "test": false,
         "selector": {
           "name": "mongodb-replica"
         },
@@ -569,17 +561,14 @@
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 27017
+                    "containerPort": 27017,
+                    "protocol": "TCP"
                   }
                 ],
                 "env": [
                   {
-                    "name": "MONGODB_REPLICA_NAME",
-                    "value": "${MONGODB_REPLICA_NAME}"
-                  },
-                  {
                     "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb"
+                    "value": "${MONGODB_SERVICE_NAME}"
                   },
                   {
                     "name": "MONGODB_KEYFILE_VALUE",
@@ -642,101 +631,15 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ]
+            ],
+            "restartPolicy": "Always",
+            "terminationGracePeriodSeconds": 30,
+            "dnsPolicy": "ClusterFirst",
+            "securityContext": {}
           }
-        }
-      }
-    },
-    {
-      "kind": "Pod",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mongodb-initiator",
-        "labels": {
-          "name": "mongodb-initiator"
         }
       },
-      "spec": {
-        "containers": [
-          {
-            "name": "mongodb",
-            "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
-            "ports": [
-              {
-                "containerPort": 27017
-              }
-            ],
-            "command": [
-              "run-mongod",
-              "initiate"
-            ],
-            "env": [
-              {
-                "name": "METADATA_NAMESPACE",
-                "valueFrom": {
-                  "fieldRef": {
-                    "fieldPath": "metadata.namespace"
-                  }
-                }
-              },
-              {
-                "name": "MONGODB_REPLICA_NAME",
-                "value": "${MONGODB_REPLICA_NAME}"
-              },
-              {
-                "name": "MONGODB_SERVICE_NAME",
-                "value": "mongodb"
-              },
-              {
-                "name": "MONGODB_KEYFILE_VALUE",
-                "value": "${MONGODB_KEYFILE_VALUE}"
-              },
-              {
-                "name": "MONGODB_FHMBAAS_USER",
-                "value": "${MONGODB_FHMBAAS_USER}"
-              },
-              {
-                "name": "MONGODB_FHMBAAS_PASSWORD",
-                "value": "${MONGODB_FHMBAAS_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHMBAAS_DATABASE",
-                "value": "fh-mbaas"
-              },
-              {
-                "name": "FHMBAAS_KEY",
-                "value": "${FHMBAAS_KEY}"
-              },
-              {
-                "name": "MONGODB_ADMIN_PASSWORD",
-                "value": "${MONGODB_ADMIN_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHREPORTING_USER",
-                "value": "${MONGODB_FHREPORTING_USER}"
-              },
-              {
-                "name": "MONGODB_FHREPORTING_PASSWORD",
-                "value": "${MONGODB_FHREPORTING_PASSWORD}"
-              },
-              {
-                "name": "MONGODB_FHREPORTING_DATABASE",
-                "value": "fh-reporting"
-              },
-              {
-                "name": "ENDPOINT_COUNT",
-                "value": "${ENDPOINT_COUNT}"
-              },
-              {
-                "name": "MONGODB_INITIAL_REPLICA_COUNT",
-                "value": "${ENDPOINT_COUNT}"
-              }
-            ],
-            "imagePullPolicy": "IfNotPresent"
-          }
-        ],
-        "restartPolicy": "Never"
-      }
+      "status": {}
     },
     {
       "kind": "Route",
@@ -879,26 +782,6 @@
       "value": ""
     },
     {
-      "name": "ENDPOINT_COUNT",
-      "description": "The amount of database's to create a replica set",
-      "value": "1"
-    },
-    {
-      "name": "FH_MBAAS_REPLICAS",
-      "description": "Replica used for sizing",
-      "value": "1"
-    },
-    {
-      "name": "FH_MESSAGING_REPLICAS",
-      "description": "Replica used for sizing",
-      "value": "1"
-    },
-    {
-      "name": "FH_METRICS_REPLICAS",
-      "description": "Replica used for sizing",
-      "value": "1"
-    },
-    {
       "name": "FH_STATSD_API_KEY",
       "description": "Key for communicating with the FH_STATSD Service",
       "generate": "expression",
@@ -908,11 +791,6 @@
       "name": "FH_DEFAULT_LOG_LEVEL",
       "description": "A default log level for all MBaaS components",
       "value": "info"
-    },
-    {
-      "name": "MONGODB_REPLICA_NAME",
-      "description": "The mongodb replicaset name",
-      "value": "rs0"
     }
   ]
 }
