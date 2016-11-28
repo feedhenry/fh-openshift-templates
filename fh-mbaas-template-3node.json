@@ -1448,7 +1448,7 @@
     },
     {
       "name": "FH_STATSD_IMAGE",
-      "value": "docker.io/rhmap/fh-statsd",
+      "value": "docker.io/feedhenry/fh-statsd",
       "description": "The name of the fh-statsd image"
     },
     {
