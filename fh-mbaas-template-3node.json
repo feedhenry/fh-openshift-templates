@@ -1418,7 +1418,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE",
-      "value": "docker.io/rhmap/fh-mbaas",
+      "value": "docker.io/feedhenry/fh-mbaas",
       "description": "The name of the fh-mbaas image"
     },
     {
