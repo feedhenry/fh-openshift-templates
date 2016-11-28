@@ -951,12 +951,12 @@
     },
     {
       "name": "FH_MBAAS_IMAGE",
-      "value": "docker.io/rhmap/fh-mbaas",
+      "value": "docker.io/feedhenry/fh-mbaas",
       "description": "The name of the fh-mbaas image"
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "5.3.13-1267",
+      "value": "5.3.14-1274",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
@@ -981,7 +981,7 @@
     },
     {
       "name": "FH_STATSD_IMAGE",
-      "value": "docker.io/rhmap/fh-statsd",
+      "value": "docker.io/feedhenry/fh-statsd",
       "description": "The name of the fh-statsd image"
     },
     {
