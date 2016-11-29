@@ -961,7 +961,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE",
-      "value": "docker.io/rhmap/fh-messaging",
+      "value": "docker.io/feedhenry/fh-messaging",
       "description": "The name of the fh-messaging image"
     },
     {
@@ -971,7 +971,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE",
-      "value": "docker.io/rhmap/fh-metrics",
+      "value": "docker.io/feedhenry/fh-metrics",
       "description": "The name of the fh-metrics image"
     },
     {
