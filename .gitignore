@@ -1,0 +1,9 @@
+dist/
+node_modules/
+.DS_Store
+._.DS_Store
+*.swp
+output
+.idea/
+npm-debug.log
+.vscode/

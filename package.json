@@ -1,0 +1,30 @@
+{
+  "name": "fh-openshift-templates",
+  "description": "OpenShift V3 Templates for FH MBaaS",
+  "version": "0.24.66",
+  "scripts": {
+    "get-images": "node ./scripts/get-images.js",
+    "update-param": "node ./scripts/update-param.js",
+    "version": "node ./scripts/version.js && git add .",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/feedhenry/fh-openshift-templates.git"
+  },
+  "author": "Red Hat",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt": "^1.0.1",
+    "grunt-fh-build": "^1.0.2",
+    "grunt-jsonlint": "^1.0.6",
+    "leche": "^2.1.1",
+    "mocha": "^2.5.3",
+    "require-dir": "^0.3.0",
+    "yargs": "^4.7.0"
+  },
+  "dependencies": {
+    "lodash": "^4.11.1"
+  }
+}
