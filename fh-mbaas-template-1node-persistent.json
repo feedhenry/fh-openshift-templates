@@ -961,22 +961,22 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE",
-      "value": "docker.io/rhmap/fh-messaging",
+      "value": "docker.io/feedhenry/fh-messaging",
       "description": "The name of the fh-messaging image"
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "3.0.3-473",
+      "value": "3.0.4-481",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
       "name": "FH_METRICS_IMAGE",
-      "value": "docker.io/rhmap/fh-metrics",
+      "value": "docker.io/feedhenry/fh-metrics",
       "description": "The name of the fh-metrics image"
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.0.3-473",
+      "value": "3.0.4-481",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
