@@ -1,0 +1,218 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {},
+    "objects": [
+        {
+            "kind": "ServiceAccount",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "router",
+                "creationTimestamp": null
+            }
+        },
+        {
+            "kind": "ClusterRoleBinding",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "router-testrouter-role",
+                "creationTimestamp": null
+            },
+            "userNames": [
+                "system:serviceaccount:testrouter:router"
+            ],
+            "groupNames": null,
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "namespace": "testrouter",
+                    "name": "router"
+                }
+            ],
+            "roleRef": {
+                "kind": "ClusterRole",
+                "name": "system:router"
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "testrouter",
+                "creationTimestamp": null,
+                "labels": {
+                    "router": "testrouter"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "maxUnavailable": "25%",
+                        "maxSurge": 0,
+                        "updatePercent": -25
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "router": "testrouter"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "router": "testrouter"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "router",
+                                "image": "openshift/origin-haproxy-router:v1.3.1",
+                                "ports": [
+                                    {
+                                        "containerPort": 80
+                                    },
+                                    {
+                                        "containerPort": 443
+                                    },
+                                    {
+                                        "name": "stats",
+                                        "containerPort": 1936,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "ROUTER_EXTERNAL_HOST_HOSTNAME"
+                                    },
+                                    {
+                                        "name": "ROUTER_EXTERNAL_HOST_HTTPS_VSERVER"
+                                    },
+                                    {
+                                        "name": "ROUTER_EXTERNAL_HOST_HTTP_VSERVER"
+                                    },
+                                    {
+                                        "name": "ROUTER_EXTERNAL_HOST_INSECURE",
+                                        "value": "false"
+                                    },
+                                    {
+                                        "name": "ROUTER_EXTERNAL_HOST_PARTITION_PATH"
+                                    },
+                                    {
+                                        "name": "ROUTER_EXTERNAL_HOST_PASSWORD"
+                                    },
+                                    {
+                                        "name": "ROUTER_EXTERNAL_HOST_PRIVKEY",
+                                        "value": "/etc/secret-volume/router.pem"
+                                    },
+                                    {
+                                        "name": "ROUTER_EXTERNAL_HOST_USERNAME"
+                                    },
+                                    {
+                                        "name": "ROUTER_SERVICE_HTTPS_PORT",
+                                        "value": "443"
+                                    },
+                                    {
+                                        "name": "ROUTER_SERVICE_HTTP_PORT",
+                                        "value": "80"
+                                    },
+                                    {
+                                        "name": "ROUTER_SERVICE_NAME",
+                                        "value": "testrouter"
+                                    },
+                                    {
+                                        "name": "ROUTER_SERVICE_NAMESPACE",
+                                        "value": "testrouter"
+                                    },
+                                    {
+                                        "name": "ROUTER_SUBDOMAIN"
+                                    },
+                                    {
+                                        "name": "STATS_PASSWORD",
+                                        "value": "tw6O0BsOBf"
+                                    },
+                                    {
+                                        "name": "STATS_PORT",
+                                        "value": "1936"
+                                    },
+                                    {
+                                        "name": "STATS_USERNAME",
+                                        "value": "admin"
+                                    }
+                                ],
+                                "resources": {},
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": 1936,
+                                        "host": "localhost"
+                                    },
+                                    "initialDelaySeconds": 10
+                                },
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": 1936,
+                                        "host": "localhost"
+                                    },
+                                    "initialDelaySeconds": 10
+                                },
+                                "imagePullPolicy": "IfNotPresent"
+                            }
+                        ],
+                        "serviceAccountName": "router",
+                        "serviceAccount": "router",
+                        "hostNetwork": false,
+                        "securityContext": {}
+                    }
+                }
+            },
+            "status": {}
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "testrouter",
+                "creationTimestamp": null,
+                "labels": {
+                    "router": "testrouter"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "80-tcp",
+                        "port": 80,
+                        "targetPort": 80
+                    },
+                    {
+                        "name": "443-tcp",
+                        "port": 443,
+                        "targetPort": 443
+                    },
+                    {
+                        "name": "1936-tcp",
+                        "protocol": "TCP",
+                        "port": 1936,
+                        "targetPort": 1936
+                    }
+                ],
+                "selector": {
+                    "router": "testrouter"
+                }
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ]
+}
