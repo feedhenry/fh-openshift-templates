@@ -966,7 +966,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "3.0.4-481",
+      "value": "3.0.5-486",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -976,7 +976,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.0.4-481",
+      "value": "3.0.5-486",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
