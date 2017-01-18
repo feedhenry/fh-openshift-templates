@@ -21,6 +21,18 @@
       }
     },
     {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "node-proxy"
+      },
+      "data": {
+        "https-proxy" : "${PROXY_URL}",
+        "http-proxy": "${PROXY_URL}",
+        "no-proxy": "fh-mbaas, fh-messaging, fh-metrics, fh-statds, mongodb-1"
+      }
+    },
+    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
@@ -233,6 +245,33 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "HTTPS_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "https-proxy"
+                      }
+                    }
+                  },
+                  {
+                    "name": "HTTP_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "http-proxy"
+                      }
+                    }
+                  },
+                  {
+                    "name": "NO_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "no-proxy"
+                      }
+                    }
                   }
                 ],
                 "resources": {
@@ -246,6 +285,14 @@
                   }
                 },
                 "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes": [
+              {
+                "name": "node-proxy",
+                "configMap": {
+                  "name": "node-proxy"
+                }
               }
             ]
           }
@@ -325,6 +372,33 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "HTTPS_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "https-proxy"
+                      }
+                    }
+                  },
+                  {
+                    "name": "HTTP_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "http-proxy"
+                      }
+                    }
+                  },
+                  {
+                    "name": "NO_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "no-proxy"
+                      }
+                    }
                   }
                 ],
                 "resources": {
@@ -338,6 +412,14 @@
                   }
                 },
                 "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes": [
+              {
+                "name": "node-proxy",
+                "configMap": {
+                  "name": "node-proxy"
+                }
               }
             ]
           }
@@ -417,6 +499,33 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "HTTPS_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "https-proxy"
+                      }
+                    }
+                  },
+                  {
+                    "name": "HTTP_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "http-proxy"
+                      }
+                    }
+                  },
+                  {
+                    "name": "NO_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "no-proxy"
+                      }
+                    }
                   }
                 ],
                 "resources": {
@@ -430,6 +539,14 @@
                   }
                 },
                 "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes": [
+              {
+                "name": "node-proxy",
+                "configMap": {
+                  "name": "node-proxy"
+                }
               }
             ]
           }
@@ -493,6 +610,33 @@
                   {
                     "name": "FH_LOG_LEVEL",
                     "value": "${FH_DEFAULT_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "HTTPS_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "https-proxy"
+                      }
+                    }
+                  },
+                  {
+                    "name": "HTTP_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "http-proxy"
+                      }
+                    }
+                  },
+                  {
+                    "name": "NO_PROXY",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "node-proxy",
+                        "key": "no-proxy"
+                      }
+                    }
                   }
                 ],
                 "resources": {
@@ -506,6 +650,14 @@
                   }
                 },
                 "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes": [
+              {
+                "name": "node-proxy",
+                "configMap": {
+                  "name": "node-proxy"
+                }
               }
             ]
           }
@@ -791,6 +943,12 @@
       "name": "FH_DEFAULT_LOG_LEVEL",
       "description": "A default log level for all MBaaS components",
       "value": "info"
+    },
+    {
+      "name": "PROXY_URL",
+      "displayName": "Proxy Url",
+      "value": "",
+      "required": false
     }
   ]
 }
