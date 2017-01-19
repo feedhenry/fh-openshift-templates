@@ -27,7 +27,7 @@
         "name": "node-proxy"
       },
       "data": {
-        "https-proxy" : "${PROXY_URL}",
+        "https-proxy": "${PROXY_URL}",
         "http-proxy": "${PROXY_URL}",
         "no-proxy": "fh-mbaas, fh-messaging, fh-metrics, fh-statsd, mongodb-1"
       }
@@ -1575,7 +1575,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "5.3.18-1286",
+      "value": "5.3.19-1294",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
