@@ -1230,7 +1230,7 @@
     {
       "name": "NAGIOS_USER",
       "description": "Nagios admin username",
-      "value": "nagios-admin-user"
+      "value": "nagiosadmin"
     },
     {
       "name": "NAGIOS_PASSWORD",
