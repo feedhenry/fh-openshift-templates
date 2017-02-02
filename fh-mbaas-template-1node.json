@@ -137,7 +137,7 @@
           }
         ],
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-1"
         },
         "clusterIP": "None"
       }
@@ -689,9 +689,6 @@
               "cpu": "200m",
               "memory": "200Mi"
             }
-          },
-          "recreateParams": {
-            "timeoutSeconds": 600
           }
         },
         "triggers": [
@@ -700,31 +697,29 @@
           }
         ],
         "replicas": 1,
-        "test": false,
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-1"
         },
         "template": {
           "metadata": {
             "labels": {
-              "name": "mongodb-replica"
+              "name": "mongodb-replica-1"
             }
           },
           "spec": {
             "containers": [
               {
-                "name": "mongodb-1",
+                "name": "mongodb-service",
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 27017,
-                    "protocol": "TCP"
+                    "containerPort": 27017
                   }
                 ],
                 "env": [
                   {
                     "name": "MONGODB_SERVICE_NAME",
-                    "value": "${MONGODB_SERVICE_NAME}"
+                    "value": "mongodb"
                   },
                   {
                     "name": "MONGODB_KEYFILE_VALUE",

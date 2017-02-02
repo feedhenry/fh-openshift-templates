@@ -154,7 +154,7 @@
           }
         ],
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-1"
         },
         "clusterIP": "None"
       }
@@ -715,12 +715,12 @@
         ],
         "replicas": 1,
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-1"
         },
         "template": {
           "metadata": {
             "labels": {
-              "name": "mongodb-replica"
+              "name": "mongodb-replica-1"
             }
           },
           "spec": {
@@ -734,11 +734,17 @@
             ],
             "containers": [
               {
-                "name": "mongodb-1",
+                "name": "mongodb-service",
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
                     "containerPort": 27017
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "mongodb-data-volume",
+                    "mountPath": "/var/lib/mongodb/data"
                   }
                 ],
                 "env": [
@@ -805,12 +811,6 @@
                     "memory": "200Mi"
                   }
                 },
-                "volumeMounts": [
-                  {
-                    "name": "mongodb-data-volume",
-                    "mountPath": "/var/lib/mongodb/data"
-                  }
-                ],
                 "imagePullPolicy": "IfNotPresent"
               }
             ]
