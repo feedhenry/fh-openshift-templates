@@ -39,6 +39,9 @@
         "name": "fh-mbaas-service",
         "labels": {
           "name": "fh-mbaas-service"
+        },
+        "annotations": {
+            "service.alpha.openshift.io/dependencies": "[{\"name\":\"mongodb-1\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-messaging-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-metrics-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-statsd-service\",\"namespace\":\"\",\"kind\":\"Service\"}]"
         }
       },
       "spec": {
