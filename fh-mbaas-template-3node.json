@@ -926,7 +926,7 @@
         ],
         "resources": {
           "requests": {
-            "storage": "50Gi"
+            "storage": "${MONGODB_PVC_SIZE}"
           }
         }
       }
@@ -943,7 +943,7 @@
         ],
         "resources": {
           "requests": {
-            "storage": "50Gi"
+            "storage": "${MONGODB_PVC_SIZE}"
           }
         }
       }
@@ -960,7 +960,7 @@
         ],
         "resources": {
           "requests": {
-            "storage": "50Gi"
+            "storage": "${MONGODB_PVC_SIZE}"
           }
         }
       }
@@ -1675,6 +1675,12 @@
       "name": "FH_DEFAULT_LOG_LEVEL",
       "description": "A default log level for all MBaaS components",
       "value": "info"
+    },
+    {
+      "name": "MONGODB_PVC_SIZE",
+      "description": "The size of the volume for MongoDB Data",
+      "value": "50Gi",
+      "required": true
     },
     {
       "name": "SMTP_SERVER",
