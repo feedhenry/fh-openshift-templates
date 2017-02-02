@@ -5,8 +5,9 @@ var templates = require("../lib/templates.js");
 var version = require(fs.realpathSync("package.json")).version;
 var mbaasMulti = fs.realpathSync("fh-mbaas-template-3node.json");
 var mbaasSingle = fs.realpathSync("fh-mbaas-template-1node.json");
+var mbaasSinglePersistent = fs.realpathSync("fh-mbaas-template-1node-persistent.json");
 
-var templateMap = templates.get([mbaasMulti, mbaasSingle]);
+var templateMap = templates.get([mbaasMulti, mbaasSingle, mbaasSinglePersistent]);
 _.forEach(templateMap, function(template) {
   template.contents.metadata.annotations.templateVersion = version;
 });
