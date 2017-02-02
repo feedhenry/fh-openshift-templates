@@ -672,6 +672,14 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
+            ],
+            "volumes": [
+              {
+                "name": "node-proxy",
+                "configMap": {
+                  "name": "node-proxy"
+                }
+              }
             ]
           }
         }
