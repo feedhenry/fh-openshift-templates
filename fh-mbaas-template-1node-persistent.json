@@ -46,7 +46,7 @@
       "data": {
         "https-proxy": "${PROXY_URL}",
         "http-proxy": "${PROXY_URL}",
-        "no-proxy": "fh-mbaas, fh-messaging, fh-metrics, fh-statsd, mongodb-1"
+        "no-proxy": "fh-mbaas-service, fh-messaging-service, fh-metrics-service, fh-statsd-service, mongodb-1"
       }
     },
     {
