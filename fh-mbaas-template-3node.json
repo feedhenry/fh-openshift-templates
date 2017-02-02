@@ -865,8 +865,8 @@
                     "value": "${SMTP_FROM_ADDRESS}"
                   },
                   {
-                    "name": "ADMIN_EMAIL",
-                    "value": "${ADMIN_EMAIL}"
+                    "name": "RHMAP_ADMIN_EMAIL",
+                    "value": "${RHMAP_ADMIN_EMAIL}"
                   },
                   {
                     "name": "NAGIOS_USER",
@@ -1692,7 +1692,7 @@
       "value": "admin@example.com"
     },
     {
-      "name": "ADMIN_EMAIL",
+      "name": "RHMAP_ADMIN_EMAIL",
       "description": "To email address for alerts",
       "value": "root@localhost"
     },
