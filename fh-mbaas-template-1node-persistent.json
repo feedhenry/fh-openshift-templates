@@ -238,7 +238,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_MBAAS_REPLICAS}",
         "selector": {
           "name": "fh-mbaas"
         },
@@ -399,7 +399,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_MESSAGING_REPLICAS}",
         "selector": {
           "name": "fh-messaging"
         },
@@ -526,7 +526,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_METRICS_REPLICAS}",
         "selector": {
           "name": "fh-metrics"
         },
@@ -1180,22 +1180,22 @@
     },
     {
       "name": "ENDPOINT_COUNT",
-      "description": "The amount of database's to create a replica set",
+      "description": "The number of databases to create in a replica set",
       "value": "1"
     },
     {
       "name": "FH_MBAAS_REPLICAS",
-      "description": "Replica used for sizing",
+      "description": "Number of fh-mbaas replicas to create",
       "value": "1"
     },
     {
       "name": "FH_MESSAGING_REPLICAS",
-      "description": "Replica used for sizing",
+      "description": "Number of fh-messaging replicas to create",
       "value": "1"
     },
     {
       "name": "FH_METRICS_REPLICAS",
-      "description": "Replica used for sizing",
+      "description": "Number of fh-metrics replicas to create",
       "value": "1"
     },
     {

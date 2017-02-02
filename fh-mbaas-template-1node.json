@@ -170,7 +170,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_MBAAS_REPLICAS}",
         "selector": {
           "name": "fh-mbaas"
         },
@@ -331,7 +331,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_MESSAGING_REPLICAS}",
         "selector": {
           "name": "fh-messaging"
         },
@@ -458,7 +458,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_METRICS_REPLICAS}",
         "selector": {
           "name": "fh-metrics"
         },
@@ -782,15 +782,10 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {}
+            ]
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "Route",
