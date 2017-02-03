@@ -338,6 +338,10 @@
                     "value": "${MONGODB_ADMIN_PASSWORD}"
                   },
                   {
+                    "name": "MONGODB_FORM_PASSWORD",
+                    "value": "${MONGODB_FORM_PASSWORD}"
+                  },
+                  {
                     "name": "FH_METRICS_API_KEY",
                     "description": "API Key for calling fh-metrics",
                     "value": "${FH_METRICS_API_KEY}"
@@ -1554,6 +1558,12 @@
     {
       "name": "MONGODB_ADMIN_PASSWORD",
       "description": "The MongoDB Admin password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "MONGODB_FORM_PASSWORD",
+      "description": "The MongoDB Forms User password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
