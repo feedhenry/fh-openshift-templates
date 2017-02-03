@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.24.45",
+      "templateVersion": "0.25.9",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -243,6 +243,10 @@
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
                     "value": "${MONGODB_ADMIN_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FORM_PASSWORD",
+                    "value": "${MONGODB_FORM_PASSWORD}"
                   },
                   {
                     "name": "FH_METRICS_API_KEY",
@@ -1083,6 +1087,12 @@
       "from": "[a-zA-Z0-9]{40}"
     },
     {
+      "name": "MONGODB_FORM_PASSWORD",
+      "description": "The MongoDB Forms User password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
       "name": "MONGODB_FHREPORTING_USER",
       "value": "reporting-user",
       "description": "The Reporting user name"
@@ -1100,7 +1110,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "5.3.23-1303",
+      "value": "5.3.23-1309",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
