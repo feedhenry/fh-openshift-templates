@@ -937,6 +937,26 @@
       "value": ""
     },
     {
+      "name": "ENDPOINT_COUNT",
+      "description": "The number of databases to create in a replica set",
+      "value": "1"
+    },
+    {
+      "name": "FH_MBAAS_REPLICAS",
+      "description": "Number of fh-mbaas replicas to create",
+      "value": "1"
+    },
+    {
+      "name": "FH_MESSAGING_REPLICAS",
+      "description": "Number of fh-messaging replicas to create",
+      "value": "1"
+    },
+    {
+      "name": "FH_METRICS_REPLICAS",
+      "description": "Number of fh-metrics replicas to create",
+      "value": "1"
+    },
+    {
       "name": "FH_STATSD_API_KEY",
       "description": "Key for communicating with the FH_STATSD Service",
       "generate": "expression",
