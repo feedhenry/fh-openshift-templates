@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.25.11",
+      "templateVersion": "0.26.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -41,7 +41,7 @@
           "name": "fh-mbaas-service"
         },
         "annotations": {
-            "service.alpha.openshift.io/dependencies": "[{\"name\":\"mongodb-1\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-messaging-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-metrics-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-statsd-service\",\"namespace\":\"\",\"kind\":\"Service\"}]"
+          "service.alpha.openshift.io/dependencies": "[{\"name\":\"mongodb-1\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-messaging-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-metrics-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-statsd-service\",\"namespace\":\"\",\"kind\":\"Service\"}]"
         }
       },
       "spec": {
