@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.25.11",
+      "templateVersion": "0.26.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -39,6 +39,9 @@
         "name": "fh-mbaas-service",
         "labels": {
           "name": "fh-mbaas-service"
+        },
+        "annotations": {
+          "service.alpha.openshift.io/dependencies": "[{\"name\":\"mongodb-1\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-messaging-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-metrics-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-statsd-service\",\"namespace\":\"\",\"kind\":\"Service\"}]"
         }
       },
       "spec": {
@@ -137,7 +140,7 @@
           }
         ],
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-1"
         },
         "clusterIP": "None"
       }
@@ -170,7 +173,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_MBAAS_REPLICAS}",
         "selector": {
           "name": "fh-mbaas"
         },
@@ -331,7 +334,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_MESSAGING_REPLICAS}",
         "selector": {
           "name": "fh-messaging"
         },
@@ -458,7 +461,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_METRICS_REPLICAS}",
         "selector": {
           "name": "fh-metrics"
         },
@@ -689,9 +692,6 @@
               "cpu": "200m",
               "memory": "200Mi"
             }
-          },
-          "recreateParams": {
-            "timeoutSeconds": 600
           }
         },
         "triggers": [
@@ -700,31 +700,29 @@
           }
         ],
         "replicas": 1,
-        "test": false,
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-1"
         },
         "template": {
           "metadata": {
             "labels": {
-              "name": "mongodb-replica"
+              "name": "mongodb-replica-1"
             }
           },
           "spec": {
             "containers": [
               {
-                "name": "mongodb-1",
+                "name": "mongodb-service",
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
-                    "containerPort": 27017,
-                    "protocol": "TCP"
+                    "containerPort": 27017
                   }
                 ],
                 "env": [
                   {
                     "name": "MONGODB_SERVICE_NAME",
-                    "value": "${MONGODB_SERVICE_NAME}"
+                    "value": "mongodb"
                   },
                   {
                     "name": "MONGODB_KEYFILE_VALUE",
@@ -787,15 +785,10 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {}
+            ]
           }
         }
-      },
-      "status": {}
+      }
     },
     {
       "kind": "Route",
@@ -942,6 +935,26 @@
       "name": "MBAAS_ROUTER_DNS",
       "description": "The DNS name for the MBaaS Router",
       "value": ""
+    },
+    {
+      "name": "ENDPOINT_COUNT",
+      "description": "The number of databases to create in a replica set",
+      "value": "1"
+    },
+    {
+      "name": "FH_MBAAS_REPLICAS",
+      "description": "Number of fh-mbaas replicas to create",
+      "value": "1"
+    },
+    {
+      "name": "FH_MESSAGING_REPLICAS",
+      "description": "Number of fh-messaging replicas to create",
+      "value": "1"
+    },
+    {
+      "name": "FH_METRICS_REPLICAS",
+      "description": "Number of fh-metrics replicas to create",
+      "value": "1"
     },
     {
       "name": "FH_STATSD_API_KEY",

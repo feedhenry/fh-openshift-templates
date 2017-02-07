@@ -4,29 +4,12 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.25.11",
+      "templateVersion": "0.26.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
   },
   "objects": [
-    {
-      "apiVersion": "v1",
-      "kind": "PersistentVolumeClaim",
-      "metadata": {
-        "name": "mongodb-claim-1"
-      },
-      "spec": {
-        "accessModes": [
-          "ReadWriteOnce"
-        ],
-        "resources": {
-          "requests": {
-            "storage": "${MONGODB_PVC_SIZE}"
-          }
-        }
-      }
-    },
     {
       "kind": "ConfigMap",
       "apiVersion": "v1",
@@ -56,6 +39,9 @@
         "name": "fh-mbaas-service",
         "labels": {
           "name": "fh-mbaas-service"
+        },
+        "annotations": {
+          "service.alpha.openshift.io/dependencies": "[{\"name\":\"mongodb-1\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-messaging-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-metrics-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-statsd-service\",\"namespace\":\"\",\"kind\":\"Service\"}]"
         }
       },
       "spec": {
@@ -154,9 +140,77 @@
           }
         ],
         "selector": {
-          "name": "mongodb-replica"
+          "name": "mongodb-replica-1"
         },
         "clusterIP": "None"
+      }
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "nagios",
+        "labels": {
+          "name": "nagios"
+        },
+        "creationTimestamp": null
+      },
+      "spec": {
+        "ports": [
+          {
+            "protocol": "TCP",
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "name": "nagios"
+        },
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "kind": "ServiceAccount",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "nagios"
+      }
+    },
+    {
+      "kind": "RoleBinding",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "nagiosadmin"
+      },
+      "subjects": [
+        {
+          "kind": "ServiceAccount",
+          "name": "nagios"
+        }
+      ],
+      "roleRef": {
+        "name": "admin"
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "nagios-claim-1"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "1Gi"
+          }
+        }
       }
     },
     {
@@ -187,7 +241,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_MBAAS_REPLICAS}",
         "selector": {
           "name": "fh-mbaas"
         },
@@ -348,7 +402,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_MESSAGING_REPLICAS}",
         "selector": {
           "name": "fh-messaging"
         },
@@ -475,7 +529,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 1,
+        "replicas": "${FH_METRICS_REPLICAS}",
         "selector": {
           "name": "fh-metrics"
         },
@@ -672,229 +726,15 @@
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "kind": "DeploymentConfig",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mongodb-1",
-        "labels": {
-          "name": "mongodb"
-        }
-      },
-      "spec": {
-        "strategy": {
-          "type": "Recreate",
-          "resources": {
-            "limits": {
-              "cpu": "1000m",
-              "memory": "1000Mi"
-            },
-            "requests": {
-              "cpu": "200m",
-              "memory": "200Mi"
-            }
-          }
-        },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
-        "replicas": 1,
-        "selector": {
-          "name": "mongodb-replica"
-        },
-        "template": {
-          "metadata": {
-            "labels": {
-              "name": "mongodb-replica"
-            }
-          },
-          "spec": {
+            ],
             "volumes": [
               {
-                "name": "mongodb-data-volume",
-                "persistentVolumeClaim": {
-                  "claimName": "mongodb-claim-1"
+                "name": "node-proxy",
+                "configMap": {
+                  "name": "node-proxy"
                 }
               }
-            ],
-            "containers": [
-              {
-                "name": "mongodb-1",
-                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
-                "ports": [
-                  {
-                    "containerPort": 27017
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb"
-                  },
-                  {
-                    "name": "MONGODB_KEYFILE_VALUE",
-                    "value": "${MONGODB_KEYFILE_VALUE}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_USER",
-                    "value": "${MONGODB_FHMBAAS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_DATABASE",
-                    "value": "fh-mbaas"
-                  },
-                  {
-                    "name": "FHMBAAS_KEY",
-                    "value": "${FHMBAAS_KEY}"
-                  },
-                  {
-                    "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "value": "${MONGODB_FHSTATSD_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_DATABASE",
-                    "value": "fh-statsd"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value": "fh-reporting"
-                  }
-                ],
-                "resources": {
-                  "limits": {
-                    "cpu": "1000m",
-                    "memory": "1000Mi"
-                  },
-                  "requests": {
-                    "cpu": "200m",
-                    "memory": "200Mi"
-                  }
-                },
-                "volumeMounts": [
-                  {
-                    "name": "mongodb-data-volume",
-                    "mountPath": "/var/lib/mongodb/data"
-                  }
-                ],
-                "imagePullPolicy": "IfNotPresent"
-              }
             ]
-          }
-        }
-      }
-    },
-    {
-      "kind": "Route",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mbaas",
-        "annotations": {
-          "openshift.io/host.generated": "false"
-        }
-      },
-      "spec": {
-        "host": "${MBAAS_ROUTER_DNS}",
-        "to": {
-          "kind": "Service",
-          "name": "fh-mbaas-service"
-        },
-        "tls": {
-          "termination": "edge",
-          "insecureEdgeTerminationPolicy": "Allow"
-        }
-      }
-    },
-    {
-      "kind": "Service",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "nagios",
-        "labels": {
-          "name": "nagios"
-        },
-        "creationTimestamp": null
-      },
-      "spec": {
-        "ports": [
-          {
-            "protocol": "TCP",
-            "port": 8080,
-            "targetPort": 8080
-          }
-        ],
-        "selector": {
-          "name": "nagios"
-        },
-        "type": "ClusterIP",
-        "sessionAffinity": "None"
-      },
-      "status": {
-        "loadBalancer": {}
-      }
-    },
-    {
-      "kind": "ServiceAccount",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "nagios"
-      }
-    },
-    {
-      "kind": "RoleBinding",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "nagiosadmin"
-      },
-      "subjects": [
-        {
-          "kind": "ServiceAccount",
-          "name": "nagios"
-        }
-      ],
-      "roleRef": {
-        "name": "admin"
-      }
-    },
-    {
-      "kind": "PersistentVolumeClaim",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "nagios-claim-1"
-      },
-      "spec": {
-        "accessModes": [
-          "ReadWriteOnce"
-        ],
-        "resources": {
-          "requests": {
-            "storage": "1Gi"
           }
         }
       }
@@ -1022,6 +862,177 @@
         }
       },
       "status": {}
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-claim-1"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "${MONGODB_PVC_SIZE}"
+          }
+        }
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-1",
+        "labels": {
+          "name": "mongodb"
+        }
+      },
+      "spec": {
+        "strategy": {
+          "type": "Recreate",
+          "resources": {
+            "limits": {
+              "cpu": "1000m",
+              "memory": "1000Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
+        },
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "mongodb-replica-1"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "mongodb-replica-1"
+            }
+          },
+          "spec": {
+            "volumes": [
+              {
+                "name": "mongodb-data-volume",
+                "persistentVolumeClaim": {
+                  "claimName": "mongodb-claim-1"
+                }
+              }
+            ],
+            "containers": [
+              {
+                "name": "mongodb-service",
+                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": 27017
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "mongodb-data-volume",
+                    "mountPath": "/var/lib/mongodb/data"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "MONGODB_SERVICE_NAME",
+                    "value": "mongodb"
+                  },
+                  {
+                    "name": "MONGODB_KEYFILE_VALUE",
+                    "value": "${MONGODB_KEYFILE_VALUE}"
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_USER",
+                    "value": "${MONGODB_FHMBAAS_USER}"
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_PASSWORD",
+                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_DATABASE",
+                    "value": "fh-mbaas"
+                  },
+                  {
+                    "name": "FHMBAAS_KEY",
+                    "value": "${FHMBAAS_KEY}"
+                  },
+                  {
+                    "name": "MONGODB_ADMIN_PASSWORD",
+                    "value": "${MONGODB_ADMIN_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FHSTATSD_USER",
+                    "value": "${MONGODB_FHSTATSD_USER}"
+                  },
+                  {
+                    "name": "MONGODB_FHSTATSD_PASSWORD",
+                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FHSTATSD_DATABASE",
+                    "value": "fh-statsd"
+                  },
+                  {
+                    "name": "MONGODB_FHREPORTING_USER",
+                    "value": "${MONGODB_FHREPORTING_USER}"
+                  },
+                  {
+                    "name": "MONGODB_FHREPORTING_PASSWORD",
+                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                  },
+                  {
+                    "name": "MONGODB_FHREPORTING_DATABASE",
+                    "value": "fh-reporting"
+                  }
+                ],
+                "resources": {
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "1000Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mbaas",
+        "annotations": {
+          "openshift.io/host.generated": "false"
+        }
+      },
+      "spec": {
+        "host": "${MBAAS_ROUTER_DNS}",
+        "to": {
+          "kind": "Service",
+          "name": "fh-mbaas-service"
+        },
+        "tls": {
+          "termination": "edge",
+          "insecureEdgeTerminationPolicy": "Allow"
+        }
+      }
     },
     {
       "kind": "Route",
@@ -1172,22 +1183,22 @@
     },
     {
       "name": "ENDPOINT_COUNT",
-      "description": "The amount of database's to create a replica set",
+      "description": "The number of databases to create in a replica set",
       "value": "1"
     },
     {
       "name": "FH_MBAAS_REPLICAS",
-      "description": "Replica used for sizing",
+      "description": "Number of fh-mbaas replicas to create",
       "value": "1"
     },
     {
       "name": "FH_MESSAGING_REPLICAS",
-      "description": "Replica used for sizing",
+      "description": "Number of fh-messaging replicas to create",
       "value": "1"
     },
     {
       "name": "FH_METRICS_REPLICAS",
-      "description": "Replica used for sizing",
+      "description": "Number of fh-metrics replicas to create",
       "value": "1"
     },
     {

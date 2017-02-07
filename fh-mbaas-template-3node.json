@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.25.11",
+      "templateVersion": "0.26.0",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -39,6 +39,9 @@
         "name": "fh-mbaas-service",
         "labels": {
           "name": "fh-mbaas-service"
+        },
+        "annotations": {
+          "service.alpha.openshift.io/dependencies": "[{\"name\":\"mongodb-1\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-messaging-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-metrics-service\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-statsd-service\",\"namespace\":\"\",\"kind\":\"Service\"}]"
         }
       },
       "spec": {
@@ -280,7 +283,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 3,
+        "replicas": "${FH_MBAAS_REPLICAS}",
         "selector": {
           "name": "fh-mbaas"
         },
@@ -445,7 +448,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 3,
+        "replicas": "${FH_MESSAGING_REPLICAS}",
         "selector": {
           "name": "fh-messaging"
         },
@@ -576,7 +579,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 3,
+        "replicas": "${FH_METRICS_REPLICAS}",
         "selector": {
           "name": "fh-metrics"
         },
@@ -926,7 +929,7 @@
         ],
         "resources": {
           "requests": {
-            "storage": "50Gi"
+            "storage": "${MONGODB_PVC_SIZE}"
           }
         }
       }
@@ -943,7 +946,7 @@
         ],
         "resources": {
           "requests": {
-            "storage": "50Gi"
+            "storage": "${MONGODB_PVC_SIZE}"
           }
         }
       }
@@ -960,7 +963,7 @@
         ],
         "resources": {
           "requests": {
-            "storage": "50Gi"
+            "storage": "${MONGODB_PVC_SIZE}"
           }
         }
       }
@@ -1647,22 +1650,22 @@
     },
     {
       "name": "ENDPOINT_COUNT",
-      "description": "The amount of database's to create a replica set",
+      "description": "The number of databases to create in a replica set",
       "value": "3"
     },
     {
       "name": "FH_MBAAS_REPLICAS",
-      "description": "Replica used for sizing",
+      "description": "Number of fh-mbaas replicas to create",
       "value": "3"
     },
     {
       "name": "FH_MESSAGING_REPLICAS",
-      "description": "Replica used for sizing",
+      "description": "Number of fh-messaging replicas to create",
       "value": "3"
     },
     {
       "name": "FH_METRICS_REPLICAS",
-      "description": "Replica used for sizing",
+      "description": "Number of fh-metrics replicas to create",
       "value": "3"
     },
     {
@@ -1675,6 +1678,12 @@
       "name": "FH_DEFAULT_LOG_LEVEL",
       "description": "A default log level for all MBaaS components",
       "value": "info"
+    },
+    {
+      "name": "MONGODB_PVC_SIZE",
+      "description": "The size of the volume for MongoDB Data",
+      "value": "50Gi",
+      "required": true
     },
     {
       "name": "SMTP_SERVER",
