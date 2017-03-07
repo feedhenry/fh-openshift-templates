@@ -1744,7 +1744,7 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.0.8-135"
+      "value": "4.0.8-138"
     },
     {
       "name": "MONGODB_REPLICA_NAME",
