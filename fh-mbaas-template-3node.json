@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.26.9",
+      "templateVersion": "0.26.10",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -890,6 +890,10 @@
                   {
                     "name": "RHMAP_HOSTGROUPS",
                     "value": "${RHMAP_HOSTGROUPS}"
+                  },
+                  {
+                    "name": "MONGODB_ENDPOINT_COUNT",
+                    "value": "3"
                   }
                 ],
                 "resources": {
@@ -1744,7 +1748,7 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.0.8-144"
+      "value": "4.0.8-146"
     },
     {
       "name": "MONGODB_REPLICA_NAME",
