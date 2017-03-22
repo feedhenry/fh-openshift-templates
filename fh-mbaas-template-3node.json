@@ -890,6 +890,10 @@
                   {
                     "name": "RHMAP_HOSTGROUPS",
                     "value": "${RHMAP_HOSTGROUPS}"
+                  },
+                  {
+                    "name": "MONGODB_ENDPOINT_COUNT",
+                    "value": "3"
                   }
                 ],
                 "resources": {
