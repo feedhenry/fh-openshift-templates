@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.26.10",
+      "templateVersion": "0.26.11",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -1632,7 +1632,7 @@
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "centos-3.2-40",
+      "value": "centos-3.2-44",
       "description": "The version for the MONGODB_IMAGE"
     },
     {
