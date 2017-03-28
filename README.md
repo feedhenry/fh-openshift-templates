@@ -1,4 +1,4 @@
-# fh-openshift-templates
+# fh-openshift-templates 
 
 ## Installing an MBaaS from script
 
