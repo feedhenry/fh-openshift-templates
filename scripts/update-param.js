@@ -10,12 +10,12 @@ function main() {
 
   var mbaasMulti = fs.realpathSync("fh-mbaas-template-3node.json");
   var mbaasSingle = fs.realpathSync("fh-mbaas-template-1node.json");
-  var mbaasSinglePersistent = fs.realpathSync("fh-mbaas-template-1node-persistent.json");
+  var mbaasSingleNonPersistent = fs.realpathSync("fh-mbaas-template-1node-non-persistent.json");
 
   var templateMap = templates.get([
     mbaasMulti,
     mbaasSingle,
-    mbaasSinglePersistent
+    mbaasSingleNonPersistent
   ]);
 
   templates.updateParameter(templateMap, argv.p, argv.v);
