@@ -1024,7 +1024,7 @@
             ],
             "containers": [
               {
-                "name": "mongodb-service",
+                "name": "mongodb",
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
@@ -1164,7 +1164,7 @@
             ],
             "containers": [
               {
-                "name": "mongodb-service",
+                "name": "mongodb",
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
@@ -1304,7 +1304,7 @@
             ],
             "containers": [
               {
-                "name": "mongodb-service",
+                "name": "mongodb",
                 "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
                 "ports": [
                   {
