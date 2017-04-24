@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.feedhenry</groupId>
+  <artifactId>fh-openshift-templates</artifactId>
+  <version>0.25.13</version>
+  <packaging>pom</packaging>
+  <name>fh-openshift-templates</name>
+  <description>OpenShift MBaaS templates</description>
+
+  <properties>
+
+    <!-- ============================= -->
+    <!-- General fixed values settings -->
+    <!-- ============================= -->
+
+    <!-- General settings -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.6</maven.compiler.source>
+
+    <!-- Version of Maven plugins -->
+    <version.maven-antrun-plugin>1.8</version.maven-antrun-plugin>
+    <version.maven-clean-plugin>2.5</version.maven-clean-plugin>
+    <version.maven-assembly-plugin>2.5</version.maven-assembly-plugin>
+    <version.maven-enforcer-plugin>1.4</version.maven-enforcer-plugin>
+
+    <!-- Version of Ant dependencies -->
+    <version.ant-nodeps>1.8.1</version.ant-nodeps>
+    <version.ant-contrib>1.0b3</version.ant-contrib>
+
+    <!-- ================================================== -->
+    <!-- Template values configured inside external scripts -->
+    <!-- ================================================== -->
+
+    <build.cmd></build.cmd>
+
+    <!-- Version of frontend-maven-plugin -->
+    <version.frontend-maven-plugin>0.0.27</version.frontend-maven-plugin>
+
+    <!-- Versions of Node and NPM to install -->
+    <version.nodeVersion>v4.4.2</version.nodeVersion>
+    <version.npmVersion>2.15.1</version.npmVersion>
+
+    <!-- Versions of grunt-cli to install (required to call grunt tasks) -->
+    <version.grunt-cli>0.1.7</version.grunt-cli>
+
+  </properties>
+
+  <!--
+    Typical workflow of a build (including all the steps):
+      - maven-clean-plugin: clean all cached folders ([node/**, node_modules/**, node_tmp/**, .tmp/**, dist/**])
+      - maven-enforcer-plugin: check that ${project.basedir}/node does not already exist
+      - frontend-maven-plugin: download and install Node.JS and NPM
+      - frontend-maven-plugin: npm cache clean
+      - frontend-maven-plugin: npm install
+      - frontend-maven-plugin: install grunt-cli
+      - frontend-maven-plugin: run grunt task (the one specified)
+      - maven-antrun-plugin: extract and rename tar.gz in dist folder, replace version in package.json and npm-shrinkwrap.json with semver ${project.version}, remove "resolved" field and clean "from" field from the regenerated npm-shrinkwrap.json file
+      - maven-assembly-plugin: reassembles the package with more filtering
+  -->
+
+  <profiles>
+
+    <!-- =================================================================================================== -->
+    <!-- Checks that node folder does not already exist or its exclusion in assembly file would cause damage -->
+    <!-- =================================================================================================== -->
+    <profile>
+      <id>node-folder-check</id>
+      <activation>
+        <property>
+          <name>node.folder.check</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>${version.maven-enforcer-plugin}</version>
+            <executions>
+              <execution>
+                <id>enforce-dont-exist</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <requireFilesDontExist>
+                      <files>
+                        <file>${project.basedir}/node</file>
+                      </files>
+                    </requireFilesDontExist>
+                  </rules>
+                  <fail>true</fail>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <build>
+    <plugins>
+      <!-- =================================================================== -->
+      <!-- Clear all cached Node/NPM/Bower bits to make completely fresh build -->
+      <!-- =================================================================== -->
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${version.maven-clean-plugin}</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>./</directory>
+              <includes>
+                <include>node/**</include>
+                <include>node_modules/**</include>
+                <include>node_tmp/**</include>
+                <include>.tmp/**</include>
+                <include>dist/**</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      <!-- =============================================================================================================== -->
+      <!--
+        This step is where the heart of Node build and processing takes place. The following steps are executed:
+            * Download Node.js and NPM using the frontend-maven-plugin
+            * Clean the NPM cache
+            * npm install
+            * Install grunt-cli plugin (which is a requirement for next steps)
+            * Call any build_command provided (tipically a fh:dist which produces tar.gz package inside the dist folder)
+      -->
+      <!-- =============================================================================================================== -->
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>${version.frontend-maven-plugin}</version>
+
+        <configuration>
+          <workingDirectory>./</workingDirectory>
+        </configuration>
+
+        <executions>
+          <!--
+            Installing local Node.JS and NPM
+          -->
+          <execution>
+            <id>install_node_and_npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <nodeVersion>${version.nodeVersion}</nodeVersion>
+              <npmVersion>${version.npmVersion}</npmVersion>
+            </configuration>
+          </execution>
+
+          <!--
+            Cleaning cached and obsolete Node dependencies
+          -->
+          <execution>
+            <id>npm_cache_clean</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>cache clean</arguments>
+            </configuration>
+          </execution>
+
+          <!-- Install also the devDependencies required to the steps below -->
+          <execution>
+            <id>npm-install-devDependencies</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+
+          <execution><id>npm-patch-fh-mbaas-image</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p FH_MBAAS_IMAGE -v rhmap43/fh-mbaas</arguments></configuration></execution><execution><id>npm-patch-fh-messaging-image</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p FH_MESSAGING_IMAGE -v rhmap43/fh-messaging</arguments></configuration></execution><execution><id>npm-patch-fh-metrics-image</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p FH_METRICS_IMAGE -v rhmap43/fh-metrics</arguments></configuration></execution><execution><id>npm-patch-fh-statsd-image</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p FH_STATSD_IMAGE -v rhmap43/fh-statsd</arguments></configuration></execution><execution><id>npm-patch-mongodb-image</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p MONGODB_IMAGE -v rhmap43/mongodb</arguments></configuration></execution><execution><id>npm-patch-nagios-image</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p NAGIOS_IMAGE -v rhmap43/nagios</arguments></configuration></execution>
+          <execution><id>npm-patch-fh-mbaas-value</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p FH_MBAAS_IMAGE_VERSION -v 5.4.1-6</arguments></configuration></execution><execution><id>npm-patch-fh-messaging-value</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p FH_MESSAGING_IMAGE_VERSION -v 3.0.7-6</arguments></configuration></execution><execution><id>npm-patch-fh-metrics-value</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p FH_METRICS_IMAGE_VERSION -v 3.0.6-6</arguments></configuration></execution><execution><id>npm-patch-fh-statsd-value</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p FH_STATSD_IMAGE_VERSION -v 2.0.4-7</arguments></configuration></execution><execution><id>npm-patch-mongodb-value</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p MONGODB_IMAGE_VERSION -v 3.2-17</arguments></configuration></execution><execution><id>npm-patch-nagios-value</id><goals><goal>npm</goal></goals><phase>generate-resources</phase><configuration><arguments>run update-param -- -p NAGIOS_IMAGE_VERSION -v 4.0.8-41</arguments></configuration></execution>
+
+          <!-- Installing required grunt-cli dependency -->
+          <execution>
+            <id>grunt_cli-install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <arguments>install grunt-cli@${version.grunt-cli}</arguments>
+            </configuration>
+          </execution>
+
+          <!-- Running grunt dist task -->
+          <execution>
+            <id>grunt-dist</id>
+            <goals>
+              <goal>grunt</goal>
+            </goals>
+            <!-- optional: the default phase is "generate-resources" -->
+            <phase>generate-resources</phase>
+            <configuration>
+              <!-- optional: if not specified, it will run Grunt's default
+              task (and you can remove this whole <configuration> section.) -->
+              <arguments>${build.cmd}</arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- ============================================================================================================================= -->
+      <!-- After the execution of the grunt build command in the previous section, which has built a tar.gz file in the dist folder, do: -->
+      <!--  * get the project.version (could be changed by PME) and make a semver compliant version                                   -->
+      <!--  * untar the tar.gz package in dist folder                                                                                    -->
+      <!--  * rename the tar.gz extracted folder in a more redhat compliant one                                                          -->
+      <!--  * create a VERSION.TXT file with the version calculated                                                                      -->
+      <!--  * replace the version calculated also in the package.json and npm-shrinkwrap.json files                                      -->
+      <!--  * let the next assembly plugin recreate the package (and filter out some unnecessary files)                                  -->
+      <!-- ============================================================================================================================= -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${version.maven-antrun-plugin}</version>
+        <executions>
+          <execution>
+            <id>extract-tar_gz</id>
+            <phase>prepare-package</phase>
+            <configuration>
+              <!-- Makes properties created in Ant available to Maven (required here for assembly file) -->
+              <exportAntProperties>true</exportAntProperties>
+              <target>
+                <!-- Required for the namespace resolution of 'if' and 'then' tasks -->
+                <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath"></taskdef>
+
+                <!-- If project.version already contains .redhat-N -->
+                <!-- Modify ${project.version} from .redhat- to -redhat- for NPM semver compliance (for publishing) -->
+                <loadresource property="module.semversion">
+                  <propertyresource name="project.version"></propertyresource>
+                  <filterchain>
+                    <tokenfilter>
+                      <replacestring from=".redhat-" to="-redhat-"></replacestring>
+                    </tokenfilter>
+                  </filterchain>
+                </loadresource>
+                <echo message="Generated semversion: ${module.semversion}"></echo>
+
+                <property name="module.semver" value="${module.semversion}"></property>
+                <echo message="Generated semver: ${module.semver}"></echo>
+
+                <!-- Dynamically find the generated tar.gz file name -->
+                <path id="compressed.tar.gz.path.id">
+                  <fileset dir="dist">
+                    <include name="*.tar.gz"></include>
+                  </fileset>
+                </path>
+
+                <property name="compressed.tar.gz.path" refid="compressed.tar.gz.path.id"></property>
+                <echo message="Found compressed file path ${compressed.tar.gz.path}"></echo>
+
+                <!-- Get the filename from the absolute path -->
+                <basename property="compressed.tar.gz.filename" file="${compressed.tar.gz.path}"></basename>
+                <echo message="Found compressed file name ${compressed.tar.gz.filename}"></echo>
+
+                <!-- Get the filename prefix from the filename -->
+                <loadresource property="compressed.prefix.filename">
+                  <propertyresource name="compressed.tar.gz.filename"></propertyresource>
+                    <filterchain>
+                      <tokenfilter>
+                        <filetokenizer></filetokenizer>
+                        <replacestring from=".tar.gz" to=""></replacestring>
+                      </tokenfilter>
+                    </filterchain>
+                </loadresource>
+                <echo message="Found compressed file prefix ${compressed.prefix.filename}"></echo>
+
+                <!-- Do the unpacking -->
+                <echo message="== Converting ${compressed.prefix.filename}.tar.gz into tar file..."></echo>
+                <gunzip src="${project.basedir}/dist/${compressed.prefix.filename}.tar.gz"></gunzip>
+
+                <echo message="== Extracting ${compressed.prefix.filename}.tar into exploded folder..."></echo>
+                <untar src="${project.basedir}/dist/${compressed.prefix.filename}.tar" dest="dist"></untar>
+
+                <!-- Rename the exploded folder into more product-friendly name -->
+                <echo message="== Renaming dist/${compressed.prefix.filename} to dist/${project.artifactId}-${module.semver}..."></echo>
+                <move file="${project.basedir}/dist/${compressed.prefix.filename}" tofile="${project.basedir}/dist/${project.artifactId}-${module.semver}"></move>
+
+                <!-- Replacing versions in files -->
+                <echo file="${project.basedir}/dist/${project.artifactId}-${module.semver}/VERSION.txt" append="false" message="${module.semver}"></echo>
+
+                <echo message="== Replacing version inside ${project.basedir}/dist/${project.artifactId}-${module.semver}/package.json..."></echo>
+                <replaceregexp
+                    byline="false"
+                    flags="m"
+                    file="${project.basedir}/dist/${project.artifactId}-${module.semver}/package.json"
+                    match="(,${line.separator}\s*&quot;version&quot;:\s*&quot;)+(\S*)+(&quot;,)+"
+                    replace="\1${module.semver}\3">
+                </replaceregexp>
+                <replaceregexp
+                    byline="false"
+                    flags="m"
+                    file="${project.basedir}/dist/${project.artifactId}-${module.semver}/fh-mbaas-template-1node.json"
+                    match="(${line.separator}\s*&quot;templateVersion&quot;:\s*&quot;)+(\S*)+(&quot;)+"
+                    replace="\1${module.semver}\3">
+                </replaceregexp>
+                <replaceregexp
+                    byline="false"
+                    flags="m"
+                    file="${project.basedir}/dist/${project.artifactId}-${module.semver}/fh-mbaas-template-1node-persistent.json"
+                    match="(${line.separator}\s*&quot;templateVersion&quot;:\s*&quot;)+(\S*)+(&quot;)+"
+                    replace="\1${module.semver}\3">
+                </replaceregexp>
+                <replaceregexp
+                    byline="false"
+                    flags="m"
+                    file="${project.basedir}/dist/${project.artifactId}-${module.semver}/fh-mbaas-template-3node.json"
+                    match="(${line.separator}\s*&quot;templateVersion&quot;:\s*&quot;)+(\S*)+(&quot;)+"
+                    replace="\1${module.semver}\3">
+                </replaceregexp>
+
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>ant-contrib</groupId>
+            <artifactId>ant-contrib</artifactId>
+            <version>${version.ant-contrib}</version>
+            <exclusions>
+              <exclusion>
+                <groupId>ant</groupId>
+                <artifactId>ant</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-nodeps</artifactId>
+            <version>${version.ant-nodeps}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <!-- ======================================================================================================== -->
+      <!-- This execution takes the unpacked module inside the dist folder and reassembles it, with some exclusions -->
+      <!-- ======================================================================================================== -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${version.maven-assembly-plugin}</version>
+        <executions>
+          <execution>
+            <id>distribution</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>assembly.xml</descriptor>
+              </descriptors>
+              <finalName>${project.artifactId}-${module.semver}</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
