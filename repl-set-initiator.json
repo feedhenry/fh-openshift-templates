@@ -1,0 +1,185 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "mongo-initiator",
+    "annotations": {
+      "description": "Mongo DB initiator",
+      "iconClass": "icon-mongodb"
+    }
+  },
+  "objects": [
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-initiator",
+        "labels": {
+          "name": "mongodb-initiator"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "mongodb",
+            "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
+            "ports": [
+              {
+                "containerPort": 27017
+              }
+            ],
+            "command": [
+              "run-mongod",
+              "initiate"
+            ],
+            "env": [
+              {
+                "name": "METADATA_NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_REPLICA_NAME",
+                "value": "${MONGODB_REPLICA_NAME}"
+              },
+              {
+                "name": "MONGODB_SERVICE_NAME",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-service-name"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_KEYFILE_VALUE",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-keyfile-value"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_FHMBAAS_USER",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-fhmbaas-user"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_FHMBAAS_PASSWORD",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-fhmbaas-password"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_FHMBAAS_DATABASE",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-fhmbaas-database"
+                  }
+                }
+              },
+              {
+                "name": "FHMBAAS_KEY",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "fhmbaas-key"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_ADMIN_PASSWORD",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-admin-password"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_FHSTATSD_DATABASE",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-fhstatsd-database"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_FHREPORTING_USER",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-fhreporting-user"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_FHREPORTING_PASSWORD",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-fhreporting-password"
+                  }
+                }
+              },
+              {
+                "name": "MONGODB_FHREPORTING_DATABASE",
+                "valueFrom": {
+                  "configMapKeyRef": {
+                    "name": "mongo-config",
+                    "key": "mongodb-fhreporting-database"
+                  }
+                }
+              },
+              {
+                "name": "ENDPOINT_COUNT",
+                "value": "${ENDPOINT_COUNT}"
+              },
+              {
+                "name": "MONGODB_INITIAL_REPLICA_COUNT",
+                "value": "${ENDPOINT_COUNT}"
+              }
+            ],
+            "imagePullPolicy": "IfNotPresent"
+          }
+        ],
+        "restartPolicy": "Never"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "MONGODB_IMAGE",
+      "value": "docker.io/rhmap/mongodb",
+      "description": "The name of the mongodb image"
+    },
+    {
+      "name": "MONGODB_IMAGE_VERSION",
+      "value": "centos-3.2-44",
+      "description": "The version for the MONGODB_IMAGE"
+    },
+    {
+      "name": "ENDPOINT_COUNT",
+      "description": "The number of databases to create in a replica set",
+      "value": "3"
+    },
+    {
+      "name": "MONGODB_REPLICA_NAME",
+      "description": "The mongodb replicaset name",
+      "value": "rs0"
+    }
+  ]
+}
