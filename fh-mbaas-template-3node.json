@@ -263,7 +263,12 @@
                   },
                   {
                     "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-fhmbaas-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHMBAAS_DATABASE",
@@ -275,11 +280,21 @@
                   },
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-admin-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FORM_PASSWORD",
-                    "value": "${MONGODB_FORM_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-form-password"
+                      }
+                    }
                   },
                   {
                     "name": "FH_METRICS_API_KEY",
@@ -416,7 +431,12 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-fhreporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
@@ -543,7 +563,12 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-fhreporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
@@ -920,26 +945,8 @@
       "description": "The MongoDB user name"
     },
     {
-      "name": "MONGODB_FHMBAAS_PASSWORD",
-      "description": "The MongoDB password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
       "name": "FHMBAAS_KEY",
       "description": "The MBaaS key",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "MONGODB_ADMIN_PASSWORD",
-      "description": "The MongoDB Admin password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "MONGODB_FORM_PASSWORD",
-      "description": "The MongoDB Forms User password",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
@@ -947,12 +954,6 @@
       "name": "MONGODB_FHREPORTING_USER",
       "value": "reporting-user",
       "description": "The Reporting user name"
-    },
-    {
-      "name": "MONGODB_FHREPORTING_PASSWORD",
-      "description": "The MongoDB Reporting password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "FH_MBAAS_IMAGE",

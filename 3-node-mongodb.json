@@ -10,6 +10,19 @@
     }
   },
   "objects": [
+     {
+      "kind": "ConfigMap",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "mongodb-passwords"
+      },
+      "data": {
+         "mongodb-fhmbaas-password": "${MONGODB_FHMBAAS_PASSWORD}",
+         "mongodb-admin-password": "${MONGODB_ADMIN_PASSWORD}",
+         "mongodb-form-password": "${MONGODB_FORM_PASSWORD}",
+         "mongodb-fhreporting-password": "${MONGODB_FHREPORTING_PASSWORD}"
+      }
+    },
     {
       "kind": "Service",
       "apiVersion": "v1",
@@ -207,7 +220,12 @@
                   },
                   {
                     "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-fhmbaas-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHMBAAS_DATABASE",
@@ -219,15 +237,12 @@
                   },
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "value": "${MONGODB_FHSTATSD_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-admin-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHSTATSD_DATABASE",
@@ -239,7 +254,12 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-fhreporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
@@ -345,9 +365,14 @@
                     "name": "MONGODB_FHMBAAS_USER",
                     "value": "${MONGODB_FHMBAAS_USER}"
                   },
-                  {
+                     {
                     "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-fhmbaas-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHMBAAS_DATABASE",
@@ -359,15 +384,12 @@
                   },
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "value": "${MONGODB_FHSTATSD_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-admin-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHSTATSD_DATABASE",
@@ -379,7 +401,12 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-fhreporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
@@ -487,7 +514,12 @@
                   },
                   {
                     "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-fhmbaas-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHMBAAS_DATABASE",
@@ -499,15 +531,12 @@
                   },
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "value": "${MONGODB_FHSTATSD_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-admin-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHSTATSD_DATABASE",
@@ -519,7 +548,12 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongodb-passwords",
+                        "key": "mongodb-fhreporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
