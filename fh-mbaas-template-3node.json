@@ -1208,17 +1208,14 @@
                   "timeoutSeconds": 5
                 },
                 "readinessProbe": {
-                  "exec": {
-                    "command": [
-                      "/bin/sh",
-                      "-ic",
-                      "echo 'db.stats().ok' | mongo 127.0.0.1:27017/admin -u admin -p $MONGODB_ADMIN_PASSWORD --quiet"
-                    ]
-                  },
-                  "failureThreshold": 3,
+                  "failureThreshold": 2,
+                  "initialDelaySeconds": 2,
                   "periodSeconds": 10,
                   "successThreshold": 1,
-                  "timeoutSeconds": 5
+                  "tcpSocket": {
+                    "port": 27017
+                  },
+                  "timeoutSeconds": 1
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
@@ -1371,17 +1368,14 @@
                   "timeoutSeconds": 5
                 },
                 "readinessProbe": {
-                  "exec": {
-                    "command": [
-                      "/bin/sh",
-                      "-ic",
-                      "echo 'db.stats().ok' | mongo 127.0.0.1:27017/admin -u admin -p $MONGODB_ADMIN_PASSWORD --quiet"
-                    ]
-                  },
-                  "failureThreshold": 3,
+                  "failureThreshold": 2,
+                  "initialDelaySeconds": 2,
                   "periodSeconds": 10,
                   "successThreshold": 1,
-                  "timeoutSeconds": 5
+                  "tcpSocket": {
+                    "port": 27017
+                  },
+                  "timeoutSeconds": 1
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
@@ -1534,17 +1528,14 @@
                   "timeoutSeconds": 5
                 },
                 "readinessProbe": {
-                  "exec": {
-                    "command": [
-                      "/bin/sh",
-                      "-ic",
-                      "echo 'db.stats().ok' | mongo 127.0.0.1:27017/admin -u admin -p $MONGODB_ADMIN_PASSWORD --quiet"
-                    ]
-                  },
-                  "failureThreshold": 3,
+                  "failureThreshold": 2,
+                  "initialDelaySeconds": 2,
                   "periodSeconds": 10,
                   "successThreshold": 1,
-                  "timeoutSeconds": 5
+                  "tcpSocket": {
+                    "port": 27017
+                  },
+                  "timeoutSeconds": 1
                 },
                 "imagePullPolicy": "IfNotPresent"
               }
