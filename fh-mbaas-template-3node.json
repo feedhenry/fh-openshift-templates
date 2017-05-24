@@ -4,7 +4,7 @@
   "metadata": {
     "name": "fh-mbaas",
     "annotations": {
-      "templateVersion": "0.26.13",
+      "templateVersion": "0.26.14",
       "description": "Red Hat Mobile Backend as a Service template",
       "iconClass": "icon-nodejs"
     }
@@ -1938,7 +1938,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "5.4.4-1333",
+      "value": "5.5.0-1341",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
