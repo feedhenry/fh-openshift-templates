@@ -279,27 +279,48 @@
                     "value": "${FH_MBAASID}"
                   },
                   {
-                    "name": "MONGODB_FHMBAAS_USER",
-                    "value": "${MONGODB_FHMBAAS_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_DATABASE",
-                    "value": "fh-mbaas"
-                  },
-                  {
                     "name": "FHMBAAS_KEY",
                     "value": "${FHMBAAS_KEY}"
                   },
                   {
+                    "name": "MONGODB_FHMBAAS_USER",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhmbaas-user"
+                      }
+                    }
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_PASSWORD",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhmbaas-password"
+                      }
+                    }
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_DATABASE",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhmbaas-database"
+                      }
+                    }
+                  },
+                  {
                     "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-admin-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FORM_PASSWORD",
+                    "description": "Password to create fh-forms user in Mongo",
                     "value": "${MONGODB_FORM_PASSWORD}"
                   },
                   {
@@ -452,15 +473,30 @@
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhreporting-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhreporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value": "fh-reporting"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhreporting-database"
+                      }
+                    }
                   },
                   {
                     "name": "FH_MESSAGING_API_KEY",
@@ -601,16 +637,31 @@
                     "value": "${FH_MBAASID}"
                   },
                   {
-                    "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "name": "MONGODB_FHREPORTING_USER",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhreporting-user"
+                      }
+                    }
                   },
                   {
-                    "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
+                    "name": "MONGODB_FHREPORTING_PASSWORD",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhreporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value": "fh-reporting"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhreporting-database"
+                      }
+                    }
                   },
                   {
                     "name": "FH_METRICS_API_KEY",
@@ -1059,57 +1110,86 @@
                   }
                 ],
                 "env": [
-                  {
+                 {
                     "name": "MONGODB_SERVICE_NAME",
-                    "value": "mongodb"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-service-name"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_KEYFILE_VALUE",
-                    "value": "${MONGODB_KEYFILE_VALUE}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-keyfile-value"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHMBAAS_USER",
-                    "value": "${MONGODB_FHMBAAS_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhmbaas-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "value": "${MONGODB_FHMBAAS_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhmbaas-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHMBAAS_DATABASE",
-                    "value": "fh-mbaas"
-                  },
-                  {
-                    "name": "FHMBAAS_KEY",
-                    "value": "${FHMBAAS_KEY}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhmbaas-database"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_ADMIN_PASSWORD",
-                    "value": "${MONGODB_ADMIN_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_USER",
-                    "value": "${MONGODB_FHSTATSD_USER}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_PASSWORD",
-                    "value": "${MONGODB_FHSTATSD_PASSWORD}"
-                  },
-                  {
-                    "name": "MONGODB_FHSTATSD_DATABASE",
-                    "value": "fh-statsd"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-admin-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
-                    "value": "${MONGODB_FHREPORTING_USER}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhreporting-user"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "value": "${MONGODB_FHREPORTING_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhreporting-password"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_DATABASE",
-                    "value": "fh-reporting"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhreporting-database"
+                      }
+                    }
                   }
                 ],
                 "resources": {
@@ -1203,55 +1283,15 @@
       "description": "the name of the cluster the mbaas was created from"
     },
     {
-      "name": "FH_MBAASID",
-      "value": "default",
-      "description": "id of the mbaas. A value chosen by the user"
-    },
-    {
-      "name": "MONGODB_FHMBAAS_USER",
-      "value": "mbaas-user",
-      "description": "The MongoDB user name"
-    },
-    {
-      "name": "MONGODB_FHMBAAS_PASSWORD",
-      "description": "The MongoDB password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
       "name": "FHMBAAS_KEY",
       "description": "The MBaaS key",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
     },
     {
-      "name": "MONGODB_KEYFILE_VALUE",
-      "description": "The value of the MongoDB Key",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{255}"
-    },
-    {
-      "name": "MONGODB_ADMIN_PASSWORD",
-      "description": "The MongoDB Admin password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "MONGODB_FORM_PASSWORD",
-      "description": "The MongoDB Forms User password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
-      "name": "MONGODB_FHREPORTING_USER",
-      "value": "reporting-user",
-      "description": "The Reporting user name"
-    },
-    {
-      "name": "MONGODB_FHREPORTING_PASSWORD",
-      "description": "The MongoDB Reporting password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
+      "name": "FH_MBAASID",
+      "value": "default",
+      "description": "id of the mbaas. A value chosen by the user"
     },
     {
       "name": "FH_MBAAS_IMAGE",
@@ -1302,6 +1342,12 @@
       "name": "MONGODB_IMAGE_VERSION",
       "value": "centos-3.2-44",
       "description": "The version for the MONGODB_IMAGE"
+    },
+    {
+      "name": "MONGODB_FORM_PASSWORD",
+      "description": "The MongoDB Forms User password",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
     },
     {
       "name": "FH_MESSAGING_API_KEY",
@@ -1417,12 +1463,6 @@
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
       "value": "4.0.8-146"
-    },
-    {
-      "name": "PROXY_URL",
-      "displayName": "Proxy Url",
-      "value": "",
-      "required": false
     }
   ]
 }
