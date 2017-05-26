@@ -26,5 +26,8 @@
   },
   "dependencies": {
     "lodash": "^4.11.1"
+  },
+  "engines" : { 
+    "node" : "4.4" 
   }
 }
