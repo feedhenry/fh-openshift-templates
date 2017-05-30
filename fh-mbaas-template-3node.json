@@ -11,28 +11,6 @@
   },
   "objects": [
     {
-      "kind": "ConfigMap",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "fh-mbaas-info"
-      },
-      "data": {
-        "version": "4.5.0"
-      }
-    },
-    {
-      "kind": "ConfigMap",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "node-proxy"
-      },
-      "data": {
-        "https-proxy": "${PROXY_URL}",
-        "http-proxy": "${PROXY_URL}",
-        "no-proxy": "fh-mbaas-service, fh-messaging-service, fh-metrics-service, fh-statsd-service, mongodb-1, mongodb-2, mongodb-3"
-      }
-    },
-    {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {

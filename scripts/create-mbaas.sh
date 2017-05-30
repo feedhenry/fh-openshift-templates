@@ -8,15 +8,10 @@ set -e
 # Ensure we kill any background processes on exit
 trap '[ -n "$(jobs -pr)" ] && kill $(jobs -p)' EXIT
 
-# config
-DOCKERCFG_FILE=${DOCKERCFG_FILE:-$HOME/.docker/.dockercfg}
-MBAAS_TEMPLATE_FILE=${MBAAS_TEMPLATE_FILE:-/mnt/src/fh-openshift-templates/fh-mbaas-template-1node-persistent.json}
 
-if [ ! -f $DOCKERCFG_FILE ]
-then
-  echo '$DOCKERCFG_FILE not found. This is required for automatically pulling down private images from docker hub'
-  exit
-fi
+MBAAS_TEMPLATE_FILE=${MBAAS_TEMPLATE_FILE:-/mnt/src/fh-openshift-templates/fh-mbaas-template-1node.json}
+MBAAS_TEMPLATE_DIR=$(dirname $MBAAS_TEMPLATE_FILE )
+
 
 # MBaaS
 if env | grep -q ^MBAAS_PROJECT_NAME=
@@ -26,11 +21,13 @@ else
   export MBAAS_PROJECT_NAME=rhmap-mbaas
   echo MBAAS_PROJECT_NAME env variable was not exported, setting to $MBAAS_PROJECT_NAME
 fi
+
 oc new-project $MBAAS_PROJECT_NAME
-
-oc secrets new private-docker-cfg-file $DOCKERCFG_FILE
-oc secrets link default private-docker-cfg-file --for=pull
-
+if echo $MBAAS_TEMPLATE_FILE | grep 3; then
+  oc new-app -f $MBAAS_TEMPLATE_DIR/rhmap-mbaas-config.json -p MONGODB_REPLICA_NAME=rs0
+else
+  oc new-app -f $MBAAS_TEMPLATE_DIR/rhmap-mbaas-config.json
+fi
 oc new-app -f $MBAAS_TEMPLATE_FILE
 
 # Debug output in backgound
