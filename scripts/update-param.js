@@ -8,14 +8,16 @@ function main() {
       .demand(['p', 'v'])
       .argv;
 
-  var mbaasMulti = fs.realpathSync("fh-mbaas-template-3node.json");
-  var mbaasSingle = fs.realpathSync("fh-mbaas-template-1node.json");
-  var mbaasSingleNonPersistent = fs.realpathSync("fh-mbaas-template-1node-non-persistent.json");
+  var mbaasMulti = fs.realpathSync("mongo-replica.json");
+  var mbaasSingle = fs.realpathSync("mongo-standalone.json");
+  var mbaasSingleNonPersistent = fs.realpathSync("mongo-standalone-ephemeral.json");
+  var mbaasComponents = fs.realpathSync("fh-mbaas-components.json");
 
   var templateMap = templates.get([
     mbaasMulti,
     mbaasSingle,
-    mbaasSingleNonPersistent
+    mbaasSingleNonPersistent,
+    mbaasComponents
   ]);
 
   templates.updateParameter(templateMap, argv.p, argv.v);
