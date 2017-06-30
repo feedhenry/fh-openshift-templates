@@ -1946,7 +1946,7 @@
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
-      "value": "2.0.4-127",
+      "value": "2.0.4-149",
       "description": "The version for the FH_STATSD_IMAGE"
     },
     {
