@@ -46,7 +46,7 @@
       "data": {
         "https-proxy": "${PROXY_URL}",
         "http-proxy": "${PROXY_URL}",
-        "no-proxy": "fh-mbaas-service, fh-messaging-service, fh-metrics-service, fh-statsd-service, mongodb-1, mongodb-2, mongodb-3"
+        "no-proxy": "fh-mbaas-service.${PROJECT_NAME}, fh-messaging-service.${PROJECT_NAME}, fh-metrics-service.${PROJECT_NAME}, fh-statsd-service.${PROJECT_NAME}, mongodb-1.${PROJECT_NAME}, mongodb-2.${PROJECT_NAME}, mongodb-3.${PROJECT_NAME}"
       }
     }
   ],
@@ -119,6 +119,12 @@
       "displayName": "Proxy Url",
       "value": "",
       "required": false
+    },
+    {
+      "name": "PROJECT_NAME",
+      "displayName": "RHMAP MBaaS project namespace",
+      "value": "",
+      "required": true
     }
   ]
 }
