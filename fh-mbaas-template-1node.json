@@ -1288,7 +1288,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "3.0.7-488",
+      "value": "3.0.7-492",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -1298,7 +1298,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.0.6-488",
+      "value": "3.0.6-492",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
