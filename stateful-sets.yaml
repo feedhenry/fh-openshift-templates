@@ -1,0 +1,186 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: mongodb-statefulset-replication
+  annotations:
+    description: MongoDB Replication Example (based on StatefulSet). You must have
+      persistent volumes available in your cluster to use this template.
+    iconClass: icon-mongodb
+    tags: database,mongodb,replication
+parameters:
+- name: MONGODB_SERVICE_NAME
+  displayName: OpenShift Service Name
+  description: The name of the OpenShift Service exposed for the database.
+  value: mongodb
+  required: true
+
+- name: MONGODB_REPLICA_NAME
+  displayName: Replica Set Name
+  description: The name of the replica set.
+  value: mongodb-replica
+  required: true
+
+- name: MONGODB_IMAGE
+  value: docker.io/rhmap/mongodb
+  description: The name of the mongodb image
+
+- name: MONGODB_IMAGE_VERSION
+  value: centos-3.2-44
+  description: The version for the MONGODB_IMAGE
+
+- name: MONGODB_FORM_PASSWORD
+  description: The MongoDB Forms User password
+  generate: expression
+  from: "[a-zA-Z0-9]{40}"
+
+- name: MONGODB_PVC_SIZE
+  description: The size of the volume for MongoDB Data
+  value: 5Gi
+  required: true
+
+objects:
+  # A non-headless service which takes pod readiness into consideration
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: "${{MONGODB_SERVICE_NAME}}"
+      # labels: "${{MONGODB_SERVICE_NAME}}"
+    spec:
+      # the list of ports that are exposed by this service
+      ports:
+      - name: "${{MONGODB_SERVICE_NAME}}"
+        port: 27017
+      # will route traffic to pods having labels matching this selector
+      selector:
+        name: "${{MONGODB_SERVICE_NAME}}"
+      clusterIP: None
+
+  # A headless service to create DNS records
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: "${MONGODB_SERVICE_NAME}-internal"
+      annotations:
+        service.alpha.kubernetes.io/tolerate-unready-endpoints: 'true'
+    spec:
+      clusterIP: None
+      # the list of ports that are exposed by this service
+      ports:
+      - name: mongodb
+        port: 27017
+      # will route traffic to pods having labels matching this selector
+      selector:
+        name: "${MONGODB_SERVICE_NAME}"
+
+  - kind: StatefulSet
+    apiVersion: apps/v1beta1
+    metadata:
+      name: "${MONGODB_SERVICE_NAME}"
+    spec:
+      # pets get DNS/hostnames that follow the pattern: ${metadata.name}-NUM.${spec.serviceName}.default.svc.cluster.local
+      serviceName: "${MONGODB_SERVICE_NAME}-internal"
+      replicas: 3
+      # describes the pod that will be created if insufficient replicas are detected
+      template:
+        metadata:
+          # this label will be used for count running pods
+          labels:
+            name: "${MONGODB_SERVICE_NAME}"
+        spec:
+          containers:
+          - name: mongo-container
+            image: "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}"
+            ports:
+            - containerPort: 27017
+            volumeMounts:
+            - name: mongodb-data
+              mountPath: "/var/lib/mongodb/data"
+            env:
+            - name: MONGODB_REPLICA_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-replica-name
+            - name: MONGODB_SERVICE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-service-name
+            - name: MONGODB_KEYFILE_VALUE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-keyfile-value
+            - name: MONGODB_FHMBAAS_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-fhmbaas-user
+            - name: MONGODB_FHMBAAS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-fhmbaas-password
+            - name: MONGODB_FHMBAAS_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-fhmbaas-database
+            - name: MONGODB_ADMIN_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-admin-password
+            - name: MONGODB_FHREPORTING_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-fhreporting-user
+            - name: MONGODB_FHREPORTING_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-fhreporting-password
+            - name: MONGODB_FHREPORTING_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongodb-fhreporting-database
+            - name: MONGODB_SERVICE_NAME
+              value: "${MONGODB_SERVICE_NAME}-internal"
+
+            resources:
+              limits:
+                cpu: 1000m
+                memory: 1000Mi
+              requests:
+                cpu: 200m
+                memory: 200Mi
+            livenessProbe:
+              failureThreshold: 2
+              initialDelaySeconds: 5
+              periodSeconds: 60
+              successThreshold: 1
+              tcpSocket:
+                port: 27017
+              timeoutSeconds: 5
+            readinessProbe:
+              failureThreshold: 2
+              initialDelaySeconds: 2
+              periodSeconds: 10
+              successThreshold: 1
+              tcpSocket:
+                port: 27017
+              timeoutSeconds: 1
+            imagePullPolicy: IfNotPresent
+
+      volumeClaimTemplates:
+      - metadata:
+          name: mongodb-data
+          annotations: 
+        spec:
+          accessModes: [ ReadWriteOnce ]
+          resources:
+            requests:
+              storage: "${MONGODB_PVC_SIZE}"
