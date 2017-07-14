@@ -18,15 +18,16 @@ parameters:
 - name: MONGODB_REPLICA_NAME
   displayName: Replica Set Name
   description: The name of the replica set.
-  value: mongodb-replica
+  value: rs0
   required: true
 
 - name: MONGODB_IMAGE
-  value: docker.io/rhmap/mongodb
+  value: docker.io/cfoskin/mongodb
   description: The name of the mongodb image
 
 - name: MONGODB_IMAGE_VERSION
-  value: centos-3.2-44
+  # value: centos-3.2-44
+  value: fh-logs
   description: The version for the MONGODB_IMAGE
 
 - name: MONGODB_FORM_PASSWORD
@@ -49,7 +50,7 @@ objects:
     spec:
       # the list of ports that are exposed by this service
       ports:
-      - name: "${{MONGODB_SERVICE_NAME}}"
+      - name: mongodb
         port: 27017
       # will route traffic to pods having labels matching this selector
       selector:
@@ -93,6 +94,8 @@ objects:
             image: "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}"
             ports:
             - containerPort: 27017
+            args:
+              - "run-mongod-pet"
             volumeMounts:
             - name: mongodb-data
               mountPath: "/var/lib/mongodb/data"
