@@ -10,7 +10,7 @@ trap '[ -n "$(jobs -pr)" ] && kill $(jobs -p)' EXIT
 
 # config
 DOCKERCFG_FILE=${DOCKERCFG_FILE:-$HOME/.docker/.dockercfg}
-MBAAS_TEMPLATE_FILE=${MBAAS_TEMPLATE_FILE:-/mnt/src/fh-openshift-templates/fh-mbaas-template-1node-persistent.json}
+MBAAS_TEMPLATE_FILE=${MBAAS_TEMPLATE_FILE:-/mnt/src/fh-openshift-templates/fh-mbaas-template-1node.json}
 
 if [ ! -f $DOCKERCFG_FILE ]
 then

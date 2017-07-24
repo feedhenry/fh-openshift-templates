@@ -8,7 +8,7 @@
 	- the script expects a `.dockercfg` file in `$HOME/.docker/.dockercfg}`, with the correct auth for `rhmap`. This is used to create a docker pull `secret` in the MBaaS project.
 	- or you can overwrite the `DOCKERCFG_FILE` variable when calling the create script 
 - an MBaaS openshift template
-	- the script expects a 1 node persistent MBaaS template in `/mnt/src/fh-openshift-templates/fh-mbaas-template-1node-persistent.json`
+	- the script expects a 1 node persistent MBaaS template in `/mnt/src/fh-openshift-templates/fh-mbaas-template-1node.json`
 	- or you can overwrite the `MBAAS_TEMPLATE_FILE` variable when calling the script
 
 **NOTES:**
