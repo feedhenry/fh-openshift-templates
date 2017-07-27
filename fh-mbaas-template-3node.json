@@ -1936,7 +1936,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.0.6-488",
+      "value": "3.0.6-592",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
