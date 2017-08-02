@@ -24,7 +24,9 @@
          "mongodb-fhreporting-user": "${MONGODB_FHREPORTING_USER}",
          "mongodb-fhreporting-password": "${MONGODB_FHREPORTING_PASSWORD}",
          "mongodb-fhreporting-database": "${MONGODB_FHREPORTING_DATABASE}",
-         "mongodb-replica-name": "${MONGODB_REPLICA_NAME}"
+         "mongodb-replica-name": "${MONGODB_REPLICA_NAME}",
+         "fhmbaas-key": "${FHMBAAS_KEY}",
+         "mongodb-form-password": "${MONGODB_FORM_PASSWORD}"
       }
     },
     {
