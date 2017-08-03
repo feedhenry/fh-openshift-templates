@@ -1,0 +1,200 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "fh-dataman",
+    "annotations": {
+      "description": "Red Hat Mobile Databrowser Backend Service template",
+      "iconClass": "icon-nodejs"
+    }
+  },
+  "objects": [
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-dataman-service",
+        "labels": {
+          "name": "fh-dataman-service"
+        },
+        "annotations": {
+          "service.alpha.openshift.io/dependencies": "[{\"name\":\"mongodb-1\",\"namespace\":\"\",\"kind\":\"Service\"},{\"name\":\"fh-mbaas-service\",\"namespace\":\"\",\"kind\":\"Service\"}]"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "port": 8080,
+            "targetPort": 8822
+          }
+        ],
+        "selector": {
+          "name": "fh-dataman"
+        }
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-dataman",
+        "labels": {
+          "name": "fh-dataman"
+        }
+      },
+      "spec": {
+        "strategy": {
+          "type": "Rolling",
+          "resources": {
+            "limits": {
+              "cpu": "800m",
+              "memory": "800Mi"
+            },
+            "requests": {
+              "cpu": "200m",
+              "memory": "200Mi"
+            }
+          }
+        },
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": "${FH_DATAMAN_REPLICAS}",
+        "selector": {
+          "name": "fh-dataman"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "fh-dataman"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "fh-dataman",
+                "image": "${FH_DATAMAN_IMAGE}:${FH_DATAMAN_IMAGE_VERSION}",
+                "ports": [
+                  {
+                    "containerPort": "${FH_DATAMAN_PORT}"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FHMBAAS_URL",
+                    "value": "${FHMBAAS_URL}"
+                  },
+                  {
+                    "name": "FHMBAAS_KEY",
+                    "value": "${FHMBAAS_KEY}"
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_USER",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhmbaas-user"
+                      }
+                    }
+                  },
+                  {
+                    "name": "MONGODB_FHMBAAS_PASSWORD",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-fhmbaas-password"
+                      }
+                    }
+                  },
+                  {
+                    "name": "FH_LOG_LEVEL",
+                    "value": "${FH_DEFAULT_LOG_LEVEL}"
+                  },
+                  {
+                    "name": "FH_DATAMAN_PORT",
+                    "value": "${FH_DATAMAN_PORT}"
+                  }
+                ],
+                "resources": {
+                  "limits": {
+                    "cpu": "800m",
+                    "memory": "800Mi"
+                  },
+                  "requests": {
+                    "cpu": "200m",
+                    "memory": "200Mi"
+                  }
+                },
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "volumes": [
+              {
+                "name": "node-proxy",
+                "configMap": {
+                  "name": "node-proxy"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "fh-dataman"
+      },
+      "spec": {
+        "to": {
+          "kind": "Service",
+          "name": "fh-dataman-service"
+        },
+        "tls": {
+          "termination": "edge",
+          "insecureEdgeTerminationPolicy": "Allow"
+        }
+      }
+    }
+  ],
+  "parameters": [
+    {
+    "name": "FHMBAAS_URL",
+    "value": "${FHMBAAS_URL}",
+    "description": "The url to reach fh-mbaas"
+    },
+    {
+    "name": "FHMBAAS_KEY",
+    "value": "${FHMBAAS_KEY}",
+    "description": "The service key of the mbaas"
+    },
+    {
+      "name": "FH_DATAMAN_PORT",
+      "value": "8822",
+      "description": "The port the container is available at"
+    },
+    {
+      "name": "FH_DATAMAN_IMAGE",
+      "value": "docker.io/sedroche/fh-dataman",
+      "description": "The name of the fh-dataman image"
+    },
+    {
+      "name": "FH_DATAMAN_IMAGE_VERSION",
+      "value": "0.1.1-200",
+      "description": "The version for the FH_DATAMAN_IMAGE"
+    },
+    {
+      "name": "FH_DATAMAN_REPLICAS",
+      "description": "Number of fh-dataman replicas to create",
+      "value": "1"
+    },
+    {
+      "name": "FH_DEFAULT_LOG_LEVEL",
+      "description": "A default log level for all MBaaS components",
+      "value": "info"
+    }
+  ]
+}
