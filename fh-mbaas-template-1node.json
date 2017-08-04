@@ -214,11 +214,7 @@
             }
           }
         },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
+        "triggers": [],
         "replicas": "${FH_MBAAS_REPLICAS}",
         "selector": {
           "name": "fh-mbaas"
@@ -419,11 +415,7 @@
             }
           }
         },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
+        "triggers": [],
         "replicas": "${FH_MESSAGING_REPLICAS}",
         "selector": {
           "name": "fh-messaging"
@@ -584,11 +576,7 @@
             }
           }
         },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
+        "triggers": [],
         "replicas": "${FH_METRICS_REPLICAS}",
         "selector": {
           "name": "fh-metrics"
@@ -749,11 +737,7 @@
             }
           }
         },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
+        "triggers": [],
         "replicas": 1,
         "selector": {
           "name": "fh-statsd"
@@ -875,11 +859,7 @@
           },
           "resources": {}
         },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
+        "triggers": [],
         "replicas": 1,
         "test": false,
         "selector": {
@@ -1048,11 +1028,7 @@
             }
           }
         },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
+        "triggers": [],
         "replicas": 1,
         "selector": {
           "name": "mongodb-replica-1"
