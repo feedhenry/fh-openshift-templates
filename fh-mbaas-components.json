@@ -106,27 +106,6 @@
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mongodb-1",
-        "labels": {
-          "name": "mongodb-1"
-        }
-      },
-      "spec": {
-        "ports": [
-          {
-            "port": 27017
-          }
-        ],
-        "selector": {
-          "name": "mongodb-replica-1"
-        },
-        "clusterIP": "None"
-      }
-    },
-    {
-      "kind": "Service",
-      "apiVersion": "v1",
-      "metadata": {
         "name": "nagios",
         "labels": {
           "name": "nagios"
@@ -261,6 +240,15 @@
                     "value": "${FHMBAAS_KEY}"
                   },
                   {
+                    "name": "MONGODB_REPLICA_NAME",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-replica-name"
+                      }
+                    }
+                  },
+                  {
                     "name": "MONGODB_FHMBAAS_USER",
                     "valueFrom": {
                       "configMapKeyRef": {
@@ -298,8 +286,12 @@
                   },
                   {
                     "name": "MONGODB_FORM_PASSWORD",
-                    "description": "Password to create fh-forms user in Mongo",
-                    "value": "${MONGODB_FORM_PASSWORD}"
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-form-password"
+                      }
+                    }
                   },
                   {
                     "name": "FH_METRICS_API_KEY",
@@ -448,6 +440,15 @@
                   {
                     "name": "FH_MESSAGING_CRON",
                     "value": "10 0 * * *"
+                  },
+                  {
+                    "name": "MONGODB_REPLICA_NAME",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-replica-name"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
@@ -613,6 +614,15 @@
                   {
                     "name": "FH_MBAASID",
                     "value": "${FH_MBAASID}"
+                  },
+                  {
+                    "name": "MONGODB_REPLICA_NAME",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-replica-name"
+                      }
+                    }
                   },
                   {
                     "name": "MONGODB_FHREPORTING_USER",
@@ -960,7 +970,7 @@
                   },
                   {
                     "name": "MONGODB_ENDPOINT_COUNT",
-                    "value": "1"
+                    "value": "${MONGODB_ENDPOINT_COUNT}"
                   }
                 ],
                 "resources": {
@@ -1007,208 +1017,6 @@
         }
       },
       "status": {}
-    },
-    {
-      "kind": "PersistentVolumeClaim",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mongodb-claim-1"
-      },
-      "spec": {
-        "accessModes": [
-          "ReadWriteOnce"
-        ],
-        "resources": {
-          "requests": {
-            "storage": "${MONGODB_PVC_SIZE}"
-          }
-        }
-      }
-    },
-    {
-      "kind": "DeploymentConfig",
-      "apiVersion": "v1",
-      "metadata": {
-        "name": "mongodb-1",
-        "labels": {
-          "name": "mongodb"
-        }
-      },
-      "spec": {
-        "strategy": {
-          "type": "Recreate",
-          "resources": {
-            "limits": {
-              "cpu": "1000m",
-              "memory": "1000Mi"
-            },
-            "requests": {
-              "cpu": "200m",
-              "memory": "200Mi"
-            }
-          }
-        },
-        "triggers": [
-          {
-            "type": "ConfigChange"
-          }
-        ],
-        "replicas": 1,
-        "selector": {
-          "name": "mongodb-replica-1"
-        },
-        "template": {
-          "metadata": {
-            "labels": {
-              "name": "mongodb-replica-1"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "mongodb-data-volume",
-                "persistentVolumeClaim": {
-                  "claimName": "mongodb-claim-1"
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "mongodb",
-                "image": "${MONGODB_IMAGE}:${MONGODB_IMAGE_VERSION}",
-                "ports": [
-                  {
-                    "containerPort": 27017
-                  }
-                ],
-                "volumeMounts": [
-                  {
-                    "name": "mongodb-data-volume",
-                    "mountPath": "/var/lib/mongodb/data"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "MONGODB_SERVICE_NAME",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-config",
-                        "key": "mongodb-service-name"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_KEYFILE_VALUE",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-config",
-                        "key": "mongodb-keyfile-value"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_USER",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-config",
-                        "key": "mongodb-fhmbaas-user"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_PASSWORD",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-config",
-                        "key": "mongodb-fhmbaas-password"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_FHMBAAS_DATABASE",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-config",
-                        "key": "mongodb-fhmbaas-database"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_ADMIN_PASSWORD",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-config",
-                        "key": "mongodb-admin-password"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_USER",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-config",
-                        "key": "mongodb-fhreporting-user"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_PASSWORD",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-config",
-                        "key": "mongodb-fhreporting-password"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_FHREPORTING_DATABASE",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-config",
-                        "key": "mongodb-fhreporting-database"
-                      }
-                    }
-                  }
-                ],
-                "resources": {
-                  "limits": {
-                    "cpu": "1000m",
-                    "memory": "1000Mi"
-                  },
-                  "requests": {
-                    "cpu": "200m",
-                    "memory": "200Mi"
-                  }
-                },
-                "livenessProbe": {
-                  "failureThreshold": 2,
-                  "initialDelaySeconds": 5,
-                  "periodSeconds": 60,
-                  "successThreshold": 1,
-                  "tcpSocket": {
-                    "port": 27017
-                  },
-                  "timeoutSeconds": 5
-                },
-                "readinessProbe": {
-                  "exec": {
-                    "command": [
-                      "/bin/sh",
-                      "-ic",
-                      "echo 'db.stats().ok' | mongo 127.0.0.1:27017/admin -u admin -p $MONGODB_ADMIN_PASSWORD --quiet"
-                    ]
-                  },
-                  "failureThreshold": 3,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "timeoutSeconds": 5
-                },
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ]
-          }
-        }
-      }
     },
     {
       "kind": "Route",
@@ -1312,22 +1120,6 @@
       "description": "The version for the FH_STATSD_IMAGE"
     },
     {
-      "name": "MONGODB_IMAGE",
-      "value": "docker.io/rhmap/mongodb",
-      "description": "The name of the mongodb image"
-    },
-    {
-      "name": "MONGODB_IMAGE_VERSION",
-      "value": "centos-3.2-44",
-      "description": "The version for the MONGODB_IMAGE"
-    },
-    {
-      "name": "MONGODB_FORM_PASSWORD",
-      "description": "The MongoDB Forms User password",
-      "generate": "expression",
-      "from": "[a-zA-Z0-9]{40}"
-    },
-    {
       "name": "FH_MESSAGING_API_KEY",
       "description": "Key for communicating with the FH_MESSAGING Service",
       "generate": "expression",
@@ -1345,7 +1137,7 @@
       "value": ""
     },
     {
-      "name": "ENDPOINT_COUNT",
+      "name": "MONGODB_ENDPOINT_COUNT",
       "description": "The number of databases to create in a replica set",
       "value": "1"
     },
@@ -1374,12 +1166,6 @@
       "name": "FH_DEFAULT_LOG_LEVEL",
       "description": "A default log level for all MBaaS components",
       "value": "info"
-    },
-    {
-      "name": "MONGODB_PVC_SIZE",
-      "description": "The size of the volume for MongoDB Data",
-      "value": "25Gi",
-      "required": true
     },
     {
       "name": "SMTP_SERVER",
@@ -1440,7 +1226,7 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.1.0-219"
+      "value": "4.0.8-146"
     }
   ]
 }
