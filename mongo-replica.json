@@ -225,16 +225,6 @@
                   },
                   "timeoutSeconds": 5
                 },
-                "readinessProbe": {
-                  "failureThreshold": 2,
-                  "initialDelaySeconds": 2,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "tcpSocket": {
-                    "port": 27017
-                  },
-                  "timeoutSeconds": 1
-                },
                 "imagePullPolicy": "IfNotPresent"
               }
             ]
