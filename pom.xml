@@ -326,21 +326,7 @@
                 <replaceregexp
                     byline="false"
                     flags="m"
-                    file="${project.basedir}/dist/${project.artifactId}-${module.semver}/fh-mbaas-template-1node.json"
-                    match="(${line.separator}\s*&quot;templateVersion&quot;:\s*&quot;)+(\S*)+(&quot;)+"
-                    replace="\1${module.semver}\3">
-                </replaceregexp>
-                <replaceregexp
-                    byline="false"
-                    flags="m"
-                    file="${project.basedir}/dist/${project.artifactId}-${module.semver}/fh-mbaas-template-1node-persistent.json"
-                    match="(${line.separator}\s*&quot;templateVersion&quot;:\s*&quot;)+(\S*)+(&quot;)+"
-                    replace="\1${module.semver}\3">
-                </replaceregexp>
-                <replaceregexp
-                    byline="false"
-                    flags="m"
-                    file="${project.basedir}/dist/${project.artifactId}-${module.semver}/fh-mbaas-template-3node.json"
+                    file="${project.basedir}/dist/${project.artifactId}-${module.semver}/fh-mbaas-components.json"
                     match="(${line.separator}\s*&quot;templateVersion&quot;:\s*&quot;)+(\S*)+(&quot;)+"
                     replace="\1${module.semver}\3">
                 </replaceregexp>
