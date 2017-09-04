@@ -87,7 +87,7 @@
           },
           "spec": {
             "nodeSelector": {
-              "mbaas_id": "mbaas1"
+              "mbaas_id": "mbaas${MONGO_INSTANCE}"
             },
             "volumes": [
               {
