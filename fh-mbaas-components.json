@@ -1086,7 +1086,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "5.8.0-1427",
+      "value": "5.8.0-1442",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
@@ -1116,7 +1116,7 @@
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
-      "value": "2.0.4-127",
+      "value": "2.0.4-161",
       "description": "The version for the FH_STATSD_IMAGE"
     },
     {
