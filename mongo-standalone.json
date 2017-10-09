@@ -241,7 +241,7 @@
     },
     {
       "name": "MONGODB_IMAGE_VERSION",
-      "value": "centos-3.2-65",
+      "value": "centos-3.2-00f8d92",
       "description": "The version for the MONGODB_IMAGE"
     },
     {
