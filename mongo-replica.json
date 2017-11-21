@@ -87,7 +87,7 @@
           },
           "spec": {
             "nodeSelector": {
-              "mbaas_id": "mbaas${MONGO_INSTANCE}"
+              "${NODE_SELECTOR_KEY}": "${NODE_SELECTOR_VALUE}"
             },
             "volumes": [
               {
@@ -260,6 +260,16 @@
     {
       "name": "MONGO_INSTANCE",
       "description": "The Mongo service number",
+      "required": true
+    },
+    {
+      "name": "NODE_SELECTOR_KEY",
+      "description": "The node label key",
+      "required": true
+    },
+    {
+      "name": "NODE_SELECTOR_VALUE",
+      "description": "The node label value to schedule this Mongo instance",
       "required": true
     }
   ]
