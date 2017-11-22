@@ -1086,7 +1086,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "5.10.1-00d12ab",
+      "value": "5.10.2-228c356",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
