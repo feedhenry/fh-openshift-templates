@@ -1086,7 +1086,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "5.10.2-4df7173",
+      "value": "5.10.2-8c34232",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
@@ -1116,7 +1116,7 @@
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
-      "value": "2.1.0-c140ab9",
+      "value": "2.1.0-c9e8a58",
       "description": "The version for the FH_STATSD_IMAGE"
     },
     {
@@ -1226,7 +1226,7 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.0.8-223"
+      "value": "4.0.8-e9c733b"
     }
   ]
 }
