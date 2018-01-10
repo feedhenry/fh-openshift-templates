@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "mongodb-3-node-replica-set",
+    "name": "${MONGO_NAMESPACE}-3-node-replica-set",
     "annotations": {
       "description": "Red Hat Mobile Backend as a Service Mongo Replica Set template",
       "iconClass": "icon-mongodb"
@@ -13,9 +13,9 @@
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mongodb-${MONGO_INSTANCE}",
+        "name": "${MONGO_NAMESPACE}-${MONGO_INSTANCE}",
         "labels": {
-          "name": "mongodb-${MONGO_INSTANCE}"
+          "name": "${MONGO_NAMESPACE}-${MONGO_INSTANCE}"
         }
       },
       "spec": {
@@ -25,7 +25,7 @@
           }
         ],
         "selector": {
-          "name": "mongodb-replica-${MONGO_INSTANCE}"
+          "name": "${MONGO_NAMESPACE}-replica-${MONGO_INSTANCE}"
         },
         "clusterIP": "None"
       }
@@ -34,7 +34,7 @@
       "kind": "PersistentVolumeClaim",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mongodb-claim-${MONGO_INSTANCE}"
+        "name": "${MONGO_NAMESPACE}-claim-${MONGO_INSTANCE}"
       },
       "spec": {
         "accessModes": [
@@ -51,7 +51,7 @@
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mongodb-${MONGO_INSTANCE}",
+        "name": "${MONGO_NAMESPACE}-${MONGO_INSTANCE}",
         "labels": {
           "name": "mongodb"
         }
@@ -77,20 +77,20 @@
         ],
         "replicas": 1,
         "selector": {
-          "name": "mongodb-replica-${MONGO_INSTANCE}"
+          "name": "${MONGO_NAMESPACE}-replica-${MONGO_INSTANCE}"
         },
         "template": {
           "metadata": {
             "labels": {
-              "name": "mongodb-replica-${MONGO_INSTANCE}"
+              "name": "${MONGO_NAMESPACE}-replica-${MONGO_INSTANCE}"
             }
           },
           "spec": {
             "volumes": [
               {
-                "name": "mongodb-data-volume",
+                "name": "${MONGO_NAMESPACE}-data-volume",
                 "persistentVolumeClaim": {
-                  "claimName": "mongodb-claim-${MONGO_INSTANCE}"
+                  "claimName": "${MONGO_NAMESPACE}-claim-${MONGO_INSTANCE}"
                 }
               }
             ],
@@ -128,7 +128,7 @@
                 ],
                 "volumeMounts": [
                   {
-                    "name": "mongodb-data-volume",
+                    "name": "${MONGO_NAMESPACE}-data-volume",
                     "mountPath": "/var/lib/mongodb/data"
                   }
                 ],
@@ -138,7 +138,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-replica-name"
+                        "key": "${MONGO_NAMESPACE}-replica-name"
                       }
                     }
                   },
@@ -147,7 +147,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-service-name"
+                        "key": "${MONGO_NAMESPACE}-service-name"
                       }
                     }
                   },
@@ -156,7 +156,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-keyfile-value"
+                        "key": "${MONGO_NAMESPACE}-keyfile-value"
                       }
                     }
                   },
@@ -165,7 +165,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-fhmbaas-user"
+                        "key": "${MONGO_NAMESPACE}-fhmbaas-user"
                       }
                     }
                   },
@@ -174,7 +174,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-fhmbaas-password"
+                        "key": "${MONGO_NAMESPACE}-fhmbaas-password"
                       }
                     }
                   },
@@ -183,7 +183,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-fhmbaas-database"
+                        "key": "${MONGO_NAMESPACE}-fhmbaas-database"
                       }
                     }
                   },
@@ -192,7 +192,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-admin-password"
+                        "key": "${MONGO_NAMESPACE}-admin-password"
                       }
                     }
                   },
@@ -201,7 +201,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-fhreporting-user"
+                        "key": "${MONGO_NAMESPACE}-fhreporting-user"
                       }
                     }
                   },
@@ -210,7 +210,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-fhreporting-password"
+                        "key": "${MONGO_NAMESPACE}-fhreporting-password"
                       }
                     }
                   },
@@ -219,7 +219,7 @@
                     "valueFrom": {
                       "configMapKeyRef": {
                         "name": "mongo-config",
-                        "key": "mongodb-fhreporting-database"
+                        "key": "${MONGO_NAMESPACE}-fhreporting-database"
                       }
                     }
                   }
@@ -289,7 +289,12 @@
       "name": "AFFINITY_VALUE",
       "description": "The key to use for anti-affinity rule in deployment",
       "required": true,
-      "value": "mongodb-3-node-replica-set"
+      "value": "${MONGO_NAMESPACE}-3-node-replica-set"
+    },
+    {
+      "name": "MONGO_NAMESPACE",
+      "description": "Mongodb namespace to be used across several resources",
+      "value": "mongodb"
     }
   ]
 }
