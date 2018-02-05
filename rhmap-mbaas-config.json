@@ -12,7 +12,7 @@
       "kind": "ConfigMap",
       "apiVersion": "v1",
       "metadata": {
-        "name": "mongo-config"
+        "name": "${MONGODB_CONFIGMAP_NAME}"
       },
       "data": {
          "mongodb-admin-password": "${MONGODB_ADMIN_PASSWORD}",
@@ -125,6 +125,12 @@
       "name": "PROJECT_NAME",
       "displayName": "RHMAP MBaaS project namespace",
       "value": "",
+      "required": true
+    },
+    {
+      "name": "MONGODB_CONFIGMAP_NAME",
+      "displayName": "Config map name",
+      "value": "mongo-config",
       "required": true
     }
   ]
