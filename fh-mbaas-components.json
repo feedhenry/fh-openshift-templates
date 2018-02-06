@@ -302,7 +302,6 @@
                       }
                     }
                   },
-
                   {
                     "name": "MONGODB_USERDB_REPLICA_NAME",
                     "valueFrom": {
@@ -366,7 +365,6 @@
                       }
                     }
                   },
-
                   {
                     "name": "FH_METRICS_API_KEY",
                     "description": "API Key for calling fh-metrics",
@@ -1160,7 +1158,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "5.12.1-cad1a19",
+      "value": "6.0.0-f5da1b7",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
