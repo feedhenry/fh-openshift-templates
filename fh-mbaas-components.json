@@ -1168,7 +1168,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "3.2.0-cab2c89",
+      "value": "3.2.0-956b441",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -1178,7 +1178,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.1.1-cab2c89",
+      "value": "3.1.1-29d9018",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
@@ -1298,7 +1298,7 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.0.8-48f3f76"
+      "value": "4.0.8-f010c3b"
     }
   ]
 }
