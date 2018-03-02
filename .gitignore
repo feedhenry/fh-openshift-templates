@@ -7,3 +7,5 @@ output
 .idea/
 npm-debug.log
 .vscode/
+VERSION.txt
+target/
