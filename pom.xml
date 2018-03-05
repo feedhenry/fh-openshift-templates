@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2018, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.feedhenry</groupId>
+  <artifactId>fh-openshift-templates</artifactId>
+  <version>0.26.84</version>
+  <packaging>pom</packaging>
+  <name>fh-openshift-templates</name>
+  <description>OpenShift MBaaS templates</description>
+
+  <properties>
+
+    <!-- ============================= -->
+    <!-- General fixed values settings -->
+    <!-- ============================= -->
+
+    <!-- General settings -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.6</maven.compiler.source>
+
+    <!-- Version of Maven plugins -->
+    <version.maven-antrun-plugin>1.8</version.maven-antrun-plugin>
+    <version.maven-clean-plugin>2.5</version.maven-clean-plugin>
+    <version.maven-assembly-plugin>2.5</version.maven-assembly-plugin>
+    <version.maven-enforcer-plugin>1.4</version.maven-enforcer-plugin>
+
+    <!-- Version of Ant dependencies -->
+    <version.ant-nodeps>1.8.1</version.ant-nodeps>
+    <version.ant-contrib>1.0b3</version.ant-contrib>
+  </properties>
+
+  <build>
+    <plugins>
+
+      <!-- ============================================================================================================================= -->
+      <!--  * get the project.version (could be changed by PME) and make a semver compliant version                                   -->
+      <!--  * create a VERSION.TXT file with the version calculated                                                                      -->
+      <!--  * let the assembly plugin recreate the package (and filter out some unnecessary files)                                  -->
+      <!-- ============================================================================================================================= -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>${version.maven-antrun-plugin}</version>
+        <executions>
+          <execution>
+            <id>extract-tar_gz</id>
+            <phase>prepare-package</phase>
+            <configuration>
+              <!-- Makes properties created in Ant available to Maven (required here for assembly file) -->
+              <exportAntProperties>true</exportAntProperties>
+              <target>
+                <!-- Required for the namespace resolution of 'if' and 'then' tasks -->
+                <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath"></taskdef>
+
+                <!-- If project.version already contains .redhat-N -->
+                <!-- Modify ${project.version} from .redhat- to -redhat- for NPM semver compliance (for publishing) -->
+                <loadresource property="module.semversion">
+                  <propertyresource name="project.version"></propertyresource>
+                  <filterchain>
+                    <tokenfilter>
+                      <replacestring from=".redhat-" to="-redhat-"></replacestring>
+                    </tokenfilter>
+                  </filterchain>
+                </loadresource>
+                <echo message="Generated semversion: ${module.semversion}"></echo>
+
+                <property name="module.semver" value="${module.semversion}"></property>
+                <echo message="Generated semver: ${module.semver}"></echo>
+
+                <!-- Making VERSION.txt -->
+                <echo file="${project.basedir}/VERSION.txt" append="false" message="${module.semver}"></echo>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>ant-contrib</groupId>
+            <artifactId>ant-contrib</artifactId>
+            <version>${version.ant-contrib}</version>
+            <exclusions>
+              <exclusion>
+                <groupId>ant</groupId>
+                <artifactId>ant</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-nodeps</artifactId>
+            <version>${version.ant-nodeps}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${version.maven-assembly-plugin}</version>
+        <executions>
+          <execution>
+            <id>distribution</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <descriptors>
+            <descriptor>assembly.xml</descriptor>
+          </descriptors>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

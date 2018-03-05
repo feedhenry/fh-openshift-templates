@@ -16,4 +16,11 @@ node('nodejs6') {
             for templatefile in $(ls *.json); do ./node_modules/.bin/jsonlint -q ${templatefile}; done
         '''
     }
+
+    stage('Validate POM') {
+        String pomXMLVersion      = readMavenPom().version
+        String packageJSONVersion = readJSON(file: 'package.json').version
+
+        assert pomXMLVersion == packageJSONVersion
+    }
 }
