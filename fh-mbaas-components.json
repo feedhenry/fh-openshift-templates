@@ -549,6 +549,15 @@
                       }
                     }
                   },
+                   {
+                    "name": "MONGODB_SERVICE_NAME",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-service-name"
+                      }
+                    }
+                  },
                   {
                     "name": "FH_MESSAGING_API_KEY",
                     "description": "API Key for calling fh-messaging",
@@ -720,6 +729,15 @@
                       "configMapKeyRef": {
                         "name": "mongo-config",
                         "key": "mongodb-fhreporting-database"
+                      }
+                    }
+                  },
+                   {
+                    "name": "MONGODB_SERVICE_NAME",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "mongo-config",
+                        "key": "mongodb-service-name"
                       }
                     }
                   },
