@@ -8,24 +8,24 @@
     }
   },
   "objects": [
-     {
+    {
       "kind": "ConfigMap",
       "apiVersion": "v1",
       "metadata": {
         "name": "${MONGODB_CONFIGMAP_NAME}"
       },
       "data": {
-         "mongodb-admin-password": "${MONGODB_ADMIN_PASSWORD}",
-         "mongodb-keyfile-value": "${MONGODB_KEYFILE_VALUE}",
-         "mongodb-service-name": "${MONGODB_SERVICE_NAME}",
-         "mongodb-fhmbaas-user": "${MONGODB_FHMBAAS_USER}",
-         "mongodb-fhmbaas-password": "${MONGODB_FHMBAAS_PASSWORD}",
-         "mongodb-fhmbaas-database": "${MONGODB_FHMBAAS_DATABASE}",
-         "mongodb-fhreporting-user": "${MONGODB_FHREPORTING_USER}",
-         "mongodb-fhreporting-password": "${MONGODB_FHREPORTING_PASSWORD}",
-         "mongodb-fhreporting-database": "${MONGODB_FHREPORTING_DATABASE}",
-         "mongodb-replica-name": "${MONGODB_REPLICA_NAME}",
-         "mongodb-form-password": "${MONGODB_FORM_PASSWORD}"
+        "mongodb-admin-password": "${MONGODB_ADMIN_PASSWORD}",
+        "mongodb-keyfile-value": "${MONGODB_KEYFILE_VALUE}",
+        "mongodb-service-name": "${MONGODB_SERVICE_NAME}",
+        "mongodb-fhmbaas-user": "${MONGODB_FHMBAAS_USER}",
+        "mongodb-fhmbaas-password": "${MONGODB_FHMBAAS_PASSWORD}",
+        "mongodb-fhmbaas-database": "${MONGODB_FHMBAAS_DATABASE}",
+        "mongodb-fhreporting-user": "${MONGODB_FHREPORTING_USER}",
+        "mongodb-fhreporting-password": "${MONGODB_FHREPORTING_PASSWORD}",
+        "mongodb-fhreporting-database": "${MONGODB_FHREPORTING_DATABASE}",
+        "mongodb-replica-name": "${MONGODB_REPLICA_NAME}",
+        "mongodb-form-password": "${MONGODB_FORM_PASSWORD}"
       }
     },
     {
