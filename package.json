@@ -5,6 +5,7 @@
   "scripts": {
     "get-images": "node ./scripts/get-images.js",
     "update-param": "node ./scripts/update-param.js",
+    "update-platform-version": "node ./scripts/update-platform-version.js",
     "version": "node ./scripts/version.js && git add .",
     "test": "mocha"
   },
