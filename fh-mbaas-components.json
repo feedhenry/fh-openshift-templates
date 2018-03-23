@@ -303,69 +303,6 @@
                     }
                   },
                   {
-                    "name": "MONGODB_USERDB_REPLICA_NAME",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-user-config",
-                        "key": "mongodb-replica-name"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_USERDB_FHMBAAS_USER",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-user-config",
-                        "key": "mongodb-fhmbaas-user"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_USERDB_FHMBAAS_PASSWORD",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-user-config",
-                        "key": "mongodb-fhmbaas-password"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_USERDB_FHMBAAS_DATABASE",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-user-config",
-                        "key": "mongodb-fhmbaas-database"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_USERDB_ADMIN_PASSWORD",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-user-config",
-                        "key": "mongodb-admin-password"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_USERDB_FORM_PASSWORD",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-user-config",
-                        "key": "mongodb-form-password"
-                      }
-                    }
-                  },
-                  {
-                    "name": "MONGODB_USERDB_SERVICE_NAME",
-                    "valueFrom": {
-                      "configMapKeyRef": {
-                        "name": "mongo-user-config",
-                        "key": "mongodb-service-name"
-                      }
-                    }
-                  },
-                  {
                     "name": "FH_METRICS_API_KEY",
                     "description": "API Key for calling fh-metrics",
                     "value": "${FH_METRICS_API_KEY}"
