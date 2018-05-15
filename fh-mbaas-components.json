@@ -1123,7 +1123,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "3.2.0-ec3fa1c",
+      "value": "3.3.0-c0d0784",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
