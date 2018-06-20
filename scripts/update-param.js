@@ -1,23 +1,22 @@
-var _ = require("lodash");
-var fs = require("fs");
-var templates = require("../lib/templates.js");
+'use strict';
+
+const _         = require("lodash");
+const fs        = require("fs");
+const templates = require("../lib/templates.js");
 
 function main() {
-  var argv = require('yargs')
+  const argv = require('yargs')
       .usage("Usage: npm run update-param -- -p FH_MBAAS_IMAGE_VERSION -v 1.0.1-1")
       .demand(['p', 'v'])
       .argv;
 
-  var mbaasMulti = fs.realpathSync("mongo-replica.json");
-  var mbaasSingle = fs.realpathSync("mongo-standalone.json");
-  var mbaasSingleNonPersistent = fs.realpathSync("mongo-standalone-ephemeral.json");
-  var mbaasComponents = fs.realpathSync("fh-mbaas-components.json");
-
-  var templateMap = templates.get([
-    mbaasMulti,
-    mbaasSingle,
-    mbaasSingleNonPersistent,
-    mbaasComponents
+  const templateMap = templates.get([
+    fs.realpathSync("mongo-replica.json"),
+    fs.realpathSync("mongo-standalone.json"),
+    fs.realpathSync("rhmap-mbaas-config.json"),
+    fs.realpathSync("fh-mbaas-components.json"),
+    fs.realpathSync("mongo-replica-affinity.json"),
+    fs.realpathSync("mongo-standalone-ephemeral.json")
   ]);
 
   templates.updateParameter(templateMap, argv.p, argv.v);
