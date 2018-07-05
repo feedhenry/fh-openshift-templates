@@ -1133,7 +1133,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.2.0-a83a3a6",
+      "value": "3.2.0-6f676b9",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
