@@ -1113,7 +1113,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "6.0.5-2f10839",
+      "value": "6.0.5-ad4b08b",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
@@ -1123,7 +1123,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "3.3.0-a83a3a6",
+      "value": "3.3.0-80283d6",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -1133,7 +1133,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.2.0-a83a3a6",
+      "value": "3.2.0-80283d6",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
