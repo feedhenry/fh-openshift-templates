@@ -1253,7 +1253,7 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.0.8-d99557a"
+      "value": "4.0.8-f60ca4b"
     }
   ]
 }
