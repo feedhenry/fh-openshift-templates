@@ -58,17 +58,7 @@
       },
       "spec": {
         "strategy": {
-          "type": "Recreate",
-          "resources": {
-            "limits": {
-              "cpu": "1000m",
-              "memory": "1000Mi"
-            },
-            "requests": {
-              "cpu": "200m",
-              "memory": "200Mi"
-            }
-          }
+          "type": "Recreate"
         },
         "triggers": [
           {
@@ -209,12 +199,12 @@
                 ],
                 "resources": {
                   "limits": {
-                    "cpu": "1000m",
-                    "memory": "1000Mi"
+                    "cpu": "${MONGODB_CPU_LIMIT}",
+                    "memory": "${MONGODB_MEMORY_LIMIT}"
                   },
                   "requests": {
-                    "cpu": "200m",
-                    "memory": "200Mi"
+                    "cpu": "${MONGODB_CPU_REQUEST}",
+                    "memory": "${MONGODB_MEMORY_REQUEST}"
                   }
                 },
                 "livenessProbe": {
@@ -270,6 +260,34 @@
     {
       "name": "NODE_SELECTOR_VALUE",
       "description": "The node label value to schedule this Mongo instance",
+      "required": true
+    },
+    {
+      "name": "MONGODB_CPU_REQUEST",
+      "displayName": "CPU Request",
+      "description": "Minimum amount of CPU the container can use.",
+      "value": "5m",
+      "required": true
+    },
+    {
+      "name": "MONGODB_CPU_LIMIT",
+      "displayName": "CPU Limit",
+      "description": "Maximum amount of CPU the container can use.",
+      "value": "1",
+      "required": true
+    },
+    {
+      "name": "MONGODB_MEMORY_REQUEST",
+      "displayName": "Memory Request",
+      "description": "Minimum amount of memory the container can use.",
+      "value": "200Mi",
+      "required": true
+    },
+    {
+      "name": "MONGODB_MEMORY_LIMIT",
+      "displayName": "Memory Limit",
+      "description": "Maximum amount of memory the container can use.",
+      "value": "1000Mi",
       "required": true
     }
   ]
