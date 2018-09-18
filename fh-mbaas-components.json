@@ -1077,28 +1077,24 @@
     },
     {
       "name": "FH_MBAAS_CPU_REQUEST",
-      "displayName": "CPU Request",
       "description": "Minimum amount of CPU the container can use.",
       "value": "1m",
       "required": true
     },
     {
       "name": "FH_MBAAS_CPU_LIMIT",
-      "displayName": "CPU Limit",
       "description": "Maximum amount of CPU the container can use.",
       "value": "200m",
       "required": true
     },
     {
       "name": "FH_MBAAS_MEMORY_REQUEST",
-      "displayName": "Memory Request",
       "description": "Minimum amount of memory the container can use.",
       "value": "130Mi",
       "required": true
     },
     {
       "name": "FH_MBAAS_MEMORY_LIMIT",
-      "displayName": "Memory Limit",
       "description": "Maximum amount of memory the container can use.",
       "value": "250Mi",
       "required": true
@@ -1115,28 +1111,24 @@
     },
     {
       "name": "FH_MESSAGING_CPU_REQUEST",
-      "displayName": "CPU Request",
       "description": "Minimum amount of CPU the container can use.",
       "value": "1m",
       "required": true
     },
     {
       "name": "FH_MESSAGING_CPU_LIMIT",
-      "displayName": "CPU Limit",
       "description": "Maximum amount of CPU the container can use.",
       "value": "200m",
       "required": true
     },
     {
       "name": "FH_MESSAGING_MEMORY_REQUEST",
-      "displayName": "Memory Request",
       "description": "Minimum amount of memory the container can use.",
       "value": "50Mi",
       "required": true
     },
     {
       "name": "FH_MESSAGING_MEMORY_LIMIT",
-      "displayName": "Memory Limit",
       "description": "Maximum amount of memory the container can use.",
       "value": "100Mi",
       "required": true
@@ -1153,28 +1145,24 @@
     },
     {
       "name": "FH_METRICS_CPU_REQUEST",
-      "displayName": "CPU Request",
       "description": "Minimum amount of CPU the container can use.",
       "value": "1m",
       "required": true
     },
     {
       "name": "FH_METRICS_CPU_LIMIT",
-      "displayName": "CPU Limit",
       "description": "Maximum amount of CPU the container can use.",
       "value": "200m",
       "required": true
     },
     {
       "name": "FH_METRICS_MEMORY_REQUEST",
-      "displayName": "Memory Request",
       "description": "Minimum amount of memory the container can use.",
       "value": "40Mi",
       "required": true
     },
     {
       "name": "FH_METRICS_MEMORY_LIMIT",
-      "displayName": "Memory Limit",
       "description": "Maximum amount of memory the container can use.",
       "value": "100Mi",
       "required": true
@@ -1191,28 +1179,24 @@
     },
     {
       "name": "FH_STATSD_CPU_REQUEST",
-      "displayName": "CPU Request",
       "description": "Minimum amount of CPU the container can use.",
       "value": "1m",
       "required": true
     },
     {
       "name": "FH_STATSD_CPU_LIMIT",
-      "displayName": "CPU Limit",
       "description": "Maximum amount of CPU the container can use.",
       "value": "200m",
       "required": true
     },
     {
       "name": "FH_STATSD_MEMORY_REQUEST",
-      "displayName": "Memory Request",
       "description": "Minimum amount of memory the container can use.",
       "value": "25Mi",
       "required": true
     },
     {
       "name": "FH_STATSD_MEMORY_LIMIT",
-      "displayName": "Memory Limit",
       "description": "Maximum amount of memory the container can use.",
       "value": "50Mi",
       "required": true
@@ -1328,28 +1312,24 @@
     },
     {
       "name": "NAGIOS_CPU_REQUEST",
-      "displayName": "CPU Request",
       "description": "Minimum amount of CPU the container can use.",
       "value": "1m",
       "required": true
     },
     {
       "name": "NAGIOS_CPU_LIMIT",
-      "displayName": "CPU Limit",
       "description": "Maximum amount of CPU the container can use.",
       "value": "1",
       "required": true
     },
     {
       "name": "NAGIOS_MEMORY_REQUEST",
-      "displayName": "Memory Request",
       "description": "Minimum amount of memory the container can use.",
       "value": "35Mi",
       "required": true
     },
     {
       "name": "NAGIOS_MEMORY_LIMIT",
-      "displayName": "Memory Limit",
       "description": "Maximum amount of memory the container can use.",
       "value": "150Mi",
       "required": true
