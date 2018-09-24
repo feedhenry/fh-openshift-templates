@@ -222,7 +222,7 @@
     {
       "name": "MONGODB_CPU_REQUEST",
       "description": "Minimum amount of CPU the container can use.",
-      "value": "5m",
+      "value": "200m",
       "required": true
     },
     {
