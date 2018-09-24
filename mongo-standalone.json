@@ -191,7 +191,7 @@
                     "cpu": "${MONGODB_CPU_REQUEST}",
                     "memory": "${MONGODB_MEMORY_REQUEST}"
                   }
-                },            
+                },
                 "livenessProbe": {
                   "failureThreshold": 2,
                   "initialDelaySeconds": 5,
