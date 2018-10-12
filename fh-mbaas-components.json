@@ -1308,7 +1308,7 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.0.8-cad602c"
+      "value": "4.0.8-8c322db"
     },
     {
       "name": "NAGIOS_CPU_REQUEST",
