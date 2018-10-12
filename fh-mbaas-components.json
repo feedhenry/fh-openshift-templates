@@ -1072,7 +1072,7 @@
     },
     {
       "name": "FH_MBAAS_IMAGE_VERSION",
-      "value": "6.0.15-e14f8f5",
+      "value": "6.0.15-5f167ca",
       "description": "The version for the FH_MBAAS_IMAGE"
     },
     {
@@ -1106,7 +1106,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "3.3.12BUILD-9ccafb3",
+      "value": "3.3.12BUILD-e0ff35e",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -1140,7 +1140,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.2.1-9ccafb3",
+      "value": "3.2.1-e0ff35e",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
@@ -1174,7 +1174,7 @@
     },
     {
       "name": "FH_STATSD_IMAGE_VERSION",
-      "value": "2.1.3-7f508f2",
+      "value": "2.1.3-45c8553",
       "description": "The version for the FH_STATSD_IMAGE"
     },
     {
@@ -1308,7 +1308,7 @@
     {
       "name": "NAGIOS_IMAGE_VERSION",
       "description": "The version of the Nagios Docker image",
-      "value": "4.0.8-cad602c"
+      "value": "4.0.8-8c322db"
     },
     {
       "name": "NAGIOS_CPU_REQUEST",
