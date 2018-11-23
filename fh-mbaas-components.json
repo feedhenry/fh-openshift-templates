@@ -1106,7 +1106,7 @@
     },
     {
       "name": "FH_MESSAGING_IMAGE_VERSION",
-      "value": "3.3.12BUILD-9ccafb3",
+      "value": "3.3.12BUILD-77ff9f4",
       "description": "The version for the FH_MESSAGING_IMAGE"
     },
     {
@@ -1140,7 +1140,7 @@
     },
     {
       "name": "FH_METRICS_IMAGE_VERSION",
-      "value": "3.2.1-9ccafb3",
+      "value": "3.2.1-77ff9f4",
       "description": "The version for the FH_METRICS_IMAGE"
     },
     {
